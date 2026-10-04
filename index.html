@@ -43,7 +43,21 @@
     <div class="promo-box">
         <p>Для выплаты с кранов зарегистрируйте единый аккаунт, если у вас его еще нет:</p>
         <a href="https://faucetpay.io/r/9047046" target="_blank" class="btn-ref">Открыть аккаунт FaucetPay</a>
-    </div>
+    <br><br>
+<button onclick="addBookmark()" class="btn-ref" style="background: linear-gradient(90deg, #ff007f, #7f00ff); color: white; border: none; cursor: pointer;">⭐ Добавить сайт в закладки</button>
+
+<script>
+function addBookmark() {
+    var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    if (isMac) {
+        alert('Нажмите Cmd + D, чтобы добавить сайт в закладки!');
+    } else {
+        alert('Нажмите Ctrl + D, чтобы добавить сайт в закладки!');
+    }
+}
+</script>
+
+	</div>
 
     <div class="tables-container">
         <!-- ЛЕВАЯ ПАНЕЛЬ -->
