@@ -168,5 +168,18 @@ function addBookmark() {
             }
         });
     </script>
+	<script>
+    // Запрет вызова контекстного меню (правой кнопки мыши)
+    document.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+    });
+
+    // Дополнительная защита: запрет вызова панели разработчика через F12
+    document.addEventListener("keydown", function(e) {
+        if (e.keyCode === 123) { // 123 — это код клавиши F12
+            e.preventDefault();
+        }
+    });
+</script>
 </body>
 </html>
