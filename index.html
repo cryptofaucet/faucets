@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoFaucet Hub — Лучшие Краны FaucetPay</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #0b0e14; color: #f0f4f8; padding: 20px; display: flex; flex-direction: column; align-items: center; margin: 0; }
+        h1 { color: #00ffcc; text-shadow: 0 0 10px rgba(0, 255, 204, 0.4); margin-bottom: 5px; text-align: center; }
+        p.subtitle { color: #8a99ad; margin-bottom: 30px; text-align: center; }
+        .promo-box { background: #151a26; border: 1px solid #00ffcc; border-radius: 10px; padding: 20px; text-align: center; max-width: 600px; width: 100%; box-sizing: border-box; margin-bottom: 30px; }
+        .btn-ref { display: inline-block; background: linear-gradient(90deg, #00ffcc, #00b3ff); color: #0b0e14; padding: 12px 24px; font-weight: bold; text-decoration: none; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,255,204,0.2); }
+        .btn-ref:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,255,204,0.4); }
+        .tables-container { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; width: 100%; max-width: 1200px; }
+        .table-block { flex: 1; min-width: 450px; background: #111622; border-radius: 10px; padding: 15px; border: 1px solid #1f2638; }
+        .table-title { font-size: 1.1rem; color: #00b3ff; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #161c2b; }
+        th { color: #8a99ad; text-transform: uppercase; font-size: 11px; }
+        tr:hover td { background-color: #182030; }
+        .faucet-link { color: #fff; text-decoration: none; font-weight: 600; }
+        .faucet-link:hover { color: #00ffcc; }
+        .badge { display: inline-block; padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+        .btc { background: rgba(247,147,26,0.15); color: #f7931a; border: 1px solid rgba(247,147,26,0.3); }
+        .eth { background: rgba(140, 140, 224, 0.15); color: #8c8ce0; border: 1px solid rgba(140, 140, 224, 0.3); }
+		.usdt { background: rgba(38,161,123,0.15); color: #26a17b; border: 1px solid rgba(38,161,123,0.3); }
+        .trx { background: rgba(239,46,36,0.15); color: #ef2e24; border: 1px solid rgba(239,46,36,0.3); }
+        .doge { background: rgba(186,159,51,0.15); color: #ba9f33; border: 1px solid rgba(186,159,51,0.3); }
+        .sol { background: rgba(164,54,243,0.15); color: #a436f3; border: 1px solid rgba(164,54,243,0.3); }
+        .timer-wrapper { display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .timer { font-weight: bold; color: #ff5252; font-family: monospace; }
+        .ready { color: #00ff66; font-weight: bold; }
+        .btn-reset { background: none; border: none; color: #52667d; cursor: pointer; font-size: 12px; visibility: hidden; }
+        .timer-wrapper:hover .btn-reset { visibility: visible; }
+        .btn-reset:hover { color: #ff5252; }
+    </style>
+</head>
+<body>
+
+    <h1>CryptoFaucet Hub</h1>
+    <p class="subtitle">Интеллектуальный ротатор кранов с автоматическим контролем времени сбора</p>
+
+    <div class="promo-box">
+        <p>Для выплаты с кранов зарегистрируйте единый аккаунт, если у вас его еще нет:</p>
+        <a href="https://faucetpay.io" target="_blank" class="btn-ref">Открыть аккаунт FaucetPay</a>
+    </div>
+
+    <div class="tables-container">
+        <!-- ЛЕВАЯ ПАНЕЛЬ -->
+        <div class="table-block">
+            <div class="table-title">Скоростные краны</div>
+            <table>
+                <thead><tr><th>Кран</th><th>Монета</th><th>Статус</th></tr></thead>
+                <tbody>
+                    <tr id="faucet1">
+                        <td><a class="faucet-link" href="https://site3.com" target="_blank" onclick="startTimer('faucet1', 300)">Кран 1</a></td>
+                        <td><span class="badge btc">BTC</span></td>
+                        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet1')">✕</button></div></td>
+                    </tr>
+                    <tr id="faucet2">
+                        <td><a class="faucet-link" href="https://site2.com" target="_blank" onclick="startTimer('faucet2', 300)">Кран 2</a></td>
+                        <td><span class="badge usdt">USDT</span></td>
+                        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet2')">✕</button></div></td>
+                    </tr>
+                    <tr id="faucet3"><td><a class="faucet-link" href="https://site3.com" target="_blank" onclick="startTimer('faucet3', 300)">Кран 3</a></td><td><span class="badge trx">TRX</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet3')">✕</button></div></td></tr>
+                    <tr id="faucet4"><td><a class="faucet-link" href="https://site4.com" target="_blank" onclick="startTimer('faucet4', 600)">Кран 4</a></td><td><span class="badge doge">DOGE</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet4')">✕</button></div></td></tr>
+                    <tr id="faucet5"><td><a class="faucet-link" href="https://site5.com" target="_blank" onclick="startTimer('faucet5', 900)">Кран 5</a></td><td><span class="badge sol">SOL</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet5')">✕</button></div></td></tr>
+                    <tr id="faucet6"><td><a class="faucet-link" href="https://site6.com" target="_blank" onclick="startTimer('faucet6', 300)">Кран 6</a></td><td><span class="badge btc">BTC</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet6')">✕</button></div></td></tr>
+                    <tr id="faucet7"><td><a class="faucet-link" href="https://site7.com" target="_blank" onclick="startTimer('faucet7', 300)">Кран 7</a></td><td><span class="badge usdt">USDT</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet7')">✕</button></div></td></tr>
+                    <tr id="faucet8"><td><a class="faucet-link" href="https://site8.com" target="_blank" onclick="startTimer('faucet8', 600)">Кран 8</a></td><td><span class="badge trx">TRX</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet8')">✕</button></div></td></tr>
+                    <tr id="faucet9"><td><a class="faucet-link" href="https://site9.com" target="_blank" onclick="startTimer('faucet9', 900)">Кран 9</a></td><td><span class="badge doge">DOGE</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet9')">✕</button></div></td></tr>
+                    <tr id="faucet10"><td><a class="faucet-link" href="https://site10.com" target="_blank" onclick="startTimer('faucet10', 900)">Кран 10</a></td><td><span class="badge sol">SOL</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet10')">✕</button></div></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- ПРАВАЯ ПАНЕЛЬ -->
+        <div class="table-block">
+            <div class="table-title">Долгосрочные краны</div>
+            <table>
+                <thead><tr><th>Кран</th><th>Монета</th><th>Статус</th></tr></thead>
+                <tbody>
+                    <tr id="faucet11">
+                        <td><a class="faucet-link" href="https://socialfaucet.xyz" target="_blank" onclick="startTimer('faucet1', 7200)">Social Faucet</a></td>
+                        <td><span class="badge eth">ETH</span></td>
+                        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet1')">✕</button></div></td>
+                    </tr>
+                    <tr id="faucet12"><td><a class="faucet-link" href="https://site12.com" target="_blank" onclick="startTimer('faucet12', 3600)">Кран 12</a></td><td><span class="badge usdt">USDT</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet12')">✕</button></div></td></tr>
+                    <tr id="faucet13"><td><a class="faucet-link" href="https://site13.com" target="_blank" onclick="startTimer('faucet13', 3600)">Кран 13</a></td><td><span class="badge trx">TRX</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet13')">✕</button></div></td></tr>
+                    <tr id="faucet14"><td><a class="faucet-link" href="https://site14.com" target="_blank" onclick="startTimer('faucet14', 7200)">Кран 14</a></td><td><span class="badge btc">BTC</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet14')">✕</button></div></td></tr>
+                    <tr id="faucet15"><td><a class="faucet-link" href="https://site15.com" target="_blank" onclick="startTimer('faucet15', 7200)">Кран 15</a></td><td><span class="badge doge">DOGE</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet15')">✕</button></div></td></tr>
+                    <tr id="faucet16"><td><a class="faucet-link" href="https://site16.com" target="_blank" onclick="startTimer('faucet16', 7200)">Кран 16</a></td><td><span class="badge sol">SOL</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet16')">✕</button></div></td></tr>
+                    <tr id="faucet17"><td><a class="faucet-link" href="https://site17.com" target="_blank" onclick="startTimer('faucet17', 7200)">Кран 17</a></td><td><span class="badge usdt">USDT</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet17')">✕</button></div></td></tr>
+                    <tr id="faucet18"><td><a class="faucet-link" href="https://site18.com" target="_blank" onclick="startTimer('faucet18', 7200)">Кран 18</a></td><td><span class="badge trx">TRX</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet18')">✕</button></div></td></tr>
+                    <tr id="faucet19"><td><a class="faucet-link" href="https://site19.com" target="_blank" onclick="startTimer('faucet19', 7200)">Кран 19</a></td><td><span class="badge doge">DOGE</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet19')">✕</button></div></td></tr>
+                    <tr id="faucet20"><td><a class="faucet-link" href="https://site20.com" target="_blank" onclick="startTimer('faucet20', 7200)">Кран 20</a></td><td><span class="badge sol">SOL</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet20')">✕</button></div></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let activeIntervals = {};
+        function startTimer(rowId, duration, customStartTime = null) {
+            let row = document.getElementById(rowId); if (!row) return;
+            let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+            if (activeIntervals[rowId]) return;
+            let startTime = customStartTime ? customStartTime : Date.now();
+            if (!customStartTime) { localStorage.setItem(rowId + '_start', startTime); localStorage.setItem(rowId + '_duration', duration); }
+            cell.classList.remove('ready'); cell.classList.add('timer'); if (resetBtn) resetBtn.classList.add('active');
+            function updateTimer() {
+                let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
+                if (timeLeft <= 0) {
+                    clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId];
+                    cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready";
+                    if (resetBtn) resetBtn.classList.remove('active');
+                    localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration'); return;
+                }
+                let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
+                h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
+                cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
+            }
+            updateTimer(); activeIntervals[rowId] = setInterval(updateTimer, 1000);
+        }
+        function resetTimer(rowId) {
+            if (activeIntervals[rowId]) { clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId]; }
+            let row = document.getElementById(rowId);
+            if (row) {
+                let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+                cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; if (resetBtn) resetBtn.classList.remove('active');
+            }
+            localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            for (let i = 1; i <= 20; i++) {
+                let rId = 'faucet' + i; let sS = localStorage.getItem(rId + '_start'); let sD = localStorage.getItem(rId + '_duration');
+                if (sS && sD) startTimer(rId, parseInt(sD), parseInt(sS));
+            }
+        });
+    </script>
+</body>
+</html>
