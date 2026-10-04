@@ -181,5 +181,21 @@ function addBookmark() {
         }
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const links = document.querySelectorAll(".faucet-link");
+        
+        links.forEach(link => {
+            const realUrl = link.href;
+            link.removeAttribute("href"); // Убираем href, чтобы скрыть адрес в углу браузера
+            link.style.cursor = "pointer"; // Сохраняем курсор-пальчик при наведении
+            
+            link.addEventListener("click", function(e) {
+                e.preventDefault();
+                window.open(realUrl, '_blank'); // Открываем кран по клику
+            });
+        });
+    });
+</script>
 </body>
 </html>
