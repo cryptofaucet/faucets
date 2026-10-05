@@ -114,25 +114,57 @@ function addBookmark() {
             <table>
                 <thead><tr><th>Кран</th><th>Монета</th><th>Статус</th></tr></thead>
                 <tbody>
-                    <tr id="faucet1">
-                        <td><a class="faucet-link" href="https://prairiehash.com/?r=5hikidck" target="_blank" onclick="startTimer('faucet1', 300)">Prairiehash</a></td>
-                        <td><span class="badge doge">DOGE</span></td>
-                        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet1')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet1')">⚠️</button></div></td>
-                    </tr>
-                    <tr id="faucet2">
-                        <td><a class="faucet-link" href="https://zerpayz.com/" target="_blank" onclick="startTimer('faucet2', 60)">Zerpayz</a></td>
-                        <td><span class="badge usdt">USDT</span></td>
-                        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet2')">✕</button></div></td>
-                    </tr>
-                    <tr id="faucet3"><td><a class="faucet-link" href="https://ponyfaucet.online/?r=fw8h32zs" target="_blank" onclick="startTimer('faucet3', 360)">Ponyfaucet</a></td><td><span class="badge doge">DOGE</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet3')">✕</button></div></td></tr>
-                    <tr id="faucet4"><td><a class="faucet-link" href="https://rushfaucet.top/?r=mvab4djc" target="_blank" onclick="startTimer('faucet4', 300)">Rushfaucet</a></td><td><span class="badge usdt">USDT</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet4')">✕</button></div></td></tr>
-                    <tr id="faucet5"><td><a class="faucet-link" href="https://egofaucet.com/?r=63sgqbbn" target="_blank" onclick="startTimer('faucet5', 180)">Egofaucet</a></td><td><span class="badge sol">SOL</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet5')">✕</button></div></td></tr>
-                    <tr id="faucet6"><td><a class="faucet-link" href="https://extrafaucets.online/?r=rbsbejib" target="_blank" onclick="startTimer('faucet6', 60)">Extrafaucets</a></td><td><span class="badge ltc">LTC</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet6')">✕</button></div></td></tr>
-                    <tr id="faucet7"><td><a class="faucet-link" href="https://bitclaims.online/?r=gra3em2q" target="_blank" onclick="startTimer('faucet7', 60)">Bitclaims</a></td><td><span class="badge ltc">LTC</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet7')">✕</button></div></td></tr>
-                    <tr id="faucet8"><td><a class="faucet-link" href="https://extraclaims.online/?r=4pzssbb5" target="_blank" onclick="startTimer('faucet8', 60)">Extraclaims</a></td><td><span class="badge ltc">LTC</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet8')">✕</button></div></td></tr>
-                    <tr id="faucet9"><td><a class="faucet-link" href="https://dragonclaims.it.com/?r=z8yyrm5u" target="_blank" onclick="startTimer('faucet9', 60)">Dragonclaims</a></td><td><span class="badge ltc">LTC</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet9')">✕</button></div></td></tr>
-                    <tr id="faucet10"><td><a class="faucet-link" href="https://adptc.site/?r=37etxqdx" target="_blank" onclick="startTimer('faucet10', 300)">Adptc</a></td><td><span class="badge ltc">LTC</span></td><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet10')">✕</button></div></td></tr>
-                </tbody>
+    <tr id="faucet1">
+        <td><a class="faucet-link" href="https://prairiehash.com/?r=5hikidck" target="_blank" onclick="startTimer('faucet1', 300)">Prairiehash</a></td>
+        <td><span class="badge doge">DOGE</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet1')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet1')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet2">
+        <td><a class="faucet-link" href="https://zerpayz.com/" target="_blank" onclick="startTimer('faucet2', 60)">Zerpayz</a></td>
+        <td><span class="badge usdt">USDT</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet2')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet2')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet3">
+        <td><a class="faucet-link" href="https://ponyfaucet.online/?r=fw8h32zs" target="_blank" onclick="startTimer('faucet3', 360)">Ponyfaucet</a></td>
+        <td><span class="badge doge">DOGE</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet3')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet3')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet4">
+        <td><a class="faucet-link" href="https://rushfaucet.top/?r=mvab4djc" target="_blank" onclick="startTimer('faucet4', 300)">Rushfaucet</a></td>
+        <td><span class="badge usdt">USDT</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet4')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet4')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet5">
+        <td><a class="faucet-link" href="https://egofaucet.com/?r=63sgqbbn" target="_blank" onclick="startTimer('faucet5', 180)">Egofaucet</a></td>
+        <td><span class="badge sol">SOL</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet5')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet5')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet6">
+        <td><a class="faucet-link" href="https://extrafaucets.online/?r=rbsbejib" target="_blank" onclick="startTimer('faucet6', 60)">Extrafaucets</a></td>
+        <td><span class="badge ltc">LTC</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet6')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet6')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet7">
+        <td><a class="faucet-link" href="https://bitclaims.online/?r=gra3em2q" target="_blank" onclick="startTimer('faucet7', 60)">Bitclaims</a></td>
+        <td><span class="badge ltc">LTC</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet7')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet7')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet8">
+        <td><a class="faucet-link" href="https://extraclaims.online/?r=4pzssbb5" target="_blank" onclick="startTimer('faucet8', 60)">Extraclaims</a></td>
+        <td><span class="badge ltc">LTC</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet8')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet8')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet9">
+        <td><a class="faucet-link" href="https://dragonclaims.it.com/?r=z8yyrm5u" target="_blank" onclick="startTimer('faucet9', 60)">Dragonclaims</a></td>
+        <td><span class="badge ltc">LTC</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet9')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet9')">⚠️</button></div></td>
+    </tr>
+    <tr id="faucet10">
+        <td><a class="faucet-link" href="https://adptc.site/?r=37etxqdx" target="_blank" onclick="startTimer('faucet10', 300)">Adptc</a></td>
+        <td><span class="badge ltc">LTC</span></td>
+        <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet10')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet10')">⚠️</button></div></td>
+    </tr>
+</tbody>
             </table>
         </div>
         <!-- ПРАВАЯ ПАНЕЛЬ -->
