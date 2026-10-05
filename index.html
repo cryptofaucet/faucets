@@ -113,16 +113,18 @@ tr.out-of-limit .faucet-link {
 <!-- ОБЩАЯ СТРОКА ДЛЯ ДВУХ КОНТЕЙНЕРОВ -->
 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1200px; margin-bottom: 20px; box-sizing: border-box;">
 
-    <!-- 1 КОНТЕЙНЕР (СЛЕВА): Кнопки управления -->
-    <div class="promo-box" style="margin: 0; flex: 1; min-width: 320px;">
-        <p>Для выплаты с кранов зарегистрируйте единый аккаунт, если у вас его еще нет:</p>
-        <a href="https://faucetpay.io" target="_blank" class="btn-ref">Открыть аккаунт FaucetPay</a>
-        <br><br>
-        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; width: 100%;">
-            <button onclick="addBookmark()" class="btn-ref" style="background: linear-gradient(90deg, #ff007f, #7f00ff); color: white; border: none; cursor: pointer; margin: 0;">⭐ В закладки</button>
-            <a href="https://t.me" target="_blank" class="btn-ref" style="background: linear-gradient(90deg, #00b3ff, #7f00ff); color: white; text-decoration: none; margin: 0;">💬 Админ</a>
-        </div>
+   <!-- 1 КОНТЕЙНЕР (СЛЕВА): Кнопки управления -->
+<div class="promo-box" style="margin: 0; flex: 1; min-width: 320px;">
+    <p>Для выплаты с кранов зарегистрируйте единый аккаунт, если у вас его еще нет:</p>
+    <a href="https://faucetpay.io/r/9047046" target="_blank" class="btn-ref">Открыть аккаунт FaucetPay</a>
+    <br><br>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; width: 100%;">
+        <!-- ИСПРАВЛЕНО: Заменили класс btn-ref на уникальный btn-bookmark, чтобы скрипт не ломал клик -->
+        <button onclick="addBookmark()" class="btn-bookmark" style="background: linear-gradient(90deg, #ff007f, #7f00ff); color: white; border: none; cursor: pointer; margin: 0;">⭐ В закладки</button>
+        <a href="https://t.me/crypto_faucet_hub" target="_blank" class="btn-ref" style="background: linear-gradient(90deg, #00b3ff, #7f00ff); color: white; text-decoration: none; margin: 0;">💬 Админ</a>
     </div>
+</div>
+
 
     <!-- 2 КОНТЕЙНЕР (СПРАВА): ЧИСТЫЙ ШАБЛОН ДЛЯ ТВОЕЙ РЕКЛАМЫ -->
 <div class="promo-box" style="margin:0; flex:1; min-width:360px; height:auto; min-height:122px; display:flex; justify-content:center; align-items:center; overflow:hidden; position:relative;">
