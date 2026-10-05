@@ -14,7 +14,7 @@
             border-radius: 10px; 
             padding: 10px 15px; 
             text-align: center; 
-            max-width: 1200px; /* Растягиваем коробку на всю ширину контейнера таблиц */
+            max-width: 600px; /* Растягиваем коробку на всю ширину контейнера таблиц */
             width: 100%; 
             box-sizing: border-box; 
             margin-bottom: 15px; 
@@ -110,29 +110,31 @@ tr.out-of-limit .faucet-link {
 
     <h1>CryptoFaucet Hub</h1>
     <p class="subtitle">Интеллектуальный ротатор кранов с автоматическим контролем времени сбора</p>
-<div class="promo-box">
-    <!-- ГЛАВНЫЙ КОНТЕЙНЕР-РЯД: На ПК выстроит кнопки слева, а рекламу справа. На мобилках — друг под друга -->
-    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; width: 100%;">
-        
-        <!-- ЛЕВЫЙ БЛОК: Кнопки управления (на ПК прижмутся влево) -->
-        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; flex: 1; min-width: 280px;">
-            <p style="margin: 0; font-size: 14px; text-align: left; width: 100%;">Для выплаты с кранов зарегистрируйте единый аккаунт:</p>
-            <a href="https://faucetpay.io" target="_blank" class="btn-ref" style="margin: 0;">Открыть аккаунт FaucetPay</a>
-            <button onclick="addBookmark()" class="btn-ref" style="background: linear-gradient(90deg, #ff007f, #7f00ff); color: white; border: none; cursor: pointer; margin: 0;">⭐ Добавить сайт в закладки</button>
-            <a href="https://t.me" target="_blank" class="btn-ref" style="background: linear-gradient(90deg, #00b3ff, #7f00ff); color: white; text-decoration: none; margin: 0;">💬 Связаться с админом</a>
-        </div>
+<!-- ОБЩАЯ СТРОКА ДЛЯ ДВУХ КОНТЕЙНЕРОВ -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1200px; margin-bottom: 20px; box-sizing: border-box;">
 
-        <!-- ПРАВЫЙ БЛОК: Контейнер для рекламы (на ПК прижмётся вправо, зафиксирован по высоте, чтобы не наезжать на краны) -->
-        <div style="width: 100%; max-width: 468px; height: 90px; position: relative; display: flex; justify-content: center; align-items: center;">
-            <!-- BEGIN AADS AD UNIT 2457528 -->
-            <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
-                <iframe data-aa='2457528' src='//://a-ads.com' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
-            </div>
-            <!-- END AADS AD UNIT 2457528 -->
+    <!-- 1 КОНТЕЙНЕР (СЛЕВА): Кнопки управления -->
+    <div class="promo-box" style="margin: 0; flex: 1; min-width: 320px;">
+        <p>Для выплаты с кранов зарегистрируйте единый аккаунт, если у вас его еще нет:</p>
+        <a href="https://faucetpay.io" target="_blank" class="btn-ref">Открыть аккаунт FaucetPay</a>
+        <br><br>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; width: 100%;">
+            <button onclick="addBookmark()" class="btn-ref" style="background: linear-gradient(90deg, #ff007f, #7f00ff); color: white; border: none; cursor: pointer; margin: 0;">⭐ В закладки</button>
+            <a href="https://t.me" target="_blank" class="btn-ref" style="background: linear-gradient(90deg, #00b3ff, #7f00ff); color: white; text-decoration: none; margin: 0;">💬 Админ</a>
         </div>
-
     </div>
-</div>
+
+    <!-- 2 КОНТЕЙНЕР (СПРАВА): Чистая реклама в таких же рамках (Высота строго 105px, чтобы не наезжать на краны) -->
+    <div style="background: #151a26; border: 1px solid #1f2638; border-radius: 10px; padding: 7px; max-width: 500px; width: 100%; height: 105px; box-sizing: border-box; flex: 1; min-width: 320px; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative;">
+        <!-- BEGIN AADS AD UNIT 2457528 -->
+        <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
+            <iframe data-aa='2457528' src='//://a-ads.com' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto;'></iframe>
+        </div>
+        <!-- END AADS AD UNIT 2457528 -->
+    </div>
+
+</div> <!-- ЗДЕСЬ СТРОКА ЗАКРЫВАЕТСЯ, И ДАЛЬШЕ ПОД НЕЙ ИДУТ ТАБЛИЦЫ КРАНОВ -->
+
 
     <div class="tables-container">
         <!-- ЛЕВАЯ ПАНЕЛЬ -->
