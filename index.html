@@ -53,6 +53,34 @@
         .timer-wrapper:hover .btn-reset { visibility: visible; }
         .btn-reset:hover { color: #ff5252; }
 		.btn-ref.faucet-link { width: auto; padding: 12px 24px; }
+		/* Стиль для зачеркнутой строки, у которой кончился лимит */
+tr.out-of-limit td {
+    text-shadow: none !important;
+    opacity: 0.3; /* Делает строку полупрозрачной */
+}
+tr.out-of-limit .faucet-link {
+    text-decoration: line-through !important; /* Зачеркивает название крана */
+    pointer-events: none; /* Запрещает кликать по кнопке крана */
+    background: #333 !important; /* Делает кнопку серой */
+    color: #888 !important;
+    box-shadow: none !important;
+}
+/* Кнопка лимита */
+.btn-limit {
+    background: none;
+    border: none;
+    color: #ffaa00;
+    cursor: pointer;
+    font-size: 12px;
+    visibility: hidden; /* Кнопка появляется только при наведении на строку */
+}
+.timer-wrapper:hover .btn-limit {
+    visibility: visible;
+}
+.btn-limit:hover {
+    color: #ff3333;
+}
+
     </style>
 </head>
 <body>
