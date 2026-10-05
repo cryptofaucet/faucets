@@ -13,7 +13,8 @@
         .btn-ref:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,255,204,0.4); }
         .tables-container { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; width: 100%; max-width: 1200px; }
         .table-block { flex: 1; min-width: 450px; background: #111622; border-radius: 10px; padding: 15px; border: 1px solid #1f2638; }
-        .table-title { font-size: 1.1rem; color: #00b3ff; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
+        .table-block { flex: 1; min-width: 450px; background: #111622; border-radius: 10px; padding: 15px; border: 1px solid #1f2638; overflow-x: auto; } /* Добавили overflow-x, чтобы таблицы на мелких экранах не резались */
+        .table-title { font-size: 1.1rem; color: #00b3ff; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; text-align: center; } /* ИСПРАВЛЕНО ТУТ: теперь заголовки стоят ровно по центру */
         table { border-collapse: collapse; width: 100%; }
         th, td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #161c2b; }
         th { color: #8a99ad; text-transform: uppercase; font-size: 11px; }
