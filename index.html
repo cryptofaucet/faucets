@@ -936,14 +936,12 @@ tr.out-of-limit .faucet-link {
   
   <script>
 (function() {
-    // Единое и надежное хранилище для всех активных интервалов на странице
     let activeIntervals = {};
 
     function triggerTableSort() {
         if (typeof window.sortTableByPrice === 'function') window.sortTableByPrice();
     }
 
-    // Универсальная функция остановки фонового тиканья для конкретной строки
     function stopInterval(rowId) {
         if (activeIntervals[rowId]) {
             clearInterval(activeIntervals[rowId]);
@@ -951,9 +949,8 @@ tr.out-of-limit .faucet-link {
         }
     }
 
-    // Функция обновления текста таймера на экране
     function runTimerCountdown(rowId, startTime, duration, cell, resetBtn) {
-        stopInterval(rowId); // На всякий случай тушим старый интервал строки
+        stopInterval(rowId); 
 
         function updateTimer() {
             let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
@@ -977,22 +974,30 @@ tr.out-of-limit .faucet-link {
         activeIntervals[rowId] = setInterval(updateTimer, 1000);
     }
 
-    // ⚡ Запуск таймера по клику пользователя
+    // ⚡ Запуск таймера по клику (ИСПРАВЛЕНЫ КАСТОМНЫЕ МИНУТЫ)
     window.startTimer = function(rowId, defaultDuration) {
         let row = document.getElementById(rowId); if (!row) return;
         if (row.classList.contains('out-of-limit')) return;
 
         let cell = row.querySelector('.timer-cell'); 
         let resetBtn = row.querySelector('.btn-reset');
-        if (activeIntervals[rowId]) return; // Если уже тикает — игнорируем повторный клик
+        if (activeIntervals[rowId]) return; 
 
-        // Проверяем ручной ввод минут в окошке
-        let timeInput = row.querySelector('.time-input');
+        // ИСПРАВЛЕНО: Жёсткий приоритет ручного ввода минут над HTML-кодом!
         let duration = defaultDuration;
+        let timeInput = row.querySelector('.time-input');
+        
         if (timeInput && timeInput.value) {
             let userMinutes = parseFloat(timeInput.value);
             if (!isNaN(userMinutes) && userMinutes > 0) {
-                duration = Math.floor(userMinutes * 60); // Минуты в секунды
+                duration = Math.floor(userMinutes * 60); // Намертво переписываем секунды
+            }
+        } else {
+            // Если окошко минут пустое, проверяем, нет ли сохраненных минут в памяти
+            const savedTime = localStorage.getItem('crypto_time_' + rowId);
+            if (savedTime) {
+                let userMinutes = parseFloat(savedTime);
+                if (!isNaN(userMinutes) && userMinutes > 0) duration = Math.floor(userMinutes * 60);
             }
         }
 
@@ -1007,7 +1012,6 @@ tr.out-of-limit .faucet-link {
         triggerTableSort();
     }
 
-    // 🔄 Восстановление тиканья при перезагрузке страницы
     function resumeTimer(rowId, startTime, duration) {
         let row = document.getElementById(rowId); if (!row) return;
         let cell = row.querySelector('.timer-cell'); 
@@ -1019,10 +1023,8 @@ tr.out-of-limit .faucet-link {
         runTimerCountdown(rowId, startTime, duration, cell, resetBtn);
     }
 
-    // ✕ КНОПКА СБРОСА (Железобетонная остановка зомби-процессов)
     window.resetTimer = function(rowId) {
-        stopInterval(rowId); // НАМЕРТВО УБИВАЕМ фоновый интервал в браузере!
-        
+        stopInterval(rowId); 
         let row = document.getElementById(rowId);
         if (row) {
             let cell = row.querySelector('.timer-cell'); 
@@ -1035,10 +1037,9 @@ tr.out-of-limit .faucet-link {
         }
         localStorage.removeItem(rowId + '_start'); 
         localStorage.removeItem(rowId + '_duration');
-        triggerTableSort(); // Мгновенно поднимаем сброшенный кран наверх по цене
+        triggerTableSort(); 
     }
 
-    // ⚠️ КНОПКА ЛИМИТА
     window.toggleLimit = function(rowId) {
         let row = document.getElementById(rowId); if (!row) return;
         let cell = row.querySelector('.timer-cell'); 
@@ -1051,7 +1052,7 @@ tr.out-of-limit .faucet-link {
         } else {
             row.classList.add("out-of-limit");
             localStorage.setItem(rowId + '_limit', 'true');
-            stopInterval(rowId); // При лимите тоже глушим все таймеры строки
+            stopInterval(rowId); 
             localStorage.removeItem(rowId + '_start'); 
             localStorage.removeItem(rowId + '_duration');
             if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
@@ -1060,7 +1061,6 @@ tr.out-of-limit .faucet-link {
         triggerTableSort();
     }
 
-    // Автоматическая склейка окошек и запуск сохраненного состояния
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
@@ -1087,13 +1087,14 @@ tr.out-of-limit .faucet-link {
                     } else {
                         localStorage.removeItem('crypto_time_' + rId);
                     }
+                    // Если таймер не запущен — сразу сортируем по новым правилам
+                    if (!activeIntervals[rId]) triggerTableSort();
                 });
 
                 wrapper.insertBefore(input, cell);
             }
         });
 
-        // Читаем старую память кулдаунов при загрузке страницы
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             if (localStorage.getItem(rId + '_limit')) {
@@ -1110,6 +1111,7 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
+
 
     
 <script>
