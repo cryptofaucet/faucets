@@ -1143,43 +1143,6 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
-	
-<!-- Финальный Скрипт защиты (Тот самый старый рабочий вариант) -->
-<script>
-(function() {
-    // Маскируем статус-бар: при наведении мышки прячем реферальный хвост
-    document.addEventListener("mouseover", function(e) {
-        const link = e.target.closest(".faucet-link");
-        if (link && link.href && link.href !== "#") {
-            // Прячем ссылку в скрытый параметр, а в href подсовываем пустышку
-            if (!link.getAttribute("data-href")) {
-                link.setAttribute("data-href", link.href);
-            }
-            link.href = "javascript:void(0);"; 
-            link.style.cursor = "pointer";
-        }
-    });
-
-    // Когда мышка уходит — возвращаем ссылку обратно, чтобы клик работал штатно!
-    document.addEventListener("mouseout", function(e) {
-        const link = e.target.closest(".faucet-link");
-        if (link && link.getAttribute("data-href")) {
-            link.href = link.getAttribute("data-href");
-        }
-    });
-
-    // 🔒 БЛОКИРОВКА КОНТЕКСТНОГО МЕНЮ И КЛАВИШ РАЗРАБОТЧИКА
-    document.addEventListener("contextmenu", function(e) { 
-        e.preventDefault(); 
-    });
-    
-    document.addEventListener("keydown", function(e) { 
-        if (e.keyCode === 123) { e.preventDefault(); } 
-        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); }
-        if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); }
-    });
-})();
-</script>
 
 </body>
 </html>
