@@ -141,10 +141,10 @@ tr.out-of-limit .faucet-link {
                 <thead><tr><th>Кран</th><th>Монета</th><th>Статус</th></tr></thead>
                 <tbody>
     				<tr id="faucet1" data-crypto="DOGE">
-    <!-- 1. Название крана -->
-    <td><a class="faucet-link" href="https://prairiehash.com/?r=5hikidck" target="_blank" onclick="startTimer('faucet1', 300)">Prairiehash</a></td>
+    <!-- 1. Столбец: Название крана -->
+    <td><a class="faucet-link" href="https://prairiehash.com" target="_blank" onclick="startTimer('faucet1', 300)">Prairiehash</a></td>
     
-    <!-- 2. УМНОЕ СКРЫТОЕ ОКОШКО ДЛЯ ВВОДА КРИПТЫ -->
+    <!-- 2. Столбец: Окошко ввода баланса (схлопывается, когда не нужно) -->
     <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
         <input type="number" 
                class="crypto-input" 
@@ -156,20 +156,27 @@ tr.out-of-limit .faucet-link {
                oninput="saveCryptoAndCalc('faucet1', this.value)">
     </td>
 
-    <!-- 3. Значок валюты -->
-    <td><span class="badge doge">DOGE</span></td>
+    <!-- 3. Столбец: Кнопка валюты (DOGE) -->
+    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
+        <span class="badge doge">DOGE</span>
+    </td>
+
+    <!-- 4. Столбец: Отдельное окошко, куда выводится курс в рублях -->
+    <td style="padding: 0 8px; vertical-align: middle; width: 1%; white-space: nowrap;">
+        <span class="rub-result" id="rub_res_faucet1" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
+    </td>
     
-    <!-- 4. Таймер, где вместо текста «Готов» теперь красуются РУБЛИ -->
+    <!-- 5. Столбец: Стандартный таймер -->
     <td>
         <div class="timer-wrapper">
-            <!-- Сюда вместо «Готов к сбору» будут выводиться рубли по курсу -->
-            <span class="timer-cell ready" id="rub_res_faucet1" style="font-weight: bold; color: #2ecc71;">0.00 ₽</span>
+            <span class="timer-cell ready">Готов к сбору</span>
             <button class="btn-reset" onclick="resetTimer('faucet1')">✕</button>
             <button class="btn-limit" onclick="toggleLimit('faucet1')">⚠️</button>
         </div>
     </td>
 </tr>
-    <tr id="faucet2">
+					
+ <tr id="faucet2">
         <td><a class="faucet-link" href="https://zerpayz.com/" target="_blank" onclick="startTimer('faucet2', 60)">Zerpayz</a></td>
         <td><span class="badge usdt">USDT</span></td>
         <td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet2')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet2')">⚠️</button></div></td>
