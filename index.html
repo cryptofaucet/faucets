@@ -872,16 +872,26 @@ tr.out-of-limit .faucet-link {
         });
     }
 
+        // Защита фокуса: считаем рубли на лету, но НЕ сортируем, пока пользователь пишет!
     document.addEventListener('input', function(e) {
         if (e.target.classList.contains('crypto-input')) {
             const tr = e.target.closest('tr');
             if (tr && tr.id) {
                 localStorage.setItem('crypto_val_' + tr.id, e.target.value);
                 calculateLiveRow(tr.id, e.target.value);
-                sortTableByPrice();
             }
         }
     });
+
+    // СОРТИРУЕМ строго ТОГДА, когда пользователь закончил ввод и кликнул в другое место (blur/change)
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('crypto-input')) {
+            if (typeof window.sortTableByPrice === 'function') {
+                window.sortTableByPrice();
+            }
+        }
+    });
+
 
     document.addEventListener("DOMContentLoaded", function() {
         restoreInputs();
