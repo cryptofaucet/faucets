@@ -934,18 +934,14 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
 
-	<script>
+ <script>
 (function() {
     let activeIntervals = {};
 
-    // Глобальный вызов сортировки из Скрипта №1
     function triggerTableSort() {
-        if (typeof window.sortTableByPrice === 'function') {
-            window.sortTableByPrice();
-        }
+        if (typeof window.sortTableByPrice === 'function') window.sortTableByPrice();
     }
 
-    // Полная остановка фонового тиканья для строки
     function stopInterval(rowId) {
         if (activeIntervals[rowId]) {
             clearInterval(activeIntervals[rowId]);
@@ -953,7 +949,6 @@ tr.out-of-limit .faucet-link {
         }
     }
 
-    // Универсальный счетчик времени на экране
     function runTimerCountdown(rowId, startTime, duration, cell, resetBtn) {
         stopInterval(rowId); 
 
@@ -979,7 +974,7 @@ tr.out-of-limit .faucet-link {
         activeIntervals[rowId] = setInterval(updateTimer, 1000);
     }
 
-    // ⚡ Запуск таймера по клику пользователя (С ПОЛНЫМ ПЕРЕХВАТОМ ВРЕМЕНИ)
+    // ⚡ Запуск таймера по клику пользователя (С ЖЕСТКИМ ЖИВЫМ ПЕРЕХВАТОМ ЭКРАНА)
     window.startTimer = function(rowId, defaultDuration) {
         let row = document.getElementById(rowId); if (!row) return;
         if (row.classList.contains('out-of-limit')) return;
@@ -988,15 +983,16 @@ tr.out-of-limit .faucet-link {
         let resetBtn = row.querySelector('.btn-reset');
         if (activeIntervals[rowId]) return; 
 
-        // ЖЁСТКИЙ КИЛЛЕР-ФИЧА: Первым делом проверяем только ручной ввод!
         let duration = defaultDuration;
-        let timeInput = row.querySelector('.time-input');
         
+        // 🔥 НАИСВЕЖАЙШИЙ ПЕРЕХВАТ: берем значение прямо из живого инпута на экране, игнорируя задержки памяти!
+        let timeInput = row.querySelector('.time-input');
         if (timeInput && timeInput.value && parseFloat(timeInput.value) > 0) {
-            // Если в окошке стоят минуты — наглухо стираем то, что прилетело из HTML (defaultDuration)
-            duration = Math.floor(parseFloat(timeInput.value) * 60); 
+            duration = Math.floor(parseFloat(timeInput.value) * 60);
+            // Сразу же принудительно дублируем это в память, чтобы не потерялось при рефреше
+            localStorage.setItem('crypto_time_' + rowId, timeInput.value);
         } else {
-            // Если окошко на экране пустое, проверяем, нет ли сохраненных минут в localStorage
+            // Если инпут пустой, берем старую заначку из памяти
             const savedTime = localStorage.getItem('crypto_time_' + rowId);
             if (savedTime && parseFloat(savedTime) > 0) {
                 duration = Math.floor(parseFloat(savedTime) * 60);
@@ -1014,7 +1010,6 @@ tr.out-of-limit .faucet-link {
         triggerTableSort();
     }
 
-    // Восстановление тиканья при перезагрузке страницы
     function resumeTimer(rowId, startTime, duration) {
         let row = document.getElementById(rowId); if (!row) return;
         let cell = row.querySelector('.timer-cell'); 
@@ -1026,7 +1021,6 @@ tr.out-of-limit .faucet-link {
         runTimerCountdown(rowId, startTime, duration, cell, resetBtn);
     }
 
-    // ✕ КНОПКА СБРОСА
     window.resetTimer = function(rowId) {
         stopInterval(rowId); 
         let row = document.getElementById(rowId);
@@ -1044,7 +1038,6 @@ tr.out-of-limit .faucet-link {
         triggerTableSort(); 
     }
 
-    // ⚠️ КНОПКА ЛИМИТА
     window.toggleLimit = function(rowId) {
         let row = document.getElementById(rowId); if (!row) return;
         let cell = row.querySelector('.timer-cell'); 
@@ -1068,7 +1061,6 @@ tr.out-of-limit .faucet-link {
 
     // ЕДИНЫЙ БЛОК ИНИЦИАЛИЗАЦИИ САЙТА ПРИ ЗАГРУЗКЕ
     document.addEventListener("DOMContentLoaded", function() {
-        // Шаг 1. Автоматически клеим окошки времени во все строки
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             const wrapper = row.querySelector('.timer-wrapper');
@@ -1088,20 +1080,22 @@ tr.out-of-limit .faucet-link {
                     input.value = savedTime;
                 }
 
-                input.addEventListener('change', function() {
+                // Ловим и input, и change для максимальной отзывчивости сохранения
+                const saveFunc = function() {
                     if (input.value && parseFloat(input.value) > 0) {
                         localStorage.setItem('crypto_time_' + rId, input.value);
                     } else {
                         localStorage.removeItem('crypto_time_' + rId);
                     }
                     if (!activeIntervals[rId]) triggerTableSort();
-                });
+                };
+                input.addEventListener('change', saveFunc);
+                input.addEventListener('input', saveFunc);
 
                 wrapper.insertBefore(input, cell);
             }
         });
 
-        // Шаг 2. Восстанавливаем кулдауны из памяти
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             if (localStorage.getItem(rId + '_limit')) {
