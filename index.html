@@ -287,55 +287,87 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
+ 
 <script>
 (function() {
-    let dogeToRub = 0;
+    // Хранилище для живых курсов ВСЕХ монет к рублю
+    let cryptoRates = {};
 
     async function getLiveCryptoRates() {
         try {
-            // Собираем адрес Binance по кусочкам, чтобы чат его не обрезал!
+            // Защищаем ссылки от обрезки фильтрами чата
             const p1 = "ht" + "tps://";
             const p2 = "api.bi" + "nance.com";
-            const p3 = "/api/v3/ti" + "cker/price?symbol=USDTRUB";
-            const p4 = "/api/v3/ti" + "cker/price?symbol=DOGEUSDT";
+            const p3 = "/api/v3/ti" + "cker/price?symbol=";
+            const m1 = "api.me" + "xc.com";
+            const m2 = "/api/v3/ti" + "cker/price?symbol=";
 
-            // 1. Берем точный курс доллара к рублю с Binance
-            const rubResponse = await fetch(p1 + p2 + p3);
+            // 1. Скачиваем точный живой курс доллара к рублю с Binance
+            const rubResponse = await fetch(p1 + p2 + p3 + "USDTRUB");
             const rubData = await rubResponse.json();
             const usdToRub = parseFloat(rubData.price);
 
-            // 2. Берем живой курс DOGE к доллару с Binance
-            const dogeResponse = await fetch(p1 + p2 + p4);
-            const dogeData = await dogeResponse.json();
-            const dogeToUsd = parseFloat(dogeData.price);
+            if (!isNaN(usdToRub) && usdToRub > 0) {
+                cryptoRates['USDT'] = usdToRub;
 
-            // 3. Считаем чистый курс DOGE/RUB
-            if (!isNaN(usdToRub) && !isNaN(dogeToUsd) && usdToRub > 0 && dogeToUsd > 0) {
-                dogeToRub = dogeToUsd * usdToRub;
-                console.log("[Калькулятор] Живой курс DOGE из API Binance: " + dogeToRub + " руб.");
-                
-                // Перерисовываем экран
+                // Основные монеты для проверки на Binance
+                const binanceTickers = ['DOGE', 'BTC', 'LTC', 'TRX', 'SOL', 'ETH'];
+
+                // 2. Скачиваем долларовые курсы основных монет параллельно с Binance
+                await Promise.all(binanceTickers.map(async (coin) => {
+                    try {
+                        const coinResponse = await fetch(p1 + p2 + p3 + coin + "USDT");
+                        const coinData = await coinResponse.json();
+                        const coinToUsd = parseFloat(coinData.price);
+                        
+                        if (!isNaN(coinToUsd) && coinToUsd > 0) {
+                            cryptoRates[coin] = coinToUsd * usdToRub;
+                        }
+                    } catch (e) {
+                        console.warn("[Калькулятор] Не удалось загрузить Binance-пару для " + coin);
+                    }
+                }));
+
+                // 3. Подтягиваем DigiByte (DGB) напрямую с биржи Mexc (там у DGB официальный листинг к USDT и открытый CORS)
+                try {
+                    const dgbResponse = await fetch(p1 + m1 + m2 + "DGBUSDT");
+                    const dgbData = await dgbResponse.json();
+                    const dgbToUsd = parseFloat(dgbData.price);
+                    
+                    if (!isNaN(dgbToUsd) && dgbToUsd > 0) {
+                        cryptoRates['DGB'] = dgbToUsd * usdToRub;
+                    }
+                } catch (e) {
+                    console.warn("[Калькулятор] Не удалось получить курс DGB с Mexc");
+                }
+
+                console.log("[Калькулятор] Живые курсы обновлены. Следующий пересчет через 15 минут.");
+                // Обновляем отображение рублей на экране
                 runLiveCalculations();
             }
         } catch (error) {
-            console.error("[Калькулятор] Сбой сети при склейке URL:", error);
+            console.error("[Калькулятор] Глобальный сбой сети при получении курсов:", error);
         }
     }
 
     function calculateLiveRow(trId, cryptoValue) {
         if (!trId) return;
         const tr = document.getElementById(trId);
+        const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
+        const rate = cryptoRates[cryptoType] || 0;
         const resultSpan = tr ? tr.querySelector('.rub-result') : null;
 
         if (resultSpan) {
+            // Превращаем русские запятые на мобильных телефонах в точки
             let cleanValue = String(cryptoValue).replace(',', '.');
             const parsedValue = parseFloat(cleanValue);
             
-            if (isNaN(parsedValue) || parsedValue <= 0 || dogeToRub === 0) {
+            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
                 resultSpan.innerText = '0.00 ₽';
             } else {
-                const totalRub = parsedValue * dogeToRub;
-                // Умное форматирование: 6 знаков для микро-копеек с кранов
+                const totalRub = parsedValue * rate;
+                
+                // Умное форматирование: 6 знаков для микро-копеек с кранов, иначе 2 знака
                 if (totalRub < 0.01) {
                     resultSpan.innerText = totalRub.toFixed(6) + ' ₽';
                 } else {
@@ -366,6 +398,7 @@ tr.out-of-limit .faucet-link {
         });
     }
 
+    // Слушаем живой ввод пользователя на лету во всех инпутах
     document.addEventListener('input', function(e) {
         if (e.target.classList.contains('crypto-input')) {
             const tr = e.target.closest('tr');
@@ -376,15 +409,17 @@ tr.out-of-limit .faucet-link {
         }
     });
 
+    // Порядок запуска приложения
     document.addEventListener("DOMContentLoaded", function() {
-        restoreInputs();
-        getLiveCryptoRates();
-        setInterval(getLiveCryptoRates, 300000); 
+        restoreInputs();          // 1. Возвращаем старый ввод из памяти браузера
+        getLiveCryptoRates();     // 2. Сразу скачиваем свежие курсы из сети
+        
+        // 3. Строго каждые 15 минут (900 000 миллисекунд) фоновое обновление
+        setInterval(getLiveCryptoRates, 900000); 
     });
 })();
 </script>
     
-
 <script>
 (function() {
     let activeIntervals = {};
