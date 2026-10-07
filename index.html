@@ -758,7 +758,6 @@ tr.out-of-limit .faucet-link {
   <script>
 (function() {
     let cryptoRates = {};
-    // Флаг полной заморозки сортировки
     let isEditingMode = false;
 
     async function getLiveCryptoRates() {
@@ -836,16 +835,16 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // ДВУХРЯДНАЯ СОРТИРОВКА (С полной защитой от прыжков)
+    // НАСТОЯЩАЯ ДВУХРЯДНАЯ СОРТИРОВКА (Сортирует строго внутри своих tbody)
     window.sortTableByPrice = function() {
-        // Если юзер в режиме ввода или просто зажал инпут — блокируем намертво!
         if (isEditingMode || document.activeElement.classList.contains('crypto-input')) return;
 
-        function sortContainer(selector) {
-            const container = document.querySelector(selector);
+        function sortContainer(className) {
+            const container = document.querySelector(className);
             if (!container) return;
 
             const rows = Array.from(container.querySelectorAll('tr[id^="faucet"]'));
+            if (rows.length === 0) return;
             
             rows.sort((rowA, rowB) => {
                 const cellA = rowA.querySelector('.timer-cell');
@@ -865,13 +864,9 @@ tr.out-of-limit .faucet-link {
             rows.forEach(row => container.appendChild(row));
         }
 
-        // Проверяем оба варианта вёрстки: по классам рядов или по общей таблице
-        if (document.querySelector('.left-faucets') || document.querySelector('.right-faucets')) {
-            sortContainer('.left-faucets');
-            sortContainer('.right-faucets');
-        } else {
-            sortContainer('table tbody');
-        }
+        // Сортируем левый tbody и правый tbody отдельно друг от друга!
+        sortContainer('.left-faucets');
+        sortContainer('.right-faucets');
     }
 
     function restoreInputs() {
@@ -884,15 +879,10 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // ЖЕЛЕЗОБЕТОННЫЙ КОНТРОЛЬ РЕЖИМА ВВОДА
-    // Включаем заморозку при клике или таче на инпут
     document.addEventListener('focusin', function(e) {
-        if (e.target.classList.contains('crypto-input')) {
-            isEditingMode = true;
-        }
+        if (e.target.classList.contains('crypto-input')) isEditingMode = true;
     });
 
-    // Считаем рубли, но не двигаем строки
     document.addEventListener('input', function(e) {
         if (e.target.classList.contains('crypto-input')) {
             const tr = e.target.closest('tr');
@@ -903,10 +893,8 @@ tr.out-of-limit .faucet-link {
         }
     });
 
-    // Выключаем заморозку только когда фокус полностью ушёл
     document.addEventListener('focusout', function(e) {
         if (e.target.classList.contains('crypto-input')) {
-            // Небольшая задержка, чтобы юзер успел перенести палец/курсор
             setTimeout(function() {
                 isEditingMode = false;
                 sortTableByPrice();
@@ -914,7 +902,6 @@ tr.out-of-limit .faucet-link {
         }
     });
 
-    // При клике по левым ссылкам тоже сбрасываем фокус
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('faucet-link')) {
             if (document.activeElement && typeof document.activeElement.blur === 'function') {
@@ -929,12 +916,10 @@ tr.out-of-limit .faucet-link {
         restoreInputs();
         getLiveCryptoRates();
         setInterval(getLiveCryptoRates, 900000); 
-        // Ежесекундный таймер
         setInterval(sortTableByPrice, 1000);
     });
 })();
 </script>
-
 
  <script>
 (function() {
