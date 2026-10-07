@@ -835,7 +835,7 @@ tr.out-of-limit .faucet-link {
     }
 
     // УМНАЯ СОРТИРОВКА: Готовые наверх по цене, неактивные — вниз!
-    function sortTableByPrice() {
+   window.sortTableByPrice = function() {
         const tbody = document.querySelector('table tbody');
         if (!tbody) return;
 
@@ -895,177 +895,100 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
 
-<script>
+ <script>
 (function() {
-    // Хранилище для живых курсов ВСЕХ монет к рублю
-    let cryptoRates = {};
+    let activeIntervals = {};
 
-    async function getLiveCryptoRates() {
-        try {
-            // Защищаем ссылки от обрезки фильтрами чата
-            const p1 = "ht" + "tps://";
-            const p2 = "api.bi" + "nance.com";
-            const p3 = "/api/v3/ti" + "cker/price?symbol=";
-            
-            const b1 = "api.by" + "bit.com";
-            const b2 = "/v5/market/tic" + "kers?category=spot&symbol=";
-
-            // 1. Скачиваем точный живой курс доллара к рублю с Binance
-            const rubResponse = await fetch(p1 + p2 + p3 + "USDTRUB");
-            const rubData = await rubResponse.json();
-            const usdToRub = parseFloat(rubData.price);
-
-            if (!isNaN(usdToRub) && usdToRub > 0) {
-                cryptoRates['USDT'] = usdToRub;
-
-                // Основные монеты для проверки на Binance
-                const binanceTickers = ['DOGE', 'BTC', 'LTC', 'TRX', 'SOL', 'ETH'];
-
-                // 2. Скачиваем долларовые курсы основных монет параллельно с Binance
-                await Promise.all(binanceTickers.map(async (coin) => {
-                    try {
-                        const coinResponse = await fetch(p1 + p2 + p3 + coin + "USDT");
-                        const coinData = await coinResponse.json();
-                        const coinToUsd = parseFloat(coinData.price);
-                        
-                        if (!isNaN(coinToUsd) && coinToUsd > 0) {
-                            cryptoRates[coin] = coinToUsd * usdToRub;
-                        }
-                    } catch (e) {
-                        console.warn("[Калькулятор] Не удалось загрузить Binance-пару для " + coin);
-                    }
-                }));
-
-                // 3. Подтягиваем DigiByte (DGB) с Bybit + Защитный резервный расчет
-                try {
-                    const dgbResponse = await fetch(p1 + b1 + b2 + "DGBUSDT");
-                    const dgbData = await dgbResponse.json();
-                    
-                    if (dgbData && dgbData.result && dgbData.result.list && dgbData.result.list[0]) {
-                        const rawPrice = dgbData.result.list[0].lastPrice;
-                        const dgbToUsd = parseFloat(rawPrice);
-                        
-                        if (!isNaN(dgbToUsd) && dgbToUsd > 0) {
-                            cryptoRates['DGB'] = dgbToUsd * usdToRub;
-                            console.log("[Калькулятор] Курс DGB успешно взят с Bybit:", cryptoRates['DGB']);
-                        }
-                    }
-                } catch (e) {
-                    console.warn("[Калькулятор] Bybit не ответил, включаем внутренний пересчет DGB через DOGE...");
-                }
-
-                // КРИТИЧЕСКАЯ ПОДСТРАХОВКА: Если Bybit выдал ошибку или заблокирован, 
-                // рассчитываем DGB математически от живого курса DOGE (рыночный коэфф. 0.085)
-                if (!cryptoRates['DGB'] && cryptoRates['DOGE']) {
-                    cryptoRates['DGB'] = cryptoRates['DOGE'] * 0.085;
-                    console.log("[Калькулятор] Резервный расчет DGB через DOGE сработал:", cryptoRates['DGB']);
-                }
-
-                console.log("[Калькулятор] Все живые курсы обновлены. Следующий пересчет через 15 минут.");
-                
-                // Сначала считаем рубли на экране
-                runLiveCalculations();
-                // Затем АВТОМАТИЧЕСКИ сортируем всю таблицу по цене в рублях
-                sortTableByPrice();
-            }
-        } catch (error) {
-            console.error("[Калькулятор] Global network error while fetching rates:", error);
+    // Безопасный вызов сортировки из Скрипта №1, если он уже загрузился
+    function triggerTableSort() {
+        if (typeof window.sortTableByPrice === 'function') {
+            window.sortTableByPrice();
         }
     }
 
-    function calculateLiveRow(trId, cryptoValue) {
-        if (!trId) return;
-        const tr = document.getElementById(trId);
-        const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
-        const rate = cryptoRates[cryptoType] || 0;
-        const resultSpan = tr ? tr.querySelector('.rub-result') : null;
+    window.startTimer = function(rowId, duration, customStartTime = null) {
+        let row = document.getElementById(rowId); if (!row) return;
+        if (row.classList.contains('out-of-limit')) return;
 
-        if (resultSpan) {
-            let cleanValue = String(cryptoValue).replace(',', '.');
-            const parsedValue = parseFloat(cleanValue);
-            
-            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
-                resultSpan.innerText = '0.00 ₽';
-                tr.setAttribute('data-rub-value', '0'); // Для правильной сортировки нулей
-            } else {
-                const totalRub = parsedValue * rate;
-                
-                // Записываем чистую математическую сумму в скрытый атрибут строки для точной сортировки
-                tr.setAttribute('data-rub-value', totalRub.toString());
-
-                // Красивое форматирование на экран
-                if (totalRub < 0.01) {
-                    resultSpan.innerText = totalRub.toFixed(6) + ' ₽';
-                } else {
-                    resultSpan.innerText = totalRub.toFixed(2) + ' ₽';
-                }
-            }
+        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+        if (activeIntervals[rowId]) return;
+        let startTime = customStartTime ? customStartTime : Date.now();
+        if (!customStartTime) { 
+            localStorage.setItem(rowId + '_start', startTime); 
+            localStorage.setItem(rowId + '_duration', duration); 
         }
-    }
-
-    function runLiveCalculations() {
-        document.querySelectorAll('.crypto-input').forEach(input => {
-            const tr = input.closest('tr');
-            if (tr && tr.id) {
-                calculateLiveRow(tr.id, input.value);
+        if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
+        if (resetBtn) resetBtn.classList.add('active');
+        
+        function updateTimer() {
+            let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
+            if (timeLeft <= 0) {
+                clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId];
+                if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+                if (resetBtn) resetBtn.classList.remove('active');
+                localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration'); 
+                triggerTableSort(); // Кран дотикал и готов к сбору — мгновенно поднимаем наверх!
+                return;
             }
-        });
-    }
-
-    // 🔥 Функция автоматической сортировки таблицы по цене (от большей к меньшей)
-    function sortTableByPrice() {
-        // Находим тело таблицы, где лежат строки кранов
-        const tbody = document.querySelector('table tbody');
-        if (!tbody) return;
-
-        // Собираем все строки кранов в массив
-        const rows = Array.from(tbody.querySelectorAll('tr[id^="faucet"]'));
-
-        // Сортируем массив по значению скрытого атрибута data-rub-value
-        rows.sort((rowA, row1) => {
-            const valA = parseFloat(rowA.getAttribute('data-rub-value')) || 0;
-            const valB = parseFloat(row1.getAttribute('data-rub-value')) || 0;
-            return valB - valA; // От большего к меньшему
-        });
-
-        // Возвращаем отсортированные строки обратно в HTML
-        rows.forEach(row => tbody.appendChild(row));
-        console.log("[Калькулятор] Таблица кранов успешно отсортирована по текущей выгоде.");
-    }
-
-    function restoreInputs() {
-        document.querySelectorAll('.crypto-input').forEach(input => {
-            const tr = input.closest('tr');
-            if (tr && tr.id) {
-                const savedCrypto = localStorage.getItem('crypto_val_' + tr.id);
-                if (savedCrypto !== null && savedCrypto !== '') {
-                    input.value = savedCrypto;
-                }
-            }
-        });
-    }
-
-    // Слушаем живой ввод пользователя на лету во всех инпутах
-    document.addEventListener('input', function(e) {
-        if (e.target.classList.contains('crypto-input')) {
-            const tr = e.target.closest('tr');
-            if (tr && tr.id) {
-                localStorage.setItem('crypto_val_' + tr.id, e.target.value);
-                calculateLiveRow(tr.id, e.target.value);
-                
-                // Пересортировываем на лету, если пользователь сам изменил баланс в инпуте
-                sortTableByPrice();
-            }
+            let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
+            h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
+            if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
         }
-    });
+        updateTimer(); activeIntervals[rowId] = setInterval(updateTimer, 1000);
+        triggerTableSort(); // Пользователь запустил таймер — строка сию секунду улетает вниз!
+    }
+
+    window.resetTimer = function(rowId) {
+        if (activeIntervals[rowId]) { clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId]; }
+        let row = document.getElementById(rowId);
+        if (row) {
+            let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+            if (!row.classList.contains('out-of-limit') && cell) {
+                cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready";
+            }
+            if (resetBtn) resetBtn.classList.remove('active');
+        }
+        localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
+        triggerTableSort(); // Таймер сбросили кнопкой (✕) — кран мгновенно взлетает наверх по цене!
+    }
+
+    window.toggleLimit = function(rowId) {
+        let row = document.getElementById(rowId); if (!row) return;
+        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+
+        if (row.classList.contains("out-of-limit")) {
+            row.classList.remove("out-of-limit");
+            localStorage.removeItem(rowId + '_limit');
+            if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+        } else {
+            row.classList.add("out-of-limit");
+            localStorage.setItem(rowId + '_limit', 'true');
+            if (activeIntervals[rowId]) { clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId]; }
+            localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
+            if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
+            if (resetBtn) resetBtn.classList.remove('active');
+        }
+        triggerTableSort(); // Переключили лимит (⚠️) — строка мгновенно улетает вниз или возвращается!
+    }
 
     document.addEventListener("DOMContentLoaded", function() {
-        restoreInputs();
-        getLiveCryptoRates();
-        setInterval(getLiveCryptoRates, 900000); 
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const rId = row.id;
+            if (localStorage.getItem(rId + '_limit')) {
+                row.classList.add("out-of-limit");
+                let cell = row.querySelector('.timer-cell');
+                if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
+            } else {
+                let sS = localStorage.getItem(rId + '_start'); 
+                let sD = localStorage.getItem(rId + '_duration');
+                if (sS && sD) startTimer(rId, parseInt(sD), parseInt(sS));
+            }
+        });
+        setTimeout(triggerTableSort, 500); // Первичная сортировка после восстановления таймеров
     });
 })();
 </script>
+
 
     
 <script>
