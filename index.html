@@ -140,11 +140,11 @@ tr.out-of-limit .faucet-link {
             <table>
                 <thead><tr><th>Кран</th><th>Монета</th><th>Статус</th></tr></thead>
                 <tbody>
-    				<tr id="faucet1" data-crypto="DOGE">
-    <!-- 1. Столбец: Название крана -->
+    				 <tr id="faucet1" data-crypto="DOGE">
+    <!-- 1. Столбец: Название крана (Кавычки исправлены!) -->
     <td><a class="faucet-link" href="https://prairiehash.com" target="_blank" onclick="startTimer('faucet1', 300)">Prairiehash</a></td>
     
-    <!-- 2. Столбец: Окошко ввода баланса (схлопывается, когда не нужно) -->
+    <!-- 2. Столбец: Окошко ввода баланса -->
     <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
         <input type="number" 
                class="crypto-input" 
@@ -161,7 +161,7 @@ tr.out-of-limit .faucet-link {
         <span class="badge doge">DOGE</span>
     </td>
 
-    <!-- 4. Столбец: Отдельное окошко, куда выводится курс в рублях -->
+    <!-- 4. Столбец: Окошко для вывода рублей -->
     <td style="padding: 0 8px; vertical-align: middle; width: 1%; white-space: nowrap;">
         <span class="rub-result" id="rub_res_faucet1" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
     </td>
@@ -419,67 +419,53 @@ tr.out-of-limit .faucet-link {
     });
 </script>
  <script>
-// 1. Список всех твоих монет с сайта
-const myCryptoList = ['DOGE', 'BTC', 'LTC', 'TRX', 'SOL', 'ETH', 'DGB', 'USDT'];
-
-// Сюда будут падать только живые курсы
+// 1. Сюда будут падать живые курсы валют к рублю
 let cryptoRates = {};
 
-// 2. Функция, которая тащит живой курс напрямую в рублях (RUB)
+// 2. Функция загрузки курсов напрямую в RUB с открытого API
 async function fetchCryptoRates() {
     try {
-        // Запрашиваем цены всех монет сразу в рублях (RUB) без блокировок
-        const coinsParam = myCryptoList.join(',');
-        const response = await fetch(`https://cryptocompare.com`);
+        // Дергаем живые цены для всех твоих монет в рублях
+        const response = await fetch('https://cryptocompare.com');
+        const data = await response.json();
         
-        // Получаем чистый курс доллара к рублю для USDT
-        const usdData = await response.json();
-        const usdToRub = usdData.RUB;
-
-        // Теперь тащим курсы остальных крипто-монет к рублю
-        const cryptoResponse = await fetch(`https://cryptocompare.com{coinsParam}&tsyms=RUB`);
-        const cryptoData = await cryptoResponse.json();
-
-        // Записываем живые рубли в память скрипта
-        myCryptoList.forEach(coin => {
-            if (coin === 'USDT') {
-                cryptoRates[coin] = usdToRub; // Для USDT берем курс доллара
-            } else if (cryptoData[coin] && cryptoData[coin].RUB) {
-                cryptoRates[coin] = cryptoData[coin].RUB; // Для крипты берем чистый рубль
-            }
-        });
-
-        // Как только живые котировки скачались — пересчитываем все сохраненные балансы
+        // Записываем полученные рубли в память
+        for (let coin in data) {
+            cryptoRates[coin] = data[coin].RUB;
+        }
+        
+        // Сразу запускаем пересчет сохраненных данных на экране
         updateAllCalculations();
     } catch (error) {
-        console.error("Ошибка сети при получении курсов:", error);
+        console.error("Не удалось обновить курсы автоматически:", error);
     }
 }
 
-// 3. Функция: берет введенное число, умножает на живой курс и сохраняет в стораж
+// 3. Функция: СНАЧАЛА железно сохраняет в стораж, ПОТОМ крутит рубли
 function saveCryptoAndCalc(faucetId, cryptoValue) {
-    // Намертво сохраняем то, что ты ввел (сколько платит кран)
+    // 100% запись в стораж (сработает в любом случае!)
     localStorage.setItem('crypto_val_' + faucetId, cryptoValue);
     
-    // Смотрим, какая валюта указана у этой строки (data-crypto)
+    // Вычисляем монету строки
     const tr = document.getElementById(faucetId);
     const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
+    
+    // Берем живой курс
     const rate = cryptoRates[cryptoType] || 0;
     
-    // Выводим результат в ячейку рублей
+    // Выводим рубли в ячейку
     const resultSpan = document.getElementById('rub_res_' + faucetId);
     if (resultSpan) {
         if (!cryptoValue || cryptoValue <= 0 || rate === 0) {
             resultSpan.innerText = '0.00 ₽';
         } else {
-            // Умножаем введенную крипту на свежий курс из сети
             const rubValue = (parseFloat(cryptoValue) * rate).toFixed(2);
             resultSpan.innerText = rubValue + ' ₽';
         }
     }
 }
 
-// 4. Функция: возвращает сохраненные балансы в инпуты при обновлении страницы
+// 4. Функция автозагрузки инпутов при обновлении страницы
 function updateAllCalculations() {
     const inputs = document.querySelectorAll('.crypto-input');
     
@@ -488,14 +474,15 @@ function updateAllCalculations() {
         const savedCrypto = localStorage.getItem('crypto_val_' + trId);
         
         if (savedCrypto !== null && savedCrypto !== '') {
-            input.value = savedCrypto;
-            saveCryptoAndCalc(trId, savedCrypto);
+            input.value = savedCrypto; // Возвращаем цифру в окошко
+            saveCryptoAndCalc(trId, savedCrypto); // Пересчитываем рубли
         }
     });
 }
 
-// Запускаем автоматику получения курсов сразу при загрузке сайта
+// Стартуем скачивание живых курсов сразу при открытии сайта
 document.addEventListener("DOMContentLoaded", fetchCryptoRates);
 </script>
+
 </body>
 </html>
