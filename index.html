@@ -284,43 +284,118 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
-        <script>
-    // =================================================================
-    // 1. БЛОК ТАЙМЕРОВ КУЛДАУНА И ЛИМИТОВ (Твой оригинальный рабочий код)
-    // =================================================================
+    <script>
+(function() {
+    let cryptoRates = {};
+
+    async function fetchCryptoRates() {
+        try {
+            const rows = document.querySelectorAll('tr[data-crypto]');
+            const activeTickers = [];
+            rows.forEach(tr => {
+                const ticker = tr.getAttribute('data-crypto');
+                if (ticker && !activeTickers.includes(ticker)) activeTickers.push(ticker);
+            });
+
+            if (activeTickers.length === 0) return;
+
+            // Запрашиваем цены
+            const response = await fetch(`https://cryptocompare.com{activeTickers.join(',')}`);
+            const data = await response.json();
+            
+            // Переворачиваем курс в нормальный вид (цена монеты в рублях)
+            for (let coin in data) {
+                if (data[coin] > 0) cryptoRates[coin] = 1 / data[coin];
+            }
+
+            updateAllCalculations();
+        } catch (error) {
+            console.error("[Ошибка Калькулятора] Не удалось загрузить курсы:", error);
+        }
+    }
+
+    function saveCryptoAndCalc(faucetId, cryptoValue) {
+        if (!faucetId) return;
+        localStorage.setItem('crypto_val_' + faucetId, cryptoValue);
+        
+        const tr = document.getElementById(faucetId);
+        const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
+        const rate = cryptoRates[cryptoType] || 0;
+        const resultSpan = tr ? tr.querySelector('.rub-result') : null;
+
+        if (resultSpan) {
+            const parsedValue = parseFloat(cryptoValue);
+            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
+                resultSpan.innerText = '0.00 ₽';
+            } else {
+                const totalRub = parsedValue * rate;
+                // Округление: 6 знаков для микро-выплат, 2 знака для обычных сумм
+                resultSpan.innerText = (totalRub < 0.01 ? totalRub.toFixed(6) : totalRub.toFixed(2)) + ' ₽';
+            }
+        }
+    }
+
+    function updateAllCalculations() {
+        document.querySelectorAll('.crypto-input').forEach(input => {
+            const tr = input.closest('tr');
+            if (tr && tr.id) {
+                const savedCrypto = localStorage.getItem('crypto_val_' + tr.id);
+                if (savedCrypto !== null && savedCrypto !== '') input.value = savedCrypto;
+                saveCryptoAndCalc(tr.id, input.value);
+            }
+        });
+    }
+
+    // Слушаем ввод на лету
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('crypto-input')) {
+            const tr = e.target.closest('tr');
+            if (tr && tr.id) saveCryptoAndCalc(tr.id, e.target.value);
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", fetchCryptoRates);
+})();
+</script>
+<script>
+(function() {
     let activeIntervals = {};
 
-    function startTimer(rowId, duration, customStartTime = null) {
+    window.startTimer = function(rowId, duration, customStartTime = null) {
         let row = document.getElementById(rowId); if (!row) return;
         if (row.classList.contains('out-of-limit')) return;
 
         let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
         if (activeIntervals[rowId]) return;
         let startTime = customStartTime ? customStartTime : Date.now();
-        if (!customStartTime) { localStorage.setItem(rowId + '_start', startTime); localStorage.setItem(rowId + '_duration', duration); }
-        cell.classList.remove('ready'); cell.classList.add('timer'); if (resetBtn) resetBtn.classList.add('active');
+        if (!customStartTime) { 
+            localStorage.setItem(rowId + '_start', startTime); 
+            localStorage.setItem(rowId + '_duration', duration); 
+        }
+        if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
+        if (resetBtn) resetBtn.classList.add('active');
         
         function updateTimer() {
             let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
             if (timeLeft <= 0) {
                 clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId];
-                cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready";
+                if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
                 if (resetBtn) resetBtn.classList.remove('active');
                 localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration'); return;
             }
             let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
             h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
-            cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
+            if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
         }
         updateTimer(); activeIntervals[rowId] = setInterval(updateTimer, 1000);
     }
 
-    function resetTimer(rowId) {
+    window.resetTimer = function(rowId) {
         if (activeIntervals[rowId]) { clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId]; }
         let row = document.getElementById(rowId);
         if (row) {
             let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
-            if (!row.classList.contains('out-of-limit')) {
+            if (!row.classList.contains('out-of-limit') && cell) {
                 cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready";
             }
             if (resetBtn) resetBtn.classList.remove('active');
@@ -328,7 +403,7 @@ tr.out-of-limit .faucet-link {
         localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
     }
 
-    function toggleLimit(rowId) {
+    window.toggleLimit = function(rowId) {
         let row = document.getElementById(rowId); if (!row) return;
         let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
 
@@ -346,105 +421,28 @@ tr.out-of-limit .faucet-link {
         }
     }
 
-    // =================================================================
-    // 2. БЛОК АВТОМАТИЧЕСКОГО КАЛЬКУЛЯТОРА КУРСА В РУБЛИ (Исправлено!)
-    // =================================================================
-    let cryptoRates = {};
-
-    // Загрузка живых курсов напрямую в RUB через ПРАВИЛЬНЫЙ API эндпоинт без блокировок
-    async function fetchCryptoRates() {
-        try {
-            // Динамически собираем все монеты, которые используются у вас в таблице
-            const rows = document.querySelectorAll('tr[data-crypto]');
-            const activeTickers = [];
-            rows.forEach(tr => {
-                const ticker = tr.getAttribute('data-crypto');
-                if (ticker && !activeTickers.includes(ticker)) {
-                    activeTickers.push(ticker);
-                }
-            });
-
-            if (activeTickers.length === 0) return;
-
-            // Делаем правильный запрос к API CryptoCompare для получения цен в рублях (RUB)
-            const tickersParam = activeTickers.join(',');
-            const response = await fetch(`https://cryptocompare.com{tickersParam}`);
-            const data = await response.json();
-            
-            // API возвращает данные в формате { "DOGE": 0.032, "BTC": 0.00000015 }, где цена указана ЗА ОДИН РУБЛЬ.
-            // Переворачиваем дробь (1 / цена), чтобы получить чистую стоимость 1 монеты в рублях.
-            for (let coin in data) {
-                if (data[coin] > 0) {
-                    cryptoRates[coin] = 1 / data[coin];
-                }
-            }
-
-            // Когда курсы успешно получены и обработаны — обновляем отображение рублей на экране
-            updateAllCalculations();
-        } catch (error) {
-            console.error("Не удалось обновить курсы автоматически:", error);
-        }
-    }
-
-    // Сохранение введенных значений монет в localStorage и расчет рублей
-    function saveCryptoAndCalc(faucetId, cryptoValue) {
-        // Запись введенного числа в память браузера
-        localStorage.setItem('crypto_val_' + faucetId, cryptoValue);
-        
-        const tr = document.getElementById(faucetId);
-        const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
-        const rate = cryptoRates[cryptoType] || 0;
-        
-        const resultSpan = document.getElementById('rub_res_' + faucetId);
-        if (resultSpan) {
-            const parsedValue = parseFloat(cryptoValue);
-            
-            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
-                resultSpan.innerText = '0.00 ₽';
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const rId = row.id;
+            if (localStorage.getItem(rId + '_limit')) {
+                row.classList.add("out-of-limit");
+                let cell = row.querySelector('.timer-cell');
+                if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
             } else {
-                const totalRub = parsedValue * rate;
-                
-                // УМНОЕ ОКРУГЛЕНИЕ: если итоговое значение в рублях микроскопическое (меньше 1 копейки),
-                // выводим 6 знаков после запятой (например: 0.000034 ₽), чтобы не писало "0.00 ₽"
-                if (totalRub < 0.01) {
-                    resultSpan.innerText = totalRub.toFixed(6) + ' ₽';
-                } else {
-                    resultSpan.innerText = totalRub.toFixed(2) + ' ₽';
-                }
-            }
-        }
-    }
-
-    // Автозагрузка данных из стоража при старте или обновлении страницы
-    function updateAllCalculations() {
-        const inputs = document.querySelectorAll('.crypto-input');
-        inputs.forEach(input => {
-            const tr = input.closest('tr');
-            if (tr) {
-                const trId = tr.id;
-                const savedCrypto = localStorage.getItem('crypto_val_' + trId);
-                if (savedCrypto !== null && savedCrypto !== '') {
-                    input.value = savedCrypto;
-                }
-                saveCryptoAndCalc(trId, input.value);
+                let sS = localStorage.getItem(rId + '_start'); 
+                let sD = localStorage.getItem(rId + '_duration');
+                if (sS && sD) startTimer(rId, parseInt(sD), parseInt(sS));
             }
         });
-    }
+    });
+})();
+</script>
 
-    // =================================================================
-    // 3. ЕДИНЫЙ ИНИЦИАЛИЗАТОР И ЗАЩИТА СТРАНИЦЫ
-    // =================================================================
+	
+	<script>
+(function() {
     document.addEventListener("DOMContentLoaded", function() {
-        // --- Запись дефолтных значений для Prairiehash (faucet1), если там пусто в localStorage ---
-        // Это предотвратит показ "0.00 ₽" при самом первом посещении сайта пользователем
-        const faucet1Input = document.querySelector('#faucet1 .crypto-input');
-        if (faucet1Input && !localStorage.getItem('crypto_val_faucet1')) {
-            faucet1Input.value = "0.0005967";
-        }
-
-        // --- Защита реферальных ссылок ---
-        const links = document.querySelectorAll(".faucet-link");
-        links.forEach(link => {
+        document.querySelectorAll(".faucet-link").forEach(link => {
             const realUrl = link.href;
             if (realUrl && realUrl !== "#") {
                 link.removeAttribute("href");
@@ -455,40 +453,14 @@ tr.out-of-limit .faucet-link {
                 });
             }
         });
-
-        // --- Восстановление состояния таймеров и лимитов ---
-        for (let i = 1; i <= 20; i++) {
-            let rId = 'faucet' + i;
-            let row = document.getElementById(rId);
-            if (!row) continue;
-
-            let isLimited = localStorage.getItem(rId + '_limit');
-            if (isLimited) {
-                row.classList.add("out-of-limit");
-                let cell = row.querySelector('.timer-cell');
-                if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
-            } else {
-                let sS = localStorage.getItem(rId + '_start'); 
-                let sD = localStorage.getItem(rId + '_duration');
-                if (sS && sD) startTimer(rId, parseInt(sD), parseInt(sS));
-            }
-        }
-
-        // --- Запускаем скачивание живых курсов валют ---
-        fetchCryptoRates();
     });
 
-    // Автоматический перехват ввода во всех полях формы на лету
-    document.addEventListener('input', function(e) {
-        if (e.target.classList.contains('crypto-input')) {
-            const tr = e.target.closest('tr');
-            if (tr) saveCryptoAndCalc(tr.id, e.target.value);
-        }
-    });
-
-    // Блокировки контекстного меню и F12
+    // Блокировка контекстного меню и горячих клавиш разработчика
     document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
-    document.addEventListener("keydown", function(e) { if (e.keyCode === 123) { e.preventDefault(); } });
+    document.addEventListener("keydown", function(e) { 
+        if (e.keyCode === 123) { e.preventDefault(); } 
+    });
+})();
 </script>
 
 </body>
