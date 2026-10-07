@@ -418,69 +418,68 @@ tr.out-of-limit .faucet-link {
         }
     });
 </script>
-	<script>
-// 1. ПРОСТО ДОПИШИТЕ СЮДА ВСЕ ВАШИ ВАЛЮТЫ ЧЕРЕЗ ЗАПЯТУЮ
-const myCryptoList = ['DOGE', 'BTC', 'LTC', 'TRX', 'SOL', 'ETH'];
+ <script>
+// 1. Список всех твоих монет с сайта
+const myCryptoList = ['DOGE', 'BTC', 'LTC', 'TRX', 'SOL', 'ETH', 'DGB', 'USDT'];
 
-// Сюда будут автоматически скачиваться курсы рубля
+// Сюда будут падать только живые курсы
 let cryptoRates = {};
-myCryptoList.forEach(coin => cryptoRates[coin] = 0);
 
-// 2. Функция, которая сама собирает курсы для всех монет с Binance
+// 2. Функция, которая тащит живой курс напрямую в рублях (RUB)
 async function fetchCryptoRates() {
     try {
-        // Узнаем текущий курс доллара/USDT к рублю
-        const usdtRes = await fetch('https://binance.com');
-        const usdtData = await usdtRes.json();
-        const usdtToRub = parseFloat(usdtData.price);
-
-        // Перебираем все монеты из списка и запрашиваем их цену к USDT
-        await Promise.all(myCryptoList.map(async (coin) => {
-            if (coin === 'USDT') {
-                cryptoRates[coin] = usdtToRub;
-                return;
-            }
-            try {
-                const res = await fetch(`https://binance.com{coin}USDT`);
-                const data = await res.json();
-                // Считаем курс в рублях (цена монеты * курс рубля)
-                cryptoRates[coin] = parseFloat(data.price) * usdtToRub;
-            } catch (e) {
-                console.error(`Не удалось загрузить курс для ${coin}`);
-            }
-        }));
+        // Запрашиваем цены всех монет сразу в рублях (RUB) без блокировок
+        const coinsParam = myCryptoList.join(',');
+        const response = await fetch(`https://cryptocompare.com`);
         
-        // Когда все курсы загружены — обновляем данные на экране
+        // Получаем чистый курс доллара к рублю для USDT
+        const usdData = await response.json();
+        const usdToRub = usdData.RUB;
+
+        // Теперь тащим курсы остальных крипто-монет к рублю
+        const cryptoResponse = await fetch(`https://cryptocompare.com{coinsParam}&tsyms=RUB`);
+        const cryptoData = await cryptoResponse.json();
+
+        // Записываем живые рубли в память скрипта
+        myCryptoList.forEach(coin => {
+            if (coin === 'USDT') {
+                cryptoRates[coin] = usdToRub; // Для USDT берем курс доллара
+            } else if (cryptoData[coin] && cryptoData[coin].RUB) {
+                cryptoRates[coin] = cryptoData[coin].RUB; // Для крипты берем чистый рубль
+            }
+        });
+
+        // Как только живые котировки скачались — пересчитываем все сохраненные балансы
         updateAllCalculations();
     } catch (error) {
-        console.error("Глобальная ошибка обновления курсов:", error);
-        updateAllCalculations();
+        console.error("Ошибка сети при получении курсов:", error);
     }
 }
 
-// 3. Функция: сохраняет цифры в localStorage и пересчитывает рубли
+// 3. Функция: берет введенное число, умножает на живой курс и сохраняет в стораж
 function saveCryptoAndCalc(faucetId, cryptoValue) {
-    // Сохраняем введенное количество монет в память браузера
+    // Намертво сохраняем то, что ты ввел (сколько платит кран)
     localStorage.setItem('crypto_val_' + faucetId, cryptoValue);
     
-    // Определяем валюту строки (из тега data-crypto)
+    // Смотрим, какая валюта указана у этой строки (data-crypto)
     const tr = document.getElementById(faucetId);
     const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
     const rate = cryptoRates[cryptoType] || 0;
     
-    // Выводим результат в соответствующее окошко рублей
+    // Выводим результат в ячейку рублей
     const resultSpan = document.getElementById('rub_res_' + faucetId);
     if (resultSpan) {
         if (!cryptoValue || cryptoValue <= 0 || rate === 0) {
             resultSpan.innerText = '0.00 ₽';
         } else {
+            // Умножаем введенную крипту на свежий курс из сети
             const rubValue = (parseFloat(cryptoValue) * rate).toFixed(2);
             resultSpan.innerText = rubValue + ' ₽';
         }
     }
 }
 
-// 4. Функция: возвращает сохраненные балансы на экран при обновлении страницы
+// 4. Функция: возвращает сохраненные балансы в инпуты при обновлении страницы
 function updateAllCalculations() {
     const inputs = document.querySelectorAll('.crypto-input');
     
@@ -495,9 +494,8 @@ function updateAllCalculations() {
     });
 }
 
-// Стартуем автоматику при загрузке страницы
+// Запускаем автоматику получения курсов сразу при загрузке сайта
 document.addEventListener("DOMContentLoaded", fetchCryptoRates);
 </script>
-
 </body>
 </html>
