@@ -764,7 +764,26 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
- <script>
+         <!-- ТРЕТИЙ НОВЫЙ БЛОК ДЛЯ ТУГОЙ КАПЧИ -->
+        <div class="table-block" style="border: 1px solid #ff5252; min-width: 360px; max-width: 100%;">
+            <div class="table-title" style="color: #ff5252;">🛑 Тугая капча (Мяч в лунку)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Кран</th>
+                        <th>Ввод</th>
+                        <th>Монета</th>
+                        <th>Рубли</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody class="hard-faucets">
+                    <!-- Сюда скрипт теперь будет переносить краны -->
+                </tbody>
+            </table>
+        </div>	
+	
+	<script>
 (function() {
     let cryptoRates = {};
     let isEditingMode = false;
