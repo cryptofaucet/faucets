@@ -1105,12 +1105,16 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Шаг 2. Распределяем краны по колонкам из памяти
+                // Шаг 2. Распределяем краны по колонкам из памяти (теперь с учетом нижнего блока)
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             const savedPosition = localStorage.getItem('position_' + rId);
             if (savedPosition) {
-                const container = document.querySelector(savedPosition === 'left' ? '.left-faucets' : '.right-faucets');
+                let containerSelector = '.left-faucets';
+                if (savedPosition === 'right') containerSelector = '.right-faucets';
+                if (savedPosition === 'hard') containerSelector = '.hard-faucets';
+                
+                const container = document.querySelector(containerSelector);
                 if (container) container.appendChild(row);
             }
         });
@@ -1150,10 +1154,19 @@ tr.out-of-limit .faucet-link {
                 }
             }
         });
+
+        // Шаг 5. После того как все инпуты созданы и краны распределены — обновляем им стрелочки управления
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            if (typeof window.refreshFaucetArrows === 'function') {
+                window.refreshFaucetArrows(row.id);
+            }
+        });
+
         setTimeout(triggerTableSort, 500);
     });
 })();
 </script>
+
  
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
 <script>
