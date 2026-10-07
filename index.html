@@ -922,7 +922,7 @@ tr.out-of-limit .faucet-link {
 </script>
 
   
-<script>
+ <script>
 (function() {
     let activeIntervals = {};
 
@@ -933,18 +933,28 @@ tr.out-of-limit .faucet-link {
         }
     }
 
-    window.startTimer = function(rowId, duration, customStartTime = null) {
+    // ⚡ Запуск таймера по клику пользователя (проверяет ручные минуты)
+    window.startTimer = function(rowId, defaultDuration) {
         let row = document.getElementById(rowId); if (!row) return;
-        // ИСПРАВЛЕНО: Убрали глухую блокировку строки, чтобы кнопки работали всегда
         if (row.classList.contains('out-of-limit')) return;
 
         let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
         if (activeIntervals[rowId]) return;
-        let startTime = customStartTime ? customStartTime : Date.now();
-        if (!customStartTime) { 
-            localStorage.setItem(rowId + '_start', startTime); 
-            localStorage.setItem(rowId + '_duration', duration); 
+
+        // Проверяем, ввёл ли пользователь кастомные минуты в окошко
+        let timeInput = row.querySelector('.time-input');
+        let duration = defaultDuration;
+        if (timeInput && timeInput.value) {
+            let userMinutes = parseFloat(timeInput.value);
+            if (!isNaN(userMinutes) && userMinutes > 0) {
+                duration = Math.floor(userMinutes * 60); // Переводим минуты в секунды
+            }
         }
+
+        let startTime = Date.now();
+        localStorage.setItem(rowId + '_start', startTime); 
+        localStorage.setItem(rowId + '_duration', duration); 
+
         if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
         if (resetBtn) resetBtn.classList.add('active');
         
@@ -964,6 +974,32 @@ tr.out-of-limit .faucet-link {
         }
         updateTimer(); activeIntervals[rowId] = setInterval(updateTimer, 1000);
         triggerTableSort(); // Строка сию секунду улетает вниз!
+    }
+
+    // 🔄 Фоновое восстановление таймера при перезагрузке страницы (без сброса времени)
+    function resumeTimer(rowId, startTime, duration) {
+        let row = document.getElementById(rowId); if (!row) return;
+        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+        if (activeIntervals[rowId]) return;
+
+        if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
+        if (resetBtn) resetBtn.classList.add('active');
+
+        function updateTimer() {
+            let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
+            if (timeLeft <= 0) {
+                clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId];
+                if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+                if (resetBtn) resetBtn.classList.remove('active');
+                localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration'); 
+                triggerTableSort();
+                return;
+            }
+            let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
+            h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
+            if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
+        }
+        updateTimer(); activeIntervals[rowId] = setInterval(updateTimer, 1000);
     }
 
     window.resetTimer = function(rowId) {
@@ -999,21 +1035,6 @@ tr.out-of-limit .faucet-link {
         triggerTableSort(); // Переключили лимит — строка мгновенно перестраивается!
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
-            const rId = row.id;
-            if (localStorage.getItem(rId + '_limit')) {
-                row.classList.add("out-of-limit");
-                let cell = row.querySelector('.timer-cell');
-                if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
-            } else {
-                let sS = localStorage.getItem(rId + '_start'); 
-                let sD = localStorage.getItem(rId + '_duration');
-                if (sS && sD) startTimer(rId, parseInt(sD), parseInt(sS));
-            }
-        });
-        setTimeout(triggerTableSort, 500); // Первичная сортировка после восстановления таймеров
-    });
     // 🕒 АВТОМАТИЧЕСКАЯ КЛЕЙКА ОКОШЕК ВРЕМЕНИ ДЛЯ ВСЕХ КРАНОВ
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
@@ -1022,7 +1043,6 @@ tr.out-of-limit .faucet-link {
             const cell = row.querySelector('.timer-cell');
             
             if (wrapper && cell && !row.querySelector('.time-input')) {
-                // Создаем красивое неоновое окошко для минут
                 let input = document.createElement('input');
                 input.type = 'number';
                 input.className = 'time-input';
@@ -1037,37 +1057,36 @@ tr.out-of-limit .faucet-link {
                     input.value = savedTime;
                 }
 
-                // Слушаем, когда пользователь меняет минуты, и сохраняем их
-                input.addEventListener('input', function() {
-                    localStorage.setItem('crypto_time_' + rId, input.value);
+                // Исправлено: событие 'change' намертво сохраняет введенные минуты
+                input.addEventListener('change', function() {
+                    if (input.value && parseFloat(input.value) > 0) {
+                        localStorage.setItem('crypto_time_' + rId, input.value);
+                    } else {
+                        localStorage.removeItem('crypto_time_' + rId);
+                    }
                 });
 
-                // Вживляем окошко прямо перед текстом таймера!
                 wrapper.insertBefore(input, cell);
             }
         });
-    });
 
-    // ⚡ Учим функцию старта подхватывать минуты из нового окошка
-    const oldStartTimer = window.startTimer;
-    window.startTimer = function(rowId, defaultDuration) {
-        let row = document.getElementById(rowId);
-        let timeInput = row ? row.querySelector('.time-input') : null;
-        let finalDuration = defaultDuration;
-
-        if (timeInput && timeInput.value) {
-            let userMinutes = parseFloat(timeInput.value);
-            if (!isNaN(userMinutes) && userMinutes > 0) {
-                finalDuration = Math.floor(userMinutes * 60); // Превращаем минуты в секунды
+        // Запуск сохраненных таймеров при обновлении страницы
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const rId = row.id;
+            if (localStorage.getItem(rId + '_limit')) {
+                row.classList.add("out-of-limit");
+                let cell = row.querySelector('.timer-cell');
+                if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
+            } else {
+                let sS = localStorage.getItem(rId + '_start'); 
+                let sD = localStorage.getItem(rId + '_duration');
+                if (sS && sD) resumeTimer(rId, parseInt(sS), parseInt(sD));
             }
-        }
-        // Передаем управление родному таймеру
-        oldStartTimer(rowId, finalDuration);
-    };	
+        });
+        setTimeout(triggerTableSort, 500); // Первичная сортировка после восстановления таймеров
+    });
 })();
 </script>
-
-
     
 <script>
 (function() {
