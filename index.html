@@ -284,15 +284,14 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
-    <script>
-    // 1. ХРАНИЛИЩЕ ИНТЕРВАЛОВ
+         <script>
+    // =================================================================
+    // 1. БЛОК ТАЙМЕРОВ КУЛДАУНА И ЛИМИТОВ (Твой оригинальный рабочий код)
+    // =================================================================
     let activeIntervals = {};
 
-    // 2. УПРАВЛЕНИЕ ТАЙМЕРАМИ КУЛДАУНА (Твой оригинальный код с поддержкой лимитов)
     function startTimer(rowId, duration, customStartTime = null) {
         let row = document.getElementById(rowId); if (!row) return;
-        
-        // ЕСЛИ КРАН В ЛИМИТЕ — НЕ ЗАПУСКАЕМ ТАЙМЕР
         if (row.classList.contains('out-of-limit')) return;
 
         let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
@@ -321,7 +320,6 @@ tr.out-of-limit .faucet-link {
         let row = document.getElementById(rowId);
         if (row) {
             let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
-            // Если кран не заблокирован по лимиту, возвращаем статус готовности
             if (!row.classList.contains('out-of-limit')) {
                 cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready";
             }
@@ -330,159 +328,135 @@ tr.out-of-limit .faucet-link {
         localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
     }
 
-    // 3. НОВАЯ ФУНКЦИЯ: УПРАВЛЕНИЕ ЛИМИТАМИ КРАНОВ (Кнопка ⚠️)
     function toggleLimit(rowId) {
-        let row = document.getElementById(rowId);
-        if (!row) return;
-
-        let cell = row.querySelector('.timer-cell');
-        let resetBtn = row.querySelector('.btn-reset');
+        let row = document.getElementById(rowId); if (!row) return;
+        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
 
         if (row.classList.contains("out-of-limit")) {
-            // Если кран уже был вычеркнут — возвращаем к жизни
             row.classList.remove("out-of-limit");
             localStorage.removeItem(rowId + '_limit');
-            if (cell) {
-                cell.textContent = "Готов к сбору!";
-                cell.className = "timer-cell ready";
-            }
+            if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
         } else {
-            // Если лимит кончился — вычеркиваем строку
             row.classList.add("out-of-limit");
             localStorage.setItem(rowId + '_limit', 'true');
-            
-            // Если в этот момент тикал кулдаун — сбрасываем его
-            if (activeIntervals[rowId]) {
-                clearInterval(activeIntervals[rowId]);
-                delete activeIntervals[rowId];
-            }
-            localStorage.removeItem(rowId + '_start');
-            localStorage.removeItem(rowId + '_duration');
-
-            if (cell) {
-                cell.textContent = "Лимит пуст";
-                cell.className = "timer-cell"; // Снимаем зеленый подсвеченный класс
-            }
+            if (activeIntervals[rowId]) { clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId]; }
+            localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
+            if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
             if (resetBtn) resetBtn.classList.remove('active');
         }
     }
 
-    // 4. ЕДИНЫЙ ИНИЦИАЛИЗАТОР ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+    // =================================================================
+    // 2. БЛОК АВТОМАТИЧЕСКОГО КАЛЬКУЛЯТОРА КУРСА В РУБЛИ (Исправлено!)
+    // =================================================================
+    let cryptoRates = {};
+
+    // Загрузка живых курсов напрямую в RUB через правильное API без блокировок CORS
+    async function fetchCryptoRates() {
+        try {
+            const response = await fetch('https://cryptocompare.com');
+            const data = await response.json();
+            
+            // Записываем чистые живые рубли в память калькулятора
+            for (let coin in data) {
+                cryptoRates[coin] = data[coin].RUB;
+            }
+            if (cryptoRates.USDT) cryptoRates.USDT = cryptoRates.USDT; // Для USDT
+
+            // Когда курсы получены — обновляем отображение рублей на экране
+            updateAllCalculations();
+        } catch (error) {
+            console.error("Не удалось обновить курсы автоматически:", error);
+        }
+    }
+
+    // Сохранение введенных значений монет в localStorage и расчет рублей
+    function saveCryptoAndCalc(faucetId, cryptoValue) {
+        // Железобетонная запись введенного числа в память браузера
+        localStorage.setItem('crypto_val_' + faucetId, cryptoValue);
+        
+        const tr = document.getElementById(faucetId);
+        const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
+        const rate = cryptoRates[cryptoType] || 0;
+        
+        const resultSpan = document.getElementById('rub_res_' + faucetId);
+        if (resultSpan) {
+            if (!cryptoValue || cryptoValue <= 0 || rate === 0) {
+                resultSpan.innerText = '0.00 ₽';
+            } else {
+                const rubValue = (parseFloat(cryptoValue) * rate).toFixed(2);
+                resultSpan.innerText = rubValue + ' ₽';
+            }
+        }
+    }
+
+    // Автозагрузка данных из стоража при старте или обновлении страницы
+    function updateAllCalculations() {
+        const inputs = document.querySelectorAll('.crypto-input');
+        inputs.forEach(input => {
+            const tr = input.closest('tr');
+            if (tr) {
+                const trId = tr.id;
+                const savedCrypto = localStorage.getItem('crypto_val_' + trId);
+                if (savedCrypto !== null && savedCrypto !== '') {
+                    input.value = savedCrypto;
+                }
+                saveCryptoAndCalc(trId, input.value);
+            }
+        });
+    }
+
+    // =================================================================
+    // 3. ЕДИНЫЙ ИНИЦИАЛИЗАТОР И ЗАЩИТА СТРАНИЦЫ
+    // =================================================================
     document.addEventListener("DOMContentLoaded", function() {
-        // --- Защита реферальных ссылок от нубов ---
-        // Сюда можно добавить через запятую , .btn-ref если захочешь спрятать и верхнюю рефку
+        // --- Защита реферальных ссылок ---
         const links = document.querySelectorAll(".faucet-link");
         links.forEach(link => {
             const realUrl = link.href;
             if (realUrl && realUrl !== "#") {
-                link.removeAttribute("href"); // Скрываем адрес в углу браузера при наведении
-                link.style.cursor = "pointer"; // Сохраняем курсор-пальчик
+                link.removeAttribute("href");
+                link.style.cursor = "pointer";
                 link.addEventListener("click", function(e) {
                     e.preventDefault();
-                    window.open(realUrl, '_blank'); // Открываем по клику
+                    window.open(realUrl, '_blank');
                 });
             }
         });
 
-        // --- Восстановление состояния (Таймеры + Зачеркнутые лимиты) ---
+        // --- Восстановление состояния таймеров и лимитов ---
         for (let i = 1; i <= 20; i++) {
             let rId = 'faucet' + i;
             let row = document.getElementById(rId);
             if (!row) continue;
 
-            // Проверяем, не был ли сохранен пустой лимит пула
             let isLimited = localStorage.getItem(rId + '_limit');
             if (isLimited) {
                 row.classList.add("out-of-limit");
                 let cell = row.querySelector('.timer-cell');
-                if (cell) {
-                    cell.textContent = "Лимит пуст";
-                    cell.className = "timer-cell";
-                }
+                if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
             } else {
-                // Если лимита нет, восстанавливаем обычный тикающий таймер кулдауна
                 let sS = localStorage.getItem(rId + '_start'); 
                 let sD = localStorage.getItem(rId + '_duration');
                 if (sS && sD) startTimer(rId, parseInt(sD), parseInt(sS));
             }
         }
+
+        // --- Запускаем скачивание живых курсов валют ---
+        fetchCryptoRates();
     });
 
-    // 5. БЛОКИРОВКИ (Контекстное меню и F12)
-    document.addEventListener("contextmenu", function(e) {
-        e.preventDefault();
-    });
-    document.addEventListener("keydown", function(e) {
-        if (e.keyCode === 123) {
-            e.preventDefault();
+    // Автоматический перехват ввода во всех полях формы на лету
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('crypto-input')) {
+            const tr = e.target.closest('tr');
+            if (tr) saveCryptoAndCalc(tr.id, e.target.value);
         }
     });
+
+    // Блокировки контекстного меню и F12
+    document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+    document.addEventListener("keydown", function(e) { if (e.keyCode === 123) { e.preventDefault(); } });
 </script>
- <script>
-// 1. Сюда будут падать живые курсы валют к рублю
-let cryptoRates = {};
-
-// 2. Функция загрузки курсов напрямую в RUB с открытого API
-async function fetchCryptoRates() {
-    try {
-        // Дергаем живые цены для всех твоих монет в рублях
-        const response = await fetch('https://cryptocompare.com');
-        const data = await response.json();
-        
-        // Записываем полученные рубли в память
-        for (let coin in data) {
-            cryptoRates[coin] = data[coin].RUB;
-        }
-        
-        // Сразу запускаем пересчет сохраненных данных на экране
-        updateAllCalculations();
-    } catch (error) {
-        console.error("Не удалось обновить курсы автоматически:", error);
-    }
-}
-
-// 3. Функция: СНАЧАЛА железно сохраняет в стораж, ПОТОМ крутит рубли
-function saveCryptoAndCalc(faucetId, cryptoValue) {
-    // 100% запись в стораж (сработает в любом случае!)
-    localStorage.setItem('crypto_val_' + faucetId, cryptoValue);
-    
-    // Вычисляем монету строки
-    const tr = document.getElementById(faucetId);
-    const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
-    
-    // Берем живой курс
-    const rate = cryptoRates[cryptoType] || 0;
-    
-    // Выводим рубли в ячейку
-    const resultSpan = document.getElementById('rub_res_' + faucetId);
-    if (resultSpan) {
-        if (!cryptoValue || cryptoValue <= 0 || rate === 0) {
-            resultSpan.innerText = '0.00 ₽';
-        } else {
-            const rubValue = (parseFloat(cryptoValue) * rate).toFixed(2);
-            resultSpan.innerText = rubValue + ' ₽';
-        }
-    }
-}
-
-// 4. Функция автозагрузки инпутов при обновлении страницы
-function updateAllCalculations() {
-    const inputs = document.querySelectorAll('.crypto-input');
-    
-    inputs.forEach(input => {
-        const trId = input.closest('tr').id;
-        const savedCrypto = localStorage.getItem('crypto_val_' + trId);
-        
-        if (savedCrypto !== null && savedCrypto !== '') {
-            input.value = savedCrypto; // Возвращаем цифру в окошко
-            saveCryptoAndCalc(trId, savedCrypto); // Пересчитываем рубли
-        }
-    });
-}
-
-// Стартуем скачивание живых курсов сразу при открытии сайта
-document.addEventListener("DOMContentLoaded", fetchCryptoRates);
-</script>
-
 </body>
 </html>
