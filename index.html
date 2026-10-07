@@ -287,79 +287,48 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
-     
-<script>
+     <script>
 (function() {
-    // Базовые курсы монет к рублю (на случай, если у пользователя совсем пропал интернет)
-    let cryptoRates = {
-        'DOGE': 8.05,
-        'BTC': 5400000,
-        'LTC': 5800,
-        'TRX': 13.50,
-        'SOL': 12800,
-        'ETH': 210000,
-        'DGB': 0.70,
-        'USDT': 85.00
-    };
+    // Сюда запишется живой курс, как только скачается из сети
+    let dogeToRub = 0;
 
-    async function fetchCryptoRates() {
+    async function getLiveCryptoRates() {
         try {
-            // Собираем тикеры из таблицы
-            const rows = document.querySelectorAll('tr[data-crypto]');
-            const activeTickers = [];
-            rows.forEach(tr => {
-                const ticker = tr.getAttribute('data-crypto');
-                if (ticker && !activeTickers.includes(ticker)) activeTickers.push(ticker);
-            });
-
-            if (activeTickers.length === 0) return;
-
-            // Запрашиваем живые курсы через открытый шлюз, который не блокирует GitHub Pages
-            const response = await fetch('https://coingecko.com');
+            // Запрашиваем живую стоимость 1 DOGE напрямую в рублях (RUB)
+            // Этот эндпоинт бесплатный, не требует ключей и разрешен на GitHub Pages
+            const response = await fetch('https://cryptocompare.com');
             const data = await response.json();
             
-            // Карта соответствия тикеров
-            const tickerMap = {
-                'doge': 'DOGE', 'btc': 'BTC', 'ltc': 'LTC', 'trx': 'TRX', 
-                'sol': 'SOL', 'eth': 'ETH', 'dgb': 'DGB', 'usdt': 'USDT'
-            };
-
-            if (Array.isArray(data)) {
-                data.forEach(coin => {
-                    const symbol = coin.symbol.toLowerCase();
-                    if (tickerMap[symbol]) {
-                        cryptoRates[tickerMap[symbol]] = coin.current_price;
-                    }
-                });
+            if (data && data.RUB) {
+                dogeToRub = parseFloat(data.RUB);
+                console.log("[Калькулятор] Живой курс DOGE обновлен:", dogeToRub, "руб.");
+                
+                // Курс получен — принудительно пересчитываем все строки на экране
+                runLiveCalculations();
             }
-
-            // Пересчитываем экран
-            runScreenCalculations();
         } catch (error) {
-            console.warn("[Калькулятор] Сервер занят, используем внутреннюю базу курсов:", error);
-            // Если API лежит — всё равно считаем на основе базовых цен, чтобы не было 0.00
-            runScreenCalculations();
+            console.error("[Калькулятор] Не удалось обновить курс из сети:", error);
         }
     }
 
-    function calculateRow(trId, cryptoValue) {
+    function calculateLiveRow(trId, cryptoValue) {
         if (!trId) return;
         const tr = document.getElementById(trId);
-        const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
-        const rate = cryptoRates[cryptoType] || 0;
         const resultSpan = tr ? tr.querySelector('.rub-result') : null;
 
         if (resultSpan) {
-            // Очищаем ввод от русских запятых
+            // Защита от русской запятой на мобильных клавиатурах
             let cleanValue = String(cryptoValue).replace(',', '.');
             const parsedValue = parseFloat(cleanValue);
             
-            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
+            // Если в инпуте пусто или курс еще не докачался — пишем 0.00
+            if (isNaN(parsedValue) || parsedValue <= 0 || dogeToRub === 0) {
                 resultSpan.innerText = '0.00 ₽';
             } else {
-                const totalRub = parsedValue * rate;
+                // Главная магия: умножаем баланс крана на живой курс из сети
+                const totalRub = parsedValue * dogeToRub;
                 
-                // Умное форматирование: если значение меньше копейки — даем микро-копейки
+                // Умное округление микро-копеек для кранов
                 if (totalRub < 0.01) {
                     resultSpan.innerText = totalRub.toFixed(6) + ' ₽';
                 } else {
@@ -369,7 +338,17 @@ tr.out-of-limit .faucet-link {
         }
     }
 
-    function restoreAndSetupInputs() {
+    function runLiveCalculations() {
+        document.querySelectorAll('.crypto-input').forEach(input => {
+            const tr = input.closest('tr');
+            if (tr && tr.id) {
+                calculateLiveRow(tr.id, input.value);
+            }
+        });
+    }
+
+    // Подгружаем сохраненный из localStorage ввод пользователя при старте
+    function restoreInputs() {
         document.querySelectorAll('.crypto-input').forEach(input => {
             const tr = input.closest('tr');
             if (tr && tr.id) {
@@ -377,38 +356,31 @@ tr.out-of-limit .faucet-link {
                 if (savedCrypto !== null && savedCrypto !== '') {
                     input.value = savedCrypto;
                 }
-                calculateRow(tr.id, input.value);
             }
         });
     }
 
-    function runScreenCalculations() {
-        document.querySelectorAll('.crypto-input').forEach(input => {
-            const tr = input.closest('tr');
-            if (tr && tr.id) {
-                calculateRow(tr.id, input.value);
-            }
-        });
-    }
-
-    // Живой перехват ввода пользователя руками
+    // Отслеживаем ввод пользователя руками на лету
     document.addEventListener('input', function(e) {
         if (e.target.classList.contains('crypto-input')) {
             const tr = e.target.closest('tr');
             if (tr && tr.id) {
                 localStorage.setItem('crypto_val_' + tr.id, e.target.value);
-                calculateRow(tr.id, e.target.value);
+                calculateLiveRow(tr.id, e.target.value);
             }
         }
     });
 
+    // Строгий порядок инициализации при загрузке сайта
     document.addEventListener("DOMContentLoaded", function() {
-        restoreAndSetupInputs();
-        fetchCryptoRates();
+        restoreInputs();          // 1. Сначала возвращаем цифры в инпуты из памяти браузера
+        getLiveCryptoRates();     // 2. Сразу же качаем свежий живой курс и выводим рубли
+        
+        // 3. Каждые 5 минут (300 000 мс) скрытно обновляем курс в фоне
+        setInterval(getLiveCryptoRates, 300000); 
     });
 })();
 </script>
-
 
 <script>
 (function() {
