@@ -755,9 +755,10 @@ tr.out-of-limit .faucet-link {
         </div>
     </div>
  
-  <script>
+ <script>
 (function() {
     let cryptoRates = {};
+    // Главный флаг заморозки: если true, таблица НЕ сдвинется ни на мм
     let isEditingMode = false;
 
     async function getLiveCryptoRates() {
@@ -835,12 +836,17 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // НАСТОЯЩАЯ ДВУХРЯДНАЯ СОРТИРОВКА (Сортирует строго внутри своих tbody)
+    // ДВУХРЯДНАЯ СОРТИРОВКА (С полной защитой от прыжков)
     window.sortTableByPrice = function() {
-        if (isEditingMode || document.activeElement.classList.contains('crypto-input')) return;
+        // ИСПРАВЛЕНО: Если мы пишем в инпут баланса ИЛИ в инпут минут — СОРТИРОВКУ НАМЕРТВО БЛОКИРУЕМ!
+        if (isEditingMode || 
+            document.activeElement.classList.contains('crypto-input') || 
+            document.activeElement.classList.contains('time-input')) {
+            return; 
+        }
 
-        function sortContainer(className) {
-            const container = document.querySelector(className);
+        function sortContainer(selector) {
+            const container = document.querySelector(selector);
             if (!container) return;
 
             const rows = Array.from(container.querySelectorAll('tr[id^="faucet"]'));
@@ -864,9 +870,12 @@ tr.out-of-limit .faucet-link {
             rows.forEach(row => container.appendChild(row));
         }
 
-        // Сортируем левый tbody и правый tbody отдельно друг от друга!
-        sortContainer('.left-faucets');
-        sortContainer('.right-faucets');
+        if (document.querySelector('.left-faucets') || document.querySelector('.right-faucets')) {
+            sortContainer('.left-faucets');
+            sortContainer('.right-faucets');
+        } else {
+            sortContainer('table tbody');
+        }
     }
 
     function restoreInputs() {
@@ -879,8 +888,11 @@ tr.out-of-limit .faucet-link {
         });
     }
 
+    // Замораживаем таблицу, если кликнули в ЛЮБОЙ инпут (баланс или минуты)
     document.addEventListener('focusin', function(e) {
-        if (e.target.classList.contains('crypto-input')) isEditingMode = true;
+        if (e.target.classList.contains('crypto-input') || e.target.classList.contains('time-input')) {
+            isEditingMode = true;
+        }
     });
 
     document.addEventListener('input', function(e) {
@@ -893,12 +905,13 @@ tr.out-of-limit .faucet-link {
         }
     });
 
+    // Размораживаем только когда полностью убрали курсор
     document.addEventListener('focusout', function(e) {
-        if (e.target.classList.contains('crypto-input')) {
+        if (e.target.classList.contains('crypto-input') || e.target.classList.contains('time-input')) {
             setTimeout(function() {
                 isEditingMode = false;
                 sortTableByPrice();
-            }, 250);
+            }, 300); // Даем 300мс форы, чтобы юзер успел перенести фокус
         }
     });
 
@@ -920,7 +933,6 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
-
   
  <script>
 (function() {
