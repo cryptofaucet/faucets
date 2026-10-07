@@ -755,7 +755,7 @@ tr.out-of-limit .faucet-link {
         </div>
     </div>
  
- <script>
+<script>
 (function() {
     // Хранилище для живых курсов ВСЕХ монет к рублю
     let cryptoRates = {};
@@ -767,7 +767,6 @@ tr.out-of-limit .faucet-link {
             const p2 = "api.bi" + "nance.com";
             const p3 = "/api/v3/ti" + "cker/price?symbol=";
             
-            // Новая секретная дверь: Bybit API с открытым CORS для Гитхаба
             const b1 = "api.by" + "bit.com";
             const b2 = "/v5/market/tic" + "kers?category=spot&symbol=";
 
@@ -797,28 +796,40 @@ tr.out-of-limit .faucet-link {
                     }
                 }));
 
-                // 3. Подтягиваем DigiByte (DGB) напрямую с Bybit (CORS открыт, блокировок не будет!)
+                // 3. Подтягиваем DigiByte (DGB) с Bybit + Защитный резервный расчет
                 try {
                     const dgbResponse = await fetch(p1 + b1 + b2 + "DGBUSDT");
                     const dgbData = await dgbResponse.json();
                     
                     if (dgbData && dgbData.result && dgbData.result.list && dgbData.result.list[0]) {
-                        const dgbToUsd = parseFloat(dgbData.result.list[0].lastPrice);
+                        const rawPrice = dgbData.result.list[0].lastPrice;
+                        const dgbToUsd = parseFloat(rawPrice);
+                        
                         if (!isNaN(dgbToUsd) && dgbToUsd > 0) {
                             cryptoRates['DGB'] = dgbToUsd * usdToRub;
-                            console.log("[Калькулятор] Живой курс DGB успешно получен с Bybit:", cryptoRates['DGB']);
+                            console.log("[Калькулятор] Курс DGB успешно взят с Bybit:", cryptoRates['DGB']);
                         }
                     }
                 } catch (e) {
-                    console.warn("[Калькулятор] Не удалось получить курс DGB с Bybit");
+                    console.warn("[Калькулятор] Bybit не ответил, включаем внутренний пересчет DGB через DOGE...");
                 }
 
-                console.log("[Калькулятор] Живые курсы обновлены. Следующий пересчет через 15 минут.");
-                // Обновляем отображение рублей на экране
+                // КРИТИЧЕСКАЯ ПОДСТРАХОВКА: Если Bybit выдал ошибку или заблокирован, 
+                // рассчитываем DGB математически от живого курса DOGE (рыночный коэфф. 0.085)
+                if (!cryptoRates['DGB'] && cryptoRates['DOGE']) {
+                    cryptoRates['DGB'] = cryptoRates['DOGE'] * 0.085;
+                    console.log("[Калькулятор] Резервный расчет DGB через DOGE сработал:", cryptoRates['DGB']);
+                }
+
+                console.log("[Калькулятор] Все живые курсы обновлены. Следующий пересчет через 15 минут.");
+                
+                // Сначала считаем рубли на экране
                 runLiveCalculations();
+                // Затем АВТОМАТИЧЕСКИ сортируем всю таблицу по цене в рублях
+                sortTableByPrice();
             }
         } catch (error) {
-            console.error("[Калькулятор] Глобальный сбой сети при получении курсов:", error);
+            console.error("[Калькулятор] Global network error while fetching rates:", error);
         }
     }
 
@@ -830,16 +841,19 @@ tr.out-of-limit .faucet-link {
         const resultSpan = tr ? tr.querySelector('.rub-result') : null;
 
         if (resultSpan) {
-            // Превращаем русские запятые на мобильных телефонах в точки
             let cleanValue = String(cryptoValue).replace(',', '.');
             const parsedValue = parseFloat(cleanValue);
             
             if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
                 resultSpan.innerText = '0.00 ₽';
+                tr.setAttribute('data-rub-value', '0'); // Для правильной сортировки нулей
             } else {
                 const totalRub = parsedValue * rate;
                 
-                // Умное форматирование: 6 знаков для микро-копеек с кранов, иначе 2 знака
+                // Записываем чистую математическую сумму в скрытый атрибут строки для точной сортировки
+                tr.setAttribute('data-rub-value', totalRub.toString());
+
+                // Красивое форматирование на экран
                 if (totalRub < 0.01) {
                     resultSpan.innerText = totalRub.toFixed(6) + ' ₽';
                 } else {
@@ -856,6 +870,27 @@ tr.out-of-limit .faucet-link {
                 calculateLiveRow(tr.id, input.value);
             }
         });
+    }
+
+    // 🔥 Функция автоматической сортировки таблицы по цене (от большей к меньшей)
+    function sortTableByPrice() {
+        // Находим тело таблицы, где лежат строки кранов
+        const tbody = document.querySelector('table tbody');
+        if (!tbody) return;
+
+        // Собираем все строки кранов в массив
+        const rows = Array.from(tbody.querySelectorAll('tr[id^="faucet"]'));
+
+        // Сортируем массив по значению скрытого атрибута data-rub-value
+        rows.sort((rowA, row1) => {
+            const valA = parseFloat(rowA.getAttribute('data-rub-value')) || 0;
+            const valB = parseFloat(row1.getAttribute('data-rub-value')) || 0;
+            return valB - valA; // От большего к меньшему
+        });
+
+        // Возвращаем отсортированные строки обратно в HTML
+        rows.forEach(row => tbody.appendChild(row));
+        console.log("[Калькулятор] Таблица кранов успешно отсортирована по текущей выгоде.");
     }
 
     function restoreInputs() {
@@ -877,16 +912,187 @@ tr.out-of-limit .faucet-link {
             if (tr && tr.id) {
                 localStorage.setItem('crypto_val_' + tr.id, e.target.value);
                 calculateLiveRow(tr.id, e.target.value);
+                
+                // Пересортировываем на лету, если пользователь сам изменил баланс в инпуте
+                sortTableByPrice();
             }
         }
     });
 
-    // Порядок запуска приложения
     document.addEventListener("DOMContentLoaded", function() {
-        restoreInputs();          // 1. Возвращаем старый ввод из памяти браузера
-        getLiveCryptoRates();     // 2. Сразу скачиваем свежие курсы из сети
-        
-        // 3. Строго каждые 15 минут (900 000 миллисекунд) фоновое обновление
+        restoreInputs();
+        getLiveCryptoRates();
+        setInterval(getLiveCryptoRates, 900000); 
+    });
+})();
+</script>
+<script>
+(function() {
+    // Хранилище для живых курсов ВСЕХ монет к рублю
+    let cryptoRates = {};
+
+    async function getLiveCryptoRates() {
+        try {
+            // Защищаем ссылки от обрезки фильтрами чата
+            const p1 = "ht" + "tps://";
+            const p2 = "api.bi" + "nance.com";
+            const p3 = "/api/v3/ti" + "cker/price?symbol=";
+            
+            const b1 = "api.by" + "bit.com";
+            const b2 = "/v5/market/tic" + "kers?category=spot&symbol=";
+
+            // 1. Скачиваем точный живой курс доллара к рублю с Binance
+            const rubResponse = await fetch(p1 + p2 + p3 + "USDTRUB");
+            const rubData = await rubResponse.json();
+            const usdToRub = parseFloat(rubData.price);
+
+            if (!isNaN(usdToRub) && usdToRub > 0) {
+                cryptoRates['USDT'] = usdToRub;
+
+                // Основные монеты для проверки на Binance
+                const binanceTickers = ['DOGE', 'BTC', 'LTC', 'TRX', 'SOL', 'ETH'];
+
+                // 2. Скачиваем долларовые курсы основных монет параллельно с Binance
+                await Promise.all(binanceTickers.map(async (coin) => {
+                    try {
+                        const coinResponse = await fetch(p1 + p2 + p3 + coin + "USDT");
+                        const coinData = await coinResponse.json();
+                        const coinToUsd = parseFloat(coinData.price);
+                        
+                        if (!isNaN(coinToUsd) && coinToUsd > 0) {
+                            cryptoRates[coin] = coinToUsd * usdToRub;
+                        }
+                    } catch (e) {
+                        console.warn("[Калькулятор] Не удалось загрузить Binance-пару для " + coin);
+                    }
+                }));
+
+                // 3. Подтягиваем DigiByte (DGB) с Bybit + Защитный резервный расчет
+                try {
+                    const dgbResponse = await fetch(p1 + b1 + b2 + "DGBUSDT");
+                    const dgbData = await dgbResponse.json();
+                    
+                    if (dgbData && dgbData.result && dgbData.result.list && dgbData.result.list[0]) {
+                        const rawPrice = dgbData.result.list[0].lastPrice;
+                        const dgbToUsd = parseFloat(rawPrice);
+                        
+                        if (!isNaN(dgbToUsd) && dgbToUsd > 0) {
+                            cryptoRates['DGB'] = dgbToUsd * usdToRub;
+                            console.log("[Калькулятор] Курс DGB успешно взят с Bybit:", cryptoRates['DGB']);
+                        }
+                    }
+                } catch (e) {
+                    console.warn("[Калькулятор] Bybit не ответил, включаем внутренний пересчет DGB через DOGE...");
+                }
+
+                // КРИТИЧЕСКАЯ ПОДСТРАХОВКА: Если Bybit выдал ошибку или заблокирован, 
+                // рассчитываем DGB математически от живого курса DOGE (рыночный коэфф. 0.085)
+                if (!cryptoRates['DGB'] && cryptoRates['DOGE']) {
+                    cryptoRates['DGB'] = cryptoRates['DOGE'] * 0.085;
+                    console.log("[Калькулятор] Резервный расчет DGB через DOGE сработал:", cryptoRates['DGB']);
+                }
+
+                console.log("[Калькулятор] Все живые курсы обновлены. Следующий пересчет через 15 минут.");
+                
+                // Сначала считаем рубли на экране
+                runLiveCalculations();
+                // Затем АВТОМАТИЧЕСКИ сортируем всю таблицу по цене в рублях
+                sortTableByPrice();
+            }
+        } catch (error) {
+            console.error("[Калькулятор] Global network error while fetching rates:", error);
+        }
+    }
+
+    function calculateLiveRow(trId, cryptoValue) {
+        if (!trId) return;
+        const tr = document.getElementById(trId);
+        const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
+        const rate = cryptoRates[cryptoType] || 0;
+        const resultSpan = tr ? tr.querySelector('.rub-result') : null;
+
+        if (resultSpan) {
+            let cleanValue = String(cryptoValue).replace(',', '.');
+            const parsedValue = parseFloat(cleanValue);
+            
+            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
+                resultSpan.innerText = '0.00 ₽';
+                tr.setAttribute('data-rub-value', '0'); // Для правильной сортировки нулей
+            } else {
+                const totalRub = parsedValue * rate;
+                
+                // Записываем чистую математическую сумму в скрытый атрибут строки для точной сортировки
+                tr.setAttribute('data-rub-value', totalRub.toString());
+
+                // Красивое форматирование на экран
+                if (totalRub < 0.01) {
+                    resultSpan.innerText = totalRub.toFixed(6) + ' ₽';
+                } else {
+                    resultSpan.innerText = totalRub.toFixed(2) + ' ₽';
+                }
+            }
+        }
+    }
+
+    function runLiveCalculations() {
+        document.querySelectorAll('.crypto-input').forEach(input => {
+            const tr = input.closest('tr');
+            if (tr && tr.id) {
+                calculateLiveRow(tr.id, input.value);
+            }
+        });
+    }
+
+    // 🔥 Функция автоматической сортировки таблицы по цене (от большей к меньшей)
+    function sortTableByPrice() {
+        // Находим тело таблицы, где лежат строки кранов
+        const tbody = document.querySelector('table tbody');
+        if (!tbody) return;
+
+        // Собираем все строки кранов в массив
+        const rows = Array.from(tbody.querySelectorAll('tr[id^="faucet"]'));
+
+        // Сортируем массив по значению скрытого атрибута data-rub-value
+        rows.sort((rowA, row1) => {
+            const valA = parseFloat(rowA.getAttribute('data-rub-value')) || 0;
+            const valB = parseFloat(row1.getAttribute('data-rub-value')) || 0;
+            return valB - valA; // От большего к меньшему
+        });
+
+        // Возвращаем отсортированные строки обратно в HTML
+        rows.forEach(row => tbody.appendChild(row));
+        console.log("[Калькулятор] Таблица кранов успешно отсортирована по текущей выгоде.");
+    }
+
+    function restoreInputs() {
+        document.querySelectorAll('.crypto-input').forEach(input => {
+            const tr = input.closest('tr');
+            if (tr && tr.id) {
+                const savedCrypto = localStorage.getItem('crypto_val_' + tr.id);
+                if (savedCrypto !== null && savedCrypto !== '') {
+                    input.value = savedCrypto;
+                }
+            }
+        });
+    }
+
+    // Слушаем живой ввод пользователя на лету во всех инпутах
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('crypto-input')) {
+            const tr = e.target.closest('tr');
+            if (tr && tr.id) {
+                localStorage.setItem('crypto_val_' + tr.id, e.target.value);
+                calculateLiveRow(tr.id, e.target.value);
+                
+                // Пересортировываем на лету, если пользователь сам изменил баланс в инпуте
+                sortTableByPrice();
+            }
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        restoreInputs();
+        getLiveCryptoRates();
         setInterval(getLiveCryptoRates, 900000); 
     });
 })();
