@@ -758,8 +758,9 @@ tr.out-of-limit .faucet-link {
  <script>
 (function() {
     let cryptoRates = {};
-    // Главный флаг заморозки: если true, таблица НЕ сдвинется ни на мм
     let isEditingMode = false;
+    // Новый флаг: замораживает сортировку, когда мышка внутри таблицы
+    let isMouseOverTable = false; 
 
     async function getLiveCryptoRates() {
         try {
@@ -790,7 +791,8 @@ tr.out-of-limit .faucet-link {
                     const dgbResponse = await fetch(p1 + b1 + b2 + "DGBUSDT");
                     const dgbData = await dgbResponse.json();
                     if (dgbData && dgbData.result && dgbData.result.list && dgbData.result.list[0]) {
-                        const dgbToUsd = parseFloat(dgbData.result.list[0].lastPrice);
+                        const rawPrice = dgbData.result.list[0].lastPrice;
+                        const dgbToUsd = parseFloat(rawPrice);
                         if (!isNaN(dgbToUsd) && dgbToUsd > 0) cryptoRates['DGB'] = dgbToUsd * usdToRub;
                     }
                 } catch (e) {}
@@ -836,12 +838,13 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // ДВУХРЯДНАЯ СОРТИРОВКА (С полной защитой от прыжков)
-    window.sortTableByPrice = function() {
-        // ИСПРАВЛЕНО: Если мы пишем в инпут баланса ИЛИ в инпут минут — СОРТИРОВКУ НАМЕРТВО БЛОКИРУЕМ!
-        if (isEditingMode || 
+    // ДВУХРЯДНАЯ СОРТИРОВКА (С полной защитой от прыжков из-под мышки)
+    window.sortTableByPrice = function(isForced = false) {
+        // Если юзер вводит цифры ИЛИ держит мышку над таблицей — СОРТИРОВКУ НЕ ПРОВОДИМ!
+        // Параметр isForced нужен, чтобы пробить замок строго в момент самого клика по крану
+        if (!isForced && (isEditingMode || isMouseOverTable ||
             document.activeElement.classList.contains('crypto-input') || 
-            document.activeElement.classList.contains('time-input')) {
+            document.activeElement.classList.contains('time-input'))) {
             return; 
         }
 
@@ -888,7 +891,7 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // Замораживаем таблицу, если кликнули в ЛЮБОЙ инпут (баланс или минуты)
+    // Замораживаем таблицу, если кликнули в любой инпут
     document.addEventListener('focusin', function(e) {
         if (e.target.classList.contains('crypto-input') || e.target.classList.contains('time-input')) {
             isEditingMode = true;
@@ -905,23 +908,24 @@ tr.out-of-limit .faucet-link {
         }
     });
 
-    // Размораживаем только когда полностью убрали курсор
     document.addEventListener('focusout', function(e) {
         if (e.target.classList.contains('crypto-input') || e.target.classList.contains('time-input')) {
             setTimeout(function() {
                 isEditingMode = false;
                 sortTableByPrice();
-            }, 300); // Даем 300мс форы, чтобы юзер успел перенести фокус
+            }, 300);
         }
     });
 
+    // Мгновенный принудительный лифт строго при клике по ссылке крана
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('faucet-link')) {
             if (document.activeElement && typeof document.activeElement.blur === 'function') {
                 document.activeElement.blur();
             }
             isEditingMode = false;
-            sortTableByPrice();
+            // Пробиваем замок принудительно, чтобы строка улетела вниз в момент клика
+            window.sortTableByPrice(true); 
         }
     });
 
@@ -929,10 +933,19 @@ tr.out-of-limit .faucet-link {
         restoreInputs();
         getLiveCryptoRates();
         setInterval(getLiveCryptoRates, 900000); 
+        
+        // 🔥 УМНЫЙ ПЕРЕХВАТ МЫШКИ: если курсор внутри контейнера таблиц — ежесекундный таймер спит!
+        const container = document.querySelector('.tables-container');
+        if (container) {
+            container.addEventListener('mouseenter', function() { isMouseOverTable = true; });
+            container.addEventListener('mouseleave', function() { isMouseOverTable = false; });
+        }
+
         setInterval(sortTableByPrice, 1000);
     });
 })();
 </script>
+
 
  <script>
 (function() {
