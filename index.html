@@ -754,13 +754,13 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
- 
-  <script>
+ <script>
 (function() {
     let cryptoRates = {};
     let isEditingMode = false;
     let isMouseOverTable = false; 
 
+    // Мега-калькулятор курсов для всех 23 монет FaucetPay
     async function getLiveCryptoRates() {
         try {
             const p1 = "ht" + "tps://";
@@ -775,45 +775,61 @@ tr.out-of-limit .faucet-link {
 
             if (!isNaN(usdToRub) && usdToRub > 0) {
                 cryptoRates['USDT'] = usdToRub;
-                const binanceTickers = ['DOGE', 'BTC', 'LTC', 'TRX', 'SOL', 'ETH'];
+                cryptoRates['USDC'] = usdToRub;
+
+                const binanceTickers = [
+                    'BTC', 'ETH', 'DOGE', 'LTC', 'BCH', 'DASH', 'TRX', 
+                    'ZEC', 'BNB', 'SOL', 'XRP', 'ADA', 'TON', 'XLM', 
+                    'XMR', 'PEPE'
+                ];
 
                 await Promise.all(binanceTickers.map(async (coin) => {
                     try {
                         const coinResponse = await fetch(p1 + p2 + p3 + coin + "USDT");
                         const coinData = await coinResponse.json();
                         const coinToUsd = parseFloat(coinData.price);
-                        if (!isNaN(coinToUsd) && coinToUsd > 0) cryptoRates[coin] = coinToUsd * usdToRub;
+                        if (!isNaN(coinToUsd) && coinToUsd > 0) {
+                            cryptoRates[coin] = coinToUsd * usdToRub;
+                        }
                     } catch (e) {}
                 }));
 
-                try {
-                    const dgbResponse = await fetch(p1 + b1 + b2 + "DGBUSDT");
-                    const dgbData = await dgbResponse.json();
-                    if (dgbData && dgbData.result && dgbData.result.list && dgbData.result.list) {
-                        const rawPrice = dgbData.result.list.lastPrice;
-                        const dgbToUsd = parseFloat(rawPrice);
-                        if (!isNaN(dgbToUsd) && dgbToUsd > 0) cryptoRates['DGB'] = dgbToUsd * usdToRub;
-                    }
-                } catch (e) {}
+                const extraCoins = ['DGB', 'POL', 'TRUMP', 'FLT'];
+                await Promise.all(extraCoins.map(async (coin) => {
+                    try {
+                        const res = await fetch(p1 + b1 + b2 + coin + "USDT");
+                        const data = await res.json();
+                        if (data && data.result && data.result.list && data.result.list) {
+                            const coinToUsd = parseFloat(data.result.list.lastPrice);
+                            if (!isNaN(coinToUsd) && coinToUsd > 0) {
+                                cryptoRates[coin] = coinToUsd * usdToRub;
+                            }
+                        }
+                    } catch (e) {}
+                }));
 
-                if (!cryptoRates['DGB'] && cryptoRates['DOGE']) {
-                    cryptoRates['DGB'] = cryptoRates['DOGE'] * 0.085;
-                }
+                if (!cryptoRates['DGB'] && cryptoRates['DOGE']) cryptoRates['DGB'] = cryptoRates['DOGE'] * 0.085;
+                if (!cryptoRates['FEY']) cryptoRates['FEY'] = 0.005 * usdToRub;
+                if (!cryptoRates['TRUMP'] && cryptoRates['USDT']) cryptoRates['TRUMP'] = 2.05 * usdToRub; 
+                if (!cryptoRates['FLT']) cryptoRates['FLT'] = 0.25 * usdToRub; 
+                if (!cryptoRates['POL'] && cryptoRates['MATIC']) cryptoRates['POL'] = cryptoRates['MATIC']; 
 
                 runLiveCalculations();
-                sortTableByPrice();
+                window.sortTableByPrice();
             }
         } catch (error) {
             console.error("[Калькулятор] Ошибка сети:", error);
         }
     }
 
-    function calculateLiveRow(trId, cryptoValue) {
+    window.calculateLiveRow = function(trId, cryptoValue) {
         if (!trId) return;
         const tr = document.getElementById(trId);
-        const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
+        if (!tr) return;
+        
+        const cryptoType = tr.getAttribute('data-crypto') || 'DOGE';
         const rate = cryptoRates[cryptoType] || 0;
-        const resultSpan = tr ? tr.querySelector('.rub-result') : null;
+        const resultSpan = tr.querySelector('.rub-result');
 
         if (resultSpan) {
             let cleanValue = String(cryptoValue).replace(',', '.');
@@ -825,7 +841,7 @@ tr.out-of-limit .faucet-link {
             } else {
                 const totalRub = parsedValue * rate;
                 tr.setAttribute('data-rub-value', totalRub.toString());
-                resultSpan.innerText = (totalRub < 0.01 ? totalRub.toFixed(6) : totalRub.toFixed(2)) + ' ₽';
+                resultSpan.innerText = (totalRub < 0.01 ? totalRub.toFixed(8) : totalRub.toFixed(2)) + ' ₽';
             }
         }
     }
@@ -833,15 +849,15 @@ tr.out-of-limit .faucet-link {
     function runLiveCalculations() {
         document.querySelectorAll('.crypto-input').forEach(input => {
             const tr = input.closest('tr');
-            if (tr && tr.id) calculateLiveRow(tr.id, input.value);
+            if (tr && tr.id) window.calculateLiveRow(tr.id, input.value);
         });
     }
 
-    // 🔥 ИДЕАЛЬНЫЙ ТРЁХУРОВНЕВЫЙ ЛИФТ (Готовые -> Таймеры -> Мертвые лимиты)
     window.sortTableByPrice = function(isForced = false) {
         if (!isForced && (isEditingMode || isMouseOverTable ||
             document.activeElement.classList.contains('crypto-input') || 
-            document.activeElement.classList.contains('time-input'))) {
+            document.activeElement.classList.contains('time-input') ||
+            document.activeElement.classList.contains('editing-badge'))) {
             return; 
         }
 
@@ -855,28 +871,16 @@ tr.out-of-limit .faucet-link {
             rows.sort((rowA, rowB) => {
                 const cellA = rowA.querySelector('.timer-cell');
                 const cellB = rowB.querySelector('.timer-cell');
-                
-                // Проверяем флаг лимита
                 const isLimitA = rowA.classList.contains('out-of-limit');
                 const isLimitB = rowB.classList.contains('out-of-limit');
-
-                // Проверяем горит ли статус ready (зеленый)
                 const isReadyA = cellA && cellA.classList.contains('ready') && !isLimitA;
                 const isReadyB = cellB && cellB.classList.contains('ready') && !isLimitB;
 
-                // ВЫСТРАИВАЕМ ЧЕТКИЙ ЦИФРОВОЙ ВЕС:
-                // 2 = Зеленый (Готов)
-                // 1 = Красный (Тикает таймер кулдауна)
-                // 0 = Серый (Лимит пуст ⚠️)
                 let statusA = isReadyA ? 2 : (isLimitA ? 0 : 1);
                 let statusB = isReadyB ? 2 : (isLimitB ? 0 : 1);
 
-                // Если ранги разные — сортируем строго по уровням от 2 к 0
-                if (statusA !== statusB) {
-                    return statusB - statusA; 
-                }
+                if (statusA !== statusB) return statusB - statusA; 
 
-                // Если ранги одинаковые (например, оба таймера или оба лимита) — сортируем по цене рублей
                 const valA = parseFloat(rowA.getAttribute('data-rub-value')) || 0;
                 const valB = parseFloat(rowB.getAttribute('data-rub-value')) || 0;
                 return valB - valA;
@@ -914,7 +918,7 @@ tr.out-of-limit .faucet-link {
             const tr = e.target.closest('tr');
             if (tr && tr.id) {
                 localStorage.setItem('crypto_val_' + tr.id, e.target.value);
-                calculateLiveRow(tr.id, e.target.value);
+                window.calculateLiveRow(tr.id, e.target.value);
             }
         }
     });
@@ -923,7 +927,7 @@ tr.out-of-limit .faucet-link {
         if (e.target.classList.contains('crypto-input') || e.target.classList.contains('time-input')) {
             setTimeout(function() {
                 isEditingMode = false;
-                sortTableByPrice();
+                window.sortTableByPrice();
             }, 300);
         }
     });
@@ -934,7 +938,7 @@ tr.out-of-limit .faucet-link {
                 document.activeElement.blur();
             }
             isEditingMode = false;
-            window.sortTableByPrice(true); 
+            setTimeout(() => { window.sortTableByPrice(true); }, 150); 
         }
     });
 
@@ -948,19 +952,19 @@ tr.out-of-limit .faucet-link {
             container.addEventListener('mouseenter', function() { isMouseOverTable = true; });
             container.addEventListener('mouseleave', function() { isMouseOverTable = false; });
         }
-
-        setInterval(sortTableByPrice, 1000);
+        setInterval(window.sortTableByPrice, 1000);
     });
 })();
 </script>
-
-
 <script>
 (function() {
     let activeIntervals = {};
 
+    // Функция безопасной сортировки таблицы (дает задержку, чтобы DOM не клинил)
     function triggerTableSort() {
-        if (typeof window.sortTableByPrice === 'function') window.sortTableByPrice(true);
+        if (typeof window.sortTableByPrice === 'function') {
+            setTimeout(function() { window.sortTableByPrice(true); }, 150);
+        }
     }
 
     function stopInterval(rowId) {
@@ -970,6 +974,7 @@ tr.out-of-limit .faucet-link {
         }
     }
 
+    // Логика обратного отсчета времени таймера
     function runTimerCountdown(rowId, startTime, duration, cell, resetBtn) {
         stopInterval(rowId); 
 
@@ -995,6 +1000,7 @@ tr.out-of-limit .faucet-link {
         activeIntervals[rowId] = setInterval(updateTimer, 1000);
     }
 
+    // Функция ручного / автоматического старта кулдауна крана
     window.startTimer = function(rowId, defaultDuration) {
         let row = document.getElementById(rowId); if (!row) return;
         if (row.classList.contains('out-of-limit')) return;
@@ -1024,6 +1030,7 @@ tr.out-of-limit .faucet-link {
         triggerTableSort();
     }
 
+    // Восстановление тикающих таймеров после перезагрузки
     function resumeTimer(rowId, startTime, duration) {
         let row = document.getElementById(rowId); if (!row) return;
         let cell = row.querySelector('.timer-cell'); 
@@ -1052,6 +1059,7 @@ tr.out-of-limit .faucet-link {
         triggerTableSort(); 
     }
 
+    // Функция переключения флага Лимит Пуст
     window.toggleLimit = function(rowId) {
         let row = document.getElementById(rowId); if (!row) return;
         let cell = row.querySelector('.timer-cell'); 
@@ -1072,34 +1080,69 @@ tr.out-of-limit .faucet-link {
         }
         triggerTableSort();
     }
-
-    // 🔥 ФУНКЦИЯ ТЕЛЕПОРТАЦИИ СТРОКИ МЕЖДУ СТОЛБЦАМИ
+    // Функция перемещения крана между колонками (Скоростные / Долгосрочные)
     window.moveFaucetColumn = function(rowId, targetSide) {
-        const row = document.getElementById(rowId);
-        if (!row) return;
-
+        const row = document.getElementById(rowId); if (!row) return;
         const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : '.right-faucets');
         if (targetContainer) {
-            targetContainer.appendChild(row); // Перекидываем строку в нужный tbody
-            localStorage.setItem('position_' + rowId, targetSide); // Запоминаем выбор юзера
-            triggerTableSort(); // Перестраиваем по цене на новом месте
+            targetContainer.appendChild(row);
+            localStorage.setItem('position_' + rowId, targetSide);
+            triggerTableSort();
         }
     }
 
+    // 🔥 ФУНКЦИЯ ТРАНСФОРМАЦИИ ЗНАЧКА В ИНПУТ ПО КЛИКУ
+    window.editBadge = function(rowId, badgeElement) {
+        const currentText = badgeElement.textContent.trim();
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentText;
+        input.className = 'editing-badge'; // Замораживает авто-сортировку в 1-м скрипте, чтобы строка не улетела
+        input.style = 'width: 50px; height: 20px; padding: 2px; border: 1px solid #00ffcc; border-radius: 4px; background: #151a26; color: #00ffcc; font-size: 11px; font-weight: bold; text-align: center; box-sizing: border-box; text-transform: uppercase;';
+        
+        const saveAndClose = function() {
+            const newCrypto = input.value.trim().toUpperCase();
+            if (!newCrypto) {
+                badgeElement.textContent = currentText;
+                input.replaceWith(badgeElement);
+                return;
+            }
+            window.applyNewCrypto(rowId, newCrypto, badgeElement);
+            input.replaceWith(badgeElement);
+        };
+
+        input.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); saveAndClose(); } });
+        input.addEventListener('blur', saveAndClose);
+        badgeElement.replaceWith(input);
+        input.focus(); input.select();
+    }
+
+    // Сохранение вписанной монеты и запуск калькулятора
+    window.applyNewCrypto = function(rowId, newCrypto, badgeElement) {
+        const row = document.getElementById(rowId); if (!row) return;
+        row.setAttribute('data-crypto', newCrypto);
+        localStorage.setItem('crypto_type_' + rowId, newCrypto);
+        badgeElement.textContent = newCrypto;
+        // Автоматически красим значок в новый цвет по правилам твоего CSS (например, badge usdt)
+        badgeElement.className = 'badge crypto-badge ' + newCrypto.toLowerCase();
+
+        const input = row.querySelector('.crypto-input');
+        if (input && typeof window.calculateLiveRow === 'function') {
+            window.calculateLiveRow(rowId, input.value);
+        }
+        triggerTableSort();
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
-        // Шаг 1. Генерируем окошки минут И кнопки перемещения во всех строках
+        // Шаг 1. Генерируем инпуты минут И кнопки перемещения (стрелочки) во всех строках
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             const wrapper = row.querySelector('.timer-wrapper');
             const cell = row.querySelector('.timer-cell');
             
             if (wrapper && cell && !row.querySelector('.time-input')) {
-                // Создаем окошко минут
                 let input = document.createElement('input');
-                input.type = 'number';
-                input.className = 'time-input';
-                input.placeholder = 'мин';
-                input.min = '1';
+                input.type = 'number'; input.className = 'time-input'; input.placeholder = 'мин'; input.min = '1';
                 input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
 
                 const savedTime = localStorage.getItem('crypto_time_' + rId);
@@ -1110,31 +1153,21 @@ tr.out-of-limit .faucet-link {
                     else localStorage.removeItem('crypto_time_' + rId);
                     if (!activeIntervals[rId]) triggerTableSort();
                 };
-                input.addEventListener('change', saveFunc);
-                input.addEventListener('input', saveFunc);
+                input.addEventListener('change', saveFunc); input.addEventListener('input', saveFunc);
 
-                // Создаем кнопку Налево ◀
-                let btnLeft = document.createElement('button');
-                btnLeft.innerHTML = '◀';
+                let btnLeft = document.createElement('button'); btnLeft.innerHTML = '◀';
                 btnLeft.style = 'background:none; border:none; color:#00ffcc; font-size:10px; cursor:pointer; padding:2px; margin-right:2px;';
-                btnLeft.title = 'Переместить в левую колонку (Скоростные)';
                 btnLeft.onclick = function() { window.moveFaucetColumn(rId, 'left'); };
 
-                // Создаем кнопку Направо ▶
-                let btnRight = document.createElement('button');
-                btnRight.innerHTML = '▶';
+                let btnRight = document.createElement('button'); btnRight.innerHTML = '▶';
                 btnRight.style = 'background:none; border:none; color:#00b3ff; font-size:10px; cursor:pointer; padding:2px; margin-right:5px;';
-                btnRight.title = 'Переместить в правую колонку (Долгосрочные)';
                 btnRight.onclick = function() { window.moveFaucetColumn(rId, 'right'); };
 
-                // Собираем всё в кучу перед текстом таймера
-                wrapper.insertBefore(btnLeft, cell);
-                wrapper.insertBefore(btnRight, cell);
-                wrapper.insertBefore(input, cell);
+                wrapper.insertBefore(btnLeft, cell); wrapper.insertBefore(btnRight, cell); wrapper.insertBefore(input, cell);
             }
         });
 
-        // Шаг 2. Распределяем краны по сохраненной прописке ДО запуска таймеров!
+        // Шаг 2. Распределяем краны по колонкам из памяти
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             const savedPosition = localStorage.getItem('position_' + rId);
@@ -1144,17 +1177,33 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Шаг 3. Восстанавливаем кулдауны из памяти при загрузке
+        // Шаг 3. Восстанавливаем кулдауны / лимиты кранов
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             if (localStorage.getItem(rId + '_limit')) {
                 row.classList.add("out-of-limit");
-                let cell = row.querySelector('.timer-cell');
-                if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
+                let cell = row.querySelector('.timer-cell'); if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
             } else {
-                let sS = localStorage.getItem(rId + '_start'); 
-                let sD = localStorage.getItem(rId + '_duration');
+                let sS = localStorage.getItem(rId + '_start'); let sD = localStorage.getItem(rId + '_duration');
                 if (sS && sD) resumeTimer(rId, parseInt(sS), parseInt(sD));
+            }
+        });
+
+        // Шаг 4. Восстанавливаем вписанные руками значки криптовалют при загрузке страницы
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const rId = row.id;
+            const savedCrypto = localStorage.getItem('crypto_type_' + rId);
+            if (savedCrypto) {
+                row.setAttribute('data-crypto', savedCrypto);
+                const badge = row.querySelector('.crypto-badge');
+                if (badge) {
+                    badge.textContent = savedCrypto;
+                    badge.className = 'badge crypto-badge ' + savedCrypto.toLowerCase();
+                }
+                const input = row.querySelector('.crypto-input');
+                if (input && typeof window.calculateLiveRow === 'function') {
+                    window.calculateLiveRow(rId, input.value);
+                }
             }
         });
         
@@ -1163,7 +1212,6 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
 
- 
 	
  <!-- Финальный Скрипт защиты (Чистый и рабочий) -->
 <script>
@@ -1192,18 +1240,13 @@ tr.out-of-limit .faucet-link {
     // 🔒 БЛОКИРОВКА КОНТЕКСТНОГО МЕНЮ И КЛАВИШ РАЗРАБОТЧИКА (F12, Просмотр кода)
     document.addEventListener("contextmenu", function(e) { 
         e.preventDefault(); 
-    });
-    
-    document.addEventListener("keydown", function(e) { 
+    });   
+  document.addEventListener("keydown", function(e) { 
         if (e.keyCode === 123) { e.preventDefault(); } 
         if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); }
         if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); }
     });
 })();
 </script>
-
-
-
-
 </body>
 </html>
