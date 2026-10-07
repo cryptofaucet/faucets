@@ -386,18 +386,24 @@ tr.out-of-limit .faucet-link {
     }
 
     // Восстановление данных из localStorage строго при загрузке страницы
-    function restoreAndSetupInputs() {
-        document.querySelectorAll('.crypto-input').forEach(input => {
-            const tr = input.closest('tr');
-            if (tr && tr.id) {
-                const savedCrypto = localStorage.getItem('crypto_val_' + tr.id);
-                if (savedCrypto !== null && savedCrypto !== '') {
-                    input.value = savedCrypto;
-                }
-                calculateRow(tr.id, input.value);
-            }
-        });
-    }
+ function restoreAndSetupInputs() {
+    document.querySelectorAll('.crypto-input').forEach(input => {
+        const tr = input.closest('tr');
+        if (tr && tr.id) {
+            const savedCrypto = localStorage.getItem('crypto_val_' + tr.id);
+            
+            // Если в памяти есть сохраненный пользователем ввод — ставим его
+            if (savedCrypto !== null && savedCrypto !== '') {
+                input.value = savedCrypto;
+            } 
+            // ЕСЛИ В ПАМЯТИ ПУСТО (первый заход): скрипт принудительно берет 
+            // то дефолтное значение, которое вы прописали в HTML через value="..."
+            
+            calculateRow(tr.id, input.value);
+        }
+    });
+}
+
 
     function runScreenCalculations() {
         document.querySelectorAll('.crypto-input').forEach(input => {
