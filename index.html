@@ -755,9 +755,11 @@ tr.out-of-limit .faucet-link {
         </div>
     </div>
  
- <script>
+  <script>
 (function() {
     let cryptoRates = {};
+    // Флаг полной заморозки сортировки
+    let isEditingMode = false;
 
     async function getLiveCryptoRates() {
         try {
@@ -834,32 +836,42 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // УМНАЯ СОРТИРОВКА: Готовые наверх по цене, неактивные — вниз!
-   window.sortTableByPrice = function() {
-        const tbody = document.querySelector('table tbody');
-        if (!tbody) return;
+    // ДВУХРЯДНАЯ СОРТИРОВКА (С полной защитой от прыжков)
+    window.sortTableByPrice = function() {
+        // Если юзер в режиме ввода или просто зажал инпут — блокируем намертво!
+        if (isEditingMode || document.activeElement.classList.contains('crypto-input')) return;
 
-        const rows = Array.from(tbody.querySelectorAll('tr[id^="faucet"]'));
+        function sortContainer(selector) {
+            const container = document.querySelector(selector);
+            if (!container) return;
 
-        rows.sort((rowA, rowB) => {
-            // Проверяем готовность (ищем класс ready у таймера)
-            const cellA = rowA.querySelector('.timer-cell');
-            const cellB = rowB.querySelector('.timer-cell');
+            const rows = Array.from(container.querySelectorAll('tr[id^="faucet"]'));
             
-            const isReadyA = cellA && cellA.classList.contains('ready') && !rowA.classList.contains('out-of-limit');
-            const isReadyB = cellB && cellB.classList.contains('ready') && !rowB.classList.contains('out-of-limit');
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.querySelector('.timer-cell');
+                const cellB = rowB.querySelector('.timer-cell');
+                
+                const isReadyA = cellA && cellA.classList.contains('ready') && !rowA.classList.contains('out-of-limit');
+                const isReadyB = cellB && cellB.classList.contains('ready') && !rowB.classList.contains('out-of-limit');
 
-            // Если один кран готов, а второй нет — готовый всегда выше
-            if (isReadyA && !isReadyB) return -1;
-            if (!isReadyA && isReadyB) return 1;
+                if (isReadyA && !isReadyB) return -1;
+                if (!isReadyA && isReadyB) return 1;
 
-            // Если оба крана имеют одинаковый статус (оба готовы или оба на кулдауне) — сортируем по цене рублей
-            const valA = parseFloat(rowA.getAttribute('data-rub-value')) || 0;
-            const valB = parseFloat(rowB.getAttribute('data-rub-value')) || 0;
-            return valB - valA;
-        });
+                const valA = parseFloat(rowA.getAttribute('data-rub-value')) || 0;
+                const valB = parseFloat(rowB.getAttribute('data-rub-value')) || 0;
+                return valB - valA;
+            });
 
-        rows.forEach(row => tbody.appendChild(row));
+            rows.forEach(row => container.appendChild(row));
+        }
+
+        // Проверяем оба варианта вёрстки: по классам рядов или по общей таблице
+        if (document.querySelector('.left-faucets') || document.querySelector('.right-faucets')) {
+            sortContainer('.left-faucets');
+            sortContainer('.right-faucets');
+        } else {
+            sortContainer('table tbody');
+        }
     }
 
     function restoreInputs() {
@@ -872,7 +884,15 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-        // Защита фокуса: считаем рубли на лету, но НЕ сортируем, пока пользователь пишет!
+    // ЖЕЛЕЗОБЕТОННЫЙ КОНТРОЛЬ РЕЖИМА ВВОДА
+    // Включаем заморозку при клике или таче на инпут
+    document.addEventListener('focusin', function(e) {
+        if (e.target.classList.contains('crypto-input')) {
+            isEditingMode = true;
+        }
+    });
+
+    // Считаем рубли, но не двигаем строки
     document.addEventListener('input', function(e) {
         if (e.target.classList.contains('crypto-input')) {
             const tr = e.target.closest('tr');
@@ -883,27 +903,38 @@ tr.out-of-limit .faucet-link {
         }
     });
 
-    // СОРТИРУЕМ строго ТОГДА, когда пользователь закончил ввод и кликнул в другое место (blur/change)
-    document.addEventListener('change', function(e) {
+    // Выключаем заморозку только когда фокус полностью ушёл
+    document.addEventListener('focusout', function(e) {
         if (e.target.classList.contains('crypto-input')) {
-            if (typeof window.sortTableByPrice === 'function') {
-                window.sortTableByPrice();
-            }
+            // Небольшая задержка, чтобы юзер успел перенести палец/курсор
+            setTimeout(function() {
+                isEditingMode = false;
+                sortTableByPrice();
+            }, 250);
         }
     });
 
+    // При клике по левым ссылкам тоже сбрасываем фокус
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('faucet-link')) {
+            if (document.activeElement && typeof document.activeElement.blur === 'function') {
+                document.activeElement.blur();
+            }
+            isEditingMode = false;
+            sortTableByPrice();
+        }
+    });
 
     document.addEventListener("DOMContentLoaded", function() {
         restoreInputs();
         getLiveCryptoRates();
         setInterval(getLiveCryptoRates, 900000); 
-
-        // Магия возвращения: Скрипт каждую секунду проверяет, не дотикал ли какой-то таймер,
-        // и если дотикал — плавно возвращает строку наверх по цене!
+        // Ежесекундный таймер
         setInterval(sortTableByPrice, 1000);
     });
 })();
 </script>
+
 
  <script>
 (function() {
