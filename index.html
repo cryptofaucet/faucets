@@ -755,7 +755,7 @@ tr.out-of-limit .faucet-link {
         </div>
     </div>
  
-<script>
+ <script>
 (function() {
     // Хранилище для живых курсов ВСЕХ монет к рублю
     let cryptoRates = {};
@@ -766,8 +766,10 @@ tr.out-of-limit .faucet-link {
             const p1 = "ht" + "tps://";
             const p2 = "api.bi" + "nance.com";
             const p3 = "/api/v3/ti" + "cker/price?symbol=";
-            const m1 = "api.me" + "xc.com";
-            const m2 = "/api/v3/ti" + "cker/price?symbol=";
+            
+            // Новая секретная дверь: Bybit API с открытым CORS для Гитхаба
+            const b1 = "api.by" + "bit.com";
+            const b2 = "/v5/market/tic" + "kers?category=spot&symbol=";
 
             // 1. Скачиваем точный живой курс доллара к рублю с Binance
             const rubResponse = await fetch(p1 + p2 + p3 + "USDTRUB");
@@ -795,17 +797,20 @@ tr.out-of-limit .faucet-link {
                     }
                 }));
 
-                // 3. Подтягиваем DigiByte (DGB) напрямую с биржи Mexc (там у DGB официальный листинг к USDT и открытый CORS)
+                // 3. Подтягиваем DigiByte (DGB) напрямую с Bybit (CORS открыт, блокировок не будет!)
                 try {
-                    const dgbResponse = await fetch(p1 + m1 + m2 + "DGBUSDT");
+                    const dgbResponse = await fetch(p1 + b1 + b2 + "DGBUSDT");
                     const dgbData = await dgbResponse.json();
-                    const dgbToUsd = parseFloat(dgbData.price);
                     
-                    if (!isNaN(dgbToUsd) && dgbToUsd > 0) {
-                        cryptoRates['DGB'] = dgbToUsd * usdToRub;
+                    if (dgbData && dgbData.result && dgbData.result.list && dgbData.result.list[0]) {
+                        const dgbToUsd = parseFloat(dgbData.result.list[0].lastPrice);
+                        if (!isNaN(dgbToUsd) && dgbToUsd > 0) {
+                            cryptoRates['DGB'] = dgbToUsd * usdToRub;
+                            console.log("[Калькулятор] Живой курс DGB успешно получен с Bybit:", cryptoRates['DGB']);
+                        }
                     }
                 } catch (e) {
-                    console.warn("[Калькулятор] Не удалось получить курс DGB с Mexc");
+                    console.warn("[Калькулятор] Не удалось получить курс DGB с Bybit");
                 }
 
                 console.log("[Калькулятор] Живые курсы обновлены. Следующий пересчет через 15 минут.");
@@ -886,6 +891,7 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
+
     
 <script>
 (function() {
