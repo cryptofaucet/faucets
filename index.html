@@ -1143,6 +1143,51 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
+<script>
+(function() {
+    // 🛡️ Твой оригинальный метод, переписанный под динамический ротатор
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".faucet-link").forEach(link => {
+            const realUrl = link.href;
+            if (realUrl && realUrl !== "#" && !realUrl.startsWith("javascript:")) {
+                // Прячем реальную ссылку в дата-атрибут, чтобы скрыть реф-хвост
+                link.setAttribute("data-real-href", realUrl);
+                link.removeAttribute("href");
+                link.style.cursor = "pointer";
+            }
+        });
+    });
+
+    // 🔥 Неубиваемый перехватчик кликов: работает ВСЕГДА, даже после падения строк вниз!
+    document.addEventListener("click", function(e) {
+        const link = e.target.closest(".faucet-link");
+        if (link) {
+            const realUrl = link.getAttribute("data-real-href");
+            if (realUrl) {
+                e.preventDefault();
+                
+                // Сначала запускаем таймер кулдауна из второго скрипта
+                // Находим родительскую строку (tr), чтобы узнать её ID
+                const row = link.closest("tr[id^='faucet']");
+                if (row && row.id && typeof window.startTimer === 'function') {
+                    window.startTimer(row.id, 300); // Запускаем таймер (300 сек = 5 мин)
+                }
+
+                // Затем нативно открываем кран в новой вкладке
+                window.open(realUrl, '_blank');
+            }
+        }
+    });
+
+    // Блокировка контекстного меню и горячих клавиш разработчика (твой код)
+    document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+    document.addEventListener("keydown", function(e) { 
+        if (e.keyCode === 123) { e.preventDefault(); } 
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); }
+        if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); }
+    });
+})();
+</script>
 
 </body>
 </html>
