@@ -284,8 +284,9 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
-    <script>
+     <script>
 (function() {
+    // Внутреннее хранилище цен за 1 монету в рублях
     let cryptoRates = {};
 
     async function fetchCryptoRates() {
@@ -299,26 +300,28 @@ tr.out-of-limit .faucet-link {
 
             if (activeTickers.length === 0) return;
 
-            // Запрашиваем цены
-            const response = await fetch(`https://cryptocompare.com{activeTickers.join(',')}`);
+            // Запрашиваем прямую стоимость монет в RUB (например: BTC в RUB, DOGE в RUB)
+            const response = await fetch(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=${activeTickers.join(',')}&tsyms=RUB`);
             const data = await response.json();
             
-            // Переворачиваем курс в нормальный вид (цена монеты в рублях)
+            // Записываем чистые курсы (например, cryptoRates['DOGE'] = 34.50)
             for (let coin in data) {
-                if (data[coin] > 0) cryptoRates[coin] = 1 / data[coin];
+                if (data[coin] && data[coin].RUB) {
+                    cryptoRates[coin] = data[coin].RUB;
+                }
             }
 
-            updateAllCalculations();
+            // Курсы в памяти — теперь считаем суммы на экране
+            runScreenCalculations();
         } catch (error) {
-            console.error("[Ошибка Калькулятора] Не удалось загрузить курсы:", error);
+            console.error("[Калькулятор] Ошибка сети при получении курсов:", error);
         }
     }
 
-    function saveCryptoAndCalc(faucetId, cryptoValue) {
-        if (!faucetId) return;
-        localStorage.setItem('crypto_val_' + faucetId, cryptoValue);
-        
-        const tr = document.getElementById(faucetId);
+    // Чистая функция подсчета без принудительной перезаписи localStorage при первой загрузке
+    function calculateRow(trId, cryptoValue) {
+        if (!trId) return;
+        const tr = document.getElementById(trId);
         const cryptoType = tr ? tr.getAttribute('data-crypto') : 'DOGE';
         const rate = cryptoRates[cryptoType] || 0;
         const resultSpan = tr ? tr.querySelector('.rub-result') : null;
@@ -329,34 +332,56 @@ tr.out-of-limit .faucet-link {
                 resultSpan.innerText = '0.00 ₽';
             } else {
                 const totalRub = parsedValue * rate;
-                // Округление: 6 знаков для микро-выплат, 2 знака для обычных сумм
+                // 6 знаков для микро-копеек с кранов, 2 знака для обычных выплат
                 resultSpan.innerText = (totalRub < 0.01 ? totalRub.toFixed(6) : totalRub.toFixed(2)) + ' ₽';
             }
         }
     }
 
-    function updateAllCalculations() {
+    // Восстановление данных из localStorage строго ДО и ПОСЛЕ запроса курсов
+    function restoreAndSetupInputs() {
         document.querySelectorAll('.crypto-input').forEach(input => {
             const tr = input.closest('tr');
             if (tr && tr.id) {
                 const savedCrypto = localStorage.getItem('crypto_val_' + tr.id);
-                if (savedCrypto !== null && savedCrypto !== '') input.value = savedCrypto;
-                saveCryptoAndCalc(tr.id, input.value);
+                // Если пользователь уже вводил сюда число раньше — возвращаем его на место
+                if (savedCrypto !== null && savedCrypto !== '') {
+                    input.value = savedCrypto;
+                }
+                calculateRow(tr.id, input.value);
             }
         });
     }
 
-    // Слушаем ввод на лету
+    function runScreenCalculations() {
+        document.querySelectorAll('.crypto-input').forEach(input => {
+            const tr = input.closest('tr');
+            if (tr && tr.id) {
+                calculateRow(tr.id, input.value);
+            }
+        });
+    }
+
+    // Отслеживаем живой ввод пользователя
     document.addEventListener('input', function(e) {
         if (e.target.classList.contains('crypto-input')) {
             const tr = e.target.closest('tr');
-            if (tr && tr.id) saveCryptoAndCalc(tr.id, e.target.value);
+            if (tr && tr.id) {
+                // СОХРАНЯЕМ в память ТОЛЬКО тогда, когда пользователь САМ руками что-то пишет в инпут!
+                localStorage.setItem('crypto_val_' + tr.id, e.target.value);
+                calculateRow(tr.id, e.target.value);
+            }
         }
     });
 
-    document.addEventListener("DOMContentLoaded", fetchCryptoRates);
+    // Порядок запуска: Сначала возвращаем цифры в инпуты, затем качаем живой курс
+    document.addEventListener("DOMContentLoaded", function() {
+        restoreAndSetupInputs();
+        fetchCryptoRates();
+    });
 })();
 </script>
+
 <script>
 (function() {
     let activeIntervals = {};
