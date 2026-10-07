@@ -1014,6 +1014,56 @@ tr.out-of-limit .faucet-link {
         });
         setTimeout(triggerTableSort, 500); // Первичная сортировка после восстановления таймеров
     });
+    // 🕒 АВТОМАТИЧЕСКАЯ КЛЕЙКА ОКОШЕК ВРЕМЕНИ ДЛЯ ВСЕХ КРАНОВ
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const rId = row.id;
+            const wrapper = row.querySelector('.timer-wrapper');
+            const cell = row.querySelector('.timer-cell');
+            
+            if (wrapper && cell && !row.querySelector('.time-input')) {
+                // Создаем красивое неоновое окошко для минут
+                let input = document.createElement('input');
+                input.type = 'number';
+                input.className = 'time-input';
+                input.placeholder = 'мин';
+                input.min = '1';
+                input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
+                input.title = 'Поменяйте время кулдауна в минутах, если админ изменил правила';
+
+                // Восстанавливаем сохраненное время из памяти, если оно есть
+                const savedTime = localStorage.getItem('crypto_time_' + rId);
+                if (savedTime !== null && savedTime !== '') {
+                    input.value = savedTime;
+                }
+
+                // Слушаем, когда пользователь меняет минуты, и сохраняем их
+                input.addEventListener('input', function() {
+                    localStorage.setItem('crypto_time_' + rId, input.value);
+                });
+
+                // Вживляем окошко прямо перед текстом таймера!
+                wrapper.insertBefore(input, cell);
+            }
+        });
+    });
+
+    // ⚡ Учим функцию старта подхватывать минуты из нового окошка
+    const oldStartTimer = window.startTimer;
+    window.startTimer = function(rowId, defaultDuration) {
+        let row = document.getElementById(rowId);
+        let timeInput = row ? row.querySelector('.time-input') : null;
+        let finalDuration = defaultDuration;
+
+        if (timeInput && timeInput.value) {
+            let userMinutes = parseFloat(timeInput.value);
+            if (!isNaN(userMinutes) && userMinutes > 0) {
+                finalDuration = Math.floor(userMinutes * 60); // Превращаем минуты в секунды
+            }
+        }
+        // Передаем управление родному таймеру
+        oldStartTimer(rowId, finalDuration);
+    };	
 })();
 </script>
 
