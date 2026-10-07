@@ -1093,38 +1093,8 @@ tr.out-of-limit .faucet-link {
         triggerTableSort(); 
 		if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
     }
-    document.addEventListener("DOMContentLoaded", function() {
-        // Шаг 1. Генерируем инпуты минут И кнопки перемещения (стрелочки) во всех строках
-        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
-            const rId = row.id;
-            const wrapper = row.querySelector('.timer-wrapper');
-            const cell = row.querySelector('.timer-cell');
-            if (wrapper && cell && !row.querySelector('.time-input')) {
-                let input = document.createElement('input');
-                input.type = 'number'; input.className = 'time-input'; input.placeholder = 'мин'; input.min = '1';
-                input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
-                const savedTime = localStorage.getItem('crypto_time_' + rId);
-                if (savedTime !== null && savedTime !== '') input.value = savedTime;
-                const saveFunc = function() {
-                    if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
-                    else localStorage.removeItem('crypto_time_' + rId);
-                    if (!activeIntervals[rId]) triggerTableSort();
-                };
-                input.addEventListener('change', saveFunc); input.addEventListener('input', saveFunc);
-
-                let btnLeft = document.createElement('button'); btnLeft.innerHTML = '◀';
-                btnLeft.style = 'background:none; border:none; color:#00ffcc; font-size:10px; cursor:pointer; padding:2px; margin-right:2px;';
-                btnLeft.onclick = function() { window.moveFaucetColumn(rId, 'left'); };
-
-                let btnRight = document.createElement('button'); btnRight.innerHTML = '▶';
-                btnRight.style = 'background:none; border:none; color:#00b3ff; font-size:10px; cursor:pointer; padding:2px; margin-right:5px;';
-                btnRight.onclick = function() { window.moveFaucetColumn(rId, 'right'); };
-
-                wrapper.insertBefore(btnLeft, cell); wrapper.insertBefore(btnRight, cell); wrapper.insertBefore(input, cell);
-            }
-        });
-
-                // Шаг 2. Распределяем краны по колонкам из памяти (теперь с учетом нижнего блока)
+         document.addEventListener("DOMContentLoaded", function() {
+        // Шаг 1. Распределяем краны по колонкам из памяти (теперь с учетом нижнего блока)
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             const savedPosition = localStorage.getItem('position_' + rId);
@@ -1138,7 +1108,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Шаг 3. Восстанавливаем кулдауны / лимиты кранов
+        // Шаг 2. Восстанавливаем кулдауны / лимиты кранов
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             if (localStorage.getItem(rId + '_limit')) {
@@ -1156,7 +1126,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Шаг 4. Восстанавливаем вписанные руками значки криптовалют при загрузке страницы
+        // Шаг 3. Восстанавливаем вписанные руками значки криптовалют при загрузке страницы
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             const savedCrypto = localStorage.getItem('crypto_type_' + rId);
@@ -1174,17 +1144,81 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Шаг 5. После того как все инпуты созданы и краны распределены — обновляем им стрелочки управления
-        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
-            if (typeof window.refreshFaucetArrows === 'function') {
-                window.refreshFaucetArrows(row.id);
-            }
-        });
+        // Шаг 4. Генерируем инпуты минут И правильные стрелочки (3 направления)
+        window.refreshAllArrows = function() {
+            document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+                const rId = row.id;
+                const wrapper = row.querySelector('.timer-wrapper');
+                const cell = row.querySelector('.timer-cell');
+                if (!wrapper || !cell) return;
 
+                // 1. Создаем инпут минут, если его еще нет
+                if (!row.querySelector('.time-input')) {
+                    let input = document.createElement('input');
+                    input.type = 'number'; input.className = 'time-input'; input.placeholder = 'мин'; input.min = '1';
+                    input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
+                    const savedTime = localStorage.getItem('crypto_time_' + rId);
+                    if (savedTime !== null && savedTime !== '') input.value = savedTime;
+                    const saveFunc = function() {
+                        if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
+                        else localStorage.removeItem('crypto_time_' + rId);
+                        if (!activeIntervals[rId]) triggerTableSort();
+                    };
+                    input.addEventListener('change', saveFunc); input.addEventListener('input', saveFunc);
+                    wrapper.insertBefore(input, cell);
+                }
+
+                // 2. Очищаем старые стрелочки, чтобы не дублировались при перерисовке
+                wrapper.querySelectorAll('.nav-arrow-btn').forEach(b => b.remove());
+                wrapper.querySelectorAll('button').forEach(b => {
+                    if(b.innerHTML === '◀' || b.innerHTML === '▶' || b.innerHTML === '▼') b.remove();
+                });
+
+                // Функция для быстрой сборки новой стрелочки
+                const createArrow = function(text, color, targetSide) {
+                    let btn = document.createElement('button');
+                    btn.innerHTML = text;
+                    btn.className = 'nav-arrow-btn';
+                    btn.style = `background:none; border:none; color:${color}; font-size:10px; cursor:pointer; padding:2px; margin-right:2px; font-weight:bold;`;
+                    btn.onclick = function(e) {
+                        e.preventDefault();
+                        const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : (targetSide === 'right' ? '.right-faucets' : '.hard-faucets'));
+                        if (targetContainer) {
+                            targetContainer.appendChild(row);
+                            localStorage.setItem('position_' + rId, targetSide);
+                            window.refreshAllArrows(); // Перерисовываем стрелочки после перемещения
+                            triggerTableSort();
+                        }
+                        if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
+                    };
+                    return btn;
+                };
+
+                // Определяем, какие стрелочки рисовать, исходя из текущего tbody строки
+                const currentTbody = row.closest('tbody');
+                if (currentTbody) {
+                    if (currentTbody.classList.contains('left-faucets')) {
+                        wrapper.insertBefore(createArrow('▶', '#00b3ff', 'right'), cell);
+                        wrapper.insertBefore(createArrow('▼', '#ffaa00', 'hard'), cell);
+                    } else if (currentTbody.classList.contains('right-faucets')) {
+                        wrapper.insertBefore(createArrow('◀', '#00ffcc', 'left'), cell);
+                        wrapper.insertBefore(createArrow('▼', '#ffaa00', 'hard'), cell);
+                    } else if (currentTbody.classList.contains('hard-faucets')) {
+                        wrapper.insertBefore(createArrow('◀', '#00ffcc', 'left'), cell);
+                        wrapper.insertBefore(createArrow('▶', '#00b3ff', 'right'), cell);
+                    }
+                }
+            });
+        };
+
+        // Запускаем генерацию инпутов и стрелочек
+        window.refreshAllArrows();
+        
         setTimeout(triggerTableSort, 500);
     });
 })();
 </script>
+
 
  
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
