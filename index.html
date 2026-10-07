@@ -284,7 +284,7 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
-         <script>
+        <script>
     // =================================================================
     // 1. БЛОК ТАЙМЕРОВ КУЛДАУНА И ЛИМИТОВ (Твой оригинальный рабочий код)
     // =================================================================
@@ -351,19 +351,35 @@ tr.out-of-limit .faucet-link {
     // =================================================================
     let cryptoRates = {};
 
-    // Загрузка живых курсов напрямую в RUB через правильное API без блокировок CORS
+    // Загрузка живых курсов напрямую в RUB через ПРАВИЛЬНЫЙ API эндпоинт без блокировок
     async function fetchCryptoRates() {
         try {
-            const response = await fetch('https://cryptocompare.com');
+            // Динамически собираем все монеты, которые используются у вас в таблице
+            const rows = document.querySelectorAll('tr[data-crypto]');
+            const activeTickers = [];
+            rows.forEach(tr => {
+                const ticker = tr.getAttribute('data-crypto');
+                if (ticker && !activeTickers.includes(ticker)) {
+                    activeTickers.push(ticker);
+                }
+            });
+
+            if (activeTickers.length === 0) return;
+
+            // Делаем правильный запрос к API CryptoCompare для получения цен в рублях (RUB)
+            const tickersParam = activeTickers.join(',');
+            const response = await fetch(`https://cryptocompare.com{tickersParam}`);
             const data = await response.json();
             
-            // Записываем чистые живые рубли в память калькулятора
+            // API возвращает данные в формате { "DOGE": 0.032, "BTC": 0.00000015 }, где цена указана ЗА ОДИН РУБЛЬ.
+            // Переворачиваем дробь (1 / цена), чтобы получить чистую стоимость 1 монеты в рублях.
             for (let coin in data) {
-                cryptoRates[coin] = data[coin].RUB;
+                if (data[coin] > 0) {
+                    cryptoRates[coin] = 1 / data[coin];
+                }
             }
-            if (cryptoRates.USDT) cryptoRates.USDT = cryptoRates.USDT; // Для USDT
 
-            // Когда курсы получены — обновляем отображение рублей на экране
+            // Когда курсы успешно получены и обработаны — обновляем отображение рублей на экране
             updateAllCalculations();
         } catch (error) {
             console.error("Не удалось обновить курсы автоматически:", error);
@@ -372,7 +388,7 @@ tr.out-of-limit .faucet-link {
 
     // Сохранение введенных значений монет в localStorage и расчет рублей
     function saveCryptoAndCalc(faucetId, cryptoValue) {
-        // Железобетонная запись введенного числа в память браузера
+        // Запись введенного числа в память браузера
         localStorage.setItem('crypto_val_' + faucetId, cryptoValue);
         
         const tr = document.getElementById(faucetId);
@@ -381,11 +397,20 @@ tr.out-of-limit .faucet-link {
         
         const resultSpan = document.getElementById('rub_res_' + faucetId);
         if (resultSpan) {
-            if (!cryptoValue || cryptoValue <= 0 || rate === 0) {
+            const parsedValue = parseFloat(cryptoValue);
+            
+            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
                 resultSpan.innerText = '0.00 ₽';
             } else {
-                const rubValue = (parseFloat(cryptoValue) * rate).toFixed(2);
-                resultSpan.innerText = rubValue + ' ₽';
+                const totalRub = parsedValue * rate;
+                
+                // УМНОЕ ОКРУГЛЕНИЕ: если итоговое значение в рублях микроскопическое (меньше 1 копейки),
+                // выводим 6 знаков после запятой (например: 0.000034 ₽), чтобы не писало "0.00 ₽"
+                if (totalRub < 0.01) {
+                    resultSpan.innerText = totalRub.toFixed(6) + ' ₽';
+                } else {
+                    resultSpan.innerText = totalRub.toFixed(2) + ' ₽';
+                }
             }
         }
     }
@@ -410,6 +435,13 @@ tr.out-of-limit .faucet-link {
     // 3. ЕДИНЫЙ ИНИЦИАЛИЗАТОР И ЗАЩИТА СТРАНИЦЫ
     // =================================================================
     document.addEventListener("DOMContentLoaded", function() {
+        // --- Запись дефолтных значений для Prairiehash (faucet1), если там пусто в localStorage ---
+        // Это предотвратит показ "0.00 ₽" при самом первом посещении сайта пользователем
+        const faucet1Input = document.querySelector('#faucet1 .crypto-input');
+        if (faucet1Input && !localStorage.getItem('crypto_val_faucet1')) {
+            faucet1Input.value = "0.0005967";
+        }
+
         // --- Защита реферальных ссылок ---
         const links = document.querySelectorAll(".faucet-link");
         links.forEach(link => {
@@ -458,5 +490,6 @@ tr.out-of-limit .faucet-link {
     document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
     document.addEventListener("keydown", function(e) { if (e.keyCode === 123) { e.preventDefault(); } });
 </script>
+
 </body>
 </html>
