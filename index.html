@@ -755,7 +755,7 @@ tr.out-of-limit .faucet-link {
         </div>
     </div>
  
-  <script>
+ <script>
 (function() {
     let cryptoRates = {};
     let isEditingMode = false;
@@ -837,7 +837,7 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // ДВУХРЯДНАЯ СОРТИРОВКА (С полной защитой от прыжков из-под мышки)
+    // 🔥 УБОРКА МУСОРА: Точная трехуровневая сортировка половин таблицы
     window.sortTableByPrice = function(isForced = false) {
         if (!isForced && (isEditingMode || isMouseOverTable ||
             document.activeElement.classList.contains('crypto-input') || 
@@ -856,12 +856,24 @@ tr.out-of-limit .faucet-link {
                 const cellA = rowA.querySelector('.timer-cell');
                 const cellB = rowB.querySelector('.timer-cell');
                 
-                const isReadyA = cellA && cellA.classList.contains('ready') && !rowA.classList.contains('out-of-limit');
-                const isReadyB = cellB && cellB.classList.contains('ready') && !rowB.classList.contains('out-of-limit');
+                // 1. Проверяем флаг тотальной блокировки (Лимит пуст)
+                const isLimitA = rowA.classList.contains('out-of-limit');
+                const isLimitB = rowB.classList.contains('out-of-limit');
 
-                if (isReadyA && !isReadyB) return -1;
-                if (!isReadyA && isReadyB) return 1;
+                // 2. Проверяем готовность таймера
+                const isReadyA = cellA && cellA.classList.contains('ready') && !isLimitA;
+                const isReadyB = cellB && cellB.classList.contains('ready') && !isLimitB;
 
+                // Вычисляем цифровой статус строки (2 = Готов, 1 = Тикает таймер, 0 = Баланс пуст)
+                let statusA = isReadyA ? 2 : (isLimitA ? 0 : 1);
+                let statusB = isReadyB ? 2 : (isLimitB ? 0 : 1);
+
+                // Если статусы разные — выстраиваем строго по уровням (Готовые -> Таймеры -> Пустые Лимиты)
+                if (statusA !== statusB) {
+                    return statusB - statusA;
+                }
+
+                // Если статусы одинаковые — сравниваем по сухой цене в рублях
                 const valA = parseFloat(rowA.getAttribute('data-rub-value')) || 0;
                 const valB = parseFloat(rowB.getAttribute('data-rub-value')) || 0;
                 return valB - valA;
@@ -938,6 +950,7 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
+
 
 <script>
 (function() {
