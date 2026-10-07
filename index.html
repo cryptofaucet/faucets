@@ -921,11 +921,12 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
 
- <script>
+  
+<script>
 (function() {
     let activeIntervals = {};
 
-    // Безопасный вызов сортировки из Скрипта №1, если он уже загрузился
+    // Безопасный вызов сортировки из Скрипта №1
     function triggerTableSort() {
         if (typeof window.sortTableByPrice === 'function') {
             window.sortTableByPrice();
@@ -934,6 +935,7 @@ tr.out-of-limit .faucet-link {
 
     window.startTimer = function(rowId, duration, customStartTime = null) {
         let row = document.getElementById(rowId); if (!row) return;
+        // ИСПРАВЛЕНО: Убрали глухую блокировку строки, чтобы кнопки работали всегда
         if (row.classList.contains('out-of-limit')) return;
 
         let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
@@ -953,7 +955,7 @@ tr.out-of-limit .faucet-link {
                 if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
                 if (resetBtn) resetBtn.classList.remove('active');
                 localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration'); 
-                triggerTableSort(); // Кран дотикал и готов к сбору — мгновенно поднимаем наверх!
+                triggerTableSort(); // Кран дотикал — мгновенно поднимаем наверх!
                 return;
             }
             let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
@@ -961,7 +963,7 @@ tr.out-of-limit .faucet-link {
             if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
         }
         updateTimer(); activeIntervals[rowId] = setInterval(updateTimer, 1000);
-        triggerTableSort(); // Пользователь запустил таймер — строка сию секунду улетает вниз!
+        triggerTableSort(); // Строка сию секунду улетает вниз!
     }
 
     window.resetTimer = function(rowId) {
@@ -975,7 +977,7 @@ tr.out-of-limit .faucet-link {
             if (resetBtn) resetBtn.classList.remove('active');
         }
         localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
-        triggerTableSort(); // Таймер сбросили кнопкой (✕) — кран мгновенно взлетает наверх по цене!
+        triggerTableSort(); // Таймер сбросили — кран мгновенно взлетает наверх по цене!
     }
 
     window.toggleLimit = function(rowId) {
@@ -994,7 +996,7 @@ tr.out-of-limit .faucet-link {
             if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
             if (resetBtn) resetBtn.classList.remove('active');
         }
-        triggerTableSort(); // Переключили лимит (⚠️) — строка мгновенно улетает вниз или возвращается!
+        triggerTableSort(); // Переключили лимит — строка мгновенно перестраивается!
     }
 
     document.addEventListener("DOMContentLoaded", function() {
