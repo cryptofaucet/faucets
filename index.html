@@ -755,7 +755,7 @@ tr.out-of-limit .faucet-link {
         </div>
     </div>
  
- <script>
+  <script>
 (function() {
     let cryptoRates = {};
     let isEditingMode = false;
@@ -837,7 +837,7 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // 🔥 УБОРКА МУСОРА: Точная трехуровневая сортировка половин таблицы
+    // 🔥 ИДЕАЛЬНЫЙ ТРЁХУРОВНЕВЫЙ ЛИФТ (Готовые -> Таймеры -> Мертвые лимиты)
     window.sortTableByPrice = function(isForced = false) {
         if (!isForced && (isEditingMode || isMouseOverTable ||
             document.activeElement.classList.contains('crypto-input') || 
@@ -856,24 +856,27 @@ tr.out-of-limit .faucet-link {
                 const cellA = rowA.querySelector('.timer-cell');
                 const cellB = rowB.querySelector('.timer-cell');
                 
-                // 1. Проверяем флаг тотальной блокировки (Лимит пуст)
+                // Проверяем флаг лимита
                 const isLimitA = rowA.classList.contains('out-of-limit');
                 const isLimitB = rowB.classList.contains('out-of-limit');
 
-                // 2. Проверяем готовность таймера
+                // Проверяем горит ли статус ready (зеленый)
                 const isReadyA = cellA && cellA.classList.contains('ready') && !isLimitA;
                 const isReadyB = cellB && cellB.classList.contains('ready') && !isLimitB;
 
-                // Вычисляем цифровой статус строки (2 = Готов, 1 = Тикает таймер, 0 = Баланс пуст)
+                // ВЫСТРАИВАЕМ ЧЕТКИЙ ЦИФРОВОЙ ВЕС:
+                // 2 = Зеленый (Готов)
+                // 1 = Красный (Тикает таймер кулдауна)
+                // 0 = Серый (Лимит пуст ⚠️)
                 let statusA = isReadyA ? 2 : (isLimitA ? 0 : 1);
                 let statusB = isReadyB ? 2 : (isLimitB ? 0 : 1);
 
-                // Если статусы разные — выстраиваем строго по уровням (Готовые -> Таймеры -> Пустые Лимиты)
+                // Если ранги разные — сортируем строго по уровням от 2 к 0
                 if (statusA !== statusB) {
-                    return statusB - statusA;
+                    return statusB - statusA; 
                 }
 
-                // Если статусы одинаковые — сравниваем по сухой цене в рублях
+                // Если ранги одинаковые (например, оба таймера или оба лимита) — сортируем по цене рублей
                 const valA = parseFloat(rowA.getAttribute('data-rub-value')) || 0;
                 const valB = parseFloat(rowB.getAttribute('data-rub-value')) || 0;
                 return valB - valA;
