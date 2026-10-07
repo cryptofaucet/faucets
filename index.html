@@ -934,32 +934,65 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
   
- <script>
+  <script>
 (function() {
+    // Единое и надежное хранилище для всех активных интервалов на странице
     let activeIntervals = {};
 
-    // Безопасный вызов сортировки из Скрипта №1
     function triggerTableSort() {
-        if (typeof window.sortTableByPrice === 'function') {
-            window.sortTableByPrice();
+        if (typeof window.sortTableByPrice === 'function') window.sortTableByPrice();
+    }
+
+    // Универсальная функция остановки фонового тиканья для конкретной строки
+    function stopInterval(rowId) {
+        if (activeIntervals[rowId]) {
+            clearInterval(activeIntervals[rowId]);
+            delete activeIntervals[rowId];
         }
     }
 
-    // ⚡ Запуск таймера по клику пользователя (проверяет ручные минуты)
+    // Функция обновления текста таймера на экране
+    function runTimerCountdown(rowId, startTime, duration, cell, resetBtn) {
+        stopInterval(rowId); // На всякий случай тушим старый интервал строки
+
+        function updateTimer() {
+            let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
+            
+            if (timeLeft <= 0) {
+                stopInterval(rowId);
+                if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+                if (resetBtn) resetBtn.classList.remove('active');
+                localStorage.removeItem(rowId + '_start'); 
+                localStorage.removeItem(rowId + '_duration'); 
+                triggerTableSort();
+                return;
+            }
+            
+            let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
+            h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
+            if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
+        }
+
+        updateTimer();
+        activeIntervals[rowId] = setInterval(updateTimer, 1000);
+    }
+
+    // ⚡ Запуск таймера по клику пользователя
     window.startTimer = function(rowId, defaultDuration) {
         let row = document.getElementById(rowId); if (!row) return;
         if (row.classList.contains('out-of-limit')) return;
 
-        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
-        if (activeIntervals[rowId]) return;
+        let cell = row.querySelector('.timer-cell'); 
+        let resetBtn = row.querySelector('.btn-reset');
+        if (activeIntervals[rowId]) return; // Если уже тикает — игнорируем повторный клик
 
-        // Проверяем, ввёл ли пользователь кастомные минуты в окошко
+        // Проверяем ручной ввод минут в окошке
         let timeInput = row.querySelector('.time-input');
         let duration = defaultDuration;
         if (timeInput && timeInput.value) {
             let userMinutes = parseFloat(timeInput.value);
             if (!isNaN(userMinutes) && userMinutes > 0) {
-                duration = Math.floor(userMinutes * 60); // Переводим минуты в секунды
+                duration = Math.floor(userMinutes * 60); // Минуты в секунды
             }
         }
 
@@ -970,67 +1003,46 @@ tr.out-of-limit .faucet-link {
         if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
         if (resetBtn) resetBtn.classList.add('active');
         
-        function updateTimer() {
-            let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
-            if (timeLeft <= 0) {
-                clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId];
-                if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
-                if (resetBtn) resetBtn.classList.remove('active');
-                localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration'); 
-                triggerTableSort(); // Кран дотикал — мгновенно поднимаем наверх!
-                return;
-            }
-            let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
-            h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
-            if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
-        }
-        updateTimer(); activeIntervals[rowId] = setInterval(updateTimer, 1000);
-        triggerTableSort(); // Строка сию секунду улетает вниз!
+        runTimerCountdown(rowId, startTime, duration, cell, resetBtn);
+        triggerTableSort();
     }
 
-    // 🔄 Фоновое восстановление таймера при перезагрузке страницы (без сброса времени)
+    // 🔄 Восстановление тиканья при перезагрузке страницы
     function resumeTimer(rowId, startTime, duration) {
         let row = document.getElementById(rowId); if (!row) return;
-        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
-        if (activeIntervals[rowId]) return;
+        let cell = row.querySelector('.timer-cell'); 
+        let resetBtn = row.querySelector('.btn-reset');
 
         if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
         if (resetBtn) resetBtn.classList.add('active');
 
-        function updateTimer() {
-            let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
-            if (timeLeft <= 0) {
-                clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId];
-                if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
-                if (resetBtn) resetBtn.classList.remove('active');
-                localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration'); 
-                triggerTableSort();
-                return;
-            }
-            let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
-            h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
-            if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
-        }
-        updateTimer(); activeIntervals[rowId] = setInterval(updateTimer, 1000);
+        runTimerCountdown(rowId, startTime, duration, cell, resetBtn);
     }
 
+    // ✕ КНОПКА СБРОСА (Железобетонная остановка зомби-процессов)
     window.resetTimer = function(rowId) {
-        if (activeIntervals[rowId]) { clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId]; }
+        stopInterval(rowId); // НАМЕРТВО УБИВАЕМ фоновый интервал в браузере!
+        
         let row = document.getElementById(rowId);
         if (row) {
-            let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+            let cell = row.querySelector('.timer-cell'); 
+            let resetBtn = row.querySelector('.btn-reset');
             if (!row.classList.contains('out-of-limit') && cell) {
-                cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready";
+                cell.textContent = "Готов к сбору!"; 
+                cell.className = "timer-cell ready";
             }
             if (resetBtn) resetBtn.classList.remove('active');
         }
-        localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
-        triggerTableSort(); // Таймер сбросили — кран мгновенно взлетает наверх по цене!
+        localStorage.removeItem(rowId + '_start'); 
+        localStorage.removeItem(rowId + '_duration');
+        triggerTableSort(); // Мгновенно поднимаем сброшенный кран наверх по цене
     }
 
+    // ⚠️ КНОПКА ЛИМИТА
     window.toggleLimit = function(rowId) {
         let row = document.getElementById(rowId); if (!row) return;
-        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+        let cell = row.querySelector('.timer-cell'); 
+        let resetBtn = row.querySelector('.btn-reset');
 
         if (row.classList.contains("out-of-limit")) {
             row.classList.remove("out-of-limit");
@@ -1039,15 +1051,16 @@ tr.out-of-limit .faucet-link {
         } else {
             row.classList.add("out-of-limit");
             localStorage.setItem(rowId + '_limit', 'true');
-            if (activeIntervals[rowId]) { clearInterval(activeIntervals[rowId]); delete activeIntervals[rowId]; }
-            localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
+            stopInterval(rowId); // При лимите тоже глушим все таймеры строки
+            localStorage.removeItem(rowId + '_start'); 
+            localStorage.removeItem(rowId + '_duration');
             if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
             if (resetBtn) resetBtn.classList.remove('active');
         }
-        triggerTableSort(); // Переключили лимит — строка мгновенно перестраивается!
+        triggerTableSort();
     }
 
-    // 🕒 АВТОМАТИЧЕСКАЯ КЛЕЙКА ОКОШЕК ВРЕМЕНИ ДЛЯ ВСЕХ КРАНОВ
+    // Автоматическая склейка окошек и запуск сохраненного состояния
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
@@ -1063,13 +1076,11 @@ tr.out-of-limit .faucet-link {
                 input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
                 input.title = 'Поменяйте время кулдауна в минутах, если админ изменил правила';
 
-                // Восстанавливаем сохраненное время из памяти, если оно есть
                 const savedTime = localStorage.getItem('crypto_time_' + rId);
                 if (savedTime !== null && savedTime !== '') {
                     input.value = savedTime;
                 }
 
-                // Исправлено: событие 'change' намертво сохраняет введенные минуты
                 input.addEventListener('change', function() {
                     if (input.value && parseFloat(input.value) > 0) {
                         localStorage.setItem('crypto_time_' + rId, input.value);
@@ -1082,7 +1093,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Запуск сохраненных таймеров при обновлении страницы
+        // Читаем старую память кулдаунов при загрузке страницы
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             if (localStorage.getItem(rId + '_limit')) {
@@ -1095,10 +1106,11 @@ tr.out-of-limit .faucet-link {
                 if (sS && sD) resumeTimer(rId, parseInt(sS), parseInt(sD));
             }
         });
-        setTimeout(triggerTableSort, 500); // Первичная сортировка после восстановления таймеров
+        setTimeout(triggerTableSort, 500);
     });
 })();
 </script>
+
     
 <script>
 (function() {
