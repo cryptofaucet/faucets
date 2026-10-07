@@ -1018,6 +1018,7 @@ tr.out-of-limit .faucet-link {
         const row = document.getElementById(rowId); if (!row) return;
         const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : '.right-faucets');
         if (targetContainer) { targetContainer.appendChild(row); localStorage.setItem('position_' + rowId, targetSide); triggerTableSort(); }
+		if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
     }
 
     // 🔥 ФУНКЦИЯ ДИНAMИЧЕСКОЙ ТРАНСФОРМАЦИИ ЗНАЧКА В ИНПУТ ПО КЛИКУ
@@ -1061,7 +1062,8 @@ tr.out-of-limit .faucet-link {
         if (cryptoInp && typeof window.calculateLiveRow === 'function') {
             window.calculateLiveRow(rowId, cryptoInp.value);
         }
-        triggerTableSort();
+        triggerTableSort(); 
+		if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
     }
     document.addEventListener("DOMContentLoaded", function() {
         // Шаг 1. Генерируем инпуты минут И кнопки перемещения (стрелочки) во всех строках
@@ -1144,6 +1146,56 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
  
+<!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
+<script>
+(function() {
+    // Функция маскировки: безопасно прячет реальный href в память элемента
+    window.secureAndHideLinks = function() {
+        document.querySelectorAll(".faucet-link, .top-faucet-btn").forEach(link => {
+            // Если у ссылки есть обычный href, переносим его под защиту
+            if (link.href && link.href !== "#" && !link.href.startsWith("javascript:")) {
+                const realUrl = link.href;
+                
+                // Сохраняем истинную рефку в data-атрибут
+                link.setAttribute("data-secure-href", realUrl);
+                // Полностью стираем href из вёрстки, чтобы при наведении мыши было пусто
+                link.removeAttribute("href");
+                link.style.cursor = "pointer";
+                
+                // Навешиваем неубиваемый клик, который сработает во втором окне с рефкой
+                link.onclick = function(e) {
+                    e.preventDefault();
+                    
+                    // 1. Запускаем таймер кулдауна из 2-го скрипта (если это строка таблицы)
+                    const row = link.closest("tr");
+                    if (row && row.id && typeof window.startTimer === 'function') {
+                        window.startTimer(row.id, 300);
+                    }
+                    
+                    // 2. Открываем ИСТИННУЮ ПОЛНУЮ рефку в новом окне со всеми хвостами
+                    const finalUrl = link.getAttribute("data-secure-href");
+                    if (finalUrl) {
+                        window.open(finalUrl, '_blank');
+                    }
+                };
+            }
+        });
+    };
+
+    // Запускаем маскировку при первой загрузке сайта
+    document.addEventListener("DOMContentLoaded", function() {
+        window.secureAndHideLinks();
+    });
+
+    // Блокировка контекстного меню и горячих клавиш разработчика (Твой оригинальный код)
+    document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+    document.addEventListener("keydown", function(e) { 
+        if (e.keyCode === 123) { e.preventDefault(); } 
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); }
+        if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); }
+    });
+})();
+</script>
 
 </body>
 </html>
