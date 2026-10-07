@@ -140,11 +140,12 @@ tr.out-of-limit .faucet-link {
             <table>
                 <thead><tr><th>Кран</th><th>Монета</th><th>Статус</th></tr></thead>
                 <tbody>
-    				 <tr id="faucet1" data-crypto="DOGE">
-    <!-- 1. Столбец: Название крана (Кавычки исправлены!) -->
+    				  
+		<tr id="faucet1" data-crypto="DOGE">
+    <!-- 1. Столбец: Название крана -->
     <td><a class="faucet-link" href="https://prairiehash.com" target="_blank" onclick="startTimer('faucet1', 300)">Prairiehash</a></td>
     
-    <!-- 2. Столбец: Окошко ввода баланса -->
+    <!-- 2. Столбец: Окошко ввода баланса (Чистый инпут без лишних oninput) -->
     <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
         <input type="number" 
                class="crypto-input" 
@@ -152,8 +153,7 @@ tr.out-of-limit .faucet-link {
                step="0.00000001"
                style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;"
                onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" 
-               onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"
-               oninput="saveCryptoAndCalc('faucet1', this.value)">
+               onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
     </td>
 
     <!-- 3. Столбец: Кнопка валюты (DOGE) -->
@@ -161,7 +161,7 @@ tr.out-of-limit .faucet-link {
         <span class="badge doge">DOGE</span>
     </td>
 
-    <!-- 4. Столбец: Окошко для вывода рублей -->
+    <!-- 4. Столбец: Отдельное окошко, куда выводится курс в рублях -->
     <td style="padding: 0 8px; vertical-align: middle; width: 1%; white-space: nowrap;">
         <span class="rub-result" id="rub_res_faucet1" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
     </td>
@@ -175,7 +175,7 @@ tr.out-of-limit .faucet-link {
         </div>
     </td>
 </tr>
-					
+			
  <tr id="faucet2">
         <td><a class="faucet-link" href="https://zerpayz.com/" target="_blank" onclick="startTimer('faucet2', 60)">Zerpayz</a></td>
         <td><span class="badge usdt">USDT</span></td>
