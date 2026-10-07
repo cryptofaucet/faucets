@@ -1165,42 +1165,14 @@ tr.out-of-limit .faucet-link {
 
  
 	
- <!-- Финальный Скрипт защиты (С полным скрытием рефок и анти-F12) -->
+ <!-- Финальный Скрипт защиты (Чистый и рабочий) -->
 <script>
 (function() {
-    // 🛡️ УЛЬТРА-СКРЫТИЕ РЕФЕРАЛЬНЫХ ССЫЛОК И ЗАЩИТА СТРЕЛОЧЕК ТЕЛЕПОРТА
-    document.addEventListener("click", function(e) {
-        // Проверяем, кликнул ли пользователь именно по кнопке крана
-        const link = e.target.closest(".faucet-link");
-        if (link) {
-            const realUrl = link.getAttribute("data-href") || link.href;
-            
-            // Находим строку таблицы (tr), в которой лежит этот кран, чтобы узнать её ID
-            const row = link.closest("tr[id^='faucet']");
-            
-            // Если урл настоящий и это не просто кнопка-заглушка
-            if (realUrl && realUrl !== "#" && !realUrl.startsWith("javascript:")) {
-                e.preventDefault();
-                e.stopPropagation(); // Глушим рефку для внешнего мира
-
-                // 🔥 ОЖИВЛЯЕМ ТАЙМЕР: Перед открытием сайта запускаем кулдаун крана!
-                if (row && row.id && typeof window.startTimer === 'function') {
-                    // Запускаем таймер для этой строки. По умолчанию ставим кулдаун (например, 5 минут или 300 секунд),
-                    // но если в строке введены свои минуты, startTimer сам их подхватит!
-                    window.startTimer(row.id, 300); 
-                }
-
-                // Открываем кран в новой вкладке
-                window.open(realUrl, '_blank');
-            }
-        }
-    }, true); // Оставляем true, чтобы перехват рефок работал безупречно
-
-    // Маскируем статус-бар: при наведении мышки прячем реферальный хвост
+    // 🛡️ МАСКИРОВКА ССЫЛОК ПРИ НАВЕДЕНИИ КУРСОРA
+    // Заменяет реальный реф-хвост на пустышку в нижнем углу браузера, но не трогает клик
     document.addEventListener("mouseover", function(e) {
         const link = e.target.closest(".faucet-link");
         if (link && link.href && link.href !== "#") {
-            // Прячем ссылку в скрытый параметр, а в href подсовываем пустышку
             if (!link.getAttribute("data-href")) {
                 link.setAttribute("data-href", link.href);
             }
@@ -1209,24 +1181,27 @@ tr.out-of-limit .faucet-link {
         }
     });
 
-    // 🔒 БЛОКИРОВКА КОНТЕКСТНОГО МЕНЮ И КЛАВИШ РАЗРАБОТЧИКА
+    // При уходе мышки возвращаем ссылку обратно, чтобы браузер не тупил
+    document.addEventListener("mouseout", function(e) {
+        const link = e.target.closest(".faucet-link");
+        if (link && link.getAttribute("data-href")) {
+            link.href = link.getAttribute("data-href");
+        }
+    });
+
+    // 🔒 БЛОКИРОВКА КОНТЕКСТНОГО МЕНЮ И КЛАВИШ РАЗРАБОТЧИКА (F12, Просмотр кода)
     document.addEventListener("contextmenu", function(e) { 
         e.preventDefault(); 
     });
     
     document.addEventListener("keydown", function(e) { 
-        if (e.keyCode === 123) { 
-            e.preventDefault(); 
-        } 
-        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
-            e.preventDefault();
-        }
-        if (e.ctrlKey && e.keyCode === 85) {
-            e.preventDefault();
-        }
+        if (e.keyCode === 123) { e.preventDefault(); } 
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); }
+        if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); }
     });
 })();
 </script>
+
 
 
 
