@@ -1165,29 +1165,63 @@ tr.out-of-limit .faucet-link {
 
  
 	
-	<script>
+	<!-- Финальный Скрипт защиты (С полным скрытием рефок и анти-F12) -->
+<script>
 (function() {
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".faucet-link").forEach(link => {
-            const realUrl = link.href;
-            if (realUrl && realUrl !== "#") {
-                link.removeAttribute("href");
-                link.style.cursor = "pointer";
-                link.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    window.open(realUrl, '_blank');
-                });
+    // 🛡️ УЛЬТРА-СКРЫТИЕ РЕФЕРАЛЬНЫХ ССЫЛОК И ЗАЩИТА СТРЕЛОЧЕК ТЕЛЕПОРТА
+    // Ловим клики на лету по всему сайту. Работает даже после переноса строк!
+    document.addEventListener("click", function(e) {
+        // Проверяем, кликнул ли пользователь именно по кнопке крана
+        const link = e.target.closest(".faucet-link");
+        if (link) {
+            const realUrl = link.getAttribute("data-href") || link.href;
+            
+            // Если урл настоящий и это не просто кнопка-заглушка
+            if (realUrl && realUrl !== "#" && !realUrl.startsWith("javascript:")) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open(realUrl, '_blank');
             }
-        });
+        }
+    }, true); // Флаг true заставляет этот перехват срабатывать ПЕРВЫМ в браузЕРЕ
+
+    // Маскируем статус-бар: при наведении мышки прячем реферальный хвост
+    document.addEventListener("mouseover", function(e) {
+        const link = e.target.closest(".faucet-link");
+        if (link && link.href && link.href !== "#") {
+            // Прячем ссылку в скрытый параметр, а в href подсовываем пустышку
+            if (!link.getAttribute("data-href")) {
+                link.setAttribute("data-href", link.href);
+            }
+            link.href = "javascript:void(0);"; 
+            link.style.cursor = "pointer";
+        }
     });
 
-    // Блокировка контекстного меню и горячих клавиш разработчика
-    document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+    // 🔒 БЛОКИРОВКА КОНТЕКСТНОГО МЕНЮ И КЛАВИШ РАЗРАБОТЧИКА
+    // Запрещаем правый клик мыши
+    document.addEventListener("contextmenu", function(e) { 
+        e.preventDefault(); 
+    });
+    
+    // Глушим F12, Ctrl+Shift+I, Ctrl+Shift+J и Ctrl+U (Просмотр кода)
     document.addEventListener("keydown", function(e) { 
-        if (e.keyCode === 123) { e.preventDefault(); } 
+        // 123 = F12
+        if (e.keyCode === 123) { 
+            e.preventDefault(); 
+        } 
+        // Блокируем Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+            e.preventDefault();
+        }
+        // Блокируем Ctrl+U (Исходный код страницы)
+        if (e.ctrlKey && e.keyCode === 85) {
+            e.preventDefault();
+        }
     });
 })();
 </script>
+
 
 </body>
 </html>
