@@ -287,36 +287,38 @@ tr.out-of-limit .faucet-link {
             </table>
         </div>
     </div>
-    <script>
+<script>
 (function() {
-    // Сюда запишется чистый живой курс DOGE к Рублю, как только скачается из сети
     let dogeToRub = 0;
 
     async function getLiveCryptoRates() {
         try {
-            // ШАГ 1: Берем точный живой курс доллара к рублю (USD -> RUB) с открытого банковского API
-            // Этот шлюз официально разрешен для использования на GitHub Pages
-            const rubResponse = await fetch('https://er-api.com');
-            const rubData = await rubResponse.json();
-            const usdToRub = parseFloat(rubData.rates.RUB);
+            // Собираем адрес Binance по кусочкам, чтобы чат его не обрезал!
+            const p1 = "ht" + "tps://";
+            const p2 = "api.bi" + "nance.com";
+            const p3 = "/api/v3/ti" + "cker/price?symbol=USDTRUB";
+            const p4 = "/api/v3/ti" + "cker/price?symbol=DOGEUSDT";
 
-            // ШАГ 2: Берем живой курс DOGE к доллару с официального публичного API Binance
-            // У Binance открытый CORS, браузеры никогда не блокируют его запросы!
-            const dogeResponse = await fetch('https://binance.com');
+            // 1. Берем точный курс доллара к рублю с Binance
+            const rubResponse = await fetch(p1 + p2 + p3);
+            const rubData = await rubResponse.json();
+            const usdToRub = parseFloat(rubData.price);
+
+            // 2. Берем живой курс DOGE к доллару с Binance
+            const dogeResponse = await fetch(p1 + p2 + p4);
             const dogeData = await dogeResponse.json();
             const dogeToUsd = parseFloat(dogeData.price);
 
-            // ШАГ 3: Проверяем, что оба ответа успешно получены
+            // 3. Считаем чистый курс DOGE/RUB
             if (!isNaN(usdToRub) && !isNaN(dogeToUsd) && usdToRub > 0 && dogeToUsd > 0) {
-                // Перемножаем и получаем честную цену 1 DOGE в рублях прямо на эту секунду
                 dogeToRub = dogeToUsd * usdToRub;
-                console.log("[Калькулятор] Живой курс DOGE успешно обновлен через Binance:", dogeToRub, "руб.");
+                console.log("[Калькулятор] Живой курс DOGE из API Binance: " + dogeToRub + " руб.");
                 
-                // Пускаем живой пересчет по экрану
+                // Перерисовываем экран
                 runLiveCalculations();
             }
         } catch (error) {
-            console.error("[Калькулятор] Ошибка сети или CORS блокировка:", error);
+            console.error("[Калькулятор] Сбой сети при склейке URL:", error);
         }
     }
 
@@ -326,17 +328,14 @@ tr.out-of-limit .faucet-link {
         const resultSpan = tr ? tr.querySelector('.rub-result') : null;
 
         if (resultSpan) {
-            // Защита от русской запятой на мобильных устройствах
             let cleanValue = String(cryptoValue).replace(',', '.');
             const parsedValue = parseFloat(cleanValue);
             
-            // Если в инпуте пусто или курс еще не пробился сквозь сеть
             if (isNaN(parsedValue) || parsedValue <= 0 || dogeToRub === 0) {
                 resultSpan.innerText = '0.00 ₽';
             } else {
                 const totalRub = parsedValue * dogeToRub;
-                
-                // Умное форматирование: если значение меньше копейки — даем 6 знаков
+                // Умное форматирование: 6 знаков для микро-копеек с кранов
                 if (totalRub < 0.01) {
                     resultSpan.innerText = totalRub.toFixed(6) + ' ₽';
                 } else {
@@ -355,7 +354,6 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // Подгружаем сохраненный из localStorage ввод при старте страницы
     function restoreInputs() {
         document.querySelectorAll('.crypto-input').forEach(input => {
             const tr = input.closest('tr');
@@ -368,7 +366,6 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    // Отслеживаем живой ввод пользователя на лету
     document.addEventListener('input', function(e) {
         if (e.target.classList.contains('crypto-input')) {
             const tr = e.target.closest('tr');
@@ -379,17 +376,14 @@ tr.out-of-limit .faucet-link {
         }
     });
 
-    // Строгий порядок инициализации при загрузке сайта
     document.addEventListener("DOMContentLoaded", function() {
-        restoreInputs();          // 1. Сначала возвращаем цифры в инпуты
-        getLiveCryptoRates();     // 2. Сразу качаем свежий курс из открытых источников Binance
-        
-        // 3. Каждые 5 минут (300 000 мс) скрытно обновляем курс в фоне
+        restoreInputs();
+        getLiveCryptoRates();
         setInterval(getLiveCryptoRates, 300000); 
     });
 })();
 </script>
-
+    
 
 <script>
 (function() {
