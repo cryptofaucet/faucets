@@ -1144,14 +1144,14 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
 	
- <!-- Финальный Скрипт защиты (Чистый и рабочий) -->
+<!-- Финальный Скрипт защиты (Тот самый старый рабочий вариант) -->
 <script>
 (function() {
-    // 🛡️ МАСКИРОВКА ССЫЛОК ПРИ НАВЕДЕНИИ КУРСОРA
-    // Заменяет реальный реф-хвост на пустышку в нижнем углу браузера, но не трогает клик
+    // Маскируем статус-бар: при наведении мышки прячем реферальный хвост
     document.addEventListener("mouseover", function(e) {
         const link = e.target.closest(".faucet-link");
         if (link && link.href && link.href !== "#") {
+            // Прячем ссылку в скрытый параметр, а в href подсовываем пустышку
             if (!link.getAttribute("data-href")) {
                 link.setAttribute("data-href", link.href);
             }
@@ -1160,7 +1160,7 @@ tr.out-of-limit .faucet-link {
         }
     });
 
-    // При уходе мышки возвращаем ссылку обратно, чтобы браузер не тупил
+    // Когда мышка уходит — возвращаем ссылку обратно, чтобы клик работал штатно!
     document.addEventListener("mouseout", function(e) {
         const link = e.target.closest(".faucet-link");
         if (link && link.getAttribute("data-href")) {
@@ -1168,16 +1168,18 @@ tr.out-of-limit .faucet-link {
         }
     });
 
-    // 🔒 БЛОКИРОВКА КОНТЕКСТНОГО МЕНЮ И КЛАВИШ РАЗРАБОТЧИКА (F12, Просмотр кода)
+    // 🔒 БЛОКИРОВКА КОНТЕКСТНОГО МЕНЮ И КЛАВИШ РАЗРАБОТЧИКА
     document.addEventListener("contextmenu", function(e) { 
         e.preventDefault(); 
-    });   
-  document.addEventListener("keydown", function(e) { 
+    });
+    
+    document.addEventListener("keydown", function(e) { 
         if (e.keyCode === 123) { e.preventDefault(); } 
         if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); }
         if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); }
     });
 })();
 </script>
+
 </body>
 </html>
