@@ -924,11 +924,10 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
 
-<script>
+ <script>
 (function() {
     let activeIntervals = {};
 
-    // Функция безопасной сортировки таблицы (дает задержку, чтобы DOM не клинил)
     function triggerTableSort() {
         if (typeof window.sortTableByPrice === 'function') {
             setTimeout(function() { window.sortTableByPrice(true); }, 150);
@@ -942,13 +941,10 @@ tr.out-of-limit .faucet-link {
         }
     }
 
-    // Логика обратного отсчета времени таймера
     function runTimerCountdown(rowId, startTime, duration, cell, resetBtn) {
         stopInterval(rowId); 
-
         function updateTimer() {
             let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
-            
             if (timeLeft <= 0) {
                 stopInterval(rowId);
                 if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
@@ -958,21 +954,17 @@ tr.out-of-limit .faucet-link {
                 triggerTableSort();
                 return;
             }
-            
             let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
             h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
             if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
         }
-
         updateTimer();
         activeIntervals[rowId] = setInterval(updateTimer, 1000);
     }
 
-    // Функция ручного / автоматического старта кулдауна крана
     window.startTimer = function(rowId, defaultDuration) {
         let row = document.getElementById(rowId); if (!row) return;
         if (row.classList.contains('out-of-limit')) return;
-
         let cell = row.querySelector('.timer-cell'); 
         let resetBtn = row.querySelector('.btn-reset');
         if (activeIntervals[rowId]) return; 
@@ -990,83 +982,54 @@ tr.out-of-limit .faucet-link {
         let startTime = Date.now();
         localStorage.setItem(rowId + '_start', startTime); 
         localStorage.setItem(rowId + '_duration', duration); 
-
         if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
         if (resetBtn) resetBtn.classList.add('active');
-        
         runTimerCountdown(rowId, startTime, duration, cell, resetBtn);
         triggerTableSort();
     }
-
-    // Восстановление тикающих таймеров после перезагрузки
-    function resumeTimer(rowId, startTime, duration) {
-        let row = document.getElementById(rowId); if (!row) return;
-        let cell = row.querySelector('.timer-cell'); 
-        let resetBtn = row.querySelector('.btn-reset');
-
-        if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
-        if (resetBtn) resetBtn.classList.remove('active');
-
-        runTimerCountdown(rowId, startTime, duration, cell, resetBtn);
-    }
-
     window.resetTimer = function(rowId) {
         stopInterval(rowId); 
         let row = document.getElementById(rowId);
         if (row) {
-            let cell = row.querySelector('.timer-cell'); 
-            let resetBtn = row.querySelector('.btn-reset');
-            if (!row.classList.contains('out-of-limit') && cell) {
-                cell.textContent = "Готов к сбору!"; 
-                cell.className = "timer-cell ready";
-            }
+            let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+            if (!row.classList.contains('out-of-limit') && cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
             if (resetBtn) resetBtn.classList.remove('active');
         }
-        localStorage.removeItem(rowId + '_start'); 
-        localStorage.removeItem(rowId + '_duration');
+        localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
         triggerTableSort(); 
     }
 
-    // Функция переключения флага Лимит Пуст
     window.toggleLimit = function(rowId) {
         let row = document.getElementById(rowId); if (!row) return;
-        let cell = row.querySelector('.timer-cell'); 
-        let resetBtn = row.querySelector('.btn-reset');
-
+        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
         if (row.classList.contains("out-of-limit")) {
-            row.classList.remove("out-of-limit");
-            localStorage.removeItem(rowId + '_limit');
+            row.classList.remove("out-of-limit"); localStorage.removeItem(rowId + '_limit');
             if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
         } else {
-            row.classList.add("out-of-limit");
-            localStorage.setItem(rowId + '_limit', 'true');
-            stopInterval(rowId); 
-            localStorage.removeItem(rowId + '_start'); 
-            localStorage.removeItem(rowId + '_duration');
+            row.classList.add("out-of-limit"); localStorage.setItem(rowId + '_limit', 'true');
+            stopInterval(rowId); localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
             if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
             if (resetBtn) resetBtn.classList.remove('active');
         }
         triggerTableSort();
     }
-    // Функция перемещения крана между колонками (Скоростные / Долгосрочные)
+
     window.moveFaucetColumn = function(rowId, targetSide) {
         const row = document.getElementById(rowId); if (!row) return;
         const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : '.right-faucets');
-        if (targetContainer) {
-            targetContainer.appendChild(row);
-            localStorage.setItem('position_' + rowId, targetSide);
-            triggerTableSort();
-        }
+        if (targetContainer) { targetContainer.appendChild(row); localStorage.setItem('position_' + rowId, targetSide); triggerTableSort(); }
     }
 
-    // 🔥 ФУНКЦИЯ ТРАНСФОРМАЦИИ ЗНАЧКА В ИНПУТ ПО КЛИКУ
+    // 🔥 ФУНКЦИЯ ДИНAMИЧЕСКОЙ ТРАНСФОРМАЦИИ ЗНАЧКА В ИНПУТ ПО КЛИКУ
     window.editBadge = function(rowId, badgeElement) {
         const currentText = badgeElement.textContent.trim();
         const input = document.createElement('input');
         input.type = 'text';
         input.value = currentText;
-        input.className = 'editing-badge'; // Замораживает авто-сортировку в 1-м скрипте, чтобы строка не улетела
-        input.style = 'width: 50px; height: 20px; padding: 2px; border: 1px solid #00ffcc; border-radius: 4px; background: #151a26; color: #00ffcc; font-size: 11px; font-weight: bold; text-align: center; box-sizing: border-box; text-transform: uppercase;';
+        input.className = 'badge-input-active'; // Намертво блокирует улетание строки при сортировке
+        
+        // Стилизуем инпут в размер твоей кнопки, чтобы верстка не разъезжалась
+        input.style = 'width: 48px; height: 18px; padding: 0; border: 1px solid #00ffcc; border-radius: 3px; background: #151a26; color: #00ffcc; font-size: 10px; font-weight: bold; text-align: center; box-sizing: border-box; text-transform: uppercase;';
         
         const saveAndClose = function() {
             const newCrypto = input.value.trim().toUpperCase();
@@ -1081,41 +1044,37 @@ tr.out-of-limit .faucet-link {
 
         input.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); saveAndClose(); } });
         input.addEventListener('blur', saveAndClose);
+        
         badgeElement.replaceWith(input);
-        input.focus(); input.select();
+        input.focus(); 
+        input.select();
     }
 
-    // Сохранение вписанной монеты и запуск калькулятора
     window.applyNewCrypto = function(rowId, newCrypto, badgeElement) {
         const row = document.getElementById(rowId); if (!row) return;
         row.setAttribute('data-crypto', newCrypto);
         localStorage.setItem('crypto_type_' + rowId, newCrypto);
         badgeElement.textContent = newCrypto;
-        // Автоматически красим значок в новый цвет по правилам твоего CSS (например, badge usdt)
         badgeElement.className = 'badge crypto-badge ' + newCrypto.toLowerCase();
 
-        const input = row.querySelector('.crypto-input');
-        if (input && typeof window.calculateLiveRow === 'function') {
-            window.calculateLiveRow(rowId, input.value);
+        const cryptoInp = row.querySelector('.crypto-input');
+        if (cryptoInp && typeof window.calculateLiveRow === 'function') {
+            window.calculateLiveRow(rowId, cryptoInp.value);
         }
         triggerTableSort();
     }
-
     document.addEventListener("DOMContentLoaded", function() {
         // Шаг 1. Генерируем инпуты минут И кнопки перемещения (стрелочки) во всех строках
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             const wrapper = row.querySelector('.timer-wrapper');
             const cell = row.querySelector('.timer-cell');
-            
             if (wrapper && cell && !row.querySelector('.time-input')) {
                 let input = document.createElement('input');
                 input.type = 'number'; input.className = 'time-input'; input.placeholder = 'мин'; input.min = '1';
                 input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
-
                 const savedTime = localStorage.getItem('crypto_time_' + rId);
                 if (savedTime !== null && savedTime !== '') input.value = savedTime;
-
                 const saveFunc = function() {
                     if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
                     else localStorage.removeItem('crypto_time_' + rId);
@@ -1153,7 +1112,13 @@ tr.out-of-limit .faucet-link {
                 let cell = row.querySelector('.timer-cell'); if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
             } else {
                 let sS = localStorage.getItem(rId + '_start'); let sD = localStorage.getItem(rId + '_duration');
-                if (sS && sD) resumeTimer(rId, parseInt(sS), parseInt(sD));
+                if (sS && sD) {
+                    let row = document.getElementById(rId); if (!row) return;
+                    let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+                    if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
+                    if (resetBtn) resetBtn.classList.remove('active');
+                    runTimerCountdown(rId, parseInt(sS), parseInt(sD), cell, resetBtn);
+                }
             }
         });
 
@@ -1174,12 +1139,10 @@ tr.out-of-limit .faucet-link {
                 }
             }
         });
-        
         setTimeout(triggerTableSort, 500);
     });
 })();
 </script>
-
 	
  <!-- Финальный Скрипт защиты (Чистый и рабочий) -->
 <script>
