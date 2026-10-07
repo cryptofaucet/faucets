@@ -1165,25 +1165,36 @@ tr.out-of-limit .faucet-link {
 
  
 	
-	<!-- Финальный Скрипт защиты (С полным скрытием рефок и анти-F12) -->
+ <!-- Финальный Скрипт защиты (С полным скрытием рефок и анти-F12) -->
 <script>
 (function() {
     // 🛡️ УЛЬТРА-СКРЫТИЕ РЕФЕРАЛЬНЫХ ССЫЛОК И ЗАЩИТА СТРЕЛОЧЕК ТЕЛЕПОРТА
-    // Ловим клики на лету по всему сайту. Работает даже после переноса строк!
     document.addEventListener("click", function(e) {
         // Проверяем, кликнул ли пользователь именно по кнопке крана
         const link = e.target.closest(".faucet-link");
         if (link) {
             const realUrl = link.getAttribute("data-href") || link.href;
             
+            // Находим строку таблицы (tr), в которой лежит этот кран, чтобы узнать её ID
+            const row = link.closest("tr[id^='faucet']");
+            
             // Если урл настоящий и это не просто кнопка-заглушка
             if (realUrl && realUrl !== "#" && !realUrl.startsWith("javascript:")) {
                 e.preventDefault();
-                e.stopPropagation();
+                e.stopPropagation(); // Глушим рефку для внешнего мира
+
+                // 🔥 ОЖИВЛЯЕМ ТАЙМЕР: Перед открытием сайта запускаем кулдаун крана!
+                if (row && row.id && typeof window.startTimer === 'function') {
+                    // Запускаем таймер для этой строки. По умолчанию ставим кулдаун (например, 5 минут или 300 секунд),
+                    // но если в строке введены свои минуты, startTimer сам их подхватит!
+                    window.startTimer(row.id, 300); 
+                }
+
+                // Открываем кран в новой вкладке
                 window.open(realUrl, '_blank');
             }
         }
-    }, true); // Флаг true заставляет этот перехват срабатывать ПЕРВЫМ в браузЕРЕ
+    }, true); // Оставляем true, чтобы перехват рефок работал безупречно
 
     // Маскируем статус-бар: при наведении мышки прячем реферальный хвост
     document.addEventListener("mouseover", function(e) {
@@ -1199,28 +1210,24 @@ tr.out-of-limit .faucet-link {
     });
 
     // 🔒 БЛОКИРОВКА КОНТЕКСТНОГО МЕНЮ И КЛАВИШ РАЗРАБОТЧИКА
-    // Запрещаем правый клик мыши
     document.addEventListener("contextmenu", function(e) { 
         e.preventDefault(); 
     });
     
-    // Глушим F12, Ctrl+Shift+I, Ctrl+Shift+J и Ctrl+U (Просмотр кода)
     document.addEventListener("keydown", function(e) { 
-        // 123 = F12
         if (e.keyCode === 123) { 
             e.preventDefault(); 
         } 
-        // Блокируем Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
         if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
             e.preventDefault();
         }
-        // Блокируем Ctrl+U (Исходный код страницы)
         if (e.ctrlKey && e.keyCode === 85) {
             e.preventDefault();
         }
     });
 })();
 </script>
+
 
 
 </body>
