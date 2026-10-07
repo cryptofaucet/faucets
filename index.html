@@ -933,8 +933,8 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
-  
- <script>
+
+	<script>
 (function() {
     let activeIntervals = {};
 
@@ -979,7 +979,7 @@ tr.out-of-limit .faucet-link {
         activeIntervals[rowId] = setInterval(updateTimer, 1000);
     }
 
-    // ⚡ Запуск таймера по клику пользователя
+    // ⚡ Запуск таймера по клику пользователя (С ПОЛНЫМ ПЕРЕХВАТОМ ВРЕМЕНИ)
     window.startTimer = function(rowId, defaultDuration) {
         let row = document.getElementById(rowId); if (!row) return;
         if (row.classList.contains('out-of-limit')) return;
@@ -988,20 +988,18 @@ tr.out-of-limit .faucet-link {
         let resetBtn = row.querySelector('.btn-reset');
         if (activeIntervals[rowId]) return; 
 
-        // Приоритет ручного ввода минут из окошка над зашитым HTML!
+        // ЖЁСТКИЙ КИЛЛЕР-ФИЧА: Первым делом проверяем только ручной ввод!
         let duration = defaultDuration;
         let timeInput = row.querySelector('.time-input');
         
-        if (timeInput && timeInput.value) {
-            let userMinutes = parseFloat(timeInput.value);
-            if (!isNaN(userMinutes) && userMinutes > 0) {
-                duration = Math.floor(userMinutes * 60); 
-            }
+        if (timeInput && timeInput.value && parseFloat(timeInput.value) > 0) {
+            // Если в окошке стоят минуты — наглухо стираем то, что прилетело из HTML (defaultDuration)
+            duration = Math.floor(parseFloat(timeInput.value) * 60); 
         } else {
+            // Если окошко на экране пустое, проверяем, нет ли сохраненных минут в localStorage
             const savedTime = localStorage.getItem('crypto_time_' + rowId);
-            if (savedTime) {
-                let userMinutes = parseFloat(savedTime);
-                if (!isNaN(userMinutes) && userMinutes > 0) duration = Math.floor(userMinutes * 60);
+            if (savedTime && parseFloat(savedTime) > 0) {
+                duration = Math.floor(parseFloat(savedTime) * 60);
             }
         }
 
@@ -1028,7 +1026,7 @@ tr.out-of-limit .faucet-link {
         runTimerCountdown(rowId, startTime, duration, cell, resetBtn);
     }
 
-    // ✕ КНОПКА СБРОСА (Убивает зомби-интервалы с первого клика)
+    // ✕ КНОПКА СБРОСА
     window.resetTimer = function(rowId) {
         stopInterval(rowId); 
         let row = document.getElementById(rowId);
@@ -1068,7 +1066,7 @@ tr.out-of-limit .faucet-link {
         triggerTableSort();
     }
 
-    // 🔥 ЕДИНЫЙ БЛОК ИНИЦИАЛИЗАЦИИ САЙТА ПРИ ЗАГРУЗКЕ
+    // ЕДИНЫЙ БЛОК ИНИЦИАЛИЗАЦИИ САЙТА ПРИ ЗАГРУЗКЕ
     document.addEventListener("DOMContentLoaded", function() {
         // Шаг 1. Автоматически клеим окошки времени во все строки
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
@@ -1103,7 +1101,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Шаг 2. Восстанавливаем тикающие кулдауны из памяти браузера
+        // Шаг 2. Восстанавливаем кулдауны из памяти
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             if (localStorage.getItem(rId + '_limit')) {
