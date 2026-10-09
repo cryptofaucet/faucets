@@ -484,7 +484,7 @@ tr.out-of-limit .faucet-link {
         let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
         if (row.classList.contains("out-of-limit")) {
             row.classList.remove("out-of-limit"); localStorage.removeItem(rowId + '_limit');
-            if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+            if (cell) { cell.textContent = "Готов"; cell.className = "timer-cell ready"; }
         } else {
             row.classList.add("out-of-limit"); localStorage.setItem(rowId + '_limit', 'true');
             stopInterval(rowId); localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
