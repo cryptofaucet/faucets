@@ -305,13 +305,21 @@ tr.out-of-limit .faucet-link {
         });
     }
 
-    window.sortTableByPrice = function(isForced = false) {
-        if (!isForced && (isEditingMode || isMouseOverTable ||
-            document.activeElement.classList.contains('crypto-input') || 
-            document.activeElement.classList.contains('time-input') ||
-            document.activeElement.classList.contains('badge-input-active'))) {
-            return; 
-        }
+   window.sortTableByPrice = function(isForced = false) {
+    // ЖЕЛЕЗОБЕТОННАЯ ЗАЩИТА: если ты внутри инпута, сортировка ПОЛНОСТЬЮ блокируется
+    if (document.activeElement && (
+        document.activeElement.tagName === 'INPUT' || 
+        document.activeElement.classList.contains('crypto-input') ||
+        document.activeElement.classList.contains('time-input') ||
+        document.activeElement.classList.contains('badge-input-active')
+    )) {
+        return;
+    }
+
+    if (!isForced && (isEditingMode || isMouseOverTable)) {
+        return; 
+    }
+
 
         function sortContainer(selector) {
             const container = document.querySelector(selector);
