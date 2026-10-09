@@ -385,31 +385,280 @@ tr.out-of-limit .faucet-link {
 </script>
 
 <script>
-(function(){let a={};function ts(){if(typeof window.sortTableByPrice==='function')setTimeout(()=>window.sortTableByPrice(!0),150)}
-function si(r){if(a[r]){clearInterval(a[r]);delete a[r]}}
-function rc(r,s,d,c,b){si(r);let u=()=>{let t=d-Math.floor((Date.now()-s)/1000);if(t<=0){si(r);if(c){c.textContent="Готов к сбору!";c.className="timer-cell ready"}if(b)b.classList.remove('active');localStorage.removeItem(r+'_start');localStorage.removeItem(r+'_duration');ts();return}
-let h=Math.floor(t/3600),m=Math.floor((t%3600)/60),sC=t%60;h=h<10?"0"+h:h;m=m<10?"0"+m:m;sC=sC<10?"0"+sC:sC;if(c)c.textContent=(d>=3600)?`${h}:${m}:${sC}`:m:{sC}};u();a[r]=setInterval(u,1000)}
-window.startTimer=function(r,d){let o=document.getElementById(r);if(!o||o.classList.contains('out-of-limit')||a[r])return;let c=o.querySelector('.timer-cell'),b=o.querySelector('.btn-reset'),i=o.querySelector('.time-input'),dur=d;
-if(i&&i.value&&parseFloat(i.value)>0){dur=Math.floor(parseFloat(i.value)*60);localStorage.setItem('crypto_time_'+r,i.value)}else{let s=localStorage.getItem('crypto_time_'+r);if(s&&parseFloat(s)>0)dur=Math.floor(parseFloat(s)*60)}
-let st=Date.now();localStorage.setItem(r+'_start',st);localStorage.setItem(r+'_duration',dur);if(c){c.classList.remove('ready');c.classList.add('timer')}if(b)b.classList.add('active');rc(r,st,dur,c,b);ts()};
-window.resetTimer=function(r){si(r);let o=document.getElementById(r);if(o){let c=o.querySelector('.timer-cell'),b=o.querySelector('.btn-reset');if(!o.classList.contains('out-of-limit')&&c){c.textContent="Готов к сбору!";c.className="timer-cell ready"}if(b)b.classList.remove('active')}localStorage.removeItem(r+'_start');localStorage.removeItem(r+'_duration');ts()};
-window.toggleLimit=function(r){let o=document.getElementById(r);if(!o)return;let c=o.querySelector('.timer-cell'),b=o.querySelector('.btn-reset');if(o.classList.contains("out-of-limit")){o.classList.remove("out-of-limit");localStorage.removeItem(r+'_limit');if(c){c.textContent="Готов к сбору!";c.className="timer-cell ready"}}else{o.classList.add("out-of-limit");localStorage.setItem(r+'_limit','true');si(r);localStorage.removeItem(r+'_start');localStorage.removeItem(r+'_duration');if(c){c.textContent="Лимит пуст";c.className="timer-cell"}if(b)b.classList.remove('active')}ts()};
-window.moveFaucetColumn=function(r,t){let o=document.getElementById(r),g=document.querySelector(t==='left'?'.left-faucets':'.right-faucets');if(g){g.appendChild(o);localStorage.setItem('position_'+r,t);ts()}if(typeof window.secureAndHideLinks==='function')window.secureAndHideLinks()};
-window.editBadge=function(r,b){let t=b.textContent.trim(),i=document.createElement('input');i.type='text';i.value=t;i.className='badge-input-active';i.style='width:48px;height:18px;padding:0;border:1px solid #00ffcc;border-radius:3px;background:#151a26;color:#00ffcc;font-size:10px;font-weight:bold;text-align:center;box-sizing:border-box;text-transform:uppercase;';
-let s=()=>{let n=i.value.trim().toUpperCase();if(!n){b.textContent=t;i.replaceWith(b);return}window.applyNewCrypto(r,n,b);i.replaceWith(b)};i.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();s()}});i.addEventListener('blur',s);b.replaceWith(i);i.focus();i.select()};
-window.applyNewCrypto=function(r,n,b){let o=document.getElementById(r);if(!o)return;o.setAttribute('data-crypto',n);localStorage.setItem('crypto_type_'+r,n);b.textContent=n;b.className='badge crypto-badge '+n.toLowerCase();let i=o.querySelector('.crypto-input');if(i&&typeof window.calculateLiveRow==='function')window.calculateLiveRow(r,i.value);ts();if(typeof window.secureAndHideLinks==='function')window.secureAndHideLinks()};
-document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll('tr[id^="faucet"]').forEach(o=>{let r=o.id,p=localStorage.getItem('position_'+r);if(p){let g=document.querySelector(p==='right'?'.right-faucets':(p==='hard'?'.hard-faucets':'.left-faucets'));if(g)g.appendChild(o)}});
-document.querySelectorAll('tr[id^="faucet"]').forEach(o=>{let r=o.id;if(localStorage.getItem(r+'_limit')){o.classList.add("out-of-limit");let c=o.querySelector('.timer-cell');if(c){c.textContent="Лимит пуст";c.className="timer-cell"}}else{let s=localStorage.getItem(r+'_start'),d=localStorage.getItem(r+'_duration');if(s&&d){let c=o.querySelector('.timer-cell'),b=o.querySelector('.btn-reset');if(c){c.classList.remove('ready');c.classList.add('timer')}if(b)b.classList.remove('active');rc(r,parseInt(s),parseInt(d),c,b)}}});
-document.querySelectorAll('tr[id^="faucet"]').forEach(o=>{let r=o.id,s=localStorage.getItem('crypto_type_'+r);if(s){o.setAttribute('data-crypto',s);let b=o.querySelector('.crypto-badge');if(b){b.textContent=s;b.className='badge crypto-badge '+s.toLowerCase()}let i=o.querySelector('.crypto-input');if(i&&typeof window.calculateLiveRow==='function')window.calculateLiveRow(r,i.value)}});
-window.refreshAllArrows=function(){document.querySelectorAll('tr[id^="faucet"]').forEach(o=>{let r=o.id,w=o.querySelector('.timer-wrapper'),c=o.querySelector('.timer-cell');if(!w||!c)return;if(!o.querySelector('.time-input')){let i=document.createElement('input');i.type='number';i.className='time-input';i.placeholder='мин';i.min='1';i.style='width:35px;height:20px;padding:2px;border:1px solid #52667d;background:#151a26;color:#00ffcc;border-radius:3px;font-size:11px;text-align:center;margin-right:5px;box-sizing:border-box;';
-let s=localStorage.getItem('crypto_time_'+r);if(s!==null&&s!=='')i.value=s;else{let l=o.querySelector('.faucet-link');if(l){let m=(l.getAttribute('onclick')||'').match(/,\s*(\d+)\)/);if(m&&m[1])i.value=Math.floor(parseInt(m[1])/60)}}
-let sf=()=>{if(i.value&&parseFloat(i.value)>0)localStorage.setItem('crypto_time_'+r,i.value);else localStorage.removeItem('crypto_time_'+r);ts()};i.addEventListener('change',sf);i.addEventListener('input',sf);w.insertBefore(i,c)}
-w.querySelectorAll('.nav-arrow-btn').forEach(b=>b.remove());w.querySelectorAll('button').forEach(b=>{if(b.innerHTML==='◀'||b.innerHTML==='▶'||b.innerHTML==='▼')b.remove()});
-let ca=(x,col,t)=>{let b=document.createElement('button');b.innerHTML=x;b.className='nav-arrow-btn';b.style=`background:none;border:none;color:${col};font-size:10px;cursor:pointer;padding:2px;margin-right:2px;font-weight:bold;`;b.onclick=(e)=>{e.preventDefault();let g=document.querySelector(t==='left'?'.left-faucets':(t==='right'?'.right-faucets':'.hard-faucets'));if(g){g.appendChild(o);localStorage.setItem('position_'+r,t);window.refreshAllArrows();ts()}if(typeof window.secureAndHideLinks==='function')window.secureAndHideLinks()};return b};
-let bD=o.closest('tbody');if(bD){if(bD.classList.contains('left-faucets')){w.insertBefore(ca('▶','#00b3ff','right'),c);w.insertBefore(ca('▼','#ffaa00','hard'),c)}else if(bD.classList.contains('right-faucets')){w.insertBefore(ca('◀','#00ffcc','left'),c);w.insertBefore(ca('▼','#ffaa00','hard'),c)}else if(bD.classList.contains('hard-faucets')){w.insertBefore(ca('◀','#00ffcc','left'),c);w.insertBefore(ca('▶','#00b3ff','right'),c)}}})};
-window.refreshAllArrows();setTimeout(ts,500)});})();
+(function() {
+    let activeIntervals = {};
+
+    function triggerTableSort() {
+        if (typeof window.sortTableByPrice === 'function') {
+            setTimeout(function() { window.sortTableByPrice(true); }, 150);
+        }
+    }
+
+    function stopInterval(rowId) {
+        if (activeIntervals[rowId]) {
+            clearInterval(activeIntervals[rowId]);
+            delete activeIntervals[rowId];
+        }
+    }
+
+    function runTimerCountdown(rowId, startTime, duration, cell, resetBtn) {
+        stopInterval(rowId); 
+        function updateTimer() {
+            let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
+            if (timeLeft <= 0) {
+                stopInterval(rowId);
+                if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+                if (resetBtn) resetBtn.classList.remove('active');
+                localStorage.removeItem(rowId + '_start'); 
+                localStorage.removeItem(rowId + '_duration'); 
+                triggerTableSort();
+                return;
+            }
+            let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
+            h = h < 10 ? "0" + h : h; m = m < 10 ? "0" + m : m; s = s < 10 ? "0" + s : s;
+            if (cell) cell.textContent = (duration >= 3600) ? `${h}:${m}:${s}` : `${m}:${s}`;
+        }
+        updateTimer();
+        activeIntervals[rowId] = setInterval(updateTimer, 1000);
+    }
+
+    window.startTimer = function(rowId, defaultDuration) {
+        let row = document.getElementById(rowId); if (!row) return;
+        if (row.classList.contains('out-of-limit')) return;
+        let cell = row.querySelector('.timer-cell'); 
+        let resetBtn = row.querySelector('.btn-reset');
+        if (activeIntervals[rowId]) return; 
+
+        let duration = defaultDuration;
+        let timeInput = row.querySelector('.time-input');
+        if (timeInput && timeInput.value && parseFloat(timeInput.value) > 0) {
+            duration = Math.floor(parseFloat(timeInput.value) * 60);
+            localStorage.setItem('crypto_time_' + rowId, timeInput.value);
+        } else {
+            const savedTime = localStorage.getItem('crypto_time_' + rowId);
+            if (savedTime && parseFloat(savedTime) > 0) duration = Math.floor(parseFloat(savedTime) * 60);
+        }
+
+        let startTime = Date.now();
+        localStorage.setItem(rowId + '_start', startTime); 
+        localStorage.setItem(rowId + '_duration', duration); 
+        if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
+        if (resetBtn) resetBtn.classList.add('active');
+        runTimerCountdown(rowId, startTime, duration, cell, resetBtn);
+        triggerTableSort();
+    }
+
+    window.resetTimer = function(rowId) {
+        stopInterval(rowId); 
+        let row = document.getElementById(rowId);
+        if (row) {
+            let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+            if (!row.classList.contains('out-of-limit') && cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+            if (resetBtn) resetBtn.classList.remove('active');
+        }
+        localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
+        triggerTableSort(); 
+    }
+
+    window.toggleLimit = function(rowId) {
+        let row = document.getElementById(rowId); if (!row) return;
+        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+        if (row.classList.contains("out-of-limit")) {
+            row.classList.remove("out-of-limit"); localStorage.removeItem(rowId + '_limit');
+            if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+        } else {
+            row.classList.add("out-of-limit"); localStorage.setItem(rowId + '_limit', 'true');
+            stopInterval(rowId); localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
+            if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
+            if (resetBtn) resetBtn.classList.remove('active');
+        }
+        triggerTableSort();
+    }
+
+    window.moveFaucetColumn = function(rowId, targetSide) {
+        const row = document.getElementById(rowId); if (!row) return;
+        const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : '.right-faucets');
+        if (targetContainer) { targetContainer.appendChild(row); localStorage.setItem('position_' + rowId, targetSide); triggerTableSort(); }
+        if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
+    }
+
+    window.editBadge = function(rowId, badgeElement) {
+        const currentText = badgeElement.textContent.trim();
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentText;
+        input.className = 'badge-input-active';
+        input.style = 'width: 48px; height: 18px; padding: 0; border: 1px solid #00ffcc; border-radius: 3px; background: #151a26; color: #00ffcc; font-size: 10px; font-weight: bold; text-align: center; box-sizing: border-box; text-transform: uppercase;';
+        
+        const saveAndClose = function() {
+            const newCrypto = input.value.trim().toUpperCase();
+            if (!newCrypto) {
+                badgeElement.textContent = currentText;
+                input.replaceWith(badgeElement);
+                return;
+            }
+            window.applyNewCrypto(rowId, newCrypto, badgeElement);
+            input.replaceWith(badgeElement);
+        };
+
+        input.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); saveAndClose(); } });
+        input.addEventListener('blur', saveAndClose);
+        
+        badgeElement.replaceWith(input);
+        input.focus(); 
+        input.select();
+    }
+
+    window.applyNewCrypto = function(rowId, newCrypto, badgeElement) {
+        const row = document.getElementById(rowId); if (!row) return;
+        row.setAttribute('data-crypto', newCrypto);
+        localStorage.setItem('crypto_type_' + rowId, newCrypto);
+        badgeElement.textContent = newCrypto;
+        badgeElement.className = 'badge crypto-badge ' + newCrypto.toLowerCase();
+
+        const cryptoInp = row.querySelector('.crypto-input');
+        if (cryptoInp && typeof window.calculateLiveRow === 'function') {
+            window.calculateLiveRow(rowId, cryptoInp.value);
+        }
+        triggerTableSort(); 
+        if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Шаг 1. Распределяем краны по колонкам из памяти (теперь с учетом нижнего блока)
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const rId = row.id;
+            const savedPosition = localStorage.getItem('position_' + rId);
+            if (savedPosition) {
+                let containerSelector = '.left-faucets';
+                if (savedPosition === 'right') containerSelector = '.right-faucets';
+                if (savedPosition === 'hard') containerSelector = '.hard-faucets';
+                
+                const container = document.querySelector(containerSelector);
+                if (container) container.appendChild(row);
+            }
+        });
+
+        // Шаг 2. Восстанавливаем кулдауны / лимиты кранов
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const rId = row.id;
+            if (localStorage.getItem(rId + '_limit')) {
+                row.classList.add("out-of-limit");
+                let cell = row.querySelector('.timer-cell'); if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
+            } else {
+                let sS = localStorage.getItem(rId + '_start'); let sD = localStorage.getItem(rId + '_duration');
+                if (sS && sD) {
+                    let row = document.getElementById(rId); if (!row) return;
+                    let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
+                    if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
+                    if (resetBtn) resetBtn.classList.remove('active');
+                    runTimerCountdown(rId, parseInt(sS), parseInt(sD), cell, resetBtn);
+                }
+            }
+        });
+        // Шаг 3. Восстанавливаем вписанные руками значки криптовалют при загрузке страницы
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const rId = row.id;
+            const savedCrypto = localStorage.getItem('crypto_type_' + rId);
+            if (savedCrypto) {
+                row.setAttribute('data-crypto', savedCrypto);
+                const badge = row.querySelector('.crypto-badge');
+                if (badge) {
+                    badge.textContent = savedCrypto;
+                    badge.className = 'badge crypto-badge ' + savedCrypto.toLowerCase();
+                }
+                const input = row.querySelector('.crypto-input');
+                if (input && typeof window.calculateLiveRow === 'function') {
+                    window.calculateLiveRow(rId, input.value);
+                }
+            }
+        });
+
+        // Шаг 4. Генерируем инпуты минут И правильные стрелочки (3 направления)
+        window.refreshAllArrows = function() {
+            document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+                const rId = row.id;
+                const wrapper = row.querySelector('.timer-wrapper');
+                const cell = row.querySelector('.timer-cell');
+                if (!wrapper || !cell) return;
+
+                // 1. Создаем инпут минут, если его еще нет
+                if (!row.querySelector('.time-input')) {
+                    let input = document.createElement('input');
+                    input.type = 'number'; input.className = 'time-input'; input.placeholder = 'мин'; input.min = '1';
+                    input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
+                    
+                    const savedTime = localStorage.getItem('crypto_time_' + rId);
+                    if (savedTime !== null && savedTime !== '') {
+                        input.value = savedTime;
+                    } else {
+                        const link = row.querySelector('.faucet-link');
+                        if (link) {
+                            const onclickText = link.getAttribute('onclick') || '';
+                            const match = onclickText.match(/,\s*(\d+)\)/);
+                            if (match) input.value = Math.floor(parseInt(match[1]) / 60);
+                        }
+                    }
+
+                    const saveFunc = function() {
+                        if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
+                        else localStorage.removeItem('crypto_time_' + rId);
+                        if (!activeIntervals[rId]) triggerTableSort();
+                    };
+                    input.addEventListener('change', saveFunc); input.addEventListener('input', saveFunc);
+                    wrapper.insertBefore(input, cell);
+                }
+
+                // 2. Очищаем старые стрелочки, чтобы не дублировались при перерисовке
+                wrapper.querySelectorAll('.nav-arrow-btn').forEach(b => b.remove());
+                wrapper.querySelectorAll('button').forEach(b => {
+                    if(b.innerHTML === '◀' || b.innerHTML === '▶' || b.innerHTML === '▼') b.remove();
+                });
+
+                // Функция для быстрой сборки новой стрелочки
+                const createArrow = function(text, color, targetSide) {
+                    let btn = document.createElement('button');
+                    btn.innerHTML = text;
+                    btn.className = 'nav-arrow-btn';
+                    btn.style = `background:none; border:none; color:${color}; font-size:10px; cursor:pointer; padding:2px; margin-right:2px; font-weight:bold;`;
+                    btn.onclick = function(e) {
+                        e.preventDefault();
+                        const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : (targetSide === 'right' ? '.right-faucets' : '.hard-faucets'));
+                        if (targetContainer) {
+                            targetContainer.appendChild(row);
+                            localStorage.setItem('position_' + rId, targetSide);
+                            window.refreshAllArrows(); // Перерисовываем стрелочки после перемещения
+                            triggerTableSort();
+                        }
+                        if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
+                    };
+                    return btn;
+                };
+
+                // Определяем, какие стрелочки рисовать, исходя из текущего tbody строки
+                const currentTbody = row.closest('tbody');
+                if (currentTbody) {
+                    if (currentTbody.classList.contains('left-faucets')) {
+                        wrapper.insertBefore(createArrow('▶', '#00b3ff', 'right'), cell);
+                        wrapper.insertBefore(createArrow('▼', '#ffaa00', 'hard'), cell);
+                    } else if (currentTbody.classList.contains('right-faucets')) {
+                        wrapper.insertBefore(createArrow('◀', '#00ffcc', 'left'), cell);
+                        wrapper.insertBefore(createArrow('▼', '#ffaa00', 'hard'), cell);
+                    } else if (currentTbody.classList.contains('hard-faucets')) {
+                        wrapper.insertBefore(createArrow('◀', '#00ffcc', 'left'), cell);
+                        wrapper.insertBefore(createArrow('▶', '#00b3ff', 'right'), cell);
+                    }
+                }
+            });
+        };
+
+        // Запускаем генерацию инпутов и стрелочек
+        window.refreshAllArrows();
+        
+        setTimeout(triggerTableSort, 500);
+    });
+})();
 </script>
-  
 
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
 <script>
