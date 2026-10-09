@@ -540,7 +540,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Шаг 2. Восстанавливаем кулдауны / лимиты кранов
+                // Шаг 2. Восстанавливаем кулдауны / лимиты кранов
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
             const rId = row.id;
             if (localStorage.getItem(rId + '_limit')) {
@@ -549,11 +549,12 @@ tr.out-of-limit .faucet-link {
             } else {
                 let sS = localStorage.getItem(rId + '_start'); let sD = localStorage.getItem(rId + '_duration');
                 if (sS && sD) {
-                    let row = document.getElementById(rId); if (!row) return;
                     let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
                     if (cell) { cell.classList.remove('ready'); cell.classList.add('timer'); }
                     if (resetBtn) resetBtn.classList.remove('active');
-                    runTimerCountdown(rId, parseInt(sS), parseInt(sD), cell, resetBtn);
+                    if (typeof runTimerCountdown === 'function') {
+                        runTimerCountdown(rId, parseInt(sS), parseInt(sD), cell, resetBtn);
+                    }
                 }
             }
         });
@@ -589,12 +590,31 @@ tr.out-of-limit .faucet-link {
                     let input = document.createElement('input');
                     input.type = 'number'; input.className = 'time-input'; input.placeholder = 'мин'; input.min = '1';
                     input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
+                    
+                    // --- УМНЫЙ ПОДБОР ВРЕМЕНИ ИЗ КОДА ГЕНЕРАТОРА ---
                     const savedTime = localStorage.getItem('crypto_time_' + rId);
-                    if (savedTime !== null && savedTime !== '') input.value = savedTime;
+                    if (savedTime !== null && savedTime !== '') {
+                        input.value = savedTime;
+                    } else {
+                        // Если в localStorage пусто, вытаскиваем секунды из onclick ссылки крана
+                        const link = row.querySelector('.faucet-link');
+                        if (link) {
+                            const onclickText = link.getAttribute('onclick') || '';
+                            const match = onclickText.match(/,\s*(\d+)\)/); // Ищет число в startTimer('faucet1', 180)
+                            if (match && match[1]) {
+                                input.value = Math.floor(parseInt(match[1]) / 60); // Переводит 180 сек в 3 мин
+                            }
+                        }
+                    }
+                    // ----------------------------------------------
+
                     const saveFunc = function() {
                         if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
                         else localStorage.removeItem('crypto_time_' + rId);
-                        if (!activeIntervals[rId]) triggerTableSort();
+                        
+                        // Безопасный вызов сортировки таблиц
+                        if (typeof triggerTableSort === 'function') triggerTableSort();
+                        else if (typeof window.sortTableByPrice === 'function') window.sortTableByPrice(true);
                     };
                     input.addEventListener('change', saveFunc); input.addEventListener('input', saveFunc);
                     wrapper.insertBefore(input, cell);
@@ -619,7 +639,8 @@ tr.out-of-limit .faucet-link {
                             targetContainer.appendChild(row);
                             localStorage.setItem('position_' + rId, targetSide);
                             window.refreshAllArrows(); // Перерисовываем стрелочки после перемещения
-                            triggerTableSort();
+                            if (typeof triggerTableSort === 'function') triggerTableSort();
+                            else if (typeof window.sortTableByPrice === 'function') window.sortTableByPrice(true);
                         }
                         if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
                     };
@@ -646,13 +667,12 @@ tr.out-of-limit .faucet-link {
         // Запускаем генерацию инпутов и стрелочек
         window.refreshAllArrows();
         
-        setTimeout(triggerTableSort, 500);
+        if (typeof triggerTableSort === 'function') setTimeout(triggerTableSort, 500);
+        else if (typeof window.sortTableByPrice === 'function') setTimeout(function() { window.sortTableByPrice(true); }, 500);
     });
 })();
 </script>
 
-
- 
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
 <script>
 (function() {
