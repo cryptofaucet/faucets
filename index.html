@@ -141,317 +141,47 @@ tr.out-of-limit .faucet-link {
             <table>
                 <thead><tr><th>Кран</th><th>Монета</th><th>Статус</th></tr></thead>
                <tbody class="left-faucets">
-    		<!-- Faucet 1: Prairiehash -->
-<tr id="faucet1" data-crypto="DOGE">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://prairiehash.com/?r=5hikidck" target="_blank" onclick="startTimer('faucet1', 300)">Prairiehash</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.0005967" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- Идеальный и чистый вариант без изменения твоих стилей -->
-<td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-    <span class="badge doge crypto-badge" onclick="window.editBadge('faucet1', this)">DOGE</span>
-</td>
-
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet1" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet1')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet1')">⚠️</button>
-        </div>
-    </td>
+    		 <!-- Faucet 1: BitEarnix -->
+<tr id="faucet1" data-crypto="BTC">
+    <!-- 1. Название --><td><a class="faucet-link" href="https://bitearnix.com/?r=96pzwwdg" target="_blank" onclick="startTimer('faucet1', 180)">BitEarnix</a></td>
+    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet1', this)">BTC</span></td>
+    <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet1" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
+    <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet1')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet1')">⚠️</button></div></td>
+</tr> 
+	<!-- Faucet 2: CoinDrip -->
+<tr id="faucet2" data-crypto="BTC">
+    <!-- 1. Название --><td><a class="faucet-link" href="https://coindrip.site/?r=zj262589" target="_blank" onclick="startTimer('faucet2', 3600)">CoinDrip</a></td>
+    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000004" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet2', this)">BTC</span></td>
+    <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet2" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
+    <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet2')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet2')">⚠️</button></div></td>
 </tr>
-
-<!-- Faucet 2: Zerpayz -->
-<tr id="faucet2" data-crypto="USDT">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://zerpayz.com/" target="_blank" onclick="startTimer('faucet2', 60)">Zerpayz</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00015" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-       <span class="badge usdt crypto-badge" onclick="window.editBadge('faucet2', this)">USDT</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet2" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet2')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet2')">⚠️</button>
-        </div>
-    </td>
+				   <!-- Faucet 3: ZukyFaucet -->
+<tr id="faucet3" data-crypto="BTC">
+    <!-- 1. Название --><td><a class="faucet-link" href="https://zukyfaucet.vip/" target="_blank" onclick="startTimer('faucet3', 3600)">ZukyFaucet</a></td>
+    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000005" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet3', this)">BTC</span></td>
+    <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet3" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
+    <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet3')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet3')">⚠️</button></div></td>
 </tr>
-
-<!-- Faucet 3: Ponyfaucet -->
-<tr id="faucet3" data-crypto="DOGE">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://ponyfaucet.online/?r=fw8h32zs" target="_blank" onclick="startTimer('faucet3', 360)">Ponyfaucet</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.005" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <span class="badge doge crypto-badge" onclick="window.editBadge('faucet3', this)">DOGE</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet3" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet3')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet3')">⚠️</button>
-        </div>
-    </td>
+				   <!-- Faucet 4: Pouri -->
+<tr id="faucet4" data-crypto="BTC">
+    <!-- 1. Название --><td><a class="faucet-link" href="https://pourri.fun/?r=mswsqrwi" target="_blank" onclick="startTimer('faucet4', 300)">Pouri</a></td>
+    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet4', this)">BTC</span></td>
+    <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet4" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
+    <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet4')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet4')">⚠️</button></div></td>
 </tr>
-
-<!-- Faucet 4: Rushfaucet -->
-<tr id="faucet4" data-crypto="USDT">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://rushfaucet.top/?r=mvab4djc" target="_blank" onclick="startTimer('faucet4', 300)">Rushfaucet</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <span class="badge usdt crypto-badge" onclick="window.editBadge('faucet4', this)">USDT</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet4" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet4')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet4')">⚠️</button>
-        </div>
-    </td>
+				   <!-- Faucet 5: 247faucet -->
+<tr id="faucet5" data-crypto="BTC">
+    <!-- 1. Название --><td><a class="faucet-link" href="https://247faucet.site/?r=qy3qdjkg" target="_blank" onclick="startTimer('faucet5', 300)">247faucet</a></td>
+    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet5', this)">BTC</span></td>
+    <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet5" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
+    <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet5')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet5')">⚠️</button></div></td>
 </tr>
-
-<!-- Faucet 5: Egofaucet -->
-<tr id="faucet5" data-crypto="SOL">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://egofaucet.com/?r=63sgqbbn" target="_blank" onclick="startTimer('faucet5', 180)">Egofaucet</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000100" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <span class="badge sol crypto-badge" onclick="window.editBadge('faucet5', this)">SOL</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet5" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet5')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet5')">⚠️</button>
-        </div>
-    </td>
-</tr>
-		  
-		 
-    <!-- Faucet 6: Extrafaucets -->
-<tr id="faucet6" data-crypto="LTC">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://extrafaucets.online/?r=rbsbejib" target="_blank" onclick="startTimer('faucet6', 60)">Extrafaucets</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-       <span class="badge ltc crypto-badge" onclick="window.editBadge('faucet6', this)">LTC</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet6" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet6')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet6')">⚠️</button>
-        </div>
-    </td>
-</tr>
-
-<!-- Faucet 7: Bitclaims -->
-<tr id="faucet7" data-crypto="LTC">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://bitclaims.online/?r=gra3em2q" target="_blank" onclick="startTimer('faucet7', 60)">Bitclaims</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-       <span class="badge ltc crypto-badge" onclick="window.editBadge('faucet7', this)">LTC</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet7" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet7')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet7')">⚠️</button>
-        </div>
-    </td>
-</tr>
-
-<!-- Faucet 8: Extraclaims -->
-<tr id="faucet8" data-crypto="LTC">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://extraclaims.online/?r=4pzssbb5" target="_blank" onclick="startTimer('faucet8', 60)">Extraclaims</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-       <span class="badge ltc crypto-badge" onclick="window.editBadge('faucet8', this)">LTC</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet8" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet8')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet8')">⚠️</button>
-        </div>
-    </td>
-</tr>
-
-<!-- Faucet 9: Dragonclaims -->
-<tr id="faucet9" data-crypto="LTC">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="https://dragonclaims.it.com/?r=z8yyrm5u" target="_blank" onclick="startTimer('faucet9', 60)">Dragonclaims</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <span class="badge ltc crypto-badge" onclick="window.editBadge('faucet9', this)">LTC</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet9" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet9')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet9')">⚠️</button>
-        </div>
-    </td>
-</tr>
-
-<!-- Faucet 10: $$ -->
-<tr id="faucet10" data-crypto="LTC">
-    <!-- 1. Столбец: Название -->
-    <td><a class="faucet-link" href="" target="_blank" onclick="startTimer('faucet10', 300)">$$</a></td>
-    
-    <!-- 2. Столбец: Окошко ввода баланса -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.0001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';">
-    </td>
-
-    <!-- 3. Столбец: Валюта -->
-    <td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;">
-        <span class="badge ltc crypto-badge" onclick="window.editBadge('faucet10', this)">LTC</span>
-
-    </td>
-
-    <!-- 4. Столбец: Вывод рублей -->
-    <td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;">
-        <span class="rub-result" id="rub_res_faucet10" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span>
-    </td>
-    
-    <!-- 5. Столбец: Таймер -->
-    <td>
-        <div class="timer-wrapper">
-            <span class="timer-cell ready">Готов к сбору</span>
-            <button class="btn-reset" onclick="resetTimer('faucet10')">✕</button>
-            <button class="btn-limit" onclick="toggleLimit('faucet10')">⚠️</button>
-        </div>
-    </td>
-</tr>
- 
+				   
 </tbody>
             </table>
         </div>
