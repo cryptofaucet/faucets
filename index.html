@@ -1271,6 +1271,98 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
+	
+<!-- Автоматический подбор самого дорогого крана -->
+<script>
+function findAndDisplayBestFaucet() {
+    // 1. Находим вообще все строки таблиц (tr) на твоем сайте
+    const allRows = document.querySelectorAll('tr');
+    
+    let highestPrice = -1;
+    let bestRow = null;
+
+    allRows.forEach(row => {
+        // Проверяем, что кран действительно готов к сбору (чтобы не брать таймеры)
+        if (!row.textContent.includes("Готов к сбору")) return;
+
+        // Ищем ячейку, где выводится цена в рублях (содержит "₽")
+        const cells = row.querySelectorAll('td');
+        let rubValue = 0;
+
+        cells.forEach(cell => {
+            if (cell.textContent.includes('₽')) {
+                // Извлекаем только цифры и точки (например, "1.25 ₽" -> 1.25)
+                const parsed = parseFloat(cell.textContent.replace(/[^\d.]/g, ''));
+                if (!isNaN(parsed)) {
+                    rubValue = parsed;
+                }
+            }
+        });
+
+        // Если кран активен и он дороже, чем те, что мы находили раньше — запоминаем его
+        if (rubValue > highestPrice) {
+            highestPrice = rubValue;
+            bestRow = row;
+        }
+    });
+
+    // 2. Выводим результат в нашу верхнюю коробку
+    const topBox = document.getElementById('smart-premium-box');
+    if (!topBox) return;
+
+    if (bestRow) {
+        // Берем имя крана (обычно первая ячейка)
+        const cells = bestRow.querySelectorAll('td');
+        const faucetName = cells[0] ? cells[0].textContent.trim() : "Кран";
+        const originalButton = bestRow.querySelector('a, button');
+
+        if (originalButton) {
+            // Клонируем кнопку, чтобы не ломать оригинальную таблицу внизу
+            const clonedButton = originalButton.cloneNode(true);
+
+            // При клике на верхнюю кнопку мы "тихонько" кликаем на нижнюю,
+            // чтобы на сайте сработал твой родной скрипт таймера, и сразу обновляем коробку
+            clonedButton.addEventListener('click', () => {
+                originalButton.click(); // запускаем твой таймер и переход по ссылке
+                
+                // Даем твоему скрипту полсекунды, чтобы он поменял статус на таймер, 
+                // и ищем новый самый дорогой кран для коробки
+                setTimeout(findAndDisplayBestFaucet, 500);
+            });
+
+            // Отрисовываем кран в верхней коробке
+            topBox.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; height: 100%; width: 100%;">
+                    <div>
+                        <span style="font-size: 11px; color: #ff9900; font-weight: bold; display: block; text-transform: uppercase;">🔥 САМЫЙ ВЫГОДНЫЙ СЕЙЧАС:</span>
+                        <strong style="font-size: 16px; color: #333;">${faucetName}</strong> 
+                        <span style="color: #2e7d32; font-weight: bold; margin-left: 5px;">(${highestPrice.toFixed(2)} ₽)</span>
+                    </div>
+                    <div id="top-btn-container"></div>
+                </div>
+            `;
+            // Вставляем прокачанную кнопку в коробку
+            topBox.querySelector('#top-btn-container').appendChild(clonedButton);
+        }
+    } else {
+        // Если все краны без исключения ушли в таймер ожидания
+        topBox.innerHTML = `
+            <div style="text-align: center; color: #888; font-size: 14px; padding: 5px; width: 100%;">
+                ⏳ Отличная работа! Все доступные краны собраны. Ожидаем таймеры...
+            </div>
+        `;
+    }
+}
+
+// Автоматический запуск логики:
+// 1. Ждем 1.5 секунды после загрузки страницы (чтобы твои скрипты успели стянуть курсы валют)
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(findAndDisplayBestFaucet, 1500);
+});
+
+// 2. Раз в 20 секунд проверяем таблицу заново (на случай, если какой-то жирный кран вышел из таймера)
+setInterval(findAndDisplayBestFaucet, 20000);
+</script>
 
 </body>
 </html>
