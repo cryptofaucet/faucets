@@ -384,7 +384,7 @@ tr.out-of-limit .faucet-link {
 })();
 </script>
 
-<script>
+ <script>
 (function() {
     let activeIntervals = {};
 
@@ -487,7 +487,8 @@ tr.out-of-limit .faucet-link {
         const input = document.createElement('input');
         input.type = 'text';
         input.value = currentText;
-        input.className = 'badge-input-active';
+        input.className = 'badge-input-active'; // Намертво блокирует улетание строки при сортировке
+        
         input.style = 'width: 48px; height: 18px; padding: 0; border: 1px solid #00ffcc; border-radius: 3px; background: #151a26; color: #00ffcc; font-size: 10px; font-weight: bold; text-align: center; box-sizing: border-box; text-transform: uppercase;';
         
         const saveAndClose = function() {
@@ -588,6 +589,7 @@ tr.out-of-limit .faucet-link {
                     input.type = 'number'; input.className = 'time-input'; input.placeholder = 'мин'; input.min = '1';
                     input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
                     
+                    // ФИКС НУЛЕЙ: Если в кэше пусто, берем минуты из ссылки
                     const savedTime = localStorage.getItem('crypto_time_' + rId);
                     if (savedTime !== null && savedTime !== '') {
                         input.value = savedTime;
@@ -596,14 +598,14 @@ tr.out-of-limit .faucet-link {
                         if (link) {
                             const onclickText = link.getAttribute('onclick') || '';
                             const match = onclickText.match(/,\s*(\d+)\)/);
-                            if (match) input.value = Math.floor(parseInt(match[1]) / 60);
+                            if (match) input.value = Math.floor(parseInt(match) / 60);
                         }
                     }
 
                     const saveFunc = function() {
                         if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
                         else localStorage.removeItem('crypto_time_' + rId);
-                        if (!activeIntervals[rId]) triggerTableSort();
+                        if (!activeIntervals[rId]) triggerTableSort(); // Родная защита фокуса во время ввода!
                     };
                     input.addEventListener('change', saveFunc); input.addEventListener('input', saveFunc);
                     wrapper.insertBefore(input, cell);
@@ -659,6 +661,7 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
+
 
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
 <script>
