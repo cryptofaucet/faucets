@@ -427,7 +427,7 @@ tr.out-of-limit .faucet-link {
             let timeLeft = duration - Math.floor((Date.now() - startTime) / 1000);
             if (timeLeft <= 0) {
                 stopInterval(rowId);
-                if (cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+                if (cell) { cell.textContent = "Готов"; cell.className = "timer-cell ready"; }
                 if (resetBtn) resetBtn.classList.remove('active');
                 localStorage.removeItem(rowId + '_start'); 
                 localStorage.removeItem(rowId + '_duration'); 
