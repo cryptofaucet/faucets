@@ -795,6 +795,22 @@ window.addEventListener('DOMContentLoaded', () => {
 // 2. Раз в 20 секунд проверяем таблицу заново (на случай, если какой-то жирный кран вышел из таймера)
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
+<!-- Кнопка очистки localStorage (всплывает в правом нижнем углу, чтобы не портить верстку) -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+    <button id="clear-ls-btn" style="background: #e74c3c; color: #fff; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        🔄 Сбросить старые краны
+    </button>
+</div>
+
+<script>
+document.getElementById('clear-ls-btn').addEventListener('click', function() {
+    if (confirm('Вы уверены, что хотите полностью очистить сохраненные краны? Это исправит ошибки отображения.')) {
+        localStorage.clear(); // Полностью вычищаем кэш
+        alert('Хранилище очищено! Страница будет перезагружена.');
+        location.reload();    // Перезапускаем страницу с чистой памятью
+    }
+});
+</script>
 
 </body>
 </html>
