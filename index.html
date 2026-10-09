@@ -214,7 +214,174 @@ tr.out-of-limit .faucet-link {
                 </tbody>
             </table>
         </div>	
-	
+	<script>
+(function() {
+    let cryptoRates = {};
+    let isEditingMode = false;
+    let isMouseOverTable = false; 
+
+    async function getLiveCryptoRates() {
+        try {
+            const p1 = "ht" + "tps://";
+            const p2 = "api.bi" + "nance.com";
+            const p3 = "/api/v3/ti" + "cker/price?symbol=";
+            const b1 = "api.by" + "bit.com";
+            const b2 = "/v5/market/tic" + "kers?category=spot&symbol=";
+
+            const rubResponse = await fetch(p1 + p2 + p3 + "USDTRUB");
+            const rubData = await rubResponse.json();
+            const usdToRub = parseFloat(rubData.price);
+
+            if (!isNaN(usdToRub) && usdToRub > 0) {
+                cryptoRates['USDT'] = usdToRub;
+                cryptoRates['USDC'] = usdToRub;
+
+                const binanceTickers = [
+                    'BTC', 'ETH', 'DOGE', 'LTC', 'BCH', 'DASH', 'TRX', 
+                    'ZEC', 'BNB', 'SOL', 'XRP', 'ADA', 'TON', 'XLM', 'XMR', 'PEPE'
+                ];
+
+                await Promise.all(binanceTickers.map(async (coin) => {
+                    try {
+                        const coinResponse = await fetch(p1 + p2 + p3 + coin + "USDT");
+                        const coinData = await coinResponse.json();
+                        const coinToUsd = parseFloat(coinData.price);
+                        if (!isNaN(coinToUsd) && coinToUsd > 0) cryptoRates[coin] = coinToUsd * usdToRub;
+                    } catch (e) {}
+                }));
+
+                const extraCoins = ['DGB', 'POL', 'TRUMP', 'FLT'];
+                await Promise.all(extraCoins.map(async (coin) => {
+                    try {
+                        const res = await fetch(p1 + b1 + b2 + coin + "USDT");
+                        const data = await res.json();
+                        if (data && data.result && data.result.list && data.result.list[0]) {
+                            const coinToUsd = parseFloat(data.result.list[0].lastPrice);
+                            if (!isNaN(coinToUsd) && coinToUsd > 0) cryptoRates[coin] = coinToUsd * usdToRub;
+                        }
+                    } catch (e) {}
+                }));
+
+                if (!cryptoRates['DGB'] && cryptoRates['DOGE']) cryptoRates['DGB'] = cryptoRates['DOGE'] * 0.085;
+                if (!cryptoRates['FEY']) cryptoRates['FEY'] = 0.005 * usdToRub; 
+                if (!cryptoRates['TRUMP'] && cryptoRates['USDT']) cryptoRates['TRUMP'] = 2.05 * usdToRub; 
+                if (!cryptoRates['FLT']) cryptoRates['FLT'] = 0.25 * usdToRub; 
+                if (!cryptoRates['POL'] && cryptoRates['MATIC']) cryptoRates['POL'] = cryptoRates['MATIC']; 
+
+                runLiveCalculations();
+                window.sortTableByPrice();
+            }
+        } catch (error) {
+            console.error("[Калькулятор] Ошибка сети:", error);
+        }
+    }
+
+    window.calculateLiveRow = function(trId, cryptoValue) {
+        if (!trId) return;
+        const tr = document.getElementById(trId);
+        if (!tr) return;
+        const cryptoType = tr.getAttribute('data-crypto') || 'DOGE';
+        const rate = cryptoRates[cryptoType] || 0;
+        const resultSpan = tr.querySelector('.rub-result');
+
+        if (resultSpan) {
+            let cleanValue = String(cryptoValue).replace(',', '.');
+            const parsedValue = parseFloat(cleanValue);
+            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
+                resultSpan.innerText = '0.00 ₽';
+                tr.setAttribute('data-rub-value', '0');
+            } else {
+                const totalRub = parsedValue * rate;
+                tr.setAttribute('data-rub-value', totalRub.toString());
+                resultSpan.innerText = (totalRub < 0.01 ? totalRub.toFixed(8) : totalRub.toFixed(2)) + ' ₽';
+            }
+        }
+    }
+
+    function runLiveCalculations() {
+        document.querySelectorAll('.crypto-input').forEach(input => {
+            const tr = input.closest('tr');
+            if (tr && tr.id) window.calculateLiveRow(tr.id, input.value);
+        });
+    }
+
+    window.sortTableByPrice = function(isForced = false) {
+        if (!isForced && (isEditingMode || isMouseOverTable ||
+            document.activeElement.classList.contains('crypto-input') || 
+            document.activeElement.classList.contains('time-input') ||
+            document.activeElement.classList.contains('badge-input-active'))) {
+            return; 
+        }
+
+        function sortContainer(selector) {
+            const container = document.querySelector(selector);
+            if (!container) return;
+            const rows = Array.from(container.querySelectorAll('tr[id^="faucet"]'));
+            if (rows.length === 0) return;
+            
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.querySelector('.timer-cell');
+                const cellB = rowB.querySelector('.timer-cell');
+                const isLimitA = rowA.classList.contains('out-of-limit');
+                const isLimitB = rowB.classList.contains('out-of-limit');
+                const isReadyA = cellA && cellA.classList.contains('ready') && !isLimitA;
+                const isReadyB = cellB && cellB.classList.contains('ready') && !isLimitB;
+
+                let statusA = isReadyA ? 2 : (isLimitA ? 0 : 1);
+                let statusB = isReadyB ? 2 : (isLimitB ? 0 : 1);
+
+                if (statusA !== statusB) return statusB - statusA; 
+                return (parseFloat(rowB.getAttribute('data-rub-value')) || 0) - (parseFloat(rowA.getAttribute('data-rub-value')) || 0);
+            });
+            rows.forEach(row => container.appendChild(row));
+        }
+
+        if (document.querySelector('.left-faucets') || document.querySelector('.right-faucets')) {
+            sortContainer('.left-faucets'); sortContainer('.right-faucets');
+        } else {
+            sortContainer('table tbody');
+        }
+    }
+
+    document.addEventListener('focusin', function(e) {
+        if (e.target.classList.contains('crypto-input') || e.target.classList.contains('time-input')) isEditingMode = true;
+    });
+
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('crypto-input')) {
+            const tr = e.target.closest('tr');
+            if (tr && tr.id) {
+                localStorage.setItem('crypto_val_' + tr.id, e.target.value);
+                window.calculateLiveRow(tr.id, e.target.value);
+            }
+        }
+    });
+
+    document.addEventListener('focusout', function(e) {
+        if (e.target.classList.contains('crypto-input') || e.target.classList.contains('time-input')) {
+            setTimeout(function() { isEditingMode = false; window.sortTableByPrice(); }, 300);
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.crypto-input').forEach(input => {
+            const tr = input.closest('tr');
+            if (tr && tr.id) {
+                const savedCrypto = localStorage.getItem('crypto_val_' + tr.id);
+                if (savedCrypto !== null && savedCrypto !== '') input.value = savedCrypto;
+            }
+        });
+        getLiveCryptoRates();
+        setInterval(getLiveCryptoRates, 900000); 
+        const container = document.querySelector('.tables-container');
+        if (container) {
+            container.addEventListener('mouseenter', function() { isMouseOverTable = true; });
+            container.addEventListener('mouseleave', function() { isMouseOverTable = false; });
+        }
+        setInterval(window.sortTableByPrice, 1000);
+    });
+})();
+</script>
  <script>
 (function() {
     let activeIntervals = {};
