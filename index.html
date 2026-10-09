@@ -103,7 +103,19 @@ tr.out-of-limit .faucet-link {
 .btn-limit:hover {
     color: #ff3333;
 }
+/* Полностью удаляем стрелочки вверх-вниз в Chrome, Safari, Edge, Opera */
+.crypto-input::-webkit-outer-spin-button,
+.crypto-input::-webkit-inner-spin-button,
+.time-input::-webkit-outer-spin-button,
+.time-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
+/* Удаляем стрелочки в Firefox */
+.crypto-input, .time-input {
+    -moz-appearance: textfield;
+}
     </style>
 </head>
 <body>
@@ -141,18 +153,18 @@ tr.out-of-limit .faucet-link {
             <table>
                 <thead><tr><th>Кран</th><th>Монета</th><th>Статус</th></tr></thead>
                <tbody class="left-faucets">
-    		 <!-- Faucet 1: BitEarnix -->
+    		<!-- Faucet 1: BitEarnix -->
 <tr id="faucet1" data-crypto="BTC">
     <!-- 1. Название --><td><a class="faucet-link" href="https://bitearnix.com/?r=96pzwwdg" target="_blank" onclick="startTimer('faucet1', 180)">BitEarnix</a></td>
-    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 2. Ввод баланса (ИСПРАВЛЕНО) --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="text" inputmode="decimal" class="crypto-input" placeholder="0.00" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
     <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet1', this)">BTC</span></td>
     <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet1" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
     <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов</span><button class="btn-reset" onclick="resetTimer('faucet1')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet1')">⚠️</button></div></td>
-</tr> 
-	<!-- Faucet 2: CoinDrip -->
+</tr>
+   <!-- Faucet 2: CoinDrip -->
 <tr id="faucet2" data-crypto="BTC">
     <!-- 1. Название --><td><a class="faucet-link" href="https://coindrip.site/?r=zj262589" target="_blank" onclick="startTimer('faucet2', 3600)">CoinDrip</a></td>
-    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000004" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 2. Ввод баланса (БЕЗ СТРЕЛОЧЕК) --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="text" inputmode="decimal" class="crypto-input" placeholder="0.00" value="0.00000004" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
     <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet2', this)">BTC</span></td>
     <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet2" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
     <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet2')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet2')">⚠️</button></div></td>
@@ -160,28 +172,30 @@ tr.out-of-limit .faucet-link {
 				   <!-- Faucet 3: ZukyFaucet -->
 <tr id="faucet3" data-crypto="BTC">
     <!-- 1. Название --><td><a class="faucet-link" href="https://zukyfaucet.vip/" target="_blank" onclick="startTimer('faucet3', 3600)">ZukyFaucet</a></td>
-    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000005" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 2. Ввод баланса (БЕЗ СТРЕЛОЧЕК) --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="text" inputmode="decimal" class="crypto-input" placeholder="0.00" value="0.00000005" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
     <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet3', this)">BTC</span></td>
     <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet3" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
     <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet3')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet3')">⚠️</button></div></td>
 </tr>
+
 				   <!-- Faucet 4: Pouri -->
 <tr id="faucet4" data-crypto="BTC">
     <!-- 1. Название --><td><a class="faucet-link" href="https://pourri.fun/?r=mswsqrwi" target="_blank" onclick="startTimer('faucet4', 300)">Pouri</a></td>
-    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 2. Ввод баланса (БЕЗ СТРЕЛОЧЕК) --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="text" inputmode="decimal" class="crypto-input" placeholder="0.00" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
     <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet4', this)">BTC</span></td>
     <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet4" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
     <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet4')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet4')">⚠️</button></div></td>
 </tr>
-				   <!-- Faucet 5: 247faucet -->
+
+	<!-- Faucet 5: 247faucet -->
 <tr id="faucet5" data-crypto="BTC">
     <!-- 1. Название --><td><a class="faucet-link" href="https://247faucet.site/?r=qy3qdjkg" target="_blank" onclick="startTimer('faucet5', 300)">247faucet</a></td>
-    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="number" class="crypto-input" placeholder="0.00" step="0.00000001" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 2. Ввод баланса (БЕЗ СТРЕЛОЧЕК) --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="text" inputmode="decimal" class="crypto-input" placeholder="0.00" value="0.00000001" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
     <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge btc crypto-badge" onclick="window.editBadge('faucet5', this)">BTC</span></td>
     <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_faucet5" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
     <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов к сбору</span><button class="btn-reset" onclick="resetTimer('faucet5')">✕</button><button class="btn-limit" onclick="toggleLimit('faucet5')">⚠️</button></div></td>
 </tr>
-				   
+	   
 </tbody>
             </table>
         </div>
@@ -582,7 +596,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-        // Шаг 4. Генерируем инпуты минут И правильные стрелочки (3 направления)
+              // Шаг 4. Генерируем инпуты минут И правильные стрелочки (3 направления)
         window.refreshAllArrows = function() {
             document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
                 const rId = row.id;
@@ -590,13 +604,18 @@ tr.out-of-limit .faucet-link {
                 const cell = row.querySelector('.timer-cell');
                 if (!wrapper || !cell) return;
 
-                // 1. Создаем инпут минут, если его еще нет
+                // 1. Создаем инпут минут (ТЕПЕРЬ ТЕКСТОВЫЙ, БЕЗ СТРЕЛОЧЕК)
                 if (!row.querySelector('.time-input')) {
                     let input = document.createElement('input');
-                    input.type = 'number'; input.className = 'time-input'; input.placeholder = 'мин'; input.min = '1';
+                    input.type = 'text'; 
+                    input.inputMode = 'numeric'; // Чистая цифровая клавиатура на телефоне
+                    input.className = 'time-input'; 
+                    input.placeholder = 'мин';
                     input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
+                    
                     const savedTime = localStorage.getItem('crypto_time_' + rId);
                     if (savedTime !== null && savedTime !== '') input.value = savedTime;
+                    
                     const saveFunc = function() {
                         if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
                         else localStorage.removeItem('crypto_time_' + rId);
@@ -655,7 +674,15 @@ tr.out-of-limit .faucet-link {
         setTimeout(triggerTableSort, 500);
     });
 })();
+
+window.moveFaucetColumn = function(rowId, targetSide) {
+    const row = document.getElementById(rowId); if (!row) return;
+    const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : '.right-faucets');
+    if (targetContainer) { targetContainer.appendChild(row); localStorage.setItem('position_' + rowId, targetSide); triggerTableSort(); }
+    if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
+}
 </script>
+
 
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
 <script>
