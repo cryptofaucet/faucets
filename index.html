@@ -790,28 +790,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // 2. Раз в 20 секунд проверяем таблицу заново (на случай, если какой-то жирный кран вышел из таймера)
 setInterval(findAndDisplayBestFaucet, 20000);
-</script>
- <!-- Безопасная кнопка сброса кэша -->
-<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <button id="clear-ls-btn" style="background: #e74c3c; color: #fff; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        🔄 Сбросить старые краны
-    </button>
-</div>
-
-<script>
-document.getElementById('clear-ls-btn').addEventListener('click', function() {
-    if (confirm('Вы уверены, что хотите сбросить кэш кранов? Это удалит только конфликтующие данные.')) {
-        // Удаляем только данные кранов, не ломая переменные времени инпутов!
-        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
-            localStorage.removeItem(row.id + '_start');
-            localStorage.removeItem(row.id + '_duration');
-        });
-        alert('Кэш успешно очищен без поломки инпутов! Страница будет перезагружена.');
-        location.reload();
-    }
-});
-</script>
-
-
+</script> 
+	
 </body>
 </html>
