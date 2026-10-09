@@ -604,17 +604,36 @@ tr.out-of-limit .faucet-link {
                 const cell = row.querySelector('.timer-cell');
                 if (!wrapper || !cell) return;
 
-                // 1. Создаем инпут минут (ТЕПЕРЬ ТЕКСТОВЫЙ, БЕЗ СТРЕЛОЧЕК)
+                                 // 1. Создаем инпут минут (С АВТОПОДХВАТОМ ДЕФОЛТНОГО ВРЕМЕНИ ИЗ HTML)
                 if (!row.querySelector('.time-input')) {
                     let input = document.createElement('input');
                     input.type = 'text'; 
-                    input.inputMode = 'numeric'; // Чистая цифровая клавиатура на телефоне
+                    input.inputMode = 'numeric'; 
                     input.className = 'time-input'; 
                     input.placeholder = 'мин';
                     input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
                     
+                    // Умный поиск секунд в твоей ссылке из onclick="startTimer('faucetX', СЕКУНДЫ)"
+                    let defaultMinutes = "";
+                    const link = row.querySelector('.faucet-link');
+                    if (link && link.getAttribute('onclick')) {
+                        const clickText = link.getAttribute('onclick');
+                        const match = clickText.match(/startTimer\s*\(\s*['"][^'"]+['"]\s*,\s*(\d+)\s*\)/);
+                        if (match && match[1]) {
+                            const seconds = parseInt(match[1], 10);
+                            if (!isNaN(seconds) && seconds > 0) {
+                                defaultMinutes = Math.round(seconds / 60).toString();
+                            }
+                        }
+                    }
+
+                    // Приоритет: сначала берём из памяти, а если там пусто — подставляем дефолт из кода
                     const savedTime = localStorage.getItem('crypto_time_' + rId);
-                    if (savedTime !== null && savedTime !== '') input.value = savedTime;
+                    if (savedTime !== null && savedTime !== '') {
+                        input.value = savedTime;
+                    } else if (defaultMinutes !== "") {
+                        input.value = defaultMinutes;
+                    }
                     
                     const saveFunc = function() {
                         if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
@@ -624,6 +643,7 @@ tr.out-of-limit .faucet-link {
                     input.addEventListener('change', saveFunc); input.addEventListener('input', saveFunc);
                     wrapper.insertBefore(input, cell);
                 }
+
 
                 // 2. Очищаем старые стрелочки, чтобы не дублировались при перерисовке
                 wrapper.querySelectorAll('.nav-arrow-btn').forEach(b => b.remove());
