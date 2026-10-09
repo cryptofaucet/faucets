@@ -472,7 +472,7 @@ tr.out-of-limit .faucet-link {
         let row = document.getElementById(rowId);
         if (row) {
             let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
-            if (!row.classList.contains('out-of-limit') && cell) { cell.textContent = "Готов к сбору!"; cell.className = "timer-cell ready"; }
+            if (!row.classList.contains('out-of-limit') && cell) { cell.textContent = "Готов"; cell.className = "timer-cell ready"; }
             if (resetBtn) resetBtn.classList.remove('active');
         }
         localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
