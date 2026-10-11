@@ -659,7 +659,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-                     // Шаг 4. Генерируем инпуты минут И правильные стрелочки (теперь строго 2 направления)
+                         // Шаг 4. Генерируем инпуты минут И правильные стрелочки (теперь строго 2 направления)
         window.refreshAllArrows = function() {
             document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
                 const rId = row.id;
@@ -667,7 +667,7 @@ tr.out-of-limit .faucet-link {
                 const cell = row.querySelector('.timer-cell');
                 if (!wrapper || !cell) return;
 
-                // 1. Создаем инпут минут
+                // 1. Создаем инпут минут (С ИСПРАВЛЕННЫМ ПОДХВАТОМ ДЕФОЛТА)
                 if (!row.querySelector('.time-input')) {
                     let input = document.createElement('input');
                     input.type = 'text'; 
@@ -680,8 +680,9 @@ tr.out-of-limit .faucet-link {
                     const link = row.querySelector('.faucet-link');
                     if (link && link.getAttribute('onclick')) {
                         const clickText = link.getAttribute('onclick');
+                        // Ищем цифры секунд внутри startTimer('...', СЕКУНДЫ)
                         const match = clickText.match(/startTimer\s*\(\s*['"][^'"]+['"]\s*,\s*(\d+)\s*\)/);
-                        if (match && match[1]) {
+                        if (match && match[1]) { // <-- ИСПРАВЛЕНО: берем именно первую группу с цифрами
                             const seconds = parseInt(match[1], 10);
                             if (!isNaN(seconds) && seconds > 0) {
                                 defaultMinutes = Math.round(seconds / 60).toString();
@@ -689,29 +690,37 @@ tr.out-of-limit .faucet-link {
                         }
                     }
 
+                    // Приоритет: проверяем память, если там ПУСТО или стёрто — берём дефолт из HTML
                     const savedTime = localStorage.getItem('crypto_time_' + rId);
-                    if (savedTime !== null && savedTime !== '') {
+                    if (savedTime !== null && savedTime.trim() !== '') {
                         input.value = savedTime;
                     } else if (defaultMinutes !== "") {
                         input.value = defaultMinutes;
+                        localStorage.removeItem('crypto_time_' + rId); // Чистим мусор в памяти
                     }
                     
                     const saveFunc = function() {
-                        if (input.value && parseFloat(input.value) > 0) localStorage.setItem('crypto_time_' + rId, input.value);
-                        else localStorage.removeItem('crypto_time_' + rId);
+                        const val = input.value.trim();
+                        if (val && parseFloat(val) > 0) {
+                            localStorage.setItem('crypto_time_' + rId, val);
+                        } else {
+                            // Если пользователь полностью стёр текст — сносим ключ из памяти
+                            localStorage.removeItem('crypto_time_' + rId);
+                        }
                         if (!activeIntervals[rId]) triggerTableSort();
                     };
-                    input.addEventListener('change', saveFunc); input.addEventListener('input', saveFunc);
+                    input.addEventListener('change', saveFunc); 
+                    input.addEventListener('input', saveFunc);
                     wrapper.insertBefore(input, cell);
                 }
 
-                // 2. Очищаем старые стрелочки
+                // 2. Очищаем старые стрелочки, чтобы они не дублировались
                 wrapper.querySelectorAll('.nav-arrow-btn').forEach(b => b.remove());
                 wrapper.querySelectorAll('button').forEach(b => {
                     if(b.innerHTML === '◀' || b.innerHTML === '▶' || b.innerHTML === '▼' || b.innerHTML === '▲') b.remove();
                 });
 
-                // Функция сборки стрелочки
+                // Функция быстрой сборки стрелочки
                 const createArrow = function(text, color, targetSide) {
                     let btn = document.createElement('button');
                     btn.innerHTML = text;
@@ -744,7 +753,7 @@ tr.out-of-limit .faucet-link {
     });
 })();
 
-// Глобальная функция перемещения кранов (теперь только 2 направления)
+// Глобальная функция перемещения кранов (теперь строго 2 направления)
 window.moveFaucetColumn = function(rowId, targetSide) {
     const row = document.getElementById(rowId); if (!row) return;
     const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : '.right-faucets');
@@ -757,6 +766,7 @@ window.moveFaucetColumn = function(rowId, targetSide) {
     if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
 }
 </script>
+
 
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
 <script>
