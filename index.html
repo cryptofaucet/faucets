@@ -659,7 +659,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-              // Шаг 4. Генерируем инпуты минут И правильные стрелочки (3 направления)
+                     // Шаг 4. Генерируем инпуты минут И правильные стрелочки (теперь строго 2 направления)
         window.refreshAllArrows = function() {
             document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
                 const rId = row.id;
@@ -667,7 +667,7 @@ tr.out-of-limit .faucet-link {
                 const cell = row.querySelector('.timer-cell');
                 if (!wrapper || !cell) return;
 
-                                 // 1. Создаем инпут минут (С АВТОПОДХВАТОМ ДЕФОЛТНОГО ВРЕМЕНИ ИЗ HTML)
+                // 1. Создаем инпут минут
                 if (!row.querySelector('.time-input')) {
                     let input = document.createElement('input');
                     input.type = 'text'; 
@@ -676,7 +676,6 @@ tr.out-of-limit .faucet-link {
                     input.placeholder = 'мин';
                     input.style = 'width: 35px; height: 20px; padding: 2px; border: 1px solid #52667d; background: #151a26; color: #00ffcc; border-radius: 3px; font-size: 11px; text-align: center; margin-right: 5px; box-sizing: border-box;';
                     
-                    // Умный поиск секунд в твоей ссылке из onclick="startTimer('faucetX', СЕКУНДЫ)"
                     let defaultMinutes = "";
                     const link = row.querySelector('.faucet-link');
                     if (link && link.getAttribute('onclick')) {
@@ -690,7 +689,6 @@ tr.out-of-limit .faucet-link {
                         }
                     }
 
-                    // Приоритет: сначала берём из памяти, а если там пусто — подставляем дефолт из кода
                     const savedTime = localStorage.getItem('crypto_time_' + rId);
                     if (savedTime !== null && savedTime !== '') {
                         input.value = savedTime;
@@ -707,14 +705,13 @@ tr.out-of-limit .faucet-link {
                     wrapper.insertBefore(input, cell);
                 }
 
-
-                // 2. Очищаем старые стрелочки, чтобы не дублировались при перерисовке
+                // 2. Очищаем старые стрелочки
                 wrapper.querySelectorAll('.nav-arrow-btn').forEach(b => b.remove());
                 wrapper.querySelectorAll('button').forEach(b => {
-                    if(b.innerHTML === '◀' || b.innerHTML === '▶' || b.innerHTML === '▼') b.remove();
+                    if(b.innerHTML === '◀' || b.innerHTML === '▶' || b.innerHTML === '▼' || b.innerHTML === '▲') b.remove();
                 });
 
-                // Функция для быстрой сборки новой стрелочки
+                // Функция сборки стрелочки
                 const createArrow = function(text, color, targetSide) {
                     let btn = document.createElement('button');
                     btn.innerHTML = text;
@@ -722,30 +719,18 @@ tr.out-of-limit .faucet-link {
                     btn.style = `background:none; border:none; color:${color}; font-size:10px; cursor:pointer; padding:2px; margin-right:2px; font-weight:bold;`;
                     btn.onclick = function(e) {
                         e.preventDefault();
-                        const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : (targetSide === 'right' ? '.right-faucets' : '.hard-faucets'));
-                        if (targetContainer) {
-                            targetContainer.appendChild(row);
-                            localStorage.setItem('position_' + rId, targetSide);
-                            window.refreshAllArrows(); // Перерисовываем стрелочки после перемещения
-                            triggerTableSort();
-                        }
-                        if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
+                        window.moveFaucetColumn(rId, targetSide);
                     };
                     return btn;
                 };
 
-                // Определяем, какие стрелочки рисовать, исходя из текущего tbody строки
+                // Оставляем только Влево/Вправо (без нижнего блока hard)
                 const currentTbody = row.closest('tbody');
                 if (currentTbody) {
                     if (currentTbody.classList.contains('left-faucets')) {
                         wrapper.insertBefore(createArrow('▶', '#00b3ff', 'right'), cell);
-                        wrapper.insertBefore(createArrow('▼', '#ffaa00', 'hard'), cell);
                     } else if (currentTbody.classList.contains('right-faucets')) {
                         wrapper.insertBefore(createArrow('◀', '#00ffcc', 'left'), cell);
-                        wrapper.insertBefore(createArrow('▼', '#ffaa00', 'hard'), cell);
-                    } else if (currentTbody.classList.contains('hard-faucets')) {
-                        wrapper.insertBefore(createArrow('◀', '#00ffcc', 'left'), cell);
-                        wrapper.insertBefore(createArrow('▶', '#00b3ff', 'right'), cell);
                     }
                 }
             });
@@ -754,18 +739,24 @@ tr.out-of-limit .faucet-link {
         // Запускаем генерацию инпутов и стрелочек
         window.refreshAllArrows();
         
+        // Первичная сортировка с задержкой, чтобы всё встало на свои места
         setTimeout(triggerTableSort, 500);
     });
 })();
 
+// Глобальная функция перемещения кранов (теперь только 2 направления)
 window.moveFaucetColumn = function(rowId, targetSide) {
     const row = document.getElementById(rowId); if (!row) return;
     const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : '.right-faucets');
-    if (targetContainer) { targetContainer.appendChild(row); localStorage.setItem('position_' + rowId, targetSide); triggerTableSort(); }
+    if (targetContainer) { 
+        targetContainer.appendChild(row); 
+        localStorage.setItem('position_' + rowId, targetSide); 
+        if (typeof window.refreshAllArrows === 'function') window.refreshAllArrows();
+        if (typeof window.sortTableByPrice === 'function') window.sortTableByPrice(true);
+    }
     if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
 }
 </script>
-
 
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
 <script>
