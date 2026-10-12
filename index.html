@@ -388,12 +388,13 @@ tr.out-of-limit .faucet-link {
         </div>
     </div>
         
-	<script>
+	 <script>
 (function() {
     let cryptoRates = {};
     let isEditingMode = false;
     let isMouseOverTable = false; 
 
+    // Функция скачивания актуальных курсов валют с бирж
     async function getLiveCryptoRates() {
         try {
             const p1 = "ht" + "tps://";
@@ -450,6 +451,7 @@ tr.out-of-limit .faucet-link {
         }
     }
 
+    // Живой расчет рублевой стоимости для конкретной строки
     window.calculateLiveRow = function(trId, cryptoValue) {
         if (!trId) return;
         const tr = document.getElementById(trId);
@@ -459,9 +461,16 @@ tr.out-of-limit .faucet-link {
         const resultSpan = tr.querySelector('.rub-result');
 
         if (resultSpan) {
+            // 🔥 ЗАЩИТА ОТ ХОЛОСТОГО СТАРТА: 
+            // Если курсы с бирж ещё не прилетели, мы ПРЕКРАЩАЕМ расчет и НЕ зануляем данные в строке!
+            if (Object.keys(cryptoRates).length === 0 || rate === 0) {
+                return; 
+            }
+
             let cleanValue = String(cryptoValue).replace(',', '.');
             const parsedValue = parseFloat(cleanValue);
-            if (isNaN(parsedValue) || parsedValue <= 0 || rate === 0) {
+            
+            if (isNaN(parsedValue) || parsedValue <= 0) {
                 resultSpan.innerText = '0.00 ₽';
                 tr.setAttribute('data-rub-value', '0');
             } else {
@@ -472,28 +481,36 @@ tr.out-of-limit .faucet-link {
         }
     }
 
+    // Пересчет всех инпутов на странице после обновления курсов
     function runLiveCalculations() {
         document.querySelectorAll('.crypto-input').forEach(input => {
             const tr = input.closest('tr');
-            if (tr && tr.id) window.calculateLiveRow(tr.id, input.value);
+            if (tr && tr.id) {
+                // Если инпут по какой-то причине стал пустой, подтягиваем заводской дефолт из HTML
+                if (!input.value || input.value.trim() === "") {
+                    const savedVal = localStorage.getItem('crypto_val_' + tr.id);
+                    input.value = savedVal || input.getAttribute('value') || "0.00";
+                }
+                window.calculateLiveRow(tr.id, input.value);
+            }
         });
     }
 
-   window.sortTableByPrice = function(isForced = false) {
-    // ЖЕЛЕЗОБЕТОННАЯ ЗАЩИТА: если ты внутри инпута, сортировка ПОЛНОСТЬЮ блокируется
-    if (document.activeElement && (
-        document.activeElement.tagName === 'INPUT' || 
-        document.activeElement.classList.contains('crypto-input') ||
-        document.activeElement.classList.contains('time-input') ||
-        document.activeElement.classList.contains('badge-input-active')
-    )) {
-        return;
-    }
+    // Функция сортировки таблиц по цене
+    window.sortTableByPrice = function(isForced = false) {
+        // ЖЕЛЕЗОБЕТОННАЯ ЗАЩИТА: если ты внутри инпута, сортировка ПОЛНОСТЬЮ блокируется
+        if (document.activeElement && (
+            document.activeElement.tagName === 'INPUT' || 
+            document.activeElement.classList.contains('crypto-input') ||
+            document.activeElement.classList.contains('time-input') ||
+            document.activeElement.classList.contains('badge-input-active')
+        )) {
+            return;
+        }
 
-    if (!isForced && (isEditingMode || isMouseOverTable)) {
-        return; 
-    }
-
+        if (!isForced && (isEditingMode || isMouseOverTable)) {
+            return; 
+        }
 
         function sortContainer(selector) {
             const container = document.querySelector(selector);
@@ -525,6 +542,7 @@ tr.out-of-limit .faucet-link {
         }
     }
 
+    // Слушатели событий фокуса и ввода для ручного изменения наград
     document.addEventListener('focusin', function(e) {
         if (e.target.classList.contains('crypto-input') || e.target.classList.contains('time-input')) isEditingMode = true;
     });
@@ -545,16 +563,26 @@ tr.out-of-limit .faucet-link {
         }
     });
 
+    // Инициализация при полной загрузке страницы
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('.crypto-input').forEach(input => {
             const tr = input.closest('tr');
             if (tr && tr.id) {
                 const savedCrypto = localStorage.getItem('crypto_val_' + tr.id);
-                if (savedCrypto !== null && savedCrypto !== '') input.value = savedCrypto;
+                // Если в памяти есть сохраненное значение — ставим его
+                if (savedCrypto !== null && savedCrypto.trim() !== '') {
+                    input.value = savedCrypto;
+                } else {
+                    // Если в памяти пусто — принудительно восстанавливаем родной дефолт из HTML кода
+                    const htmlValue = input.getAttribute('value');
+                    if (htmlValue) input.value = htmlValue;
+                }
             }
         });
+        
         getLiveCryptoRates();
         setInterval(getLiveCryptoRates, 900000); 
+        
         const container = document.querySelector('.tables-container');
         if (container) {
             container.addEventListener('mouseenter', function() { isMouseOverTable = true; });
@@ -564,6 +592,7 @@ tr.out-of-limit .faucet-link {
     });
 })();
 </script>
+
  <script>
 (function() {
     let activeIntervals = {};
