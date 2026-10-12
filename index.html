@@ -785,7 +785,7 @@ tr.out-of-limit .faucet-link {
             }
         });
 
-                         // Шаг 4. Генерируем инпуты минут И правильные стрелочки (теперь строго 2 направления)
+                              // Шаг 4. Генерируем инпуты минут И правильные стрелочки (теперь строго 2 направления)
         window.refreshAllArrows = function() {
             document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
                 const rId = row.id;
@@ -793,7 +793,7 @@ tr.out-of-limit .faucet-link {
                 const cell = row.querySelector('.timer-cell');
                 if (!wrapper || !cell) return;
 
-                // 1. Создаем инпут минут (С ИСПРАВЛЕННЫМ ПОДХВАТОМ ДЕФОЛТА)
+                // 1. Создаем инпут минут (С ИСПРАВЛЕННЫМ И БЕЗОПАСНЫМ ПОДХВАТОМ ПАМЯТИ)
                 if (!row.querySelector('.time-input')) {
                     let input = document.createElement('input');
                     input.type = 'text'; 
@@ -808,7 +808,7 @@ tr.out-of-limit .faucet-link {
                         const clickText = link.getAttribute('onclick');
                         // Ищем цифры секунд внутри startTimer('...', СЕКУНДЫ)
                         const match = clickText.match(/startTimer\s*\(\s*['"][^'"]+['"]\s*,\s*(\d+)\s*\)/);
-                        if (match && match[1]) { // <-- ИСПРАВЛЕНО: берем именно первую группу с цифрами
+                        if (match && match[1]) { 
                             const seconds = parseInt(match[1], 10);
                             if (!isNaN(seconds) && seconds > 0) {
                                 defaultMinutes = Math.round(seconds / 60).toString();
@@ -816,13 +816,14 @@ tr.out-of-limit .faucet-link {
                         }
                     }
 
-                    // Приоритет: проверяем память, если там ПУСТО или стёрто — берём дефолт из HTML
+                    // 🔥 ЖЕСТКИЙ ПРИОРИТЕТ СОХРАНЕННОЙ ПАМЯТИ:
+                    // Сначала проверяем, не вписал ли ты 24 часа (или любое другое время) руками
                     const savedTime = localStorage.getItem('crypto_time_' + rId);
                     if (savedTime !== null && savedTime.trim() !== '') {
                         input.value = savedTime;
                     } else if (defaultMinutes !== "") {
+                        // И только если в памяти АБСОЛЮТНО ПУСТО, подтягиваем заводской дефолт из HTML
                         input.value = defaultMinutes;
-                        localStorage.removeItem('crypto_time_' + rId); // Чистим мусор в памяти
                     }
                     
                     const saveFunc = function() {
@@ -892,6 +893,7 @@ window.moveFaucetColumn = function(rowId, targetSide) {
     if (typeof window.secureAndHideLinks === 'function') window.secureAndHideLinks();
 }
 </script>
+
 
 
 <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
