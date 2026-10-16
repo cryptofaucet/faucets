@@ -134,12 +134,22 @@ tr.out-of-limit .faucet-link {
     </div>
 </div>
 	
- <!-- 2 КОНТЕЙНЕР (СПРАВА): ОГРАНИЧЕН ПО ШИРИНЕ И ВЫСОТЕ -->
-<div class="promo-box" style="margin: 0; flex: 1; min-width: 360px; height: auto; min-height: 90px; padding: 10px; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative;">
-    <div id="smart-premium-box" style="width: 100%; max-width: 468px; margin: auto;">
+ <!-- 2 КОНТЕЙНЕР (СПРАВА): ТЕПЕРЬ СО ВСТРОЕННЫМ ФРЕЙМОМ -->
+<div class="promo-box" style="margin: 0; flex: 1; min-width: 360px; height: auto; min-height: 90px; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; position: relative;">
     
+    <!-- Сюда твой скрипт по-прежнему будет закидывать кнопку раз в 20 секунд -->
+    <div id="smart-premium-box" style="width: 100%; max-width: 468px; margin: auto;"></div>
+    
+    <!-- А этот блок для крана изначально скрыт и проявится только внутри этой же коробки -->
+    <div id="premium-iframe-wrapper" style="display: none; width: 100%; height: 450px; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #151a26; padding: 4px 8px; border-bottom: 1px solid #1f2638; width: 100%; box-sizing: border-box;">
+            <span style="font-size: 11px; color: #00ffcc; font-weight: bold;">Сбор внутри бокса</span>
+            <button onclick="closePremiumFrame()" style="background: #ff5252; color: #0b0e14; border: none; padding: 2px 8px; font-size: 11px; font-weight: bold; border-radius: 4px; cursor: pointer;">✕ Закрыть</button>
+        </div>
+        <iframe id="premium-embedded-frame" sandbox="allow-scripts allow-forms" src="" style="width: 100%; flex-grow: 1; border: none; background: #fafafa; border-radius: 0 0 8px 8px;"></iframe>
     </div>
 </div>
+
 
 
 
@@ -1132,62 +1142,54 @@ setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
  <script>
-// 1. Главная функция открытия окна (как на буксах)
-function openPremiumPopup(e, url, originalOnclick) {
-    e.preventDefault(); // Намертво блокируем открытие обычной вкладки браузера
+// Жесткий перехват клика внутри конкретного премиум-бокса
+document.getElementById('smart-premium-box').addEventListener('click', function(e) {
+    // Ищем ссылку, по которой кликнули
+    const link = e.target.closest('a.faucet-link');
     
-    // Запускаем ваш родной таймер (выполняем оригинальный onclick, который был у крана)
-    if (originalOnclick) {
-        try {
-            new Function(originalOnclick)();
-        } catch(err) {
-            console.error("Не удалось запустить таймер:", err);
-        }
-    }
-    
-    // Открываем кран в чистом, изолированном окне по центру экрана
-    const w = 1200;
-    const h = 850;
-    const left = (window.screen.width - w) / 2;
-    const top = (window.screen.height - h) / 2;
-    
-    window.open(url, '_blank', `width=${w},height=${h},top=${top},left=${left},resizable=yes,scrollbars=yes,noopener,noreferrer`);
-}
-
-// 2. Наблюдатель, который ловит обновление премиум-бокса раз в 20 секунд
-const premiumObserver = new MutationObserver(() => {
-    const premiumBox = document.getElementById('smart-premium-box');
-    if (!premiumBox) return;
-    
-    // Ищем ссылку на прилетевший кран
-    const link = premiumBox.querySelector('a.faucet-link');
-    
-    // Если ссылка есть и мы её еще не переделывали
-    if (link && !link.dataset.windowFixed) {
+    if (link) {
         const url = link.getAttribute('href');
         
-        // Сохраняем ваш оригинальный onclick (startTimer...) в память, чтобы не потерять его
-        const oldOnclick = link.getAttribute('onclick') || '';
-        
-        // Очищаем старый onclick, чтобы он не срабатывал дважды
-        link.removeAttribute('onclick');
-        
-        // Вешаем наше правильное открытие окна, передавая туда ссылку и старый onclick для таймера
-        link.addEventListener('click', function(event) {
-            openPremiumPopup(event, url, oldOnclick);
-        });
-        
-        // Ставим метку, чтобы не обрабатывать эту ссылку по кругу
-        link.dataset.windowFixed = "true";
+        if (url && !url.startsWith('javascript') && !url.startsWith('#')) {
+            // ТОРМОЗИМ БРАУЗЕР: никакой новой вкладки target="_blank" не будет!
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Вытаскиваем твой родной onclick (например, startTimer('faucet1', 180)) и запускаем его, чтобы пошел кулдаун
+            const originalOnclick = link.getAttribute('onclick');
+            if (originalOnclick) {
+                try {
+                    // Отрезаем вызов функции из строки и выполняем её на месте
+                    new Function(originalOnclick)();
+                } catch(err) {
+                    console.error("Не удалось запустить таймер кулдауна:", err);
+                }
+            }
+            
+            // Прячем блок с кнопкой, разворачиваем фрейм прямо на его месте в этой же рамке
+            document.getElementById('smart-premium-box').style.display = 'none';
+            
+            const frameWrapper = document.getElementById('premium-iframe-wrapper');
+            const frame = document.getElementById('premium-embedded-frame');
+            
+            frame.src = url; // Загружаем сам кран во фрейм
+            frameWrapper.style.display = 'flex'; // Показываем фрейм
+        }
     }
-});
+}, true); // Флаг true перехватывает клик до того, как браузер успеет подумать о новой вкладке
 
-// Запускаем слежку за премиум-боксом
-const targetBox = document.getElementById('smart-premium-box');
-if (targetBox) {
-    premiumObserver.observe(targetBox, { childList: true, subtree: true });
+// Функция для кнопки "Закрыть", чтобы вернуть кнопку крана обратно на экран
+function closePremiumFrame() {
+    const frameWrapper = document.getElementById('premium-iframe-wrapper');
+    const frame = document.getElementById('premium-embedded-frame');
+    
+    frame.src = ''; // Очищаем адрес, чтобы кран не жрал ресурсы втихаря
+    frameWrapper.style.display = 'none'; // Прячем фрейм
+    
+    document.getElementById('smart-premium-box').style.display = 'block'; // Возвращаем кнопку на место
 }
 </script>
+
 
 
 </body>
