@@ -971,50 +971,85 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 }
 </script>
 
-
-
-<!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
+ <!-- Финальный Скрипт Защиты (Чистый статус-бар + Интеграция с Модалкой) -->
 <script>
 (function() {
-    // Функция маскировки: безопасно прячет реальный href в память элемента
     window.secureAndHideLinks = function() {
         document.querySelectorAll(".faucet-link, .top-faucet-btn").forEach(link => {
-            // Если у ссылки есть обычный href, переносим его под защиту
             if (link.href && link.href !== "#" && !link.href.startsWith("javascript:")) {
                 const realUrl = link.href;
-                
-                // Сохраняем истинную рефку в data-атрибут
                 link.setAttribute("data-secure-href", realUrl);
-                // Полностью стираем href из вёрстки, чтобы при наведении мыши было пусто
                 link.removeAttribute("href");
                 link.style.cursor = "pointer";
                 
-                // Навешиваем неубиваемый клик, который сработает во втором окне с рефкой
                 link.onclick = function(e) {
                     e.preventDefault();
                     
-                    // 1. Запускаем таймер кулдауна из 2-го скрипта (если это строка таблицы)
-                    const row = link.closest("tr");
-                    if (row && row.id && typeof window.startTimer === 'function') {
-                        window.startTimer(row.id, 300);
-                    }
-                    
-                    // 2. Открываем ИСТИННУЮ ПОЛНУЮ рефку в новом окне со всеми хвостами
+                    // Проверяем: если это кнопка из премиум-бокса
+                    const isTopBtn = link.classList.contains('top-faucet-btn') || link.closest('#smart-premium-box');
                     const finalUrl = link.getAttribute("data-secure-href");
-                    if (finalUrl) {
-                        window.open(finalUrl, '_blank');
+                    
+                    if (isTopBtn) {
+                        // Находим оригинальную кнопку в таблице, чтобы узнать имя крана и запустить таймер
+                        const topBox = document.getElementById('smart-premium-box');
+                        const currentBest = topBox ? topBox.getAttribute('data-current-best') : '';
+                        const faucetName = currentBest ? currentBest.split('_')[0] : "Кран";
+                        
+                        // Ищем оригинальную строку, чтобы запустить таймер
+                        const allRows = document.querySelectorAll('tr[id^="faucet"]');
+                        allRows.forEach(row => {
+                            const cells = row.querySelectorAll('td');
+                            if (cells[0] && cells[0].textContent.trim() === faucetName) {
+                                const origBtn = row.querySelector('.faucet-link');
+                                if (origBtn && origBtn.getAttribute('data-secure-cooldown')) {
+                                    window.startTimer(row.id, parseInt(origBtn.getAttribute('data-secure-cooldown'), 10));
+                                } else {
+                                    window.startTimer(row.id, 300);
+                                }
+                            }
+                        });
+
+                        // Открываем кран в нашем всплывающем окне внутри сайта (БЕЗ ТАРГЕТ БЛАНК)
+                        const modal = document.getElementById('premium-popup-modal');
+                        const frame = document.getElementById('premium-modal-frame');
+                        const title = document.getElementById('premium-modal-title');
+                        
+                        if (modal && frame && title && finalUrl) {
+                            title.innerText = `Сбор с жирного крана: ${faucetName} (Рекламные вкладки заблокированы)`;
+                            frame.src = finalUrl;
+                            modal.style.display = 'block';
+                            document.body.style.overflow = 'hidden'; 
+                        }
+                        
+                        if (topBox) topBox.removeAttribute('data-current-best');
+                        if (typeof window.findAndDisplayBestFaucet === 'function') {
+                            setTimeout(window.findAndDisplayBestFaucet, 500);
+                        }
+                    } else {
+                        // ДЛЯ ОБЫЧНЫХ КРАНОВ В ТАБЛИЦЕ: Твой родной код открытия в новой вкладке
+                        const row = link.closest("tr");
+                        if (row && row.id && typeof window.startTimer === 'function') {
+                            // Сохраняем время таймера, чтобы верхняя кнопка знала кулдаун
+                            const origOnclick = link.getAttribute('onclick') || '';
+                            const match = origOnclick.match(/startTimer\s*\(\s*['"]([^'"]+)['"]\s*,\s*(\d+)\)/);
+                            const cooldown = match ? match[2] : 300;
+                            link.setAttribute('data-secure-cooldown', cooldown);
+                            
+                            window.startTimer(row.id, parseInt(cooldown, 10));
+                        }
+                        if (finalUrl) {
+                            window.open(finalUrl, '_blank');
+                        }
                     }
                 };
             }
         });
     };
 
-    // Запускаем маскировку при первой загрузке сайта
     document.addEventListener("DOMContentLoaded", function() {
         window.secureAndHideLinks();
     });
 
-    // Блокировка контекстного меню и горячих клавиш разработчика (Твой оригинальный код)
     document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
     document.addEventListener("keydown", function(e) { 
         if (e.keyCode === 123) { e.preventDefault(); } 
@@ -1023,6 +1058,7 @@ window.moveFaucetColumn = function(rowId, targetSide) {
     });
 })();
 </script>
+
 	
   <!-- Автоматический подбор самого дорогого крана со всплывающим фреймом -->
 <script>
