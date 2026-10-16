@@ -1024,7 +1024,7 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 })();
 </script>
 	
- <!-- Автоматический подбор самого дорогого крана со всплывающим фреймом -->
+  <!-- Автоматический подбор самого дорогого крана со всплывающим фреймом -->
 <script>
 function findAndDisplayBestFaucet() {
     if (document.activeElement && (
@@ -1058,7 +1058,6 @@ function findAndDisplayBestFaucet() {
 
     if (bestRow) {
         const cells = bestRow.querySelectorAll('td');
-        // ИСПРАВЛЕНО ТУТ: вернул [0], теперь название определяется корректно
         const faucetName = cells[0] ? cells[0].textContent.trim() : "Кран";
         const originalButton = bestRow.querySelector('.faucet-link');
 
@@ -1083,7 +1082,8 @@ function findAndDisplayBestFaucet() {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                const url = originalButton.getAttribute('href');
+                // Берём чистый URL напрямую из атрибута оригинальной кнопки в DOM
+                const url = originalButton.href || originalButton.getAttribute('href');
                 
                 // Принудительно запускаем оригинальный таймер в таблице
                 const originalOnclick = originalButton.getAttribute('onclick');
@@ -1102,7 +1102,7 @@ function findAndDisplayBestFaucet() {
                 
                 if (modal && frame && title) {
                     title.innerText = `Сбор с жирного крана: ${faucetName} (Рекламные вкладки заблокированы)`;
-                    frame.src = url;
+                    frame.src = url; // Теперь сюда передается полный внешний URL крана
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden'; 
                 }
@@ -1156,6 +1156,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
+
 
 
 
