@@ -1039,11 +1039,22 @@ function findAndDisplayBestFaucet() {
     const allRows = document.querySelectorAll('tr[id^="faucet"]');
     let highestPrice = -1;
     let bestRow = null;
+    let fallbackUrl = ""; // Резервное хранилище чистого URL
 
     allRows.forEach(row => {
         if (row.classList.contains('out-of-limit')) return;
         const cell = row.querySelector('.timer-cell');
         if (!cell || !cell.classList.contains('ready')) return;
+
+        // Находим ссылку в текущей строке
+        const rowLink = row.querySelector('.faucet-link');
+        if (rowLink) {
+            const currentHref = rowLink.getAttribute('href');
+            // Если маскировщик еще не успел испортить ссылку (она начинается на http)
+            if (currentHref && currentHref.startsWith('http')) {
+                row.setAttribute('data-true-url', currentHref);
+            }
+        }
 
         const rubValue = parseFloat(row.getAttribute('data-rub-value')) || 0;
 
@@ -1073,19 +1084,16 @@ function findAndDisplayBestFaucet() {
             const clonedButton = originalButton.cloneNode(true);
             clonedButton.className = 'btn-ref faucet-link top-faucet-btn'; 
 
-            // Намертво убираем target и старый onclick у клона
+            // Стираем target и onclick, чтобы исключить открытие вкладок браузером
             clonedButton.removeAttribute('target');
             clonedButton.removeAttribute('onclick');
 
-            // Вешаем открытие фрейма без рекламы
+            // Вытаскиваем заначенный чистый URL из атрибута строки
+            const targetUrl = bestRow.getAttribute('data-true-url') || originalButton.getAttribute('href');
+
             clonedButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
-                // ИЩЕМ НАСТОЯЩИЙ URL: берем ссылку из первой ячейки строки оригинальной таблицы,
-                // где маскировщик не успел ее испортить.
-                const rawLink = bestRow.querySelector('td a');
-                const url = rawLink ? rawLink.getAttribute('href') : originalButton.getAttribute('href');
                 
                 // Принудительно запускаем оригинальный таймер в таблице
                 const originalOnclick = originalButton.getAttribute('onclick');
@@ -1104,7 +1112,7 @@ function findAndDisplayBestFaucet() {
                 
                 if (modal && frame && title) {
                     title.innerText = `Сбор с жирного крана: ${faucetName} (Рекламные вкладки заблокированы)`;
-                    frame.src = url; // Передаем чистый внешний URL
+                    frame.src = targetUrl; // Загружаем чистый внешний адрес
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden'; 
                 }
@@ -1158,6 +1166,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
+
 
 
 
