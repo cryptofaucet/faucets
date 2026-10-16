@@ -1131,5 +1131,66 @@ window.addEventListener('DOMContentLoaded', () => {
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
+	<!-- Модальное окно для открытия кранов во весь экран без рекламы -->
+<div id="faucet-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,14,20,0.85); z-index: 99999; font-family: 'Segoe UI', sans-serif;">
+    <div style="position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; background: #111622; border: 1px solid #1f2638; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);">
+        
+        <!-- Шапка окна в стиле вашего сайта -->
+        <div style="background: #151a26; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f2638;">
+            <span id="faucet-modal-title" style="font-weight: bold; color: #00ffcc; font-size: 14px; text-shadow: 0 0 10px rgba(0, 255, 204, 0.2);">Загрузка...</span>
+            <button onclick="closeFaucetModal()" style="padding: 6px 16px; background: #ff5252; color: #0b0e14; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;">
+                ЗАКРЫТЬ КРАН ✕
+            </button>
+        </div>
+        
+        <!-- Фрейм с жесткой защитой от открытия новых окон -->
+        <iframe id="faucet-modal-frame" 
+                sandbox="allow-scripts allow-forms allow-same-origin" 
+                src="" 
+                style="width: 100%; flex-grow: 1; border: none; background: #0b0e14;">
+        </iframe>
+    </div>
+</div>
+<script>
+// Функция открытия окна
+function openFaucetModal(url, name) {
+    const modal = document.getElementById('faucet-modal');
+    const frame = document.getElementById('faucet-modal-frame');
+    const title = document.getElementById('faucet-modal-title');
+    
+    title.innerText = `Сбор с жирного крана: ${name} (Всплывающие окна заблокированы)`;
+    frame.src = url;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Отключаем прокрутку сайта на фоне
+}
+
+// Функция закрытия окна
+function closeFaucetModal() {
+    const modal = document.getElementById('faucet-modal');
+    const frame = document.getElementById('faucet-modal-frame');
+    
+    frame.src = ''; // Обнуляем ссылку, чтобы кран не жрал ресурсы в фоне
+    modal.style.display = 'none';
+    document.body.style.overflow = ''; // Возвращаем прокрутку сайту
+}
+
+// Перехватчик кликов в верхнем блоке
+document.getElementById('smart-premium-box').addEventListener('click', function(e) {
+    // Ищем, был ли клик по ссылке (тегу <a>)
+    const link = e.target.closest('a');
+    if (link) {
+        const url = link.getAttribute('href');
+        // Если ссылка ведет наружу, а не пустая
+        if (url && !url.startsWith('javascript') && !url.startsWith('#')) {
+            e.preventDefault(); // Тормозим открытие новой вкладки браузером
+            const name = link.innerText || "Премиум Кран";
+            openFaucetModal(url, name); // Запускаем наше окно
+        }
+    }
+});
+</script>
+
+
 </body>
 </html>
