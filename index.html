@@ -134,27 +134,14 @@ tr.out-of-limit .faucet-link {
     </div>
 </div>
 	
- <!-- 2 КОНТЕЙНЕР (СПРАВА): ТЕПЕРЬ СО ВСТРОЕННЫМ ФРЕЙМОМ -->
-<div class="promo-box" style="margin: 0; flex: 1; min-width: 360px; height: auto; min-height: 90px; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; position: relative;">
-    
-    <!-- Сюда твой скрипт по-прежнему будет закидывать кнопку раз в 20 секунд -->
-    <div id="smart-premium-box" style="width: 100%; max-width: 468px; margin: auto;"></div>
-    
-    <!-- А этот блок для крана изначально скрыт и проявится только внутри этой же коробки -->
-    <div id="premium-iframe-wrapper" style="display: none; width: 100%; height: 450px; flex-direction: column;">
-        <div style="display: flex; justify-content: space-between; align-items: center; background: #151a26; padding: 4px 8px; border-bottom: 1px solid #1f2638; width: 100%; box-sizing: border-box;">
-            <span style="font-size: 11px; color: #00ffcc; font-weight: bold;">Сбор внутри бокса</span>
-            <button onclick="closePremiumFrame()" style="background: #ff5252; color: #0b0e14; border: none; padding: 2px 8px; font-size: 11px; font-weight: bold; border-radius: 4px; cursor: pointer;">✕ Закрыть</button>
-        </div>
-        <iframe id="premium-embedded-frame" sandbox="allow-scripts allow-forms" src="" style="width: 100%; flex-grow: 1; border: none; background: #fafafa; border-radius: 0 0 8px 8px;"></iframe>
+ <!-- 2 КОНТЕЙНЕР (СПРАВА): ОГРАНИЧЕН ПО ШИРИНЕ И ВЫСОТЕ -->
+<div class="promo-box" style="margin: 0; flex: 1; min-width: 360px; height: auto; min-height: 90px; padding: 10px; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative;">
+    <div id="smart-premium-box" style="width: 100%; max-width: 468px; margin: auto;">
+        <!-- Сюда ваш JS-скрипт будет автоматически закидывать краны -->
     </div>
 </div>
 
-
-
-
 </div> <!-- ЗДЕСЬ СТРОКА ЗАКРЫВАЕТСЯ, И ДАЛЬШЕ ПОД НЕЙ ИДУТ ТАБЛИЦЫ КРАНОВ -->
-
 
     <div class="tables-container">
         <!-- ЛЕВАЯ ПАНЕЛЬ -->
@@ -1141,54 +1128,27 @@ window.addEventListener('DOMContentLoaded', () => {
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
- <script>
-// Жесткий перехват клика внутри конкретного премиум-бокса
-document.getElementById('smart-premium-box').addEventListener('click', function(e) {
-    // Ищем ссылку, по которой кликнули
-    const link = e.target.closest('a.faucet-link');
-    
-    if (link) {
-        const url = link.getAttribute('href');
+  <!-- Модальное окно для сбора без рекламы -->
+<div id="premium-popup-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,14,20,0.9); z-index: 99999; font-family: 'Segoe UI', sans-serif;">
+    <div style="position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; background: #111622; border: 1px solid #1f2638; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);">
         
-        if (url && !url.startsWith('javascript') && !url.startsWith('#')) {
-            // ТОРМОЗИМ БРАУЗЕР: никакой новой вкладки target="_blank" не будет!
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Вытаскиваем твой родной onclick (например, startTimer('faucet1', 180)) и запускаем его, чтобы пошел кулдаун
-            const originalOnclick = link.getAttribute('onclick');
-            if (originalOnclick) {
-                try {
-                    // Отрезаем вызов функции из строки и выполняем её на месте
-                    new Function(originalOnclick)();
-                } catch(err) {
-                    console.error("Не удалось запустить таймер кулдауна:", err);
-                }
-            }
-            
-            // Прячем блок с кнопкой, разворачиваем фрейм прямо на его месте в этой же рамке
-            document.getElementById('smart-premium-box').style.display = 'none';
-            
-            const frameWrapper = document.getElementById('premium-iframe-wrapper');
-            const frame = document.getElementById('premium-embedded-frame');
-            
-            frame.src = url; // Загружаем сам кран во фрейм
-            frameWrapper.style.display = 'flex'; // Показываем фрейм
-        }
-    }
-}, true); // Флаг true перехватывает клик до того, как браузер успеет подумать о новой вкладке
+        <!-- Шапка окна -->
+        <div style="background: #151a26; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f2638;">
+            <span id="premium-modal-title" style="font-weight: bold; color: #00ffcc; font-size: 14px; text-shadow: 0 0 10px rgba(0, 255, 204, 0.2);">Загрузка...</span>
+            <button onclick="closePremiumModal()" style="padding: 6px 16px; background: #ff5252; color: #0b0e14; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;">
+                ЗАКРЫТЬ КРАН ✕
+            </button>
+        </div>
+        
+        <!-- Защищенный фрейм: блокирует новые окна и вкладки рекламы -->
+        <iframe id="premium-modal-frame" 
+                sandbox="allow-scripts allow-forms" 
+                src="" 
+                style="width: 100%; flex-grow: 1; border: none; background: #fafafa;">
+        </iframe>
+    </div>
+</div>
 
-// Функция для кнопки "Закрыть", чтобы вернуть кнопку крана обратно на экран
-function closePremiumFrame() {
-    const frameWrapper = document.getElementById('premium-iframe-wrapper');
-    const frame = document.getElementById('premium-embedded-frame');
-    
-    frame.src = ''; // Очищаем адрес, чтобы кран не жрал ресурсы втихаря
-    frameWrapper.style.display = 'none'; // Прячем фрейм
-    
-    document.getElementById('smart-premium-box').style.display = 'block'; // Возвращаем кнопку на место
-}
-</script>
 
 
 
