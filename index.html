@@ -1132,16 +1132,20 @@ setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
  <script>
-// 1. Функция для открытия крана в изолированном окне (как на буксах)
-function openPremiumWindow(e, url, id, time) {
+// 1. Главная функция открытия окна (как на буксах)
+function openPremiumPopup(e, url, originalOnclick) {
     e.preventDefault(); // Намертво блокируем открытие обычной вкладки браузера
     
-    // Запускаем ваш родной таймер на сайте, чтобы пошел отсчет кулдауна
-    if (typeof startTimer === 'function') {
-        startTimer(id, time);
+    // Запускаем ваш родной таймер (выполняем оригинальный onclick, который был у крана)
+    if (originalOnclick) {
+        try {
+            new Function(originalOnclick)();
+        } catch(err) {
+            console.error("Не удалось запустить таймер:", err);
+        }
     }
     
-    // Открываем кран в чистом окне по центру экрана
+    // Открываем кран в чистом, изолированном окне по центру экрана
     const w = 1200;
     const h = 850;
     const left = (window.screen.width - w) / 2;
@@ -1150,31 +1154,30 @@ function openPremiumWindow(e, url, id, time) {
     window.open(url, '_blank', `width=${w},height=${h},top=${top},left=${left},resizable=yes,scrollbars=yes,noopener,noreferrer`);
 }
 
-// 2. Мутационный наблюдатель (MutationObserver)
-// Он автоматически ловит момент, когда ваш таймер раз в 20 секунд обновляет премиум-бокс
+// 2. Наблюдатель, который ловит обновление премиум-бокса раз в 20 секунд
 const premiumObserver = new MutationObserver(() => {
     const premiumBox = document.getElementById('smart-premium-box');
     if (!premiumBox) return;
     
-    // Ищем ссылку на кран, который только что прилетел в бокс
+    // Ищем ссылку на прилетевший кран
     const link = premiumBox.querySelector('a.faucet-link');
     
-    // Если ссылка есть и мы её еще не обрабатывали
+    // Если ссылка есть и мы её еще не переделывали
     if (link && !link.dataset.windowFixed) {
         const url = link.getAttribute('href');
         
-        // Вытаскиваем старый ID и время из вашего оригинального onclick
-        // Например, из startTimer('faucet1', 180) достаем 'faucet1' и 180
+        // Сохраняем ваш оригинальный onclick (startTimer...) в память, чтобы не потерять его
         const oldOnclick = link.getAttribute('onclick') || '';
-        const match = oldOnclick.match(/startTimer\s*\(\s*['"]([^'"]+)['"]\s*,\s*(\d+)\)/);
         
-        const faucetId = match ? match[1] : '';
-        const cooldown = match ? parseInt(match[2], 10) : 0;
+        // Очищаем старый onclick, чтобы он не срабатывал дважды
+        link.removeAttribute('onclick');
         
-        // Переписываем onclick на нашу безопасную функцию
-        link.setAttribute('onclick', `openPremiumWindow(event, '${url}', '${faucetId}', ${cooldown})`);
+        // Вешаем наше правильное открытие окна, передавая туда ссылку и старый onclick для таймера
+        link.addEventListener('click', function(event) {
+            openPremiumPopup(event, url, oldOnclick);
+        });
         
-        // Ставим метку, чтобы не обрабатывать эту ссылку повторно
+        // Ставим метку, чтобы не обрабатывать эту ссылку по кругу
         link.dataset.windowFixed = "true";
     }
 });
@@ -1185,6 +1188,7 @@ if (targetBox) {
     premiumObserver.observe(targetBox, { childList: true, subtree: true });
 }
 </script>
+
 
 </body>
 </html>
