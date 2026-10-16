@@ -1026,6 +1026,28 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 	
   <!-- Автоматический подбор самого дорогого крана со всплывающим фреймом -->
 <script>
+// ГЛОБАЛЬНОЕ ХРАНИЛИЩЕ: Сюда мы сохраним чистые ссылки до работы маскировщика
+const cleanFaucetUrls = {};
+
+// ЖЕЛЕЗОБЕТОННЫЙ ПЕРЕХВАТ: Срабатывает в первую миллисекунду, пока HTML только прогрузился
+window.addEventListener('DOMContentLoaded', () => {
+    const allRows = document.querySelectorAll('tr[id^="faucet"]');
+    allRows.forEach(row => {
+        const rowId = row.getAttribute('id');
+        const rowLink = row.querySelector('.faucet-link');
+        if (rowId && rowLink) {
+            const originalHref = rowLink.getAttribute('href');
+            // Сохраняем ссылку только если она настоящая (начинается на http)
+            if (originalHref && originalHref.startsWith('http')) {
+                cleanFaucetUrls[rowId] = originalHref;
+            }
+        }
+    });
+    
+    // Запускаем подбор через 1.5 секунды, как и было у тебя
+    setTimeout(findAndDisplayBestFaucet, 1500);
+}, true); // Флаг true гарантирует, что этот код сработает ПЕРВЫМ на сайте
+
 function findAndDisplayBestFaucet() {
     if (document.activeElement && (
         document.activeElement.tagName === 'INPUT' || 
@@ -1039,22 +1061,11 @@ function findAndDisplayBestFaucet() {
     const allRows = document.querySelectorAll('tr[id^="faucet"]');
     let highestPrice = -1;
     let bestRow = null;
-    let fallbackUrl = ""; // Резервное хранилище чистого URL
 
     allRows.forEach(row => {
         if (row.classList.contains('out-of-limit')) return;
         const cell = row.querySelector('.timer-cell');
         if (!cell || !cell.classList.contains('ready')) return;
-
-        // Находим ссылку в текущей строке
-        const rowLink = row.querySelector('.faucet-link');
-        if (rowLink) {
-            const currentHref = rowLink.getAttribute('href');
-            // Если маскировщик еще не успел испортить ссылку (она начинается на http)
-            if (currentHref && currentHref.startsWith('http')) {
-                row.setAttribute('data-true-url', currentHref);
-            }
-        }
 
         const rubValue = parseFloat(row.getAttribute('data-rub-value')) || 0;
 
@@ -1068,8 +1079,9 @@ function findAndDisplayBestFaucet() {
     if (!topBox) return;
 
     if (bestRow) {
+        const rowId = bestRow.getAttribute('id');
         const cells = bestRow.querySelectorAll('td');
-        const faucetName = cells[0] ? cells[0].textContent.trim() : "Кран";
+        const faucetName = cells ? cells.textContent.trim() : "Кран";
         const originalButton = bestRow.querySelector('.faucet-link');
 
         if (originalButton) {
@@ -1084,12 +1096,12 @@ function findAndDisplayBestFaucet() {
             const clonedButton = originalButton.cloneNode(true);
             clonedButton.className = 'btn-ref faucet-link top-faucet-btn'; 
 
-            // Стираем target и onclick, чтобы исключить открытие вкладок браузером
+            // Намертво убираем target и старый onclick у клона
             clonedButton.removeAttribute('target');
             clonedButton.removeAttribute('onclick');
 
-            // Вытаскиваем заначенный чистый URL из атрибута строки
-            const targetUrl = bestRow.getAttribute('data-true-url') || originalButton.getAttribute('href');
+            // ДОСТАЕМ ЧИСТЫЙ URL: берем его из нашего глобального хранилища по ID строки
+            const targetUrl = cleanFaucetUrls[rowId] || originalButton.getAttribute('href');
 
             clonedButton.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1112,7 +1124,7 @@ function findAndDisplayBestFaucet() {
                 
                 if (modal && frame && title) {
                     title.innerText = `Сбор с жирного крана: ${faucetName} (Рекламные вкладки заблокированы)`;
-                    frame.src = targetUrl; // Загружаем чистый внешний адрес
+                    frame.src = targetUrl; // Передаем спасенный от маскировщика внешний URL
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden'; 
                 }
@@ -1160,14 +1172,9 @@ function closePremiumModal() {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(findAndDisplayBestFaucet, 1500);
-});
-
+// Проверяем таблицу раз в 20 секунд
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
-
-
 
 
 
