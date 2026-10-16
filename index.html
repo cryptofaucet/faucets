@@ -971,7 +971,7 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 }
 </script>
 
- <!-- Финальный Скрипт Защиты (Чистый статус-бар + Интеграция с Модалкой) -->
+ <!-- Финальный Скрипт Защиты (Чистый статус-бар + Идеальный клик) -->
 <script>
 (function() {
     window.secureAndHideLinks = function() {
@@ -985,31 +985,35 @@ window.moveFaucetColumn = function(rowId, targetSide) {
                 link.onclick = function(e) {
                     e.preventDefault();
                     
-                    // Проверяем: если это кнопка из премиум-бокса
-                    const isTopBtn = link.classList.contains('top-faucet-btn') || link.closest('#smart-premium-box');
                     const finalUrl = link.getAttribute("data-secure-href");
+                    const topBox = document.getElementById('smart-premium-box');
                     
-                    if (isTopBtn) {
-                        // Находим оригинальную кнопку в таблице, чтобы узнать имя крана и запустить таймер
-                        const topBox = document.getElementById('smart-premium-box');
-                        const currentBest = topBox ? topBox.getAttribute('data-current-best') : '';
+                    // Проверяем: кликнули ли по кнопке в премиум-боксе
+                    const isTopBtn = link.classList.contains('top-faucet-btn') || (topBox && topBox.contains(link));
+                    
+                    if (isTopBtn && topBox) {
+                        const currentBest = topBox.getAttribute('data-current-best') || '';
+                        // Вытаскиваем чистое имя крана из маркера (например, "BitEarnix")
                         const faucetName = currentBest ? currentBest.split('_')[0] : "Кран";
                         
-                        // Ищем оригинальную строку, чтобы запустить таймер
+                        // Запускаем таймер кулдауна в таблице, найдя нужную строку по имени крана
                         const allRows = document.querySelectorAll('tr[id^="faucet"]');
                         allRows.forEach(row => {
                             const cells = row.querySelectorAll('td');
                             if (cells[0] && cells[0].textContent.trim() === faucetName) {
+                                // Ищем оригинальный onclick, чтобы вытащить время, или ставим 180 сек по умолчанию
                                 const origBtn = row.querySelector('.faucet-link');
+                                let cooldownTime = 180; 
                                 if (origBtn && origBtn.getAttribute('data-secure-cooldown')) {
-                                    window.startTimer(row.id, parseInt(origBtn.getAttribute('data-secure-cooldown'), 10));
-                                } else {
-                                    window.startTimer(row.id, 300);
+                                    cooldownTime = parseInt(origBtn.getAttribute('data-secure-cooldown'), 10);
+                                }
+                                if (typeof window.startTimer === 'function') {
+                                    window.startTimer(row.id, cooldownTime);
                                 }
                             }
                         });
 
-                        // Открываем кран в нашем всплывающем окне внутри сайта (БЕЗ ТАРГЕТ БЛАНК)
+                        // Открываем кран во всплывающем окне внутри сайта
                         const modal = document.getElementById('premium-popup-modal');
                         const frame = document.getElementById('premium-modal-frame');
                         const title = document.getElementById('premium-modal-title');
@@ -1021,18 +1025,18 @@ window.moveFaucetColumn = function(rowId, targetSide) {
                             document.body.style.overflow = 'hidden'; 
                         }
                         
-                        if (topBox) topBox.removeAttribute('data-current-best');
+                        topBox.removeAttribute('data-current-best');
                         if (typeof window.findAndDisplayBestFaucet === 'function') {
                             setTimeout(window.findAndDisplayBestFaucet, 500);
                         }
                     } else {
-                        // ДЛЯ ОБЫЧНЫХ КРАНОВ В ТАБЛИЦЕ: Твой родной код открытия в новой вкладке
+                        // ЛОГИКА ДЛЯ ОБЫЧНЫХ КНОПОК В ТАБЛИЦЕ: Твой родной код
                         const row = link.closest("tr");
                         if (row && row.id && typeof window.startTimer === 'function') {
-                            // Сохраняем время таймера, чтобы верхняя кнопка знала кулдаун
+                            // Вытаскиваем время из инлайнового onclick
                             const origOnclick = link.getAttribute('onclick') || '';
                             const match = origOnclick.match(/startTimer\s*\(\s*['"]([^'"]+)['"]\s*,\s*(\d+)\)/);
-                            const cooldown = match ? match[2] : 300;
+                            const cooldown = match ? match[2] : 180;
                             link.setAttribute('data-secure-cooldown', cooldown);
                             
                             window.startTimer(row.id, parseInt(cooldown, 10));
@@ -1059,7 +1063,8 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 })();
 </script>
 
- <!-- Автоматический подбор самого дорогого крана со всплывающим фреймом -->
+
+  <!-- Автоматический подбор самого дорогого крана -->
 <script>
 window.findAndDisplayBestFaucet = function() {
     if (document.activeElement && (
@@ -1093,14 +1098,12 @@ window.findAndDisplayBestFaucet = function() {
 
     if (bestRow) {
         const cells = bestRow.querySelectorAll('td');
-        // ИСПРАВЛЕНО: Теперь чётко берём текст из первой ячейки строки [0]
-        const faucetName = cells && cells[0] ? cells[0].textContent.trim() : "Кран";
+        const faucetName = cells[0] ? cells[0].textContent.trim() : "Кран";
         const originalButton = bestRow.querySelector('.faucet-link');
 
         if (originalButton) {
             const currentBestMarker = `${faucetName}_${highestPrice.toFixed(4)}`;
             
-            // Если открыто модальное окно, не сбрасываем состояние
             if (topBox.getAttribute('data-current-best') === currentBestMarker || document.getElementById('premium-popup-modal').style.display === 'block') {
                 return; 
             }
@@ -1110,7 +1113,7 @@ window.findAndDisplayBestFaucet = function() {
             const clonedButton = originalButton.cloneNode(true);
             clonedButton.className = 'btn-ref faucet-link top-faucet-btn'; 
 
-            // Отрисовываем коробку премиум-бокса
+            // Отрисовываем коробку
             topBox.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: center; height: 100%; width: 100%; gap: 15px;">
                     <div style="text-align: left;">
@@ -1124,6 +1127,7 @@ window.findAndDisplayBestFaucet = function() {
             
             topBox.querySelector('#top-btn-container').appendChild(clonedButton);
             
+            // Запускаем маскировку заново, чтобы привязать клик к новой кнопке
             if (typeof window.secureAndHideLinks === 'function') {
                 window.secureAndHideLinks();
             }
@@ -1156,6 +1160,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 setInterval(window.findAndDisplayBestFaucet, 20000);
 </script>
+
 
 
 
