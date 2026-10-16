@@ -1024,10 +1024,9 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 })();
 </script>
 	
- <!-- Автоматический подбор самого дорогого крана -->
+ <!-- Автоматический подбор самого дорогого крана со всплывающим фреймом -->
 <script>
 function findAndDisplayBestFaucet() {
-    // ЗАЩИТА ФОКУСА: Если ты сейчас что-то пишешь, коробка не обновляется
     if (document.activeElement && (
         document.activeElement.tagName === 'INPUT' || 
         document.activeElement.classList.contains('crypto-input') ||
@@ -1037,20 +1036,15 @@ function findAndDisplayBestFaucet() {
         return; 
     }
 
-    // Находим строки кранов
     const allRows = document.querySelectorAll('tr[id^="faucet"]');
     let highestPrice = -1;
     let bestRow = null;
 
     allRows.forEach(row => {
-        // Пропускаем лимиты
         if (row.classList.contains('out-of-limit')) return;
-        
-        // Проверяем статус готовности
         const cell = row.querySelector('.timer-cell');
         if (!cell || !cell.classList.contains('ready')) return;
 
-        // Берем цену из кэшированного атрибута строки
         const rubValue = parseFloat(row.getAttribute('data-rub-value')) || 0;
 
         if (rubValue > highestPrice) {
@@ -1064,13 +1058,12 @@ function findAndDisplayBestFaucet() {
 
     if (bestRow) {
         const cells = bestRow.querySelectorAll('td');
-        const faucetName = cells[0] ? cells[0].textContent.trim() : "Кран";
+        const faucetName = cells ? cells.textContent.trim() : "Кран";
         const originalButton = bestRow.querySelector('.faucet-link');
 
         if (originalButton) {
             const currentBestMarker = `${faucetName}_${highestPrice.toFixed(4)}`;
             
-            // УМНОЕ ОБНОВЛЕНИЕ: Если самый выгодный кран не поменялся, не перезаписываем DOM
             if (topBox.getAttribute('data-current-best') === currentBestMarker) {
                 return; 
             }
@@ -1080,15 +1073,44 @@ function findAndDisplayBestFaucet() {
             const clonedButton = originalButton.cloneNode(true);
             clonedButton.className = 'btn-ref faucet-link top-faucet-btn'; 
 
+            // !!! ВОТ ОНА, ЖЕСТКАЯ ЗАЧИСТКА !!!
+            // Удаляем target и старый onclick у клона, чтобы браузер не открывал новую вкладку
+            clonedButton.removeAttribute('target');
+            clonedButton.removeAttribute('onclick');
+
+            // Вешаем чистое открытие фрейма без рекламы
             clonedButton.addEventListener('click', (e) => {
                 e.preventDefault();
-                originalButton.click(); // Запускаем родной таймер строки
+                e.stopPropagation();
+                
+                const url = originalButton.getAttribute('href');
+                
+                // Принудительно запускаем оригинальный таймер в таблице
+                const originalOnclick = originalButton.getAttribute('onclick');
+                if (originalOnclick) {
+                    try {
+                        new Function(originalOnclick)();
+                    } catch(err) {
+                        console.error("Не удалось запустить таймер:", err);
+                    }
+                }
+                
+                // Разворачиваем модалку
+                const modal = document.getElementById('premium-popup-modal');
+                const frame = document.getElementById('premium-modal-frame');
+                const title = document.getElementById('premium-modal-title');
+                
+                if (modal && frame && title) {
+                    title.innerText = `Сбор с жирного крана: ${faucetName} (Рекламные вкладки заблокированы)`;
+                    frame.src = url;
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; 
+                }
                 
                 topBox.removeAttribute('data-current-best');
                 setTimeout(findAndDisplayBestFaucet, 500);
             });
 
-            // Отрисовываем коробку
             topBox.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: center; height: 100%; width: 100%; gap: 15px;">
                     <div style="text-align: left;">
@@ -1102,7 +1124,6 @@ function findAndDisplayBestFaucet() {
             
             topBox.querySelector('#top-btn-container').appendChild(clonedButton);
             
-            // Маскируем рефку на лету для верхней кнопки
             if (typeof window.secureAndHideLinks === 'function') {
                 window.secureAndHideLinks();
             }
@@ -1119,14 +1140,23 @@ function findAndDisplayBestFaucet() {
     }
 }
 
-// Автоматический запуск логики с защитой фокуса
+function closePremiumModal() {
+    const modal = document.getElementById('premium-popup-modal');
+    const frame = document.getElementById('premium-modal-frame');
+    if (modal && frame) {
+        frame.src = ''; 
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; 
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(findAndDisplayBestFaucet, 1500);
 });
 
-// Проверяем таблицу раз в 20 секунд (теперь безопасно)
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
+
 
   <!-- Модальное окно для сбора без рекламы -->
 <div id="premium-popup-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,14,20,0.9); z-index: 99999; font-family: 'Segoe UI', sans-serif;">
