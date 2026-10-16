@@ -971,89 +971,48 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 }
 </script>
 
- <!-- Финальный Скрипт Защиты (Чистый статус-бар + Идеальный клик) -->
+ <!-- Финальный Скрипт Защиты (Чистый статус-бар + 100% зачисление рефок) -->
 <script>
 (function() {
+    // Функция маскировки: безопасно прячет реальный href в память элемента
     window.secureAndHideLinks = function() {
         document.querySelectorAll(".faucet-link, .top-faucet-btn").forEach(link => {
+            // Если у ссылки есть обычный href, переносим его под защиту
             if (link.href && link.href !== "#" && !link.href.startsWith("javascript:")) {
                 const realUrl = link.href;
+                
+                // Сохраняем истинную рефку в data-атрибут
                 link.setAttribute("data-secure-href", realUrl);
+                // Полностью стираем href из вёрстки, чтобы при наведении мыши было пусто
                 link.removeAttribute("href");
                 link.style.cursor = "pointer";
                 
+                // Навешиваем неубиваемый клик, который сработает во втором окне с рефкой
                 link.onclick = function(e) {
                     e.preventDefault();
                     
+                    // 1. Запускаем таймер кулдауна из 2-го скрипта (если это строка таблицы)
+                    const row = link.closest("tr");
+                    if (row && row.id && typeof window.startTimer === 'function') {
+                        window.startTimer(row.id, 300);
+                    }
+                    
+                    // 2. Открываем ИСТИННУЮ ПОЛНУЮ рефку в новом окне со всеми хвостами
                     const finalUrl = link.getAttribute("data-secure-href");
-                    const topBox = document.getElementById('smart-premium-box');
-                    
-                    // Проверяем: кликнули ли по кнопке в премиум-боксе
-                    const isTopBtn = link.classList.contains('top-faucet-btn') || (topBox && topBox.contains(link));
-                    
-                    if (isTopBtn && topBox) {
-                        const currentBest = topBox.getAttribute('data-current-best') || '';
-                        // Вытаскиваем чистое имя крана из маркера (например, "BitEarnix")
-                        const faucetName = currentBest ? currentBest.split('_')[0] : "Кран";
-                        
-                        // Запускаем таймер кулдауна в таблице, найдя нужную строку по имени крана
-                        const allRows = document.querySelectorAll('tr[id^="faucet"]');
-                        allRows.forEach(row => {
-                            const cells = row.querySelectorAll('td');
-                            if (cells[0] && cells[0].textContent.trim() === faucetName) {
-                                // Ищем оригинальный onclick, чтобы вытащить время, или ставим 180 сек по умолчанию
-                                const origBtn = row.querySelector('.faucet-link');
-                                let cooldownTime = 180; 
-                                if (origBtn && origBtn.getAttribute('data-secure-cooldown')) {
-                                    cooldownTime = parseInt(origBtn.getAttribute('data-secure-cooldown'), 10);
-                                }
-                                if (typeof window.startTimer === 'function') {
-                                    window.startTimer(row.id, cooldownTime);
-                                }
-                            }
-                        });
-
-                        // Открываем кран во всплывающем окне внутри сайта
-                        const modal = document.getElementById('premium-popup-modal');
-                        const frame = document.getElementById('premium-modal-frame');
-                        const title = document.getElementById('premium-modal-title');
-                        
-                        if (modal && frame && title && finalUrl) {
-                            title.innerText = `Сбор с жирного крана: ${faucetName} (Рекламные вкладки заблокированы)`;
-                            frame.src = finalUrl;
-                            modal.style.display = 'block';
-                            document.body.style.overflow = 'hidden'; 
-                        }
-                        
-                        topBox.removeAttribute('data-current-best');
-                        if (typeof window.findAndDisplayBestFaucet === 'function') {
-                            setTimeout(window.findAndDisplayBestFaucet, 500);
-                        }
-                    } else {
-                        // ЛОГИКА ДЛЯ ОБЫЧНЫХ КНОПОК В ТАБЛИЦЕ: Твой родной код
-                        const row = link.closest("tr");
-                        if (row && row.id && typeof window.startTimer === 'function') {
-                            // Вытаскиваем время из инлайнового onclick
-                            const origOnclick = link.getAttribute('onclick') || '';
-                            const match = origOnclick.match(/startTimer\s*\(\s*['"]([^'"]+)['"]\s*,\s*(\d+)\)/);
-                            const cooldown = match ? match[2] : 180;
-                            link.setAttribute('data-secure-cooldown', cooldown);
-                            
-                            window.startTimer(row.id, parseInt(cooldown, 10));
-                        }
-                        if (finalUrl) {
-                            window.open(finalUrl, '_blank');
-                        }
+                    if (finalUrl) {
+                        window.open(finalUrl, '_blank');
                     }
                 };
             }
         });
     };
 
+    // Запускаем маскировку при первой загрузке сайта
     document.addEventListener("DOMContentLoaded", function() {
         window.secureAndHideLinks();
     });
 
+    // Блокировка контекстного меню и горячих клавиш разработчика (Твой оригинальный код)
     document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
     document.addEventListener("keydown", function(e) { 
         if (e.keyCode === 123) { e.preventDefault(); } 
@@ -1066,7 +1025,8 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 
   <!-- Автоматический подбор самого дорогого крана -->
 <script>
-window.findAndDisplayBestFaucet = function() {
+function findAndDisplayBestFaucet() {
+    // ТВОЙ РОДНОЙ КОД ЗАЩИТЫ ФОКУСА
     if (document.activeElement && (
         document.activeElement.tagName === 'INPUT' || 
         document.activeElement.classList.contains('crypto-input') ||
@@ -1076,6 +1036,7 @@ window.findAndDisplayBestFaucet = function() {
         return; 
     }
 
+    // ТВОЙ РОДНОЙ ПОИСК ЛУЧШЕГО КРАНА
     const allRows = document.querySelectorAll('tr[id^="faucet"]');
     let highestPrice = -1;
     let bestRow = null;
@@ -1109,11 +1070,48 @@ window.findAndDisplayBestFaucet = function() {
             }
             topBox.setAttribute('data-current-best', currentBestMarker);
 
-            // Клонируем оригинальную кнопку
+            // ТВОЕ РОДНОЕ КЛОНИРОВАНИЕ КНОПКИ
             const clonedButton = originalButton.cloneNode(true);
             clonedButton.className = 'btn-ref faucet-link top-faucet-btn'; 
 
-            // Отрисовываем коробку
+            // БЕЗОПАСНЫЙ ПЕРЕХВАТ ВНУТРИ КЛИКА
+            clonedButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Временно подменяем вызов открытия вкладок в браузере
+                const realWindowOpen = window.open;
+                let cleanUrl = "";
+                window.open = function(url) {
+                    cleanUrl = url; // Хватаем чистую ссылку из твоего маскировщика
+                    return null;    // Запрещаем открывать новую вкладку
+                };
+
+                // Имитируем клик по твоей родной кнопке (запустится таймер и сгенерируется ссылка)
+                originalButton.click();
+
+                // Возвращаем настройки браузера назад
+                window.open = realWindowOpen;
+
+                // Разворачиваем окно с чистой ссылкой
+                if (cleanUrl) {
+                    const modal = document.getElementById('premium-popup-modal');
+                    const frame = document.getElementById('premium-modal-frame');
+                    const title = document.getElementById('premium-modal-title');
+                    
+                    if (modal && frame && title) {
+                        title.innerText = `Сбор с жирного крана: ${faucetName} (Реклама заблокирована)`;
+                        frame.src = cleanUrl;
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden'; 
+                    }
+                }
+
+                topBox.removeAttribute('data-current-best');
+                setTimeout(findAndDisplayBestFaucet, 500);
+            });
+
+            // ТВОЙ РОДНОЙ ВЫВОД В ВЕРСТКУ
             topBox.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: center; height: 100%; width: 100%; gap: 15px;">
                     <div style="text-align: left;">
@@ -1127,7 +1125,6 @@ window.findAndDisplayBestFaucet = function() {
             
             topBox.querySelector('#top-btn-container').appendChild(clonedButton);
             
-            // Запускаем маскировку заново, чтобы привязать клик к новой кнопке
             if (typeof window.secureAndHideLinks === 'function') {
                 window.secureAndHideLinks();
             }
@@ -1144,6 +1141,7 @@ window.findAndDisplayBestFaucet = function() {
     }
 }
 
+// Функция для закрытия модалки
 function closePremiumModal() {
     const modal = document.getElementById('premium-popup-modal');
     const frame = document.getElementById('premium-modal-frame');
@@ -1155,10 +1153,10 @@ function closePremiumModal() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(window.findAndDisplayBestFaucet, 1500);
+    setTimeout(findAndDisplayBestFaucet, 1500);
 });
 
-setInterval(window.findAndDisplayBestFaucet, 20000);
+setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
 
@@ -1167,25 +1165,13 @@ setInterval(window.findAndDisplayBestFaucet, 20000);
   <!-- Модальное окно для сбора без рекламы -->
 <div id="premium-popup-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,14,20,0.9); z-index: 99999; font-family: 'Segoe UI', sans-serif;">
     <div style="position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; background: #111622; border: 1px solid #1f2638; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);">
-        
-        <!-- Шапка окна -->
         <div style="background: #151a26; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f2638;">
-            <span id="premium-modal-title" style="font-weight: bold; color: #00ffcc; font-size: 14px; text-shadow: 0 0 10px rgba(0, 255, 204, 0.2);">Загрузка...</span>
-            <button onclick="closePremiumModal()" style="padding: 6px 16px; background: #ff5252; color: #0b0e14; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;">
-                ЗАКРЫТЬ КРАН ✕
-            </button>
+            <span id="premium-modal-title" style="font-weight: bold; color: #00ffcc; font-size: 14px;">Загрузка крана...</span>
+            <button onclick="closePremiumModal()" style="padding: 6px 16px; background: #ff5252; color: #0b0e14; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">ЗАКРЫТЬ КРАН ✕</button>
         </div>
-        
-        <!-- Защищенный фрейм: блокирует новые окна и вкладки рекламы -->
-        <iframe id="premium-modal-frame" 
-                sandbox="allow-scripts allow-forms" 
-                src="" 
-                style="width: 100%; flex-grow: 1; border: none; background: #fafafa;">
-        </iframe>
+        <iframe id="premium-modal-frame" sandbox="allow-scripts allow-forms" src="" style="width: 100%; flex-grow: 1; border: none; background: #fafafa;"></iframe>
     </div>
 </div>
-
-
 
 
 </body>
