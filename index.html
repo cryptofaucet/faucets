@@ -1023,9 +1023,10 @@ window.moveFaucetColumn = function(rowId, targetSide) {
 </script>
 
 
- <!-- Автоматический подбор самого дорогого крана (Чистое окно без рекламы) -->
+ <!-- Автоматический подбор самого дорогого крана (Чистые Попап-Окна) -->
 <script>
 function findAndDisplayBestFaucet() {
+    // 1. ЗАЩИТА ФОКУСА (Твой оригинальный код)
     if (document.activeElement && (
         document.activeElement.tagName === 'INPUT' || 
         document.activeElement.classList.contains('crypto-input') ||
@@ -1035,6 +1036,7 @@ function findAndDisplayBestFaucet() {
         return; 
     }
 
+    // 2. ПОИСК ЛУЧШЕГО КРАНА (Твой оригинальный код)
     const allRows = document.querySelectorAll('tr[id^="faucet"]');
     let highestPrice = -1;
     let bestRow = null;
@@ -1057,7 +1059,8 @@ function findAndDisplayBestFaucet() {
 
     if (bestRow) {
         const cells = bestRow.querySelectorAll('td');
-        const faucetName = cells ? cells.textContent.trim() : "Кран";
+        // ИСПРАВЛЕНО НАВЕК: Индекс [0] вернулся на место!
+        const faucetName = cells[0] ? cells[0].textContent.trim() : "Кран";
         const originalButton = bestRow.querySelector('.faucet-link');
 
         if (originalButton) {
@@ -1072,28 +1075,28 @@ function findAndDisplayBestFaucet() {
             const clonedButton = originalButton.cloneNode(true);
             clonedButton.className = 'btn-ref faucet-link top-faucet-btn'; 
 
-            // ПЕРЕХВАТ КЛИКА ДЛЯ ОТДЕЛЬНОГО ОКНА (КАК НА БУКСАХ)
+            // ЧИСТЫЙ ПЕРЕХВАТ ДЛЯ ОТДЕЛЬНОГО ОКНА ПО ЦЕНТРУ
             clonedButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                // Хитрый перехват чистой ссылки из твоего маскировщика
+                // Временно подменяем системную команду открытия окон в браузере
                 const realWindowOpen = window.open;
                 let cleanUrl = "";
                 window.open = function(url) {
-                    cleanUrl = url;
-                    return null; // Не даем открыть обычную вкладку
+                    cleanUrl = url; // Перехватываем полную чистую реф-ссылку из твоего маскировщика
+                    return null;    // Блокируем вылет стандартной новой вкладки
                 };
 
-                // Вызываем клик по родной кнопке, чтобы пошел кулдаун
+                // Имитируем клик по оригинальной кнопке нижней таблицы (запустится кулдаун)
                 originalButton.click();
 
-                // Возвращаем window.open на место
+                // Сразу возвращаем window.open на место
                 window.open = realWindowOpen;
 
-                // Если ссылка успешно поймана, открываем её в изолированном окне по центру
+                // Если ссылка успешно поймана из маскировщика, открываем её в попап-окне фиксированного размера
                 if (cleanUrl) {
-                    const w = 1200;
+                    const w = 1250;
                     const h = 850;
                     const left = (window.screen.width - w) / 2;
                     const top = (window.screen.height - h) / 2;
@@ -1105,6 +1108,7 @@ function findAndDisplayBestFaucet() {
                 setTimeout(findAndDisplayBestFaucet, 500);
             });
 
+            // 3. ОТРИСОВКА ВЕРСТКИ (Твой оригинальный код)
             topBox.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: center; height: 100%; width: 100%; gap: 15px;">
                     <div style="text-align: left;">
@@ -1134,6 +1138,7 @@ function findAndDisplayBestFaucet() {
     }
 }
 
+// Запуски скрипта автоподбора
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(findAndDisplayBestFaucet, 1500);
 });
