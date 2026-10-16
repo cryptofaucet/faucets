@@ -1058,7 +1058,8 @@ function findAndDisplayBestFaucet() {
 
     if (bestRow) {
         const cells = bestRow.querySelectorAll('td');
-        const faucetName = cells ? cells.textContent.trim() : "Кран";
+        // ИСПРАВЛЕНО ТУТ: вернул [0], теперь название определяется корректно
+        const faucetName = cells[0] ? cells[0].textContent.trim() : "Кран";
         const originalButton = bestRow.querySelector('.faucet-link');
 
         if (originalButton) {
@@ -1073,12 +1074,11 @@ function findAndDisplayBestFaucet() {
             const clonedButton = originalButton.cloneNode(true);
             clonedButton.className = 'btn-ref faucet-link top-faucet-btn'; 
 
-            // !!! ВОТ ОНА, ЖЕСТКАЯ ЗАЧИСТКА !!!
-            // Удаляем target и старый onclick у клона, чтобы браузер не открывал новую вкладку
+            // Намертво убираем target и старый onclick, чтобы не пробивало во вкладку
             clonedButton.removeAttribute('target');
             clonedButton.removeAttribute('onclick');
 
-            // Вешаем чистое открытие фрейма без рекламы
+            // Вешаем открытие фрейма без рекламы
             clonedButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -1156,6 +1156,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
+
 
 
   <!-- Модальное окно для сбора без рекламы -->
