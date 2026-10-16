@@ -1073,7 +1073,7 @@ function findAndDisplayBestFaucet() {
             const clonedButton = originalButton.cloneNode(true);
             clonedButton.className = 'btn-ref faucet-link top-faucet-btn'; 
 
-            // Намертво убираем target и старый onclick, чтобы не пробивало во вкладку
+            // Намертво убираем target и старый onclick у клона
             clonedButton.removeAttribute('target');
             clonedButton.removeAttribute('onclick');
 
@@ -1082,8 +1082,10 @@ function findAndDisplayBestFaucet() {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Берём чистый URL напрямую из атрибута оригинальной кнопки в DOM
-                const url = originalButton.href || originalButton.getAttribute('href');
+                // ИЩЕМ НАСТОЯЩИЙ URL: берем ссылку из первой ячейки строки оригинальной таблицы,
+                // где маскировщик не успел ее испортить.
+                const rawLink = bestRow.querySelector('td a');
+                const url = rawLink ? rawLink.getAttribute('href') : originalButton.getAttribute('href');
                 
                 // Принудительно запускаем оригинальный таймер в таблице
                 const originalOnclick = originalButton.getAttribute('onclick');
@@ -1102,7 +1104,7 @@ function findAndDisplayBestFaucet() {
                 
                 if (modal && frame && title) {
                     title.innerText = `Сбор с жирного крана: ${faucetName} (Рекламные вкладки заблокированы)`;
-                    frame.src = url; // Теперь сюда передается полный внешний URL крана
+                    frame.src = url; // Передаем чистый внешний URL
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden'; 
                 }
@@ -1156,6 +1158,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
+
 
 
 
