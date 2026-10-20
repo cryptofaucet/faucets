@@ -1426,36 +1426,6 @@ setInterval(findAndDisplayBestFaucet, 20000);
 })();
 </script>
 
- <script>
-(function () {
-    function addFaucetIds() {
-        document.querySelectorAll('tr[id^="faucet"]').forEach(function (row) {
-            const link = row.querySelector('.faucet-link');
-            if (!link) return;
-
-            const match = row.id.match(/^faucet(\d+)$/);
-            if (!match) return;
-
-            // Убираем предыдущий номер, если он уже добавлен
-            const oldId = link.querySelector('.faucet-id');
-            if (oldId) oldId.remove();
-
-            const badge = document.createElement('span');
-            badge.className = 'faucet-id';
-            badge.textContent = match[1] + ' ';
-            badge.style.cssText =
-                'display:inline;color:white;font-weight:800;font-size:12px;white-space:nowrap;text-decoration:none';
-
-            link.insertBefore(badge, link.firstChild);
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', addFaucetIds);
-    } else {
-        addFaucetIds();
-    }
-})();
-</script>
+  
 </body>
 </html>
