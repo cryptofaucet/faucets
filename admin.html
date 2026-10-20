@@ -27,9 +27,7 @@
             color: #00ffcc;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+        .form-group { margin-bottom: 15px; }
 
         label {
             display: block;
@@ -59,20 +57,15 @@
             font-size: 16px;
         }
 
-        button:hover {
-            background: #00ccaa;
-        }
+        button:hover { background: #00ccaa; }
 
         button:disabled {
             opacity: 0.6;
             cursor: wait;
         }
 
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
 
-        /* Генератор нового крана */
         .add-faucet-panel {
             background: #222831;
             border: 1px solid #41414c;
@@ -101,9 +94,7 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 
-        .add-faucet-panel .field {
-            min-width: 0;
-        }
+        .add-faucet-panel .field { min-width: 0; }
 
         .add-faucet-panel label {
             display: block;
@@ -146,9 +137,7 @@
             margin-top: 2px;
         }
 
-        #addFaucetButton:hover {
-            background: #e08800;
-        }
+        #addFaucetButton:hover { background: #e08800; }
 
         #addFaucetMessage {
             margin: 10px 0 0;
@@ -196,9 +185,7 @@
             flex-shrink: 0;
         }
 
-        .faucet-label {
-            overflow-wrap: anywhere;
-        }
+        .faucet-label { overflow-wrap: anywhere; }
 
         .admin-actions {
             display: flex;
@@ -244,7 +231,11 @@
             box-shadow: 0 8px 30px rgba(0,0,0,.6);
         }
 
-        .edit-dialog h2 { margin-top: 0; color: #ff9900; }
+        .edit-dialog h2 {
+            margin-top: 0;
+            color: #ff9900;
+        }
+
         .edit-dialog input {
             width: 100%;
             height: 40px;
@@ -255,11 +246,30 @@
             background: #171717;
             color: #fff;
         }
-        .edit-dialog .edit-buttons { display: flex; gap: 10px; margin-top: 16px; }
+
+        .edit-dialog .edit-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
         .edit-dialog .edit-buttons button { flex: 1; }
-        #editSaveButton { background: #ff9900; color: #111; }
-        #editCancelButton { background: #555; color: #fff; }
-        #editMessage { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; }
+
+        #editSaveButton {
+            background: #ff9900;
+            color: #111;
+        }
+
+        #editCancelButton {
+            background: #555;
+            color: #fff;
+        }
+
+        #editMessage {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            font-size: 13px;
+        }
 
         .btn-active {
             background: #ff4444;
@@ -284,17 +294,9 @@
         }
 
         @media (max-width: 450px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 12px;
-            }
-
-            .faucet-item {
-                align-items: flex-start;
-            }
+            body { padding: 10px; }
+            .container { padding: 12px; }
+            .faucet-item { align-items: flex-start; }
         }
     </style>
 </head>
@@ -302,7 +304,6 @@
 
 <div class="container">
 
-    <!-- Форма входа -->
     <div id="loginBlock">
         <h1>Вход в админку</h1>
 
@@ -321,7 +322,6 @@
         </button>
     </div>
 
-    <!-- Панель управления -->
     <div id="adminBlock" class="hidden">
         <h1>Управление кранами</h1>
 
@@ -331,34 +331,47 @@
             <div class="add-faucet-row add-faucet-row-one">
                 <div class="field">
                     <label for="newFaucetName">Название крана</label>
-                    <input type="text" id="newFaucetName" placeholder="Например: Prairiehash" autocomplete="off">
+                    <input type="text" id="newFaucetName"
+                           placeholder="Например: Prairiehash" autocomplete="off">
                 </div>
+
                 <div class="field">
                     <label for="newFaucetId">ID</label>
-                    <input type="number" id="newFaucetId" min="1" step="1" placeholder="36">
+                    <input type="number" id="newFaucetId"
+                           min="1" step="1" placeholder="36">
                 </div>
+
                 <div class="field url-field">
                     <label for="newFaucetUrl">Ссылка на кран</label>
-                    <input type="url" id="newFaucetUrl" placeholder="https://..." autocomplete="url">
+                    <input type="url" id="newFaucetUrl"
+                           placeholder="https://..." autocomplete="url">
                 </div>
             </div>
 
             <div class="add-faucet-row add-faucet-row-two">
                 <div class="field">
                     <label for="newFaucetReward">Награда (крипта)</label>
-                    <input type="text" id="newFaucetReward" placeholder="0.0005967" inputmode="decimal">
+                    <input type="text" id="newFaucetReward"
+                           placeholder="0.0005967" inputmode="decimal">
                 </div>
+
                 <div class="field">
                     <label for="newFaucetCoin">Валюта</label>
-                    <input type="text" id="newFaucetCoin" placeholder="DOGE" maxlength="20" autocomplete="off">
+                    <input type="text" id="newFaucetCoin"
+                           placeholder="DOGE" maxlength="20" autocomplete="off">
                 </div>
+
                 <div class="field">
                     <label for="newFaucetTime">Таймер (минуты)</label>
-                    <input type="number" id="newFaucetTime" min="0" step="any" placeholder="5">
+                    <input type="number" id="newFaucetTime"
+                           min="0" step="any" placeholder="5">
                 </div>
             </div>
 
-            <button id="addFaucetButton" type="button">➕ Добавить кран в index.html на GitHub</button>
+            <button id="addFaucetButton" type="button">
+                ➕ Добавить кран в index.html на GitHub
+            </button>
+
             <p id="addFaucetMessage" role="status" aria-live="polite"></p>
         </div>
 
@@ -378,67 +391,78 @@
         <div id="faucetsList"></div>
     </div>
 
-    <!-- Окно редактирования выбранного крана -->
-    <div id="editOverlay" class="edit-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div id="editOverlay" class="edit-overlay hidden"
+         role="dialog" aria-modal="true" aria-labelledby="editTitle">
+
         <div class="edit-dialog">
             <h2 id="editTitle">✏️ Редактировать кран</h2>
             <p id="editIdLabel" style="color:#ff9d2e;font-weight:bold;"></p>
+
             <form id="editFaucetForm">
                 <div class="form-group">
                     <label for="editFaucetName">Название крана</label>
                     <input type="text" id="editFaucetName" required maxlength="150">
                 </div>
+
                 <div class="form-group">
                     <label for="editFaucetUrl">Ссылка на кран</label>
                     <input type="url" id="editFaucetUrl" required>
                 </div>
+
                 <div class="form-group">
                     <label for="editFaucetReward">Награда (крипта)</label>
-                    <input type="text" id="editFaucetReward" required inputmode="decimal">
+                    <input type="text" id="editFaucetReward"
+                           required inputmode="decimal">
                 </div>
+
                 <div class="form-group">
                     <label for="editFaucetCoin">Валюта</label>
                     <input type="text" id="editFaucetCoin" required maxlength="20">
                 </div>
+
                 <div class="form-group">
                     <label for="editFaucetTime">Таймер (минуты)</label>
-                    <input type="number" id="editFaucetTime" required min="0" step="any">
+                    <input type="number" id="editFaucetTime"
+                           required min="0" step="any">
                 </div>
+
                 <p id="editMessage" role="status" aria-live="polite"></p>
+
                 <div class="edit-buttons">
-                    <button id="editSaveButton" type="submit">💾 Сохранить на GitHub</button>
+                    <button id="editSaveButton" type="submit">
+                        💾 Сохранить на GitHub
+                    </button>
                     <button id="editCancelButton" type="button">Отмена</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <a href="index.html" class="nav-link">
-        ← Вернуться на главную
-    </a>
+    <a href="index.html" class="nav-link">← Вернуться на главную</a>
 </div>
 
 <script>
 'use strict';
 
-// Настройки репозитория
 const GITHUB_USER = "cryptofaucet";
 const GITHUB_REPO = "faucets";
 const FILE_PATH = "status.json";
 const INDEX_FILE_PATH = "index.html";
 const BRANCH = "main";
 
-// GitHub API
 const GITHUB_API_URL =
     `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+
 const INDEX_API_URL =
     `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${INDEX_FILE_PATH}`;
 
 let FAUCETS = [];
 let globalDisabledFaucets = [];
+let faucetSettings = {};
 let fileSha = "";
+let editingFaucetId = null;
+let editingOriginalValues = null;
 
-// Получение заголовков GitHub API
 function githubHeaders(token) {
     return {
         "Authorization": `Bearer ${token}`,
@@ -447,18 +471,45 @@ function githubHeaders(token) {
     };
 }
 
-// Чтение UTF-8 содержимого из Base64
 function decodeBase64UTF8(value) {
     const binary = atob(value.replace(/\s/g, ""));
     const bytes = Uint8Array.from(
         binary,
         character => character.charCodeAt(0)
     );
-
     return new TextDecoder("utf-8").decode(bytes);
 }
 
-// Автоматический вход при наличии токена в текущей сессии
+function encodeBase64UTF8(value) {
+    const bytes = new TextEncoder().encode(value);
+    let binary = "";
+    const chunkSize = 0x8000;
+
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+    }
+
+    return btoa(binary);
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
+function escapeAttribute(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
 window.addEventListener("load", function () {
     const savedToken = sessionStorage.getItem("git_admin_token");
 
@@ -468,7 +519,6 @@ window.addEventListener("load", function () {
     }
 });
 
-// Вход и загрузка status.json
 async function login() {
     const token = document.getElementById("tokenInput").value.trim();
 
@@ -488,16 +538,14 @@ async function login() {
             cache: "no-store"
         });
 
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
+        const data = await response.json().catch(() => ({}));
 
+        if (!response.ok) {
             throw new Error(
                 `GitHub: ${response.status} — ` +
-                (errorData.message || "Не удалось прочитать status.json")
+                (data.message || "Не удалось прочитать status.json")
             );
         }
-
-        const data = await response.json();
 
         if (!data.content || !data.sha) {
             throw new Error("GitHub не вернул содержимое файла или SHA.");
@@ -505,19 +553,22 @@ async function login() {
 
         const content = JSON.parse(decodeBase64UTF8(data.content));
 
-        if (
-            !content ||
-            !Array.isArray(content.disabled_faucets)
-        ) {
-            throw new Error(
-                "Неверный формат status.json. " +
-                "Ожидается массив disabled_faucets."
-            );
+        if (!content || typeof content !== "object" || Array.isArray(content)) {
+            throw new Error("Некорректный формат status.json.");
         }
 
-        fileSha = data.sha;
-        globalDisabledFaucets = [...new Set(content.disabled_faucets)];
+        globalDisabledFaucets = Array.isArray(content.disabled_faucets)
+            ? [...new Set(content.disabled_faucets)]
+            : [];
 
+        faucetSettings =
+            content.faucet_settings &&
+            typeof content.faucet_settings === "object" &&
+            !Array.isArray(content.faucet_settings)
+                ? content.faucet_settings
+                : {};
+
+        fileSha = data.sha;
         sessionStorage.setItem("git_admin_token", token);
 
         document.getElementById("loginBlock").classList.add("hidden");
@@ -527,11 +578,10 @@ async function login() {
 
     } catch (error) {
         console.error("Ошибка входа:", error);
-
         alert(
             "Не удалось войти в админку.\n\n" +
             error.message +
-            "\n\nПроверьте адрес API, доступ к репозиторию и права токена."
+            "\n\nПроверь адрес API, доступ к репозиторию и права токена."
         );
 
     } finally {
@@ -540,8 +590,6 @@ async function login() {
     }
 }
 
-// Загружаем список кранов через GitHub API.
-// Это работает даже если админка открыта локально через file://.
 async function fetchAndParseFaucets() {
     const listDiv = document.getElementById("faucetsList");
 
@@ -551,6 +599,7 @@ async function fetchAndParseFaucets() {
 
     try {
         const token = sessionStorage.getItem("git_admin_token");
+
         if (!token) {
             throw new Error("Токен GitHub не найден. Войдите заново.");
         }
@@ -565,27 +614,26 @@ async function fetchAndParseFaucets() {
         );
 
         const fileData = await response.json().catch(() => ({}));
+
         if (!response.ok) {
             throw new Error(
                 `GitHub ${response.status}: ` +
                 (fileData.message || "Не удалось загрузить index.html")
             );
         }
+
         if (!fileData.content) {
             throw new Error("GitHub не вернул содержимое index.html.");
         }
 
         const html = decodeBase64UTF8(fileData.content);
         const doc = new DOMParser().parseFromString(html, "text/html");
-
-        // Берём ID из строки (например, faucet13 -> 13),
-        // а название ищем по классу ссылки независимо от номера ячейки.
         const rows = doc.querySelectorAll('tr[id^="faucet"]');
 
         FAUCETS = Array.from(rows)
             .map(row => {
                 const match = row.id.match(/^faucet(\d+)$/);
-                const link = row.querySelector('a.faucet-link');
+                const link = row.querySelector("a.faucet-link");
 
                 if (!match || !link) return null;
 
@@ -596,7 +644,6 @@ async function fetchAndParseFaucets() {
             })
             .filter(Boolean);
 
-        // Сохраняем прежнее поведение: одинаковые названия не дублируются.
         FAUCETS = Array.from(
             new Map(FAUCETS.map(faucet => [faucet.name, faucet])).values()
         );
@@ -604,7 +651,7 @@ async function fetchAndParseFaucets() {
         if (FAUCETS.length === 0) {
             listDiv.innerHTML =
                 '<p class="message" style="color:#ff6666;">' +
-                'Краны не найдены. Проверьте разметку index.html.</p>';
+                'Краны не найдены. Проверь разметку index.html.</p>';
             return;
         }
 
@@ -621,18 +668,6 @@ async function fetchAndParseFaucets() {
     }
 }
 
-// Экранирование текста для сообщений
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, character => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[character]);
-}
-
-// Отображение переключателей
 function renderAdminList() {
     const listDiv = document.getElementById("faucetsList");
     listDiv.replaceChildren();
@@ -658,10 +693,12 @@ function renderAdminList() {
         label.textContent = name;
         label.style.color = "#fff";
         label.style.textDecoration = "none";
+
         label.addEventListener("click", function (event) {
             event.preventDefault();
             openEditFaucet(id);
         });
+
         nameSpan.append(idSpan, label);
 
         const actions = document.createElement("div");
@@ -695,7 +732,6 @@ function renderAdminList() {
     });
 }
 
-// Переключение глобального статуса
 function toggleFaucet(name) {
     if (globalDisabledFaucets.includes(name)) {
         globalDisabledFaucets =
@@ -707,7 +743,7 @@ function toggleFaucet(name) {
     renderAdminList();
 }
 
-// Сохранение status.json в GitHub
+// Сохраняем статус, не удаляя настройки кранов из JSON.
 async function saveChanges() {
     const token = sessionStorage.getItem("git_admin_token");
 
@@ -721,36 +757,44 @@ async function saveChanges() {
     saveButton.textContent = "Сохранение...";
 
     try {
-        // Повторно читаем файл, чтобы получить актуальный SHA
         const checkResponse = await fetch(GITHUB_API_URL, {
             method: "GET",
             headers: githubHeaders(token),
             cache: "no-store"
         });
 
-        if (!checkResponse.ok) {
-            const errorData = await checkResponse.json().catch(() => ({}));
+        const currentData = await checkResponse.json().catch(() => ({}));
 
+        if (!checkResponse.ok || !currentData.sha || !currentData.content) {
             throw new Error(
-                `Не удалось проверить status.json: ` +
-                `${checkResponse.status} — ` +
-                (errorData.message || "Ошибка GitHub")
+                `Не удалось прочитать status.json: ${checkResponse.status} — ` +
+                (currentData.message || "Ошибка GitHub")
             );
         }
 
-        const currentData = await checkResponse.json();
-        fileSha = currentData.sha;
+        const existingContent = JSON.parse(
+            decodeBase64UTF8(currentData.content)
+        );
+
+        if (
+            !existingContent ||
+            typeof existingContent !== "object" ||
+            Array.isArray(existingContent)
+        ) {
+            throw new Error("Некорректный формат status.json.");
+        }
 
         const newContent = {
+            ...existingContent,
             disabled_faucets: globalDisabledFaucets,
+            faucet_settings:
+                existingContent.faucet_settings &&
+                typeof existingContent.faucet_settings === "object" &&
+                !Array.isArray(existingContent.faucet_settings)
+                    ? existingContent.faucet_settings
+                    : {},
             last_updated: new Date().toISOString()
         };
-
-        const jsonString = JSON.stringify(newContent, null, 2);
-
-        const base64Content = btoa(
-            unescape(encodeURIComponent(jsonString))
-        );
 
         const response = await fetch(GITHUB_API_URL, {
             method: "PUT",
@@ -760,8 +804,9 @@ async function saveChanges() {
             },
             body: JSON.stringify({
                 message: "Update global faucet statuses",
-                content: base64Content,
-                sha: fileSha
+                content: encodeBase64UTF8(JSON.stringify(newContent, null, 2)),
+                sha: currentData.sha,
+                branch: BRANCH
             })
         });
 
@@ -774,32 +819,23 @@ async function saveChanges() {
             );
         }
 
-        if (result.content && result.content.sha) {
-            fileSha = result.content.sha;
-        }
+        fileSha = result.content?.sha || currentData.sha;
+        faucetSettings = newContent.faucet_settings;
 
         alert(
             "Статусы сохранены в status.json!\n" +
-            "Главная страница применит их, если в index.html " +
-            "уже добавлено чтение этого файла."
+            "Настройки кранов сохранены отдельно и не удалены."
         );
 
     } catch (error) {
         console.error("Ошибка сохранения:", error);
-
-        alert(
-            "Не удалось сохранить изменения.\n\n" +
-            error.message
-        );
+        alert("Не удалось сохранить изменения.\n\n" + error.message);
 
     } finally {
         saveButton.disabled = false;
         saveButton.textContent = "💾 Сохранить изменения на сайт";
     }
 }
-
-// Редактирование существующей строки прямо в index.html на GitHub.
-let editingFaucetId = null;
 
 function showEditMessage(message, isError = false) {
     const el = document.getElementById("editMessage");
@@ -810,79 +846,207 @@ function showEditMessage(message, isError = false) {
 function closeEditFaucet() {
     document.getElementById("editOverlay").classList.add("hidden");
     editingFaucetId = null;
+    editingOriginalValues = null;
 }
 
-document.getElementById("editCancelButton").addEventListener("click", closeEditFaucet);
+document.getElementById("editCancelButton").addEventListener(
+    "click",
+    closeEditFaucet
+);
+
 document.getElementById("editOverlay").addEventListener("click", function (event) {
     if (event.target === this) closeEditFaucet();
 });
+
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") closeEditFaucet();
 });
+
 document.getElementById("editFaucetCoin").addEventListener("input", function () {
     this.value = this.value.toUpperCase();
 });
 
+// Сохраняем глобальные настройки выбранного крана в status.json.
+async function saveFaucetSettingsToStatus(token, id, settings) {
+    const response = await fetch(GITHUB_API_URL, {
+        method: "GET",
+        headers: githubHeaders(token),
+        cache: "no-store"
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || !data.content || !data.sha) {
+        throw new Error(
+            `Не удалось прочитать status.json: ${data.message || response.status}`
+        );
+    }
+
+    const content = JSON.parse(decodeBase64UTF8(data.content));
+
+    if (!content || typeof content !== "object" || Array.isArray(content)) {
+        throw new Error("Некорректный формат status.json.");
+    }
+
+    content.disabled_faucets = Array.isArray(content.disabled_faucets)
+        ? content.disabled_faucets
+        : [];
+
+    content.faucet_settings =
+        content.faucet_settings &&
+        typeof content.faucet_settings === "object" &&
+        !Array.isArray(content.faucet_settings)
+            ? content.faucet_settings
+            : {};
+
+    content.faucet_settings[String(id)] = {
+        name: settings.name,
+        url: settings.url,
+        reward: settings.reward,
+        coin: settings.coin,
+        minutes: settings.minutes,
+        _updated_at: new Date().toISOString()
+    };
+
+    content.last_updated = new Date().toISOString();
+
+    const putResponse = await fetch(GITHUB_API_URL, {
+        method: "PUT",
+        headers: {
+            ...githubHeaders(token),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: `Update global settings for faucet ${id}`,
+            content: encodeBase64UTF8(JSON.stringify(content, null, 2)),
+            sha: data.sha,
+            branch: BRANCH
+        })
+    });
+
+    const result = await putResponse.json().catch(() => ({}));
+
+    if (!putResponse.ok) {
+        throw new Error(
+            `index.html обновлён, но настройки в status.json сохранить не удалось: ` +
+            `${result.message || putResponse.status}. Проверь оба файла.`
+        );
+    }
+
+    faucetSettings[String(id)] = content.faucet_settings[String(id)];
+    fileSha = result.content?.sha || data.sha;
+}
+
 async function openEditFaucet(id) {
     const token = sessionStorage.getItem("git_admin_token");
+
     if (!token) {
         alert("Сессия админки истекла. Войди заново.");
         return;
     }
 
     editingFaucetId = String(id);
+    editingOriginalValues = null;
+
     document.getElementById("editOverlay").classList.remove("hidden");
-    document.getElementById("editIdLabel").textContent = "ID: " + id + " (ID не изменяется)";
+    document.getElementById("editIdLabel").textContent =
+        "ID: " + id + " (ID не изменяется)";
     document.getElementById("editFaucetForm").reset();
     document.getElementById("editSaveButton").disabled = true;
     showEditMessage("Загружаю данные крана с GitHub...");
 
     try {
-        const response = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
-            method: "GET", headers: githubHeaders(token), cache: "no-store"
-        });
+        const response = await fetch(
+            `${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`,
+            {
+                method: "GET",
+                headers: githubHeaders(token),
+                cache: "no-store"
+            }
+        );
+
         const data = await response.json().catch(() => ({}));
+
         if (!response.ok || !data.content) {
-            throw new Error(`GitHub ${response.status}: ${data.message || "Не удалось прочитать index.html"}`);
+            throw new Error(
+                `GitHub ${response.status}: ` +
+                (data.message || "Не удалось прочитать index.html")
+            );
         }
 
-        // Не подставляем значения из старого списка: читаем свежую строку из index.html.
-        const doc = new DOMParser().parseFromString(decodeBase64UTF8(data.content), "text/html");
+        const doc = new DOMParser().parseFromString(
+            decodeBase64UTF8(data.content),
+            "text/html"
+        );
+
         const row = doc.getElementById("faucet" + id);
-        if (!row) throw new Error("Строка faucet" + id + " не найдена в index.html.");
+
+        if (!row) {
+            throw new Error("Строка faucet" + id + " не найдена в index.html.");
+        }
+
         const link = row.querySelector("a.faucet-link");
         const rewardInput = row.querySelector("input.crypto-input");
         const badge = row.querySelector(".crypto-badge");
+
         if (!link || !rewardInput || !badge) {
-            throw new Error("В строке крана не найдены все необходимые поля (название, награда, валюта).");
+            throw new Error(
+                "В строке крана не найдены все необходимые поля."
+            );
         }
 
-        const timerMatch = (link.getAttribute("onclick") || "").match(/startTimer\s*\(\s*['"]faucet\d+['"]\s*,\s*(\d+(?:\.\d+)?)\s*\)/);
+        const timerMatch = (
+            link.getAttribute("onclick") || ""
+        ).match(
+            /startTimer\s*\(\s*['"]faucet\d+['"]\s*,\s*(\d+(?:\.\d+)?)\s*\)/
+        );
+
         const seconds = timerMatch ? Number(timerMatch[1]) : 0;
-        document.getElementById("editFaucetName").value = link.textContent.trim();
-        document.getElementById("editFaucetUrl").value = link.getAttribute("href") || link.href;
-        document.getElementById("editFaucetReward").value = rewardInput.getAttribute("value") ?? rewardInput.value ?? "";
-        document.getElementById("editFaucetCoin").value = badge.textContent.trim().toUpperCase();
-        document.getElementById("editFaucetTime").value = String(seconds / 60);
-        showEditMessage("Данные загружены. После сохранения изменится только эта строка.");
+
+        editingOriginalValues = {
+            name: link.textContent.trim(),
+            url: link.getAttribute("href") || link.href,
+            reward: rewardInput.getAttribute("value") ??
+                rewardInput.value ?? "",
+            coin: badge.textContent.trim().toUpperCase(),
+            minutes: seconds / 60
+        };
+
+        document.getElementById("editFaucetName").value =
+            editingOriginalValues.name;
+        document.getElementById("editFaucetUrl").value =
+            editingOriginalValues.url;
+        document.getElementById("editFaucetReward").value =
+            editingOriginalValues.reward;
+        document.getElementById("editFaucetCoin").value =
+            editingOriginalValues.coin;
+        document.getElementById("editFaucetTime").value =
+            String(editingOriginalValues.minutes);
+
+        showEditMessage(
+            "Данные загружены. После сохранения обновятся index.html и status.json."
+        );
+
     } catch (error) {
-        console.error("Ошибка загрузки крана для редактирования:", error);
+        console.error("Ошибка загрузки крана:", error);
         showEditMessage(error.message || "Не удалось загрузить данные.", true);
+
     } finally {
         document.getElementById("editSaveButton").disabled = false;
     }
 }
 
-function escapeAttribute(value) {
-    return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
 async function saveEditedFaucet(event) {
     event.preventDefault();
+
     const id = editingFaucetId;
     const token = sessionStorage.getItem("git_admin_token");
+
     if (!id || !token) {
-        showEditMessage("Нет выбранного крана или истекла сессия. Закрой окно и войди заново.", true);
+        showEditMessage(
+            "Нет выбранного крана или истекла сессия. Закрой окно и войди заново.",
+            true
+        );
         return;
     }
 
@@ -892,19 +1056,37 @@ async function saveEditedFaucet(event) {
     const coin = document.getElementById("editFaucetCoin").value.trim().toUpperCase();
     const minutes = Number(document.getElementById("editFaucetTime").value);
 
-    if (!name || !urlText || !reward || !coin || !Number.isFinite(minutes) || minutes < 0) {
-        showEditMessage("Заполни все поля корректно. Таймер должен быть неотрицательным.", true);
+    if (!name || !urlText || !reward || !coin ||
+        !Number.isFinite(minutes) || minutes < 0) {
+        showEditMessage(
+            "Заполни все поля корректно. Таймер должен быть неотрицательным.",
+            true
+        );
         return;
     }
+
     if (!/^[A-Z0-9._-]+$/.test(coin)) {
-        showEditMessage("В валюте используй латинские буквы, цифры, точку, дефис или подчёркивание.", true);
+        showEditMessage(
+            "В валюте используй латинские буквы, цифры, точку, дефис или подчёркивание.",
+            true
+        );
         return;
     }
+
     let parsedURL;
-    try { parsedURL = new URL(urlText); }
-    catch (_) { showEditMessage("Укажи корректную ссылку.", true); return; }
+
+    try {
+        parsedURL = new URL(urlText);
+    } catch (_) {
+        showEditMessage("Укажи корректную ссылку.", true);
+        return;
+    }
+
     if (parsedURL.protocol !== "https:" && parsedURL.protocol !== "http:") {
-        showEditMessage("Ссылка должна начинаться с http:// или https://.", true);
+        showEditMessage(
+            "Ссылка должна начинаться с http:// или https://.",
+            true
+        );
         return;
     }
 
@@ -915,52 +1097,103 @@ async function saveEditedFaucet(event) {
 
     try {
         const headers = githubHeaders(token);
-        const getResponse = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
-            method: "GET", headers, cache: "no-store"
-        });
+
+        const getResponse = await fetch(
+            `${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`,
+            {
+                method: "GET",
+                headers,
+                cache: "no-store"
+            }
+        );
+
         const fileData = await getResponse.json().catch(() => ({}));
+
         if (!getResponse.ok || !fileData.content || !fileData.sha) {
-            throw new Error(`GitHub ${getResponse.status}: ${fileData.message || "Не удалось загрузить index.html"}`);
+            throw new Error(
+                `GitHub ${getResponse.status}: ` +
+                (fileData.message || "Не удалось загрузить index.html")
+            );
         }
 
         let source = decodeBase64UTF8(fileData.content);
         const doc = new DOMParser().parseFromString(source, "text/html");
         const row = doc.getElementById("faucet" + id);
-        if (!row) throw new Error("Строка faucet" + id + " не найдена. Ничего не сохранено.");
+
+        if (!row) {
+            throw new Error(
+                "Строка faucet" + id + " не найдена. Ничего не сохранено."
+            );
+        }
+
         const link = row.querySelector("a.faucet-link");
         const rewardInput = row.querySelector("input.crypto-input");
         const badge = row.querySelector(".crypto-badge");
+
         if (!link || !rewardInput || !badge) {
-            throw new Error("В выбранной строке не хватает нужных полей. Ничего не сохранено.");
+            throw new Error(
+                "В выбранной строке не хватает нужных полей. Ничего не сохранено."
+            );
         }
 
-        // Защита от случайного совпадения названий: проверяем остальные строки.
-        const duplicate = Array.from(doc.querySelectorAll('tr[id^="faucet"] a.faucet-link'))
-            .some(other => other.closest("tr")?.id !== "faucet" + id && other.textContent.trim().toLowerCase() === name.toLowerCase());
-        if (duplicate) throw new Error(`Название «${name}» уже используется другим краном.`);
+        const duplicate = Array.from(
+            doc.querySelectorAll('tr[id^="faucet"] a.faucet-link')
+        ).some(other =>
+            other.closest("tr")?.id !== "faucet" + id &&
+            other.textContent.trim().toLowerCase() === name.toLowerCase()
+        );
+
+        if (duplicate) {
+            throw new Error(`Название «${name}» уже используется другим краном.`);
+        }
 
         link.textContent = name;
         link.setAttribute("href", parsedURL.href);
-        link.setAttribute("onclick", `startTimer('faucet${id}', ${Math.round(minutes * 60)})`);
+        link.setAttribute(
+            "onclick",
+            `startTimer('faucet${id}', ${Math.round(minutes * 60)})`
+        );
+
         rewardInput.setAttribute("value", reward);
         rewardInput.value = reward;
+
         badge.textContent = coin;
         badge.className = "badge " + coin.toLowerCase() + " crypto-badge";
         row.setAttribute("data-crypto", coin);
 
-        // Меняем только HTML выбранного <tr>, остальные части index.html не трогаем.
-        const rowPattern = new RegExp(`<tr\\b(?=[^>]*\\bid=["']faucet${id}["'])[^>]*>[\\s\\S]*?<\\/tr>`, "i");
-        const rowMatch = source.match(rowPattern);
-        if (!rowMatch) throw new Error("Не удалось безопасно выделить строку крана. Ничего не сохранено.");
+        const rowPattern = new RegExp(
+            `<tr\\b(?=[^>]*\\bid=["']faucet${id}["'])[^>]*>[\\s\\S]*?<\\/tr>`,
+            "i"
+        );
+
+        if (!rowPattern.test(source)) {
+            throw new Error(
+                "Не удалось безопасно выделить строку крана. Ничего не сохранено."
+            );
+        }
+
         source = source.replace(rowPattern, row.outerHTML);
-        // Обновляем и человекочитаемый комментарий перед строкой, если он есть.
-        const safeCommentName = name.replace(/--/g, "—").replace(/[<>]/g, "");
-        const commentPattern = new RegExp(`<!--\\s*Faucet\\s+${id}\\s*:[\\s\\S]*?-->\\s*(?=<tr\\b(?=[^>]*\\bid=["']faucet${id}["']))`, "i");
-        source = source.replace(commentPattern, `<!-- Faucet ${id}: ${safeCommentName} -->\n`);
+
+        const safeCommentName = name
+            .replace(/--/g, "—")
+            .replace(/[<>]/g, "");
+
+        const commentPattern = new RegExp(
+            `<!--\\s*Faucet\\s+${id}\\s*:[\\s\\S]*?-->\\s*(?=<tr\\b(?=[^>]*\\bid=["']faucet${id}["']))`,
+            "i"
+        );
+
+        source = source.replace(
+            commentPattern,
+            `<!-- Faucet ${id}: ${safeCommentName} -->\n`
+        );
 
         const putResponse = await fetch(INDEX_API_URL, {
             method: "PUT",
-            headers: { ...headers, "Content-Type": "application/json" },
+            headers: {
+                ...headers,
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
                 message: `Edit faucet ${id}: ${name}`,
                 content: encodeBase64UTF8(source),
@@ -968,32 +1201,62 @@ async function saveEditedFaucet(event) {
                 branch: BRANCH
             })
         });
-        const putData = await putResponse.json().catch(() => ({}));
-        if (!putResponse.ok) throw new Error(`GitHub ${putResponse.status}: ${putData.message || "Не удалось сохранить index.html"}`);
 
-        // Обновляем имя в панели и сохраняем привязку статуса к новому имени.
+        const putData = await putResponse.json().catch(() => ({}));
+
+        if (!putResponse.ok) {
+            throw new Error(
+                `GitHub ${putResponse.status}: ` +
+                (putData.message || "Не удалось сохранить index.html")
+            );
+        }
+
         const oldFaucet = FAUCETS.find(faucet => faucet.id === String(id));
         const oldName = oldFaucet?.name;
-        if (oldFaucet) oldFaucet.name = name;
-        if (oldName && oldName !== name && globalDisabledFaucets.includes(oldName)) {
-            globalDisabledFaucets = globalDisabledFaucets.map(item => item === oldName ? name : item);
+
+        if (oldFaucet) {
+            oldFaucet.name = name;
         }
+
+        if (oldName && oldName !== name &&
+            globalDisabledFaucets.includes(oldName)) {
+            globalDisabledFaucets = globalDisabledFaucets.map(
+                item => item === oldName ? name : item
+            );
+        }
+
+        await saveFaucetSettingsToStatus(token, id, {
+            name,
+            url: parsedURL.href,
+            reward,
+            coin,
+            minutes
+        });
+
         renderAdminList();
-        showEditMessage(`Готово! Кран ID ${id} обновлён в index.html на GitHub.`);
+
+        showEditMessage(
+            `Готово! Кран ID ${id} обновлён в index.html и status.json на GitHub.`
+        );
+
         saveButton.textContent = "Сохранено ✓";
-        setTimeout(closeEditFaucet, 900);
+        setTimeout(closeEditFaucet, 1200);
+
     } catch (error) {
         console.error("Ошибка сохранения крана:", error);
         showEditMessage(error.message || "Не удалось сохранить изменения.", true);
+
     } finally {
         saveButton.disabled = false;
         saveButton.textContent = "💾 Сохранить на GitHub";
     }
 }
 
-document.getElementById("editFaucetForm").addEventListener("submit", saveEditedFaucet);
+document.getElementById("editFaucetForm").addEventListener(
+    "submit",
+    saveEditedFaucet
+);
 
-// Добавление нового крана в index.html с использованием уже введённого токена админки.
 function setAddFaucetMessage(message, isError = false) {
     const messageElement = document.getElementById("addFaucetMessage");
     messageElement.textContent = message;
@@ -1019,18 +1282,9 @@ function makeNewFaucetRow(name, num, url, reward, coin, seconds) {
 </tr>`;
 }
 
-function encodeBase64UTF8(value) {
-    const bytes = new TextEncoder().encode(value);
-    let binary = "";
-    const chunkSize = 0x8000;
-    for (let i = 0; i < bytes.length; i += chunkSize) {
-        binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
-    }
-    return btoa(binary);
-}
-
 async function addFaucetToIndex() {
     const token = sessionStorage.getItem("git_admin_token");
+
     if (!token) {
         setAddFaucetMessage("Сессия админки истекла. Войди заново.", true);
         return;
@@ -1050,28 +1304,39 @@ async function addFaucetToIndex() {
 
     const num = Number(numText);
     const minutes = Number(timeText);
+
     if (!Number.isSafeInteger(num) || num < 1) {
         setAddFaucetMessage("ID должен быть целым положительным числом.", true);
         return;
     }
+
     if (!Number.isFinite(minutes) || minutes < 0) {
         setAddFaucetMessage("Укажи корректное время таймера.", true);
         return;
     }
+
     if (!/^[A-Z0-9._-]+$/.test(coin)) {
-        setAddFaucetMessage("В валюте используй латинские буквы, цифры, точку, дефис или подчёркивание.", true);
+        setAddFaucetMessage(
+            "В валюте используй латинские буквы, цифры, точку, дефис или подчёркивание.",
+            true
+        );
         return;
     }
 
     let parsedURL;
+
     try {
         parsedURL = new URL(urlText);
     } catch (_) {
         setAddFaucetMessage("Укажи корректную ссылку на кран.", true);
         return;
     }
+
     if (parsedURL.protocol !== "https:" && parsedURL.protocol !== "http:") {
-        setAddFaucetMessage("Ссылка должна начинаться с http:// или https://.", true);
+        setAddFaucetMessage(
+            "Ссылка должна начинаться с http:// или https://.",
+            true
+        );
         return;
     }
 
@@ -1082,15 +1347,25 @@ async function addFaucetToIndex() {
 
     try {
         const headers = githubHeaders(token);
-        const getResponse = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
-            method: "GET",
-            headers,
-            cache: "no-store"
-        });
+
+        const getResponse = await fetch(
+            `${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`,
+            {
+                method: "GET",
+                headers,
+                cache: "no-store"
+            }
+        );
+
         const fileData = await getResponse.json().catch(() => ({}));
+
         if (!getResponse.ok) {
-            throw new Error(`GitHub ${getResponse.status}: ${fileData.message || "Не удалось прочитать index.html"}`);
+            throw new Error(
+                `GitHub ${getResponse.status}: ` +
+                (fileData.message || "Не удалось прочитать index.html")
+            );
         }
+
         if (!fileData.content || !fileData.sha) {
             throw new Error("GitHub не вернул содержимое index.html или SHA.");
         }
@@ -1098,33 +1373,55 @@ async function addFaucetToIndex() {
         let source = decodeBase64UTF8(fileData.content);
         const id = "faucet" + num;
         const idPattern = new RegExp(`\\bid=["']${id}["']`, "i");
+
         if (idPattern.test(source)) {
             throw new Error(`ID ${id} уже занят. Выбери другой номер.`);
         }
 
         const parsedDoc = new DOMParser().parseFromString(source, "text/html");
-        const duplicateName = Array.from(parsedDoc.querySelectorAll('tr[id^="faucet"] a.faucet-link'))
-            .some(link => link.textContent.trim().toLowerCase() === name.toLowerCase());
+
+        const duplicateName = Array.from(
+            parsedDoc.querySelectorAll('tr[id^="faucet"] a.faucet-link')
+        ).some(link =>
+            link.textContent.trim().toLowerCase() === name.toLowerCase()
+        );
+
         if (duplicateName) {
             throw new Error(`Кран «${name}» уже есть в index.html.`);
         }
 
-        // Проверяем фактическую основную таблицу сайта.
-        const tbodyPattern = /(<tbody\b[^>]*class=["'][^"']*\bleft-faucets\b[^"']*["'][^>]*>)([\s\S]*?)(<\/tbody>)/i;
+        const tbodyPattern =
+            /(<tbody\b[^>]*class=["'][^"']*\bleft-faucets\b[^"']*["'][^>]*>)([\s\S]*?)(<\/tbody>)/i;
+
         const tbodyMatch = source.match(tbodyPattern);
+
         if (!tbodyMatch) {
-            throw new Error("Не найден основной список tbody.left-faucets. Файл не изменён.");
+            throw new Error(
+                "Не найден основной список tbody.left-faucets. Файл не изменён."
+            );
         }
 
         const seconds = Math.round(minutes * 60);
-        const rowHTML = makeNewFaucetRow(name, num, parsedURL.href, reward, coin, seconds);
-        const updatedTbody = tbodyMatch[1] + tbodyMatch[2].replace(/\s*$/, "\n") + rowHTML + "\n" + tbodyMatch[3];
+        const rowHTML = makeNewFaucetRow(
+            name, num, parsedURL.href, reward, coin, seconds
+        );
+
+        const updatedTbody =
+            tbodyMatch[1] +
+            tbodyMatch[2].replace(/\s*$/, "\n") +
+            rowHTML + "\n" +
+            tbodyMatch[3];
+
         source = source.replace(tbodyPattern, () => updatedTbody);
 
         button.textContent = "Сохраняю на GitHub...";
+
         const putResponse = await fetch(INDEX_API_URL, {
             method: "PUT",
-            headers: { ...headers, "Content-Type": "application/json" },
+            headers: {
+                ...headers,
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
                 message: `Add faucet ${num}: ${name}`,
                 content: encodeBase64UTF8(source),
@@ -1132,9 +1429,14 @@ async function addFaucetToIndex() {
                 branch: BRANCH
             })
         });
+
         const putData = await putResponse.json().catch(() => ({}));
+
         if (!putResponse.ok) {
-            throw new Error(`GitHub ${putResponse.status}: ${putData.message || "Не удалось сохранить index.html"}`);
+            throw new Error(
+                `GitHub ${putResponse.status}: ` +
+                (putData.message || "Не удалось сохранить index.html")
+            );
         }
 
         if (!FAUCETS.some(faucet => faucet.id === String(num))) {
@@ -1142,7 +1444,11 @@ async function addFaucetToIndex() {
             renderAdminList();
         }
 
-        setAddFaucetMessage(`Готово! «${name}» (ID ${num}) добавлен в index.html на GitHub.\nОбнови главную страницу, когда GitHub Pages опубликует изменения.`);
+        setAddFaucetMessage(
+            `Готово! «${name}» (ID ${num}) добавлен в index.html на GitHub.\n` +
+            "Глобальные настройки для него появятся после первого редактирования."
+        );
+
         document.getElementById("newFaucetName").value = "";
         document.getElementById("newFaucetUrl").value = "";
         document.getElementById("newFaucetReward").value = "";
@@ -1153,6 +1459,7 @@ async function addFaucetToIndex() {
     } catch (error) {
         console.error("Ошибка добавления крана:", error);
         setAddFaucetMessage(error.message || "Неизвестная ошибка.", true);
+
     } finally {
         button.disabled = false;
         button.textContent = "➕ Добавить кран в index.html на GitHub";
@@ -1162,8 +1469,11 @@ async function addFaucetToIndex() {
 document.getElementById("newFaucetCoin").addEventListener("input", function () {
     this.value = this.value.toUpperCase();
 });
-document.getElementById("addFaucetButton").addEventListener("click", addFaucetToIndex);
 
+document.getElementById("addFaucetButton").addEventListener(
+    "click",
+    addFaucetToIndex
+);
 </script>
 </body>
 </html>
