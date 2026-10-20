@@ -13,7 +13,8 @@
         }
 
         .container {
-            max-width: 600px;
+            width: 100%;
+            max-width: 1100px;
             margin: 0 auto;
             background: #2a2a2a;
             padding: 20px;
@@ -69,6 +70,105 @@
 
         .hidden {
             display: none;
+        }
+
+        /* Генератор нового крана */
+        .add-faucet-panel {
+            background: #222831;
+            border: 1px solid #41414c;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 18px 0 24px;
+        }
+
+        .add-faucet-panel h2 {
+            margin: 0 0 16px;
+            color: #ff9900;
+            font-size: 20px;
+        }
+
+        .add-faucet-row {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .add-faucet-row-one {
+            grid-template-columns: minmax(0, 2fr) 82px minmax(0, 2fr);
+        }
+
+        .add-faucet-row-two {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .add-faucet-panel .field {
+            min-width: 0;
+        }
+
+        .add-faucet-panel label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .add-faucet-panel input {
+            width: 100%;
+            min-width: 0;
+            height: 38px;
+            padding: 8px 9px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: #1a1a1a;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .add-faucet-panel input:focus {
+            outline: none;
+            border-color: #ff9900;
+        }
+
+        .add-faucet-panel input::-webkit-outer-spin-button,
+        .add-faucet-panel input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .add-faucet-panel input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        #addFaucetButton {
+            background: #ff9900;
+            color: #1a1a1a;
+            margin-top: 2px;
+        }
+
+        #addFaucetButton:hover {
+            background: #e08800;
+        }
+
+        #addFaucetMessage {
+            margin: 10px 0 0;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            .add-faucet-row-one {
+                grid-template-columns: minmax(0, 1fr) 72px;
+            }
+
+            .add-faucet-row-one .url-field {
+                grid-column: 1 / -1;
+            }
+
+            .add-faucet-row-two {
+                grid-template-columns: minmax(0, 1fr);
+            }
         }
 
         .faucet-item {
@@ -170,6 +270,44 @@
     <!-- Панель управления -->
     <div id="adminBlock" class="hidden">
         <h1>Управление кранами</h1>
+
+        <div class="add-faucet-panel">
+            <h2>➕ Добавить новый кран</h2>
+
+            <div class="add-faucet-row add-faucet-row-one">
+                <div class="field">
+                    <label for="newFaucetName">Название крана</label>
+                    <input type="text" id="newFaucetName" placeholder="Например: Prairiehash" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label for="newFaucetId">ID</label>
+                    <input type="number" id="newFaucetId" min="1" step="1" placeholder="36">
+                </div>
+                <div class="field url-field">
+                    <label for="newFaucetUrl">Ссылка на кран</label>
+                    <input type="url" id="newFaucetUrl" placeholder="https://..." autocomplete="url">
+                </div>
+            </div>
+
+            <div class="add-faucet-row add-faucet-row-two">
+                <div class="field">
+                    <label for="newFaucetReward">Награда (крипта)</label>
+                    <input type="text" id="newFaucetReward" placeholder="0.0005967" inputmode="decimal">
+                </div>
+                <div class="field">
+                    <label for="newFaucetCoin">Валюта</label>
+                    <input type="text" id="newFaucetCoin" placeholder="DOGE" maxlength="20" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label for="newFaucetTime">Таймер (минуты)</label>
+                    <input type="number" id="newFaucetTime" min="0" step="any" placeholder="5">
+                </div>
+            </div>
+
+            <button id="addFaucetButton" type="button">➕ Добавить кран в index.html на GitHub</button>
+            <p id="addFaucetMessage" role="status" aria-live="polite"></p>
+        </div>
+
         <h2>Глобальный статус</h2>
 
         <div class="form-group">
@@ -198,10 +336,14 @@
 const GITHUB_USER = "cryptofaucet";
 const GITHUB_REPO = "faucets";
 const FILE_PATH = "status.json";
+const INDEX_FILE_PATH = "index.html";
+const BRANCH = "main";
 
 // GitHub API
 const GITHUB_API_URL =
     `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+const INDEX_API_URL =
+    `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${INDEX_FILE_PATH}`;
 
 let FAUCETS = [];
 let globalDisabledFaucets = [];
@@ -309,31 +451,46 @@ async function login() {
     }
 }
 
-// Автоматический сбор ID и названий кранов из index.html
+// Загружаем список кранов через GitHub API.
+// Это работает даже если админка открыта локально через file://.
 async function fetchAndParseFaucets() {
     const listDiv = document.getElementById("faucetsList");
 
     listDiv.innerHTML =
         '<p class="message" style="color:#ffcc00;">' +
-        'Загружаю список кранов...</p>';
+        'Загружаю список кранов с GitHub...</p>';
 
     try {
-        const response = await fetch(
-            "index.html?v=" + Date.now(),
-            { cache: "no-store" }
-        );
-
-        if (!response.ok) {
-            throw new Error(
-                "Не удалось загрузить index.html: " + response.status
-            );
+        const token = sessionStorage.getItem("git_admin_token");
+        if (!token) {
+            throw new Error("Токен GitHub не найден. Войдите заново.");
         }
 
-        const html = await response.text();
+        const response = await fetch(
+            `${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`,
+            {
+                method: "GET",
+                headers: githubHeaders(token),
+                cache: "no-store"
+            }
+        );
+
+        const fileData = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            throw new Error(
+                `GitHub ${response.status}: ` +
+                (fileData.message || "Не удалось загрузить index.html")
+            );
+        }
+        if (!fileData.content) {
+            throw new Error("GitHub не вернул содержимое index.html.");
+        }
+
+        const html = decodeBase64UTF8(fileData.content);
         const doc = new DOMParser().parseFromString(html, "text/html");
 
-        // Получаем ID строки (faucet13 -> 13)
-        // и название крана независимо от номера ячейки.
+        // Берём ID из строки (например, faucet13 -> 13),
+        // а название ищем по классу ссылки независимо от номера ячейки.
         const rows = doc.querySelectorAll('tr[id^="faucet"]');
 
         FAUCETS = Array.from(rows)
@@ -346,19 +503,13 @@ async function fetchAndParseFaucets() {
                 const name = link.textContent.trim();
                 if (!name) return null;
 
-                return {
-                    id: match[1],
-                    name: name
-                };
+                return { id: match[1], name };
             })
             .filter(Boolean);
 
-        // Сохраняем прежнее поведение:
-        // одинаковые названия не дублируются.
+        // Сохраняем прежнее поведение: одинаковые названия не дублируются.
         FAUCETS = Array.from(
-            new Map(
-                FAUCETS.map(faucet => [faucet.name, faucet])
-            ).values()
+            new Map(FAUCETS.map(faucet => [faucet.name, faucet])).values()
         );
 
         if (FAUCETS.length === 0) {
@@ -407,20 +558,16 @@ function renderAdminList() {
         const nameSpan = document.createElement("span");
         nameSpan.className = "faucet-name";
 
-        // Номер крана
         const idSpan = document.createElement("span");
         idSpan.className = "faucet-id";
         idSpan.textContent = id;
         idSpan.setAttribute("aria-label", "ID крана " + id);
 
-        // Название крана
         const label = document.createElement("span");
         label.className = "faucet-label";
         label.textContent = name;
-
         nameSpan.append(idSpan, label);
 
-        // Кнопка глобального статуса
         const button = document.createElement("button");
         button.type = "button";
         button.className =
@@ -542,6 +689,178 @@ async function saveChanges() {
         saveButton.textContent = "💾 Сохранить изменения на сайт";
     }
 }
+
+// Добавление нового крана в index.html с использованием уже введённого токена админки.
+function setAddFaucetMessage(message, isError = false) {
+    const messageElement = document.getElementById("addFaucetMessage");
+    messageElement.textContent = message;
+    messageElement.style.color = isError ? "#ff7777" : "#2ecc71";
+}
+
+function makeNewFaucetRow(name, num, url, reward, coin, seconds) {
+    const id = "faucet" + num;
+    const safeName = escapeHTML(name);
+    const safeURL = escapeHTML(url);
+    const safeReward = escapeHTML(reward);
+    const safeCoin = escapeHTML(coin);
+    const coinLower = coin.toLowerCase();
+    const commentName = name.replace(/--/g, "—").replace(/[<>]/g, "");
+
+    return `<!-- Faucet ${num}: ${commentName} -->
+<tr id="${id}" data-crypto="${safeCoin}">
+    <!-- 1. Название --><td><a class="faucet-link" href="${safeURL}" target="_blank" rel="noopener" onclick="startTimer('${id}', ${seconds})">${safeName}</a></td>
+    <!-- 2. Ввод баланса --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="text" inputmode="decimal" class="crypto-input" placeholder="0.00" value="${safeReward}" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge ${coinLower} crypto-badge" onclick="window.editBadge('${id}', this)">${safeCoin}</span></td>
+    <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_${id}" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
+    <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов</span><button class="btn-reset" onclick="resetTimer('${id}')">✕</button><button class="btn-limit" onclick="toggleLimit('${id}')">⚠️</button></div></td>
+</tr>`;
+}
+
+function encodeBase64UTF8(value) {
+    const bytes = new TextEncoder().encode(value);
+    let binary = "";
+    const chunkSize = 0x8000;
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+    }
+    return btoa(binary);
+}
+
+async function addFaucetToIndex() {
+    const token = sessionStorage.getItem("git_admin_token");
+    if (!token) {
+        setAddFaucetMessage("Сессия админки истекла. Войди заново.", true);
+        return;
+    }
+
+    const name = document.getElementById("newFaucetName").value.trim();
+    const numText = document.getElementById("newFaucetId").value.trim();
+    const urlText = document.getElementById("newFaucetUrl").value.trim();
+    const reward = document.getElementById("newFaucetReward").value.trim();
+    const coin = document.getElementById("newFaucetCoin").value.trim().toUpperCase();
+    const timeText = document.getElementById("newFaucetTime").value.trim();
+
+    if (!name || !numText || !urlText || !reward || !coin || !timeText) {
+        setAddFaucetMessage("Заполни все шесть полей.", true);
+        return;
+    }
+
+    const num = Number(numText);
+    const minutes = Number(timeText);
+    if (!Number.isSafeInteger(num) || num < 1) {
+        setAddFaucetMessage("ID должен быть целым положительным числом.", true);
+        return;
+    }
+    if (!Number.isFinite(minutes) || minutes < 0) {
+        setAddFaucetMessage("Укажи корректное время таймера.", true);
+        return;
+    }
+    if (!/^[A-Z0-9._-]+$/.test(coin)) {
+        setAddFaucetMessage("В валюте используй латинские буквы, цифры, точку, дефис или подчёркивание.", true);
+        return;
+    }
+
+    let parsedURL;
+    try {
+        parsedURL = new URL(urlText);
+    } catch (_) {
+        setAddFaucetMessage("Укажи корректную ссылку на кран.", true);
+        return;
+    }
+    if (parsedURL.protocol !== "https:" && parsedURL.protocol !== "http:") {
+        setAddFaucetMessage("Ссылка должна начинаться с http:// или https://.", true);
+        return;
+    }
+
+    const button = document.getElementById("addFaucetButton");
+    button.disabled = true;
+    button.textContent = "Проверяю index.html...";
+    setAddFaucetMessage("");
+
+    try {
+        const headers = githubHeaders(token);
+        const getResponse = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
+            method: "GET",
+            headers,
+            cache: "no-store"
+        });
+        const fileData = await getResponse.json().catch(() => ({}));
+        if (!getResponse.ok) {
+            throw new Error(`GitHub ${getResponse.status}: ${fileData.message || "Не удалось прочитать index.html"}`);
+        }
+        if (!fileData.content || !fileData.sha) {
+            throw new Error("GitHub не вернул содержимое index.html или SHA.");
+        }
+
+        let source = decodeBase64UTF8(fileData.content);
+        const id = "faucet" + num;
+        const idPattern = new RegExp(`\\bid=["']${id}["']`, "i");
+        if (idPattern.test(source)) {
+            throw new Error(`ID ${id} уже занят. Выбери другой номер.`);
+        }
+
+        const parsedDoc = new DOMParser().parseFromString(source, "text/html");
+        const duplicateName = Array.from(parsedDoc.querySelectorAll('tr[id^="faucet"] a.faucet-link'))
+            .some(link => link.textContent.trim().toLowerCase() === name.toLowerCase());
+        if (duplicateName) {
+            throw new Error(`Кран «${name}» уже есть в index.html.`);
+        }
+
+        // Проверяем фактическую основную таблицу сайта.
+        const tbodyPattern = /(<tbody\b[^>]*class=["'][^"']*\bleft-faucets\b[^"']*["'][^>]*>)([\s\S]*?)(<\/tbody>)/i;
+        const tbodyMatch = source.match(tbodyPattern);
+        if (!tbodyMatch) {
+            throw new Error("Не найден основной список tbody.left-faucets. Файл не изменён.");
+        }
+
+        const seconds = Math.round(minutes * 60);
+        const rowHTML = makeNewFaucetRow(name, num, parsedURL.href, reward, coin, seconds);
+        const updatedTbody = tbodyMatch[1] + tbodyMatch[2].replace(/\s*$/, "\n") + rowHTML + "\n" + tbodyMatch[3];
+        source = source.replace(tbodyPattern, () => updatedTbody);
+
+        button.textContent = "Сохраняю на GitHub...";
+        const putResponse = await fetch(INDEX_API_URL, {
+            method: "PUT",
+            headers: { ...headers, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: `Add faucet ${num}: ${name}`,
+                content: encodeBase64UTF8(source),
+                sha: fileData.sha,
+                branch: BRANCH
+            })
+        });
+        const putData = await putResponse.json().catch(() => ({}));
+        if (!putResponse.ok) {
+            throw new Error(`GitHub ${putResponse.status}: ${putData.message || "Не удалось сохранить index.html"}`);
+        }
+
+        if (!FAUCETS.some(faucet => faucet.id === String(num))) {
+            FAUCETS.push({ id: String(num), name });
+            renderAdminList();
+        }
+
+         setAddFaucetMessage(`Готово! «${name}» (ID ${num}) добавлен в index.html на GitHub.`);
+        document.getElementById("newFaucetName").value = "";
+        document.getElementById("newFaucetUrl").value = "";
+        document.getElementById("newFaucetReward").value = "";
+        document.getElementById("newFaucetCoin").value = "";
+        document.getElementById("newFaucetTime").value = "";
+        document.getElementById("newFaucetId").value = String(num + 1);
+
+    } catch (error) {
+        console.error("Ошибка добавления крана:", error);
+        setAddFaucetMessage(error.message || "Неизвестная ошибка.", true);
+    } finally {
+        button.disabled = false;
+        button.textContent = "➕ Добавить кран в index.html на GitHub";
+    }
+}
+
+document.getElementById("newFaucetCoin").addEventListener("input", function () {
+    this.value = this.value.toUpperCase();
+});
+document.getElementById("addFaucetButton").addEventListener("click", addFaucetToIndex);
+
 </script>
 </body>
 </html>
