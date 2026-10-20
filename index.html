@@ -141,6 +141,15 @@ tr.globally-disabled .btn-reset,
 tr.globally-disabled .btn-limit {
     opacity: 0.35;
 }
+		/* Номер крана перед названием */
+.faucet-id {
+    display: inline-block;
+    min-width: 22px;
+    margin-right: 5px;
+    color: #888;
+    font-size: 11px;
+    text-decoration: none !important;
+}
     </style>
 </head>
 <body>
@@ -1425,6 +1434,22 @@ setInterval(findAndDisplayBestFaucet, 20000);
 })();
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('tr[id^="faucet"]').forEach(function (row) {
+        const link = row.querySelector('.faucet-link');
+        if (!link || link.querySelector('.faucet-id')) return;
 
+        const match = row.id.match(/^faucet(\d+)$/);
+        if (!match) return;
+
+        const badge = document.createElement('span');
+        badge.className = 'faucet-id';
+        badge.textContent = match[1];
+
+        link.prepend(badge);
+    });
+});
+</script>
 </body>
 </html>
