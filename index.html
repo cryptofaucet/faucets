@@ -717,7 +717,9 @@ tr.out-of-limit .faucet-link {
 
     window.startTimer = function(rowId, defaultDuration) {
         let row = document.getElementById(rowId); if (!row) return;
-        if (row.classList.contains('out-of-limit')) return;
+       if (window.isFaucetGloballyDisabled?.(row)) return;
+if (window.isLocalModeEnabled?.() &&
+    row.classList.contains('out-of-limit')) return;
         let cell = row.querySelector('.timer-cell'); 
         let resetBtn = row.querySelector('.btn-reset');
         if (activeIntervals[rowId]) return; 
@@ -1049,7 +1051,10 @@ function findAndDisplayBestFaucet() {
     let bestRow = null;
 
     allRows.forEach(row => {
-        if (row.classList.contains('out-of-limit')) return;
+         if (window.isFaucetGloballyDisabled?.(row)) return;
+
+if (window.isLocalModeEnabled?.() &&
+    row.classList.contains('out-of-limit')) return;
         const cell = row.querySelector('.timer-cell');
         if (!cell || !cell.classList.contains('ready')) return;
 
@@ -1145,6 +1150,9 @@ function findAndDisplayBestFaucet() {
     }
 }
 
+ // Делаем функцию доступной переключателям режимов
+window.refreshBestFaucet = findAndDisplayBestFaucet;
+
 // Запуски скрипта автоподбора
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(findAndDisplayBestFaucet, 1500);
@@ -1153,6 +1161,203 @@ window.addEventListener('DOMContentLoaded', () => {
 setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
+
+<script>
+(function () {
+    const LOCAL_KEY = 'faucet_local_mode_enabled';
+    const GLOBAL_KEY = 'faucet_global_mode_enabled';
+
+    // По умолчанию оба режима включены.
+    let localMode = localStorage.getItem(LOCAL_KEY) !== 'false';
+    let globalMode = localStorage.getItem(GLOBAL_KEY) !== 'false';
+
+    let disabledFaucets = new Set();
+
+    function normalize(value) {
+        return String(value || '').trim().toLowerCase();
+    }
+
+    function getFaucetName(row) {
+        const link = row.querySelector('.faucet-link');
+        return link ? link.textContent.trim() : '';
+    }
+
+    // Проверка глобального отключения, сохранённого админкой.
+    window.isFaucetGloballyDisabled = function (row) {
+        if (!globalMode || !row) return false;
+
+        return disabledFaucets.has(normalize(row.id)) ||
+               disabledFaucets.has(normalize(getFaucetName(row)));
+    };
+
+    window.isLocalModeEnabled = function () {
+        return localMode;
+    };
+
+    window.isGlobalModeEnabled = function () {
+        return globalMode;
+    };
+
+    // Загружаем список из status.json.
+    async function loadGlobalStatus() {
+        try {
+            const response = await fetch(
+                './status.json?v=' + Date.now(),
+                { cache: 'no-store' }
+            );
+
+            if (!response.ok) {
+                throw new Error('HTTP ' + response.status);
+            }
+
+            const data = await response.json();
+
+            disabledFaucets = new Set(
+                (Array.isArray(data.disabled_faucets)
+                    ? data.disabled_faucets
+                    : []
+                ).map(normalize)
+            );
+
+            applyGlobalMode();
+        } catch (error) {
+            console.error('[Глобал] Не удалось загрузить status.json:', error);
+        }
+    }
+
+    function applyLocalMode() {
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const savedLimit =
+                localStorage.getItem(row.id + '_limit') === 'true';
+
+            const cell = row.querySelector('.timer-cell');
+
+            if (localMode && savedLimit) {
+                row.classList.add('out-of-limit');
+
+                if (cell) {
+                    cell.textContent = 'Лимит пуст';
+                    cell.className = 'timer-cell';
+                }
+            } else {
+                // Снимаем только визуальное ограничение.
+                // Сохранённый лимит в localStorage не удаляем.
+                row.classList.remove('out-of-limit');
+
+                if (!localMode && savedLimit &&
+                    !localStorage.getItem(row.id + '_start')) {
+                    if (cell) {
+                        cell.textContent = 'Готов';
+                        cell.className = 'timer-cell ready';
+                    }
+                }
+            }
+        });
+
+        updateModeButtons();
+
+        if (typeof window.sortTableByPrice === 'function') {
+            window.sortTableByPrice(true);
+        }
+
+        if (typeof window.refreshAllArrows === 'function') {
+            window.refreshAllArrows();
+        }
+
+        if (typeof window.secureAndHideLinks === 'function') {
+            window.secureAndHideLinks();
+        }
+
+        if (typeof window.refreshBestFaucet === 'function') {
+            window.refreshBestFaucet();
+        }
+    }
+
+    function applyGlobalMode() {
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            row.classList.toggle(
+                'globally-disabled',
+                window.isFaucetGloballyDisabled(row)
+            );
+        });
+
+        updateModeButtons();
+
+        if (typeof window.sortTableByPrice === 'function') {
+            window.sortTableByPrice(true);
+        }
+
+        if (typeof window.refreshBestFaucet === 'function') {
+            window.refreshBestFaucet();
+        }
+    }
+
+    function updateModeButtons() {
+        const localBtn = document.getElementById('localModeBtn');
+        const globalBtn = document.getElementById('globalModeBtn');
+
+        if (localBtn) {
+            localBtn.textContent = 'Локал: ' + (localMode ? 'ВКЛ' : 'ВЫКЛ');
+            localBtn.style.background = localMode ? '#28a745' : '#555';
+            localBtn.setAttribute('aria-pressed', String(localMode));
+        }
+
+        if (globalBtn) {
+            globalBtn.textContent = 'Глобал: ' + (globalMode ? 'ВКЛ' : 'ВЫКЛ');
+            globalBtn.style.background = globalMode ? '#28a745' : '#555';
+            globalBtn.setAttribute('aria-pressed', String(globalMode));
+        }
+    }
+
+    const localBtn = document.getElementById('localModeBtn');
+    const globalBtn = document.getElementById('globalModeBtn');
+
+    if (localBtn) {
+        localBtn.addEventListener('click', function () {
+            localMode = !localMode;
+            localStorage.setItem(LOCAL_KEY, String(localMode));
+            applyLocalMode();
+        });
+    }
+
+    if (globalBtn) {
+        globalBtn.addEventListener('click', function () {
+            globalMode = !globalMode;
+            localStorage.setItem(GLOBAL_KEY, String(globalMode));
+            applyGlobalMode();
+        });
+    }
+
+    // Не позволяем открывать кран, отключённый глобально.
+    // Проверка выполняется до обработчика ссылки.
+    document.addEventListener('click', function (event) {
+        const link = event.target.closest('.faucet-link, .top-faucet-btn');
+        if (!link) return;
+
+        const row = link.closest('tr');
+        if (row && window.isFaucetGloballyDisabled(row)) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return;
+        }
+    }, true);
+
+    // Даём другим скриптам возможность обновить список.
+    window.reloadGlobalStatus = loadGlobalStatus;
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            applyLocalMode();
+            updateModeButtons();
+            loadGlobalStatus();
+        });
+    } else {
+        applyLocalMode();
+        updateModeButtons();
+        loadGlobalStatus();
+    }
+})();
+</script>
 
 
 </body>
