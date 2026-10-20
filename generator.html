@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор кода кранов</title>
+    <style>
+        body { font-family: sans-serif; background: #1e1e24; color: #fff; padding: 30px; display: flex; flex-direction: column; align-items: center; }
+        .form-container { width: 100%; max-width: 500px; background: #2a2a35; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 20px; }
+        h2 { margin-top: 0; color: #ff9900; text-align: center; font-size: 20px; }
+        .field { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; color: #ccc; }
+        input { width: 100%; padding: 10px; border: 1px solid #444; background: #1e1e24; color: #fff; border-radius: 4px; box-sizing: border-box; font-size: 15px; }
+        input:focus { border-color: #ff9900; outline: none; }
+        .inline-fields { display: flex; gap: 15px; }
+        .inline-fields .field { flex: 1; }
+        button { background: #ff9900; color: #1e1e24; border: none; padding: 12px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 10px; transition: 0.2s; }
+        button:hover { background: #e08800; }
+        
+        /* Вырезаем стрелочки из полей формы генератора */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        .output-container { width: 100%; max-width: 650px; background: #111; border: 1px solid #333; padding: 20px; border-radius: 8px; box-sizing: border-box; }
+        .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .output-title { font-weight: bold; color: #2ecc71; font-size: 14px; }
+        .btn-copy { background: #2ecc71; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; }
+        .btn-copy:hover { background: #27ae60; }
+        textarea { width: 100%; height: 200px; background: #000; color: #2ecc71; border: 1px solid #222; font-family: monospace; font-size: 13px; padding: 10px; border-radius: 4px; resize: none; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Параметры нового крана</h2>
+    
+    <div class="field">
+        <label>Название крана:</label>
+        <input type="text" id="name" placeholder="Например: Prairiehash">
+    </div>
+    
+    <div class="field">
+        <label>Номер крана (цифра для ID):</label>
+        <input type="number" id="number" placeholder="Например: 1" value="1">
+    </div>
+    
+    <div class="field">
+        <label>Ссылка на кран:</label>
+        <input type="text" id="url" placeholder="https://...">
+    </div>
+    
+    <div class="inline-fields">
+        <div class="field">
+            <label>Сколько платит (Крипта):</label>
+            <input type="text" id="reward" placeholder="0.0005967">
+        </div>
+        
+        <div class="field">
+            <label>Валюта (Окошко ввода):</label>
+            <input type="text" id="coin" placeholder="DOGE" oninput="this.value = this.value.toUpperCase()">
+        </div>
+    </div>
+    
+    <div class="field">
+        <label>Время таймера (в минутах):</label>
+        <input type="number" id="time" placeholder="Например: 5">
+    </div>
+    
+    <button onclick="generateFaucetCode()">Сгенерировать код</button>
+</div>
+
+<div class="output-container">
+    <div class="output-header">
+        <span class="output-title">📋 Сжатый код строки:</span>
+        <button class="btn-copy" onclick="copyResultCode()">Скопировать код</button>
+    </div>
+    <textarea id="output" readonly placeholder="Здесь появится сжатый HTML-код строки..."></textarea>
+</div>
+
+<script>
+function generateFaucetCode() {
+    const name = document.getElementById('name').value.trim();
+    const num = document.getElementById('number').value.trim();
+    const url = document.getElementById('url').value.trim();
+    const reward = document.getElementById('reward').value.trim();
+    const coin = document.getElementById('coin').value.trim().toUpperCase();
+    const minutes = parseFloat(document.getElementById('time').value.trim());
+
+    if (!name || !num || !url || !reward || !coin || isNaN(minutes)) {
+        alert("Пожалуйста, заполните абсолютно все окошки!");
+        return;
+    }
+
+    const timeInSeconds = Math.round(minutes * 60);
+    const id = "faucet" + num;
+    const coinLower = coin.toLowerCase();
+
+    // Чистый шаблон: инпуты типа text, inputmode decimal и короткий статус "Готов"
+    const generatedHTML = `<!-- Faucet ${num}: ${name} -->
+<tr id="${id}" data-crypto="${coin}">
+    <!-- 1. Название --><td><a class="faucet-link" href="${url}" target="_blank" onclick="startTimer('${id}', ${timeInSeconds})">${name}</a></td>
+    <!-- 2. Ввод баланса (БЕЗ СТРЕЛОЧЕК) --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><input type="text" inputmode="decimal" class="crypto-input" placeholder="0.00" value="${reward}" style="width: 55px; height: 20px; padding: 2px; border: 1px dashed #ccc; border-radius: 3px; font-size: 11px; text-align: center; transition: width 0.2s;" onfocus="this.style.width='110px'; this.style.border='1px solid #3498db';" onblur="this.style.width='55px'; this.style.border='1px dashed #ccc';"></td>
+    <!-- 3. Валюта --><td style="padding: 0 4px; vertical-align: middle; width: 1%; white-space: nowrap;"><span class="badge ${coinLower} crypto-badge" onclick="window.editBadge('${id}', this)">${coin}</span></td>
+    <!-- 4. Рубли --><td style="padding: 0 8px; vertical-align: middle; min-width: 85px; white-space: nowrap;"><span class="rub-result" id="rub_res_${id}" style="font-size: 13px; font-weight: bold; color: #2ecc71;">0.00 ₽</span></td>
+    <!-- 5. Таймер --><td><div class="timer-wrapper"><span class="timer-cell ready">Готов</span><button class="btn-reset" onclick="resetTimer('${id}')">✕</button><button class="btn-limit" onclick="toggleLimit('${id}')">⚠️</button></div></td>
+</tr>`;
+
+    document.getElementById('output').value = generatedHTML;
+}
+
+function copyResultCode() {
+    const outputTextArea = document.getElementById('output');
+    if (!outputTextArea.value) {
+        alert("Сначала сгенерируйте код!");
+        return;
+    }
+    outputTextArea.select();
+    document.execCommand('copy');
+    alert("Код успешно скопирован в буфер обмена!");
+}
+</script>
+
+</body>
+</html>
