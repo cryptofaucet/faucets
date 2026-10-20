@@ -1232,16 +1232,21 @@ setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
 
+ 
 <script>
 (function () {
     const LOCAL_KEY = 'faucet_local_mode_enabled';
     const GLOBAL_KEY = 'faucet_global_mode_enabled';
 
-    // По умолчанию оба режима включены.
     let localMode = localStorage.getItem(LOCAL_KEY) !== 'false';
     let globalMode = localStorage.getItem(GLOBAL_KEY) !== 'false';
 
     let disabledFaucets = new Set();
+    let globalSettings = {};
+    let statusLoaded = false;
+
+    // Сохраняем исходные значения HTML до запуска остальных скриптов.
+    const defaultSettings = new Map();
 
     function normalize(value) {
         return String(value || '').trim().toLowerCase();
@@ -1252,12 +1257,163 @@ setInterval(findAndDisplayBestFaucet, 20000);
         return link ? link.textContent.trim() : '';
     }
 
+    function getFaucetUrl(row) {
+        const link = row.querySelector('.faucet-link');
+        if (!link) return '';
+
+        return link.getAttribute('data-secure-href') ||
+               link.getAttribute('href') || '';
+    }
+
+    function getDefaultMinutes(row) {
+        const input = row.querySelector('.time-input');
+        if (input && input.value.trim()) return input.value.trim();
+
+        const link = row.querySelector('.faucet-link');
+        const onclick = link && link.getAttribute('onclick');
+        const match = onclick &&
+            onclick.match(/startTimer\s*\(\s*['"][^'"]+['"]\s*,\s*(\d+)\s*\)/);
+
+        return match ? String(Math.round(Number(match[1]) / 60)) : '';
+    }
+
+    function captureDefaults() {
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            if (defaultSettings.has(row.id)) return;
+
+            const rewardInput = row.querySelector('.crypto-input');
+            const badge = row.querySelector('.crypto-badge');
+
+            defaultSettings.set(row.id, {
+                name: getFaucetName(row),
+                url: getFaucetUrl(row),
+                reward: rewardInput
+                    ? (rewardInput.getAttribute('value') ?? rewardInput.value)
+                    : '',
+                coin: row.getAttribute('data-crypto') ||
+                      (badge ? badge.textContent.trim() : ''),
+                minutes: getDefaultMinutes(row)
+            });
+        });
+    }
+
+    // Запоминаем оригиналы до изменения DOM другими скриптами.
+    captureDefaults();
+
+    function getSavedSettings(row) {
+        const defaults = defaultSettings.get(row.id) || {};
+
+        return {
+            name: defaults.name || '',
+            url: defaults.url || '',
+            reward: localStorage.getItem('crypto_val_' + row.id) ??
+                    defaults.reward ?? '',
+            coin: localStorage.getItem('crypto_type_' + row.id) ||
+                  defaults.coin || '',
+            minutes: localStorage.getItem('crypto_time_' + row.id) ??
+                     defaults.minutes ?? ''
+        };
+    }
+
+    // Меняем ссылку с учётом защиты href из другого скрипта.
+    function setFaucetUrl(row, url) {
+        const link = row.querySelector('.faucet-link');
+        if (!link || !url) return;
+
+        link.setAttribute('href', url);
+        link.setAttribute('data-secure-href', url);
+    }
+
+    function applyFaucetSettings() {
+        if (!statusLoaded) return;
+
+        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+            const defaults = defaultSettings.get(row.id) || {};
+            const local = getSavedSettings(row);
+
+            // Приоритет: глобальные настройки > локальные > исходные.
+            let settings;
+
+            if (globalMode) {
+                settings = globalSettings[row.id.replace(/^faucet/, '')];
+
+                // Для кранов без глобальной записи используем локальные
+                // настройки, если локальный режим включён, иначе оригинал.
+                if (!settings) {
+                    settings = localMode ? local : defaults;
+                }
+            } else {
+                settings = localMode ? local : defaults;
+            }
+
+            if (!settings) return;
+
+            const link = row.querySelector('.faucet-link');
+            const rewardInput = row.querySelector('.crypto-input');
+            const badge = row.querySelector('.crypto-badge');
+            const timeInput = row.querySelector('.time-input');
+
+            if (link && settings.name !== undefined) {
+                link.textContent = settings.name;
+            }
+
+            if (settings.url) {
+                setFaucetUrl(row, settings.url);
+            }
+
+            if (rewardInput && settings.reward !== undefined &&
+                settings.reward !== '') {
+                rewardInput.value = settings.reward;
+            }
+
+            if (settings.coin) {
+                row.setAttribute('data-crypto', settings.coin);
+
+                if (badge) {
+                    badge.textContent = settings.coin;
+                    badge.className =
+                        'badge crypto-badge ' + settings.coin.toLowerCase();
+                }
+            }
+
+            if (timeInput && settings.minutes !== undefined &&
+                settings.minutes !== '') {
+                timeInput.value = settings.minutes;
+            }
+
+            // Пересчитываем рублёвую стоимость без изменения localStorage.
+            if (typeof window.calculateLiveRow === 'function' &&
+                rewardInput) {
+                window.calculateLiveRow(row.id, rewardInput.value);
+            }
+        });
+
+        if (typeof window.secureAndHideLinks === 'function') {
+            window.secureAndHideLinks();
+        }
+
+        if (typeof window.refreshAllArrows === 'function') {
+            window.refreshAllArrows();
+        }
+
+        if (typeof window.sortTableByPrice === 'function') {
+            window.sortTableByPrice(true);
+        }
+
+        if (typeof window.refreshBestFaucet === 'function') {
+            window.refreshBestFaucet();
+        }
+    }
+
     // Проверка глобального отключения, сохранённого админкой.
     window.isFaucetGloballyDisabled = function (row) {
         if (!globalMode || !row) return false;
 
+        const defaults = defaultSettings.get(row.id) || {};
+
         return disabledFaucets.has(normalize(row.id)) ||
-               disabledFaucets.has(normalize(getFaucetName(row)));
+               disabledFaucets.has(normalize(getFaucetName(row))) ||
+               disabledFaucets.has(normalize(defaults.name));
     };
 
     window.isLocalModeEnabled = function () {
@@ -1268,7 +1424,7 @@ setInterval(findAndDisplayBestFaucet, 20000);
         return globalMode;
     };
 
-    // Загружаем список из status.json.
+    // Загружаем status.json один раз при открытии страницы.
     async function loadGlobalStatus() {
         try {
             const response = await fetch(
@@ -1289,9 +1445,24 @@ setInterval(findAndDisplayBestFaucet, 20000);
                 ).map(normalize)
             );
 
+            globalSettings =
+                data.faucet_settings &&
+                typeof data.faucet_settings === 'object'
+                    ? data.faucet_settings
+                    : {};
+
+            statusLoaded = true;
+
+            captureDefaults();
+            applyFaucetSettings();
+            applyLocalMode();
             applyGlobalMode();
+
         } catch (error) {
-            console.error('[Глобал] Не удалось загрузить status.json:', error);
+            console.error(
+                '[Глобал] Не удалось загрузить status.json:',
+                error
+            );
         }
     }
 
@@ -1305,21 +1476,18 @@ setInterval(findAndDisplayBestFaucet, 20000);
             if (localMode && savedLimit) {
                 row.classList.add('out-of-limit');
 
-                if (cell) {
+                if (cell && !window.isFaucetGloballyDisabled(row)) {
                     cell.textContent = 'Лимит пуст';
                     cell.className = 'timer-cell';
                 }
             } else {
-                // Снимаем только визуальное ограничение.
-                // Сохранённый лимит в localStorage не удаляем.
                 row.classList.remove('out-of-limit');
 
                 if (!localMode && savedLimit &&
-                    !localStorage.getItem(row.id + '_start')) {
-                    if (cell) {
-                        cell.textContent = 'Готов';
-                        cell.className = 'timer-cell ready';
-                    }
+                    !localStorage.getItem(row.id + '_start') &&
+                    cell && !window.isFaucetGloballyDisabled(row)) {
+                    cell.textContent = 'Готов';
+                    cell.className = 'timer-cell ready';
                 }
             }
         });
@@ -1345,27 +1513,28 @@ setInterval(findAndDisplayBestFaucet, 20000);
 
     function applyGlobalMode() {
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
-    const disabled = window.isFaucetGloballyDisabled(row);
+            const disabled = window.isFaucetGloballyDisabled(row);
 
-    row.classList.toggle('globally-disabled', disabled);
+            row.classList.toggle('globally-disabled', disabled);
 
-    const cell = row.querySelector('.timer-cell');
+            const cell = row.querySelector('.timer-cell');
 
-    if (cell) {
-        if (disabled) {
-            cell.textContent = 'Глобал выкл.';
-        } else if (cell.textContent === 'Глобал выкл.') {
-            const isLocalLimit =
-                window.isLocalModeEnabled?.() &&
-                localStorage.getItem(row.id + '_limit') === 'true';
+            if (cell) {
+                if (disabled) {
+                    cell.textContent = 'Глобал выкл.';
+                    cell.className = 'timer-cell';
+                } else if (cell.textContent === 'Глобал выкл.') {
+                    const isLocalLimit =
+                        localMode &&
+                        localStorage.getItem(row.id + '_limit') === 'true';
 
-            cell.textContent = isLocalLimit ? 'Лимит пуст' : 'Готов';
-            cell.className = isLocalLimit
-                ? 'timer-cell'
-                : 'timer-cell ready';
-        }
-    }
-});
+                    cell.textContent = isLocalLimit ? 'Лимит пуст' : 'Готов';
+                    cell.className = isLocalLimit
+                        ? 'timer-cell'
+                        : 'timer-cell ready';
+                }
+            }
+        });
 
         updateModeButtons();
 
@@ -1402,7 +1571,10 @@ setInterval(findAndDisplayBestFaucet, 20000);
         localBtn.addEventListener('click', function () {
             localMode = !localMode;
             localStorage.setItem(LOCAL_KEY, String(localMode));
+
+            applyFaucetSettings();
             applyLocalMode();
+            applyGlobalMode();
         });
     }
 
@@ -1410,40 +1582,45 @@ setInterval(findAndDisplayBestFaucet, 20000);
         globalBtn.addEventListener('click', function () {
             globalMode = !globalMode;
             localStorage.setItem(GLOBAL_KEY, String(globalMode));
+
+            applyFaucetSettings();
             applyGlobalMode();
+            applyLocalMode();
         });
     }
 
-    // Не позволяем открывать кран, отключённый глобально.
-    // Проверка выполняется до обработчика ссылки.
+    // Блокируем открытие кранов, выключенных админкой.
     document.addEventListener('click', function (event) {
         const link = event.target.closest('.faucet-link, .top-faucet-btn');
         if (!link) return;
 
         const row = link.closest('tr');
+
         if (row && window.isFaucetGloballyDisabled(row)) {
             event.preventDefault();
             event.stopImmediatePropagation();
-            return;
         }
     }, true);
 
-    // Даём другим скриптам возможность обновить список.
+    // Совместимость с остальными скриптами.
     window.reloadGlobalStatus = loadGlobalStatus;
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
+            captureDefaults();
             applyLocalMode();
             updateModeButtons();
             loadGlobalStatus();
         });
     } else {
+        captureDefaults();
         applyLocalMode();
         updateModeButtons();
         loadGlobalStatus();
     }
 })();
 </script>
+
 
  <script>
 (function () {
