@@ -116,10 +116,30 @@ tr.out-of-limit .faucet-link {
 .crypto-input, .time-input {
     -moz-appearance: textfield;
 }
-		/* Перечёркиваем глобально отключённые краны */
+		 /* Визуальная блокировка всей строки */
+tr.globally-disabled {
+    opacity: 0.4;
+}
+
+/* Перечёркиваем название крана */
 tr.globally-disabled td:first-child .faucet-link {
     text-decoration: line-through !important;
-    opacity: 0.55;
+}
+
+/* Убираем яркие цвета внутри строки */
+tr.globally-disabled td {
+    color: #888 !important;
+}
+
+/* Делаем таймер неактивным на вид */
+tr.globally-disabled .timer-cell.ready {
+    color: #888 !important;
+}
+
+/* Приглушаем кнопки управления */
+tr.globally-disabled .btn-reset,
+tr.globally-disabled .btn-limit {
+    opacity: 0.35;
 }
     </style>
 </head>
@@ -1305,11 +1325,27 @@ setInterval(findAndDisplayBestFaucet, 20000);
 
     function applyGlobalMode() {
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
-            row.classList.toggle(
-                'globally-disabled',
-                window.isFaucetGloballyDisabled(row)
-            );
-        });
+    const disabled = window.isFaucetGloballyDisabled(row);
+
+    row.classList.toggle('globally-disabled', disabled);
+
+    const cell = row.querySelector('.timer-cell');
+
+    if (cell) {
+        if (disabled) {
+            cell.textContent = 'Глобал выкл.';
+        } else if (cell.textContent === 'Глобал выкл.') {
+            const isLocalLimit =
+                window.isLocalModeEnabled?.() &&
+                localStorage.getItem(row.id + '_limit') === 'true';
+
+            cell.textContent = isLocalLimit ? 'Лимит пуст' : 'Готов';
+            cell.className = isLocalLimit
+                ? 'timer-cell'
+                : 'timer-cell ready';
+        }
+    }
+});
 
         updateModeButtons();
 
