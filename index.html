@@ -141,14 +141,15 @@ tr.globally-disabled .btn-reset,
 tr.globally-disabled .btn-limit {
     opacity: 0.35;
 }
-		/* Номер крана перед названием */
+		 /* Номер крана отдельно перед названием */
 .faucet-id {
     display: inline-block;
-    min-width: 22px;
-    margin-right: 5px;
-    color: #888;
-    font-size: 11px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 6px;
     text-decoration: none !important;
+    vertical-align: middle;
 }
     </style>
 </head>
@@ -1434,11 +1435,15 @@ setInterval(findAndDisplayBestFaucet, 20000);
 })();
 </script>
 
-<script>
+ <script>
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('tr[id^="faucet"]').forEach(function (row) {
         const link = row.querySelector('.faucet-link');
-        if (!link || link.querySelector('.faucet-id')) return;
+        if (!link) return;
+
+        // Удаляем старый номер, если он уже был добавлен
+        const oldId = row.querySelector('.faucet-id');
+        if (oldId) oldId.remove();
 
         const match = row.id.match(/^faucet(\d+)$/);
         if (!match) return;
@@ -1447,7 +1452,8 @@ document.addEventListener('DOMContentLoaded', function () {
         badge.className = 'faucet-id';
         badge.textContent = match[1];
 
-        link.prepend(badge);
+        // Вставляем номер ПЕРЕД ссылкой, а не внутрь неё
+        link.parentNode.insertBefore(badge, link);
     });
 });
 </script>
