@@ -141,7 +141,19 @@ tr.globally-disabled .btn-reset,
 tr.globally-disabled .btn-limit {
     opacity: 0.35;
 }
-	 
+	/* ID крана перед названием, не вмешиваясь в ссылку */
+tr[id^="faucet"] td:first-child .faucet-link::before {
+    content: attr(data-faucet-id);
+} 
+		tr[id^="faucet"] td:first-child .faucet-link::before {
+    content: attr(data-faucet-id);
+    display: inline-block;
+    color: #fff;
+    font-weight: 800;
+    font-size: 12px;
+    margin-right: 6px;
+    text-decoration: none;
+}
     </style>
 </head>
 <body>
@@ -1426,6 +1438,17 @@ setInterval(findAndDisplayBestFaucet, 20000);
 })();
 </script>
 
-  
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('tr[id^="faucet"]').forEach(function (row) {
+        const link = row.querySelector('.faucet-link');
+        const match = row.id.match(/^faucet(\d+)$/);
+
+        if (link && match) {
+            link.setAttribute('data-faucet-id', match[1]);
+        }
+    });
+});
+</script> 
 </body>
 </html>
