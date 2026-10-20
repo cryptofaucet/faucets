@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель управления кранами</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: #fff; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: #2a2a2a; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        h1, h2 { text-align: center; color: #00ffcc; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #ccc; }
+        input[type="password"] { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #333; color: #fff; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #00ffcc; border: none; color: #1a1a1a; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #00ccaa; }
+        .hidden { display: none; }
+        .faucet-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #444; }
+        .faucet-name { font-weight: bold; }
+        .status-btn { width: auto; padding: 5px 10px; font-size: 14px; }
+        .btn-active { background: #ff4444; color: #fff; }
+        .btn-disabled { background: #44ff44; color: #1a1a1a; }
+        .nav-link { display: inline-block; margin-top: 15px; color: #00ffcc; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Форма входа (видна сразу) -->
+    <div id="loginBlock">
+        <h1>Вход в админку</h1>
+        <div class="form-group">
+            <label for="tokenInput">Введите ваш GitHub Token:</label>
+            <input type="password" id="tokenInput" placeholder="github_pat_...">
+        </div>
+        <button onclick="login()">Войти</button>
+    </div>
+
+    <!-- Панель управления (откроется после ввода токена) -->
+    <div id="adminBlock" class="hidden">
+        <h1>Управление кранами</h1>
+        <h2>Глобальный статус</h2>
+        <div class="form-group">
+            <button onclick="saveChanges()" style="background: #ffcc00; color: #000; margin-bottom: 20px;">💾 Сохранить изменения на сайт</button>
+        </div>
+        <div id="faucetsList"></div>
+    </div>
+    
+    <a href="index.html" class="nav-link">← Вернуться на главную</a>
+</div>
+
+<script>
+// Список твоих кранов
+const FAUCET_NAMES = [
+    "BitEarnix", "CoinDrip", "ZukyFaucet", "Pouri", "247faucet", "Сrypto Gem", 
+    "Gfaucet", "Orthofaucet", "Topfaucet", "Dragon claims", "Zerdacoins", 
+    "Blockxs", "SocialFaucet", "Mooncrypto", "Tfaucet", "Coinearnhub", 
+    "Gobrya", "Iloveusdt", "Instafaucet", "Freecoins foryou", 
+    "Instafaucet 4gamers", "Peperush", "Satohive", "faucetfunds", 
+    "faucet2 shipbroman", "Fasttrx", "Cryptogreen", "Torneira", 
+    "Prairiehash", "Flowfaucet", "Fpay", "Zyrofaucet", "FreeFlare Crypto", 
+    "DM Crypto", "Ogmaads"
+];
+
+// Твои настройки репозитория
+const GITHUB_USER = "cryptofaucet"; 
+const GITHUB_REPO = "faucets";      
+const FILE_PATH = "status.json";     
+
+let globalDisabledFaucets = [];
+let fileSha = ""; 
+
+// Авто-вход, если ты уже заходил сегодня в этом браузере
+window.onload = function() {
+    const savedToken = sessionStorage.getItem('git_admin_token');
+    if (savedToken) {
+        document.getElementById('tokenInput').value = savedToken;
+        login();
+    }
+}
+
+async function login() {
+    const token = document.getElementById('tokenInput').value.trim();
+    if (!token) return alert('Введите токен!');
+
+    try {
+        const response = await fetch(`https://github.com{GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+            headers: { 'Authorization': `token ${token}` }
+        });
+
+        if (response.status === 200) {
+            const data = await response.json();
+            fileSha = data.sha;
+            const content = JSON.parse(atob(data.content));
+            globalDisabledFaucets = content.disabled_faucets || [];
+            
+            sessionStorage.setItem('git_admin_token', token);
+            document.getElementById('loginBlock').classList.add('hidden');
+            document.getElementById('adminBlock').classList.remove('hidden');
+            
+            renderAdminList();
+        } else {
+            alert('Ошибка доступа. Проверьте правильность токена.');
+        }
+    } catch (e) {
+        alert('Не удалось подключиться к GitHub API.');
+    }
+}
+
+function renderAdminList() {
+    const listDiv = document.getElementById('faucetsList');
+    listDiv.innerHTML = '';
+    FAUCET_NAMES.forEach(name => {
+        const isDisabled = globalDisabledFaucets.includes(name);
+        const item = document.createElement('div');
+        item.className = 'faucet-item';
+        item.innerHTML = `
+            <span class="faucet-name">${name}</span>
+            <button class="status-btn ${isDisabled ? 'btn-disabled' : 'btn-active'}" onclick="toggleFaucet('${name}')">
+                ${isDisabled ? '❌ Отключен (Включить)' : '✅ Работает (Отключить)'}
+            </button>
+        `;
+        listDiv.appendChild(item);
+    });
+}
+
+function toggleFaucet(name) {
+    if (globalDisabledFaucets.includes(name)) {
+        globalDisabledFaucets = globalDisabledFaucets.filter(f => f !== name);
+    } else {
+        globalDisabledFaucets.push(name);
+    }
+    renderAdminList();
+}
+
+async function saveChanges() {
+    const token = sessionStorage.getItem('git_admin_token');
+    if (!token) return alert('Сессия истекла.');
+
+    const newContent = {
+        disabled_faucets: globalDisabledFaucets,
+        last_updated: new Date().toISOString()
+    };
+
+    const jsonString = JSON.stringify(newContent, null, 2);
+    const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+
+    try {
+        const response = await fetch(`https://github.com{GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+            method: 'PUT',
+            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: 'Глобальное обновление статусов', content: base64Content, sha: fileSha })
+        });
+
+        if (response.ok) {
+            const resData = await response.json();
+            fileSha = resData.content.sha;
+            alert('Статусы обновлены! Изменения применятся на сайте в течение пары минут.');
+        } else {
+            alert('Ошибка сохранения.');
+        }
+    } catch (e) {
+        alert('Ошибка сети.');
+    }
+}
+</script>
+</body>
+</html>
