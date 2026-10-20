@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -82,6 +82,21 @@
 
         .faucet-name {
             font-weight: bold;
+            overflow-wrap: anywhere;
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            min-width: 0;
+        }
+
+        .faucet-id {
+            color: #ff9d2e;
+            font-weight: 800;
+            min-width: 2.2em;
+            flex-shrink: 0;
+        }
+
+        .faucet-label {
             overflow-wrap: anywhere;
         }
 
@@ -188,7 +203,7 @@ const FILE_PATH = "status.json";
 const GITHUB_API_URL =
     `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
 
-let FAUCET_NAMES = [];
+let FAUCETS = [];
 let globalDisabledFaucets = [];
 let fileSha = "";
 
@@ -294,7 +309,7 @@ async function login() {
     }
 }
 
-// Автоматический сбор названий кранов из index.html
+// Автоматический сбор ID и названий кранов из index.html
 async function fetchAndParseFaucets() {
     const listDiv = document.getElementById("faucetsList");
 
@@ -317,19 +332,36 @@ async function fetchAndParseFaucets() {
         const html = await response.text();
         const doc = new DOMParser().parseFromString(html, "text/html");
 
-        const rows = doc.querySelectorAll(
-            'tr[id^="faucet"] td:first-child a.faucet-link'
+        // Получаем ID строки (faucet13 -> 13)
+        // и название крана независимо от номера ячейки.
+        const rows = doc.querySelectorAll('tr[id^="faucet"]');
+
+        FAUCETS = Array.from(rows)
+            .map(row => {
+                const match = row.id.match(/^faucet(\d+)$/);
+                const link = row.querySelector('a.faucet-link');
+
+                if (!match || !link) return null;
+
+                const name = link.textContent.trim();
+                if (!name) return null;
+
+                return {
+                    id: match[1],
+                    name: name
+                };
+            })
+            .filter(Boolean);
+
+        // Сохраняем прежнее поведение:
+        // одинаковые названия не дублируются.
+        FAUCETS = Array.from(
+            new Map(
+                FAUCETS.map(faucet => [faucet.name, faucet])
+            ).values()
         );
 
-        FAUCET_NAMES = [
-            ...new Set(
-                Array.from(rows)
-                    .map(link => link.textContent.trim())
-                    .filter(name => name !== "")
-            )
-        ];
-
-        if (FAUCET_NAMES.length === 0) {
+        if (FAUCETS.length === 0) {
             listDiv.innerHTML =
                 '<p class="message" style="color:#ff6666;">' +
                 'Краны не найдены. Проверьте разметку index.html.</p>';
@@ -365,7 +397,8 @@ function renderAdminList() {
     const listDiv = document.getElementById("faucetsList");
     listDiv.replaceChildren();
 
-    FAUCET_NAMES.forEach(name => {
+    FAUCETS.forEach(faucet => {
+        const { id, name } = faucet;
         const isDisabled = globalDisabledFaucets.includes(name);
 
         const item = document.createElement("div");
@@ -373,8 +406,21 @@ function renderAdminList() {
 
         const nameSpan = document.createElement("span");
         nameSpan.className = "faucet-name";
-        nameSpan.textContent = name;
 
+        // Номер крана
+        const idSpan = document.createElement("span");
+        idSpan.className = "faucet-id";
+        idSpan.textContent = id;
+        idSpan.setAttribute("aria-label", "ID крана " + id);
+
+        // Название крана
+        const label = document.createElement("span");
+        label.className = "faucet-label";
+        label.textContent = name;
+
+        nameSpan.append(idSpan, label);
+
+        // Кнопка глобального статуса
         const button = document.createElement("button");
         button.type = "button";
         button.className =
