@@ -13,5 +13,15 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-20T20:58:12.768Z"
+  "last_updated": "2026-10-20T23:25:59.785Z",
+  "faucet_settings": {
+    "23": {
+      "name": "Limitless",
+      "url": "https://limitlessfaucet.site/",
+      "reward": "0.00000005",
+      "coin": "BTC",
+      "minutes": 30,
+      "_updated_at": "2026-10-20T23:25:59.785Z"
+    }
+  }
 }
