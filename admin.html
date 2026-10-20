@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -25,7 +25,7 @@
 <body>
 
 <div class="container">
-    <!-- Форма входа (видна сразу) -->
+    <!-- Форма входа -->
     <div id="loginBlock">
         <h1>Вход в админку</h1>
         <div class="form-group">
@@ -35,7 +35,7 @@
         <button onclick="login()">Войти</button>
     </div>
 
-    <!-- Панель управления (откроется после ввода токена) -->
+    <!-- Панель управления -->
     <div id="adminBlock" class="hidden">
         <h1>Управление кранами</h1>
         <h2>Глобальный статус</h2>
@@ -69,7 +69,7 @@ const FILE_PATH = "status.json";
 let globalDisabledFaucets = [];
 let fileSha = ""; 
 
-// Авто-вход, если ты уже заходил сегодня в этом браузере
+// Авто-вход, если сессия уже активна
 window.onload = function() {
     const savedToken = sessionStorage.getItem('git_admin_token');
     if (savedToken) {
@@ -82,9 +82,11 @@ async function login() {
     const token = document.getElementById('tokenInput').value.trim();
     if (!token) return alert('Введите токен!');
 
+    const url = 'https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
+
     try {
-         const response = await fetch('https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH, {
-            headers: { 'Authorization': `token ${token}` }
+        const response = await fetch(url, {
+            headers: { 'Authorization': 'token ' + token }
         });
 
         if (response.status === 200) {
@@ -99,10 +101,11 @@ async function login() {
             
             renderAdminList();
         } else {
-            alert('Ошибка доступа. Проверьте правильность токена.');
+            alert('Ошибка доступа. Проверьте токен. Код ошибки: ' + response.status);
         }
     } catch (e) {
-        alert('Не удалось подключиться к GitHub API.');
+        alert('Не удалось подключиться к GitHub API. Проверьте консоль.');
+        console.error(e);
     }
 }
 
@@ -134,7 +137,7 @@ function toggleFaucet(name) {
 
 async function saveChanges() {
     const token = sessionStorage.getItem('git_admin_token');
-    if (!token) return alert('Сессия истекла.');
+    if (!token) return alert('Сессия истекла. Войдите заново.');
 
     const newContent = {
         disabled_faucets: globalDisabledFaucets,
@@ -143,23 +146,32 @@ async function saveChanges() {
 
     const jsonString = JSON.stringify(newContent, null, 2);
     const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+    const url = 'https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
 
     try {
-        const response = await fetch(`https://github.com{GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+        const response = await fetch(url, {
             method: 'PUT',
-            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: 'Глобальное обновление статусов', content: base64Content, sha: fileSha })
+            headers: { 
+                'Authorization': 'token ' + token, 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ 
+                message: 'Глобальное обновление статусов кранов', 
+                content: base64Content, 
+                sha: fileSha 
+            })
         });
 
         if (response.ok) {
             const resData = await response.json();
             fileSha = resData.content.sha;
-            alert('Статусы обновлены! Изменения применятся на сайте в течение пары минут.');
+            alert('Статусы обновлены! Изменения появятся на сайте через 1-2 минуты.');
         } else {
-            alert('Ошибка сохранения.');
+            alert('Ошибка сохранения. Код ошибки: ' + response.status);
         }
     } catch (e) {
-        alert('Ошибка сети.');
+        alert('Ошибка сети при сохранении.');
+        console.error(e);
     }
 }
 </script>
