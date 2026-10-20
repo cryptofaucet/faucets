@@ -1,3 +1,4 @@
+ ```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -5,203 +6,495 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель управления кранами</title>
     <style>
-        body { font-family: sans-serif; background: #1a1a1a; color: #fff; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: #2a2a2a; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        h1, h2 { text-align: center; color: #00ffcc; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: #ccc; }
-        input[type="password"] { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #333; color: #fff; box-sizing: border-box; }
-        button { width: 100%; padding: 10px; background: #00ffcc; border: none; color: #1a1a1a; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 16px; }
-        button:hover { background: #00ccaa; }
-        .hidden { display: none; }
-        .faucet-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #444; }
-        .faucet-name { font-weight: bold; }
-        .status-btn { width: auto; padding: 5px 10px; font-size: 14px; }
-        .btn-active { background: #ff4444; color: #fff; }
-        .btn-disabled { background: #44ff44; color: #1a1a1a; }
-        .nav-link { display: inline-block; margin-top: 15px; color: #00ffcc; text-decoration: none; }
+        body {
+            font-family: sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #00ffcc;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background: #333;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #00ffcc;
+            border: none;
+            color: #1a1a1a;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #00ccaa;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .faucet-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        .faucet-name {
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .status-btn {
+            width: auto;
+            flex-shrink: 0;
+            padding: 7px 10px;
+            font-size: 13px;
+        }
+
+        .btn-active {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        .btn-disabled {
+            background: #44ff44;
+            color: #1a1a1a;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #00ffcc;
+            text-decoration: none;
+        }
+
+        .message {
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        @media (max-width: 450px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            .faucet-item {
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+
     <!-- Форма входа -->
     <div id="loginBlock">
         <h1>Вход в админку</h1>
+
         <div class="form-group">
             <label for="tokenInput">Введите ваш GitHub Token:</label>
-            <input type="password" id="tokenInput" placeholder="github_pat_...">
+            <input
+                type="password"
+                id="tokenInput"
+                placeholder="github_pat_..."
+                autocomplete="current-password"
+            >
         </div>
-        <button onclick="login()">Войти</button>
+
+        <button id="loginButton" type="button" onclick="login()">
+            Войти
+        </button>
     </div>
 
     <!-- Панель управления -->
     <div id="adminBlock" class="hidden">
         <h1>Управление кранами</h1>
         <h2>Глобальный статус</h2>
+
         <div class="form-group">
-            <button onclick="saveChanges()" style="background: #ffcc00; color: #000; margin-bottom: 20px;">💾 Сохранить изменения на сайт</button>
+            <button
+                id="saveButton"
+                type="button"
+                onclick="saveChanges()"
+                style="background:#ffcc00;color:#000;margin-bottom:20px;"
+            >
+                💾 Сохранить изменения на сайт
+            </button>
         </div>
+
         <div id="faucetsList"></div>
     </div>
-    
-    <a href="index.html" class="nav-link">← Вернуться на главную</a>
+
+    <a href="index.html" class="nav-link">
+        ← Вернуться на главную
+    </a>
 </div>
 
 <script>
-// Настройки репозитория
-const GITHUB_USER = "cryptofaucet"; 
-const GITHUB_REPO = "faucets";      
-const FILE_PATH = "status.json";     
+'use strict';
 
-// Массив для автоматического сбора имен кранов
+// Настройки репозитория
+const GITHUB_USER = "cryptofaucet";
+const GITHUB_REPO = "faucets";
+const FILE_PATH = "status.json";
+
+// GitHub API
+const GITHUB_API_URL =
+    `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+
 let FAUCET_NAMES = [];
 let globalDisabledFaucets = [];
-let fileSha = ""; 
+let fileSha = "";
 
-// Авто-вход
-window.onload = function() {
-    const savedToken = sessionStorage.getItem('git_admin_token');
+// Получение заголовков GitHub API
+function githubHeaders(token) {
+    return {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28"
+    };
+}
+
+// Чтение UTF-8 содержимого из Base64
+function decodeBase64UTF8(value) {
+    const binary = atob(value.replace(/\s/g, ""));
+    const bytes = Uint8Array.from(
+        binary,
+        character => character.charCodeAt(0)
+    );
+
+    return new TextDecoder("utf-8").decode(bytes);
+}
+
+// Автоматический вход при наличии токена в текущей сессии
+window.addEventListener("load", function () {
+    const savedToken = sessionStorage.getItem("git_admin_token");
+
     if (savedToken) {
-        document.getElementById('tokenInput').value = savedToken;
+        document.getElementById("tokenInput").value = savedToken;
         login();
     }
-}
+});
 
+// Вход и загрузка status.json
 async function login() {
-    const token = document.getElementById('tokenInput').value.trim();
-    if (!token) return alert('Введите токен!');
+    const token = document.getElementById("tokenInput").value.trim();
 
-    const url = 'https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
-
-    try {
-        const response = await fetch(url, {
-            headers: { 'Authorization': 'token ' + token }
-        });
-
-        if (response.status === 200) {
-            const data = await response.json();
-            fileSha = data.sha;
-            const content = JSON.parse(atob(data.content));
-            globalDisabledFaucets = content.disabled_faucets || [];
-            
-            sessionStorage.setItem('git_admin_token', token);
-            document.getElementById('loginBlock').classList.add('hidden');
-            document.getElementById('adminBlock').classList.remove('hidden');
-            
-            // Запускаем автоматический парсинг кранов, предложенный вторым GPT
-            await fetchAndParseFaucets();
-        } else {
-            alert('Ошибка доступа. Проверьте токен. Код ошибки: ' + response.status);
-        }
-    } catch (e) {
-        alert('Не удалось подключиться к GitHub API. Проверьте консоль.');
-        console.error(e);
+    if (!token) {
+        alert("Введите GitHub Token!");
+        return;
     }
-}
 
-// Идеальная функция автоматического сбора кранов от твоего напарника
-async function fetchAndParseFaucets() {
-    const listDiv = document.getElementById('faucetsList');
-    listDiv.innerHTML = '<p style="color:#ffcc00; text-align:center;">Загружаю и сканирую список кранов с сайта...</p>';
+    const loginButton = document.getElementById("loginButton");
+    loginButton.disabled = true;
+    loginButton.textContent = "Подключение...";
 
     try {
-        const response = await fetch('index.html?v=' + Date.now(), {
-            cache: 'no-store'
+        const response = await fetch(GITHUB_API_URL, {
+            method: "GET",
+            headers: githubHeaders(token),
+            cache: "no-store"
         });
 
         if (!response.ok) {
-            throw new Error('Не удалось загрузить index.html: ' + response.status);
+            const errorData = await response.json().catch(() => ({}));
+
+            throw new Error(
+                `GitHub: ${response.status} — ` +
+                (errorData.message || "Не удалось прочитать status.json")
+            );
+        }
+
+        const data = await response.json();
+
+        if (!data.content || !data.sha) {
+            throw new Error("GitHub не вернул содержимое файла или SHA.");
+        }
+
+        const content = JSON.parse(decodeBase64UTF8(data.content));
+
+        if (
+            !content ||
+            !Array.isArray(content.disabled_faucets)
+        ) {
+            throw new Error(
+                "Неверный формат status.json. " +
+                "Ожидается массив disabled_faucets."
+            );
+        }
+
+        fileSha = data.sha;
+        globalDisabledFaucets = [...new Set(content.disabled_faucets)];
+
+        sessionStorage.setItem("git_admin_token", token);
+
+        document.getElementById("loginBlock").classList.add("hidden");
+        document.getElementById("adminBlock").classList.remove("hidden");
+
+        await fetchAndParseFaucets();
+
+    } catch (error) {
+        console.error("Ошибка входа:", error);
+
+        alert(
+            "Не удалось войти в админку.\n\n" +
+            error.message +
+            "\n\nПроверьте адрес API, доступ к репозиторию и права токена."
+        );
+
+    } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Войти";
+    }
+}
+
+// Автоматический сбор названий кранов из index.html
+async function fetchAndParseFaucets() {
+    const listDiv = document.getElementById("faucetsList");
+
+    listDiv.innerHTML =
+        '<p class="message" style="color:#ffcc00;">' +
+        'Загружаю список кранов...</p>';
+
+    try {
+        const response = await fetch(
+            "index.html?v=" + Date.now(),
+            { cache: "no-store" }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "Не удалось загрузить index.html: " + response.status
+            );
         }
 
         const html = await response.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const doc = new DOMParser().parseFromString(html, "text/html");
 
-        // Ищем строго по ID tr[id^="faucet"] и ссылкам a.faucet-link
-        const rows = doc.querySelectorAll('tr[id^="faucet"] td:first-child a.faucet-link');
+        const rows = doc.querySelectorAll(
+            'tr[id^="faucet"] td:first-child a.faucet-link'
+        );
 
-        FAUCET_NAMES = [...new Set(
-            Array.from(rows)
-                .map(link => link.textContent.trim())
-                .filter(name => name !== '')
-        )];
+        FAUCET_NAMES = [
+            ...new Set(
+                Array.from(rows)
+                    .map(link => link.textContent.trim())
+                    .filter(name => name !== "")
+            )
+        ];
 
         if (FAUCET_NAMES.length === 0) {
-            listDiv.innerHTML = '<p style="color:red; text-align:center;">Краны не найдены. Проверь разметку tr id="faucet..." в index.html.</p>';
+            listDiv.innerHTML =
+                '<p class="message" style="color:#ff6666;">' +
+                'Краны не найдены. Проверьте разметку index.html.</p>';
             return;
         }
 
         renderAdminList();
 
     } catch (error) {
-        console.error(error);
-        listDiv.innerHTML = '<p style="color:red; text-align:center;">Ошибка автоматической загрузки списка. Подробности в консоли F12.</p>';
+        console.error("Ошибка загрузки списка:", error);
+
+        listDiv.innerHTML =
+            '<p class="message" style="color:#ff6666;">' +
+            'Не удалось загрузить список кранов: ' +
+            escapeHTML(error.message) +
+            '</p>';
     }
 }
 
+// Экранирование текста для сообщений
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
+// Отображение переключателей
 function renderAdminList() {
-    const listDiv = document.getElementById('faucetsList');
-    listDiv.innerHTML = '';
+    const listDiv = document.getElementById("faucetsList");
+    listDiv.replaceChildren();
+
     FAUCET_NAMES.forEach(name => {
         const isDisabled = globalDisabledFaucets.includes(name);
-        const item = document.createElement('div');
-        item.className = 'faucet-item';
-        item.innerHTML = `
-            <span class="faucet-name">${name}</span>
-            <button class="status-btn ${isDisabled ? 'btn-disabled' : 'btn-active'}" onclick="toggleFaucet('${name}')">
-                ${isDisabled ? '❌ Отключен (Включить)' : '✅ Работает (Отключить)'}
-            </button>
-        `;
+
+        const item = document.createElement("div");
+        item.className = "faucet-item";
+
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "faucet-name";
+        nameSpan.textContent = name;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className =
+            "status-btn " +
+            (isDisabled ? "btn-disabled" : "btn-active");
+
+        button.textContent = isDisabled
+            ? "❌ Отключен (Включить)"
+            : "✅ Работает (Отключить)";
+
+        button.addEventListener("click", function () {
+            toggleFaucet(name);
+        });
+
+        item.append(nameSpan, button);
         listDiv.appendChild(item);
     });
 }
 
+// Переключение глобального статуса
 function toggleFaucet(name) {
     if (globalDisabledFaucets.includes(name)) {
-        globalDisabledFaucets = globalDisabledFaucets.filter(f => f !== name);
+        globalDisabledFaucets =
+            globalDisabledFaucets.filter(item => item !== name);
     } else {
         globalDisabledFaucets.push(name);
     }
+
     renderAdminList();
 }
 
+// Сохранение status.json в GitHub
 async function saveChanges() {
-    const token = sessionStorage.getItem('git_admin_token');
-    if (!token) return alert('Сессия истекла. Войдите заново.');
+    const token = sessionStorage.getItem("git_admin_token");
 
-    const newContent = {
-        disabled_faucets: globalDisabledFaucets,
-        last_updated: new Date().toISOString()
-    };
+    if (!token) {
+        alert("Сессия истекла. Войдите заново.");
+        return;
+    }
 
-    const jsonString = JSON.stringify(newContent, null, 2);
-    const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
-    const url = 'https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
+    const saveButton = document.getElementById("saveButton");
+    saveButton.disabled = true;
+    saveButton.textContent = "Сохранение...";
 
     try {
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: { 
-                'Authorization': 'token ' + token, 
-                'Content-Type': 'application/json' 
+        // Повторно читаем файл, чтобы получить актуальный SHA
+        const checkResponse = await fetch(GITHUB_API_URL, {
+            method: "GET",
+            headers: githubHeaders(token),
+            cache: "no-store"
+        });
+
+        if (!checkResponse.ok) {
+            const errorData = await checkResponse.json().catch(() => ({}));
+
+            throw new Error(
+                `Не удалось проверить status.json: ` +
+                `${checkResponse.status} — ` +
+                (errorData.message || "Ошибка GitHub")
+            );
+        }
+
+        const currentData = await checkResponse.json();
+        fileSha = currentData.sha;
+
+        const newContent = {
+            disabled_faucets: globalDisabledFaucets,
+            last_updated: new Date().toISOString()
+        };
+
+        const jsonString = JSON.stringify(newContent, null, 2);
+
+        const base64Content = btoa(
+            unescape(encodeURIComponent(jsonString))
+        );
+
+        const response = await fetch(GITHUB_API_URL, {
+            method: "PUT",
+            headers: {
+                ...githubHeaders(token),
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ 
-                message: 'Глобальное обновление статусов кранов через автоматический парсер', 
-                content: base64Content, 
-                sha: fileSha 
+            body: JSON.stringify({
+                message: "Update global faucet statuses",
+                content: base64Content,
+                sha: fileSha
             })
         });
 
-        if (response.ok) {
-            const resData = await response.json();
-            fileSha = resData.content.sha;
-            alert('Статусы успешно сохранены в status.json! На основном сайте всё обновится через пару минут.');
-        } else {
-            alert('Ошибка сохранения. Код ошибки: ' + response.status);
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(
+                `GitHub: ${response.status} — ` +
+                (result.message || "Не удалось сохранить status.json")
+            );
         }
-    } catch (e) {
-        alert('Ошибка сети при сохранении.');
-        console.error(e);
+
+        if (result.content && result.content.sha) {
+            fileSha = result.content.sha;
+        }
+
+        alert(
+            "Статусы сохранены в status.json!\n" +
+            "Главная страница применит их, если в index.html " +
+            "уже добавлено чтение этого файла."
+        );
+
+    } catch (error) {
+        console.error("Ошибка сохранения:", error);
+
+        alert(
+            "Не удалось сохранить изменения.\n\n" +
+            error.message
+        );
+
+    } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = "💾 Сохранить изменения на сайт";
     }
 }
 </script>
