@@ -1,4 +1,11 @@
 {
-  "disabled_faucets": [],
-  "last_updated": "2026-10-20T13:44:14.465Z"
+  "disabled_faucets": [
+    "Ghfaucet",
+    "faucet2 shipbroman",
+    "ZukyFaucet",
+    "CoinDrip",
+    "SocialFaucet",
+    "Orthofaucet"
+  ],
+  "last_updated": "2026-10-20T13:47:15.336Z"
 }
