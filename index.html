@@ -141,16 +141,17 @@ tr.globally-disabled .btn-reset,
 tr.globally-disabled .btn-limit {
     opacity: 0.35;
 }
-		 /* Номер крана отдельно перед названием */
+	/* Номер крана слева от кнопки */
 .faucet-id {
-    display: inline-block;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
+    display: inline-block !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    vertical-align: middle;
     margin-right: 6px;
     text-decoration: none !important;
-    vertical-align: middle;
-}
+}	  
     </style>
 </head>
 <body>
@@ -1436,26 +1437,34 @@ setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
  <script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('tr[id^="faucet"]').forEach(function (row) {
-        const link = row.querySelector('.faucet-link');
-        if (!link) return;
+(function () {
+    function addFaucetIds() {
+        document.querySelectorAll('tr[id^="faucet"]').forEach(function (row) {
+            const link = row.querySelector('.faucet-link');
+            if (!link) return;
 
-        // Удаляем старый номер, если он уже был добавлен
-        const oldId = row.querySelector('.faucet-id');
-        if (oldId) oldId.remove();
+            const match = row.id.match(/^faucet(\d+)$/);
+            if (!match) return;
 
-        const match = row.id.match(/^faucet(\d+)$/);
-        if (!match) return;
+            // Удаляем номер из предыдущей версии, если он был
+            const oldBadge = row.querySelector('.faucet-id');
+            if (oldBadge) oldBadge.remove();
 
-        const badge = document.createElement('span');
-        badge.className = 'faucet-id';
-        badge.textContent = match[1];
+            const badge = document.createElement('span');
+            badge.className = 'faucet-id';
+            badge.textContent = match[1];
 
-        // Вставляем номер ПЕРЕД ссылкой, а не внутрь неё
-        link.parentNode.insertBefore(badge, link);
-    });
-});
+            // Вставляем номер непосредственно перед ссылкой
+            link.parentNode.insertBefore(badge, link);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addFaucetIds);
+    } else {
+        addFaucetIds();
+    }
+})();
 </script>
 </body>
 </html>
