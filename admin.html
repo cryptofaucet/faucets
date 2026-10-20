@@ -503,7 +503,11 @@ async function fetchAndParseFaucets() {
                 const name = link.textContent.trim();
                 if (!name) return null;
 
-                return { id: match[1], name };
+                 return {
+    id: match[1],
+    name,
+    url: link.href
+};
             })
             .filter(Boolean);
 
