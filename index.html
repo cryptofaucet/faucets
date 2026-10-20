@@ -755,19 +755,44 @@ if (window.isLocalModeEnabled?.() &&
     }
 
     window.toggleLimit = function(rowId) {
-        let row = document.getElementById(rowId); if (!row) return;
-        let cell = row.querySelector('.timer-cell'); let resetBtn = row.querySelector('.btn-reset');
-        if (row.classList.contains("out-of-limit")) {
-            row.classList.remove("out-of-limit"); localStorage.removeItem(rowId + '_limit');
-            if (cell) { cell.textContent = "Готов"; cell.className = "timer-cell ready"; }
-        } else {
-            row.classList.add("out-of-limit"); localStorage.setItem(rowId + '_limit', 'true');
-            stopInterval(rowId); localStorage.removeItem(rowId + '_start'); localStorage.removeItem(rowId + '_duration');
-            if (cell) { cell.textContent = "Лимит пуст"; cell.className = "timer-cell"; }
-            if (resetBtn) resetBtn.classList.remove('active');
-        }
-        triggerTableSort();
+    let row = document.getElementById(rowId);
+    if (!row) return;
+
+    // Глобально отключённый кран нельзя активировать этой кнопкой
+    if (typeof window.isFaucetGloballyDisabled === 'function' &&
+        window.isFaucetGloballyDisabled(row)) {
+        return;
     }
+
+    let cell = row.querySelector('.timer-cell');
+    let resetBtn = row.querySelector('.btn-reset');
+
+    if (row.classList.contains("out-of-limit")) {
+        row.classList.remove("out-of-limit");
+        localStorage.removeItem(rowId + '_limit');
+
+        if (cell) {
+            cell.textContent = "Готов";
+            cell.className = "timer-cell ready";
+        }
+    } else {
+        row.classList.add("out-of-limit");
+        localStorage.setItem(rowId + '_limit', 'true');
+
+        stopInterval(rowId);
+        localStorage.removeItem(rowId + '_start');
+        localStorage.removeItem(rowId + '_duration');
+
+        if (cell) {
+            cell.textContent = "Лимит пуст";
+            cell.className = "timer-cell";
+        }
+
+        if (resetBtn) resetBtn.classList.remove('active');
+    }
+
+    triggerTableSort();
+};
 
     window.moveFaucetColumn = function(rowId, targetSide) {
         const row = document.getElementById(rowId); if (!row) return;
