@@ -49,27 +49,17 @@
 </div>
 
 <script>
-// Список твоих кранов
-const FAUCET_NAMES = [
-    "BitEarnix", "CoinDrip", "ZukyFaucet", "Pouri", "247faucet", "Сrypto Gem", 
-    "Gfaucet", "Orthofaucet", "Topfaucet", "Dragon claims", "Zerdacoins", 
-    "Blockxs", "SocialFaucet", "Mooncrypto", "Tfaucet", "Coinearnhub", 
-    "Gobrya", "Iloveusdt", "Instafaucet", "Freecoins foryou", 
-    "Instafaucet 4gamers", "Peperush", "Satohive", "faucetfunds", 
-    "faucet2 shipbroman", "Fasttrx", "Cryptogreen", "Torneira", 
-    "Prairiehash", "Flowfaucet", "Fpay", "Zyrofaucet", "FreeFlare Crypto", 
-    "DM Crypto", "Ogmaads"
-];
-
-// Твои настройки репозитория
+// Настройки репозитория
 const GITHUB_USER = "cryptofaucet"; 
 const GITHUB_REPO = "faucets";      
 const FILE_PATH = "status.json";     
 
+// Массив для автоматического сбора имен кранов
+let FAUCET_NAMES = [];
 let globalDisabledFaucets = [];
 let fileSha = ""; 
 
-// Авто-вход, если сессия уже активна
+// Авто-вход
 window.onload = function() {
     const savedToken = sessionStorage.getItem('git_admin_token');
     if (savedToken) {
@@ -82,8 +72,7 @@ async function login() {
     const token = document.getElementById('tokenInput').value.trim();
     if (!token) return alert('Введите токен!');
 
-    // ССЫЛКА ИСПРАВЛЕНА
-    const url = 'https://api.github.com/repos/' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
+    const url = 'https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
 
     try {
         const response = await fetch(url, {
@@ -100,13 +89,53 @@ async function login() {
             document.getElementById('loginBlock').classList.add('hidden');
             document.getElementById('adminBlock').classList.remove('hidden');
             
-            renderAdminList();
+            // Запускаем автоматический парсинг кранов, предложенный вторым GPT
+            await fetchAndParseFaucets();
         } else {
             alert('Ошибка доступа. Проверьте токен. Код ошибки: ' + response.status);
         }
     } catch (e) {
         alert('Не удалось подключиться к GitHub API. Проверьте консоль.');
         console.error(e);
+    }
+}
+
+// Идеальная функция автоматического сбора кранов от твоего напарника
+async function fetchAndParseFaucets() {
+    const listDiv = document.getElementById('faucetsList');
+    listDiv.innerHTML = '<p style="color:#ffcc00; text-align:center;">Загружаю и сканирую список кранов с сайта...</p>';
+
+    try {
+        const response = await fetch('index.html?v=' + Date.now(), {
+            cache: 'no-store'
+        });
+
+        if (!response.ok) {
+            throw new Error('Не удалось загрузить index.html: ' + response.status);
+        }
+
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+
+        // Ищем строго по ID tr[id^="faucet"] и ссылкам a.faucet-link
+        const rows = doc.querySelectorAll('tr[id^="faucet"] td:first-child a.faucet-link');
+
+        FAUCET_NAMES = [...new Set(
+            Array.from(rows)
+                .map(link => link.textContent.trim())
+                .filter(name => name !== '')
+        )];
+
+        if (FAUCET_NAMES.length === 0) {
+            listDiv.innerHTML = '<p style="color:red; text-align:center;">Краны не найдены. Проверь разметку tr id="faucet..." в index.html.</p>';
+            return;
+        }
+
+        renderAdminList();
+
+    } catch (error) {
+        console.error(error);
+        listDiv.innerHTML = '<p style="color:red; text-align:center;">Ошибка автоматической загрузки списка. Подробности в консоли F12.</p>';
     }
 }
 
@@ -147,9 +176,7 @@ async function saveChanges() {
 
     const jsonString = JSON.stringify(newContent, null, 2);
     const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
-    
-    // ССЫЛКА ИСПРАВЛЕНА
-    const url = 'https://api.github.com/repos/' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
+    const url = 'https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
 
     try {
         const response = await fetch(url, {
@@ -159,7 +186,7 @@ async function saveChanges() {
                 'Content-Type': 'application/json' 
             },
             body: JSON.stringify({ 
-                message: 'Глобальное обновление статусов кранов', 
+                message: 'Глобальное обновление статусов кранов через автоматический парсер', 
                 content: base64Content, 
                 sha: fileSha 
             })
@@ -168,7 +195,7 @@ async function saveChanges() {
         if (response.ok) {
             const resData = await response.json();
             fileSha = resData.content.sha;
-            alert('Статусы обновлены! Изменения появятся на сайте через 1-2 минуты.');
+            alert('Статусы успешно сохранены в status.json! На основном сайте всё обновится через пару минут.');
         } else {
             alert('Ошибка сохранения. Код ошибки: ' + response.status);
         }
