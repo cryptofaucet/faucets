@@ -196,22 +196,70 @@
             flex-shrink: 0;
         }
 
-         .faucet-label {
-    overflow-wrap: anywhere;
-    min-width: 0;
-}
+        .faucet-label {
+            overflow-wrap: anywhere;
+        }
 
-.faucet-label:hover {
-    text-decoration: underline !important;
-    color: #ffcc00 !important;
-}
+        .admin-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
 
-        .status-btn {
+        .status-btn, .edit-btn {
             width: auto;
             flex-shrink: 0;
             padding: 7px 10px;
             font-size: 13px;
         }
+
+        .edit-btn {
+            background: #3498db;
+            color: #fff;
+        }
+
+        .edit-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background: rgba(0,0,0,.78);
+        }
+
+        .edit-overlay.hidden { display: none; }
+
+        .edit-dialog {
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 20px;
+            border: 1px solid #555;
+            border-radius: 10px;
+            background: #252525;
+            box-shadow: 0 8px 30px rgba(0,0,0,.6);
+        }
+
+        .edit-dialog h2 { margin-top: 0; color: #ff9900; }
+        .edit-dialog input {
+            width: 100%;
+            height: 40px;
+            padding: 8px 10px;
+            box-sizing: border-box;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background: #171717;
+            color: #fff;
+        }
+        .edit-dialog .edit-buttons { display: flex; gap: 10px; margin-top: 16px; }
+        .edit-dialog .edit-buttons button { flex: 1; }
+        #editSaveButton { background: #ff9900; color: #111; }
+        #editCancelButton { background: #555; color: #fff; }
+        #editMessage { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; }
 
         .btn-active {
             background: #ff4444;
@@ -328,6 +376,41 @@
         </div>
 
         <div id="faucetsList"></div>
+    </div>
+
+    <!-- Окно редактирования выбранного крана -->
+    <div id="editOverlay" class="edit-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+        <div class="edit-dialog">
+            <h2 id="editTitle">✏️ Редактировать кран</h2>
+            <p id="editIdLabel" style="color:#ff9d2e;font-weight:bold;"></p>
+            <form id="editFaucetForm">
+                <div class="form-group">
+                    <label for="editFaucetName">Название крана</label>
+                    <input type="text" id="editFaucetName" required maxlength="150">
+                </div>
+                <div class="form-group">
+                    <label for="editFaucetUrl">Ссылка на кран</label>
+                    <input type="url" id="editFaucetUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="editFaucetReward">Награда (крипта)</label>
+                    <input type="text" id="editFaucetReward" required inputmode="decimal">
+                </div>
+                <div class="form-group">
+                    <label for="editFaucetCoin">Валюта</label>
+                    <input type="text" id="editFaucetCoin" required maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label for="editFaucetTime">Таймер (минуты)</label>
+                    <input type="number" id="editFaucetTime" required min="0" step="any">
+                </div>
+                <p id="editMessage" role="status" aria-live="polite"></p>
+                <div class="edit-buttons">
+                    <button id="editSaveButton" type="submit">💾 Сохранить на GitHub</button>
+                    <button id="editCancelButton" type="button">Отмена</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <a href="index.html" class="nav-link">
@@ -509,11 +592,7 @@ async function fetchAndParseFaucets() {
                 const name = link.textContent.trim();
                 if (!name) return null;
 
-                 return {
-    id: match[1],
-    name,
-    url: link.href
-};
+                return { id: match[1], name };
             })
             .filter(Boolean);
 
@@ -573,18 +652,28 @@ function renderAdminList() {
         idSpan.textContent = id;
         idSpan.setAttribute("aria-label", "ID крана " + id);
 
-        const label = document.createElement("span");
+        const label = document.createElement("a");
         label.className = "faucet-label";
-         const link = document.createElement("a");
-link.className = "faucet-label";
-link.textContent = name;
-link.href = faucet.url;
-link.target = "_blank";
-link.rel = "noopener noreferrer";
-link.style.color = "#00ffcc";
-link.style.textDecoration = "none";
+        label.href = "#";
+        label.textContent = name;
+        label.style.color = "#fff";
+        label.style.textDecoration = "none";
+        label.addEventListener("click", function (event) {
+            event.preventDefault();
+            openEditFaucet(id);
+        });
+        nameSpan.append(idSpan, label);
 
-nameSpan.append(idSpan, link);
+        const actions = document.createElement("div");
+        actions.className = "admin-actions";
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.className = "edit-btn";
+        editButton.textContent = "✏️ Изменить";
+        editButton.addEventListener("click", function () {
+            openEditFaucet(id);
+        });
 
         const button = document.createElement("button");
         button.type = "button";
@@ -600,7 +689,8 @@ nameSpan.append(idSpan, link);
             toggleFaucet(name);
         });
 
-        item.append(nameSpan, button);
+        actions.append(editButton, button);
+        item.append(nameSpan, actions);
         listDiv.appendChild(item);
     });
 }
@@ -707,6 +797,201 @@ async function saveChanges() {
         saveButton.textContent = "💾 Сохранить изменения на сайт";
     }
 }
+
+// Редактирование существующей строки прямо в index.html на GitHub.
+let editingFaucetId = null;
+
+function showEditMessage(message, isError = false) {
+    const el = document.getElementById("editMessage");
+    el.textContent = message;
+    el.style.color = isError ? "#ff7777" : "#2ecc71";
+}
+
+function closeEditFaucet() {
+    document.getElementById("editOverlay").classList.add("hidden");
+    editingFaucetId = null;
+}
+
+document.getElementById("editCancelButton").addEventListener("click", closeEditFaucet);
+document.getElementById("editOverlay").addEventListener("click", function (event) {
+    if (event.target === this) closeEditFaucet();
+});
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closeEditFaucet();
+});
+document.getElementById("editFaucetCoin").addEventListener("input", function () {
+    this.value = this.value.toUpperCase();
+});
+
+async function openEditFaucet(id) {
+    const token = sessionStorage.getItem("git_admin_token");
+    if (!token) {
+        alert("Сессия админки истекла. Войди заново.");
+        return;
+    }
+
+    editingFaucetId = String(id);
+    document.getElementById("editOverlay").classList.remove("hidden");
+    document.getElementById("editIdLabel").textContent = "ID: " + id + " (ID не изменяется)";
+    document.getElementById("editFaucetForm").reset();
+    document.getElementById("editSaveButton").disabled = true;
+    showEditMessage("Загружаю данные крана с GitHub...");
+
+    try {
+        const response = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
+            method: "GET", headers: githubHeaders(token), cache: "no-store"
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.content) {
+            throw new Error(`GitHub ${response.status}: ${data.message || "Не удалось прочитать index.html"}`);
+        }
+
+        // Не подставляем значения из старого списка: читаем свежую строку из index.html.
+        const doc = new DOMParser().parseFromString(decodeBase64UTF8(data.content), "text/html");
+        const row = doc.getElementById("faucet" + id);
+        if (!row) throw new Error("Строка faucet" + id + " не найдена в index.html.");
+        const link = row.querySelector("a.faucet-link");
+        const rewardInput = row.querySelector("input.crypto-input");
+        const badge = row.querySelector(".crypto-badge");
+        if (!link || !rewardInput || !badge) {
+            throw new Error("В строке крана не найдены все необходимые поля (название, награда, валюта).");
+        }
+
+        const timerMatch = (link.getAttribute("onclick") || "").match(/startTimer\s*\(\s*['"]faucet\d+['"]\s*,\s*(\d+(?:\.\d+)?)\s*\)/);
+        const seconds = timerMatch ? Number(timerMatch[1]) : 0;
+        document.getElementById("editFaucetName").value = link.textContent.trim();
+        document.getElementById("editFaucetUrl").value = link.getAttribute("href") || link.href;
+        document.getElementById("editFaucetReward").value = rewardInput.getAttribute("value") ?? rewardInput.value ?? "";
+        document.getElementById("editFaucetCoin").value = badge.textContent.trim().toUpperCase();
+        document.getElementById("editFaucetTime").value = String(seconds / 60);
+        showEditMessage("Данные загружены. После сохранения изменится только эта строка.");
+    } catch (error) {
+        console.error("Ошибка загрузки крана для редактирования:", error);
+        showEditMessage(error.message || "Не удалось загрузить данные.", true);
+    } finally {
+        document.getElementById("editSaveButton").disabled = false;
+    }
+}
+
+function escapeAttribute(value) {
+    return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+async function saveEditedFaucet(event) {
+    event.preventDefault();
+    const id = editingFaucetId;
+    const token = sessionStorage.getItem("git_admin_token");
+    if (!id || !token) {
+        showEditMessage("Нет выбранного крана или истекла сессия. Закрой окно и войди заново.", true);
+        return;
+    }
+
+    const name = document.getElementById("editFaucetName").value.trim();
+    const urlText = document.getElementById("editFaucetUrl").value.trim();
+    const reward = document.getElementById("editFaucetReward").value.trim();
+    const coin = document.getElementById("editFaucetCoin").value.trim().toUpperCase();
+    const minutes = Number(document.getElementById("editFaucetTime").value);
+
+    if (!name || !urlText || !reward || !coin || !Number.isFinite(minutes) || minutes < 0) {
+        showEditMessage("Заполни все поля корректно. Таймер должен быть неотрицательным.", true);
+        return;
+    }
+    if (!/^[A-Z0-9._-]+$/.test(coin)) {
+        showEditMessage("В валюте используй латинские буквы, цифры, точку, дефис или подчёркивание.", true);
+        return;
+    }
+    let parsedURL;
+    try { parsedURL = new URL(urlText); }
+    catch (_) { showEditMessage("Укажи корректную ссылку.", true); return; }
+    if (parsedURL.protocol !== "https:" && parsedURL.protocol !== "http:") {
+        showEditMessage("Ссылка должна начинаться с http:// или https://.", true);
+        return;
+    }
+
+    const saveButton = document.getElementById("editSaveButton");
+    saveButton.disabled = true;
+    saveButton.textContent = "Сохраняю на GitHub...";
+    showEditMessage("");
+
+    try {
+        const headers = githubHeaders(token);
+        const getResponse = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
+            method: "GET", headers, cache: "no-store"
+        });
+        const fileData = await getResponse.json().catch(() => ({}));
+        if (!getResponse.ok || !fileData.content || !fileData.sha) {
+            throw new Error(`GitHub ${getResponse.status}: ${fileData.message || "Не удалось загрузить index.html"}`);
+        }
+
+        let source = decodeBase64UTF8(fileData.content);
+        const doc = new DOMParser().parseFromString(source, "text/html");
+        const row = doc.getElementById("faucet" + id);
+        if (!row) throw new Error("Строка faucet" + id + " не найдена. Ничего не сохранено.");
+        const link = row.querySelector("a.faucet-link");
+        const rewardInput = row.querySelector("input.crypto-input");
+        const badge = row.querySelector(".crypto-badge");
+        if (!link || !rewardInput || !badge) {
+            throw new Error("В выбранной строке не хватает нужных полей. Ничего не сохранено.");
+        }
+
+        // Защита от случайного совпадения названий: проверяем остальные строки.
+        const duplicate = Array.from(doc.querySelectorAll('tr[id^="faucet"] a.faucet-link'))
+            .some(other => other.closest("tr")?.id !== "faucet" + id && other.textContent.trim().toLowerCase() === name.toLowerCase());
+        if (duplicate) throw new Error(`Название «${name}» уже используется другим краном.`);
+
+        link.textContent = name;
+        link.setAttribute("href", parsedURL.href);
+        link.setAttribute("onclick", `startTimer('faucet${id}', ${Math.round(minutes * 60)})`);
+        rewardInput.setAttribute("value", reward);
+        rewardInput.value = reward;
+        badge.textContent = coin;
+        badge.className = "badge " + coin.toLowerCase() + " crypto-badge";
+        row.setAttribute("data-crypto", coin);
+
+        // Меняем только HTML выбранного <tr>, остальные части index.html не трогаем.
+        const rowPattern = new RegExp(`<tr\\b(?=[^>]*\\bid=["']faucet${id}["'])[^>]*>[\\s\\S]*?<\\/tr>`, "i");
+        const rowMatch = source.match(rowPattern);
+        if (!rowMatch) throw new Error("Не удалось безопасно выделить строку крана. Ничего не сохранено.");
+        source = source.replace(rowPattern, row.outerHTML);
+        // Обновляем и человекочитаемый комментарий перед строкой, если он есть.
+        const safeCommentName = name.replace(/--/g, "—").replace(/[<>]/g, "");
+        const commentPattern = new RegExp(`<!--\\s*Faucet\\s+${id}\\s*:[\\s\\S]*?-->\\s*(?=<tr\\b(?=[^>]*\\bid=["']faucet${id}["']))`, "i");
+        source = source.replace(commentPattern, `<!-- Faucet ${id}: ${safeCommentName} -->\n`);
+
+        const putResponse = await fetch(INDEX_API_URL, {
+            method: "PUT",
+            headers: { ...headers, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: `Edit faucet ${id}: ${name}`,
+                content: encodeBase64UTF8(source),
+                sha: fileData.sha,
+                branch: BRANCH
+            })
+        });
+        const putData = await putResponse.json().catch(() => ({}));
+        if (!putResponse.ok) throw new Error(`GitHub ${putResponse.status}: ${putData.message || "Не удалось сохранить index.html"}`);
+
+        // Обновляем имя в панели и сохраняем привязку статуса к новому имени.
+        const oldFaucet = FAUCETS.find(faucet => faucet.id === String(id));
+        const oldName = oldFaucet?.name;
+        if (oldFaucet) oldFaucet.name = name;
+        if (oldName && oldName !== name && globalDisabledFaucets.includes(oldName)) {
+            globalDisabledFaucets = globalDisabledFaucets.map(item => item === oldName ? name : item);
+        }
+        renderAdminList();
+        showEditMessage(`Готово! Кран ID ${id} обновлён в index.html на GitHub.`);
+        saveButton.textContent = "Сохранено ✓";
+        setTimeout(closeEditFaucet, 900);
+    } catch (error) {
+        console.error("Ошибка сохранения крана:", error);
+        showEditMessage(error.message || "Не удалось сохранить изменения.", true);
+    } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = "💾 Сохранить на GitHub";
+    }
+}
+
+document.getElementById("editFaucetForm").addEventListener("submit", saveEditedFaucet);
 
 // Добавление нового крана в index.html с использованием уже введённого токена админки.
 function setAddFaucetMessage(message, isError = false) {
@@ -857,7 +1142,7 @@ async function addFaucetToIndex() {
             renderAdminList();
         }
 
-         setAddFaucetMessage(`Готово! «${name}» (ID ${num}) добавлен в index.html на GitHub.`);
+        setAddFaucetMessage(`Готово! «${name}» (ID ${num}) добавлен в index.html на GitHub.\nОбнови главную страницу, когда GitHub Pages опубликует изменения.`);
         document.getElementById("newFaucetName").value = "";
         document.getElementById("newFaucetUrl").value = "";
         document.getElementById("newFaucetReward").value = "";
