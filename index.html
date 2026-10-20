@@ -141,18 +141,16 @@ tr.globally-disabled .btn-reset,
 tr.globally-disabled .btn-limit {
     opacity: 0.35;
 }
-	/* ID крана перед названием, не вмешиваясь в ссылку */
-tr[id^="faucet"] td:first-child .faucet-link::before {
-    content: attr(data-faucet-id);
-} 
-		tr[id^="faucet"] td:first-child .faucet-link::before {
-    content: attr(data-faucet-id);
-    display: inline-block;
-    color: #fff;
+	 /* Отдельная колонка ID крана */
+.faucet-id-cell {
+    color: #fff !important;
     font-weight: 800;
     font-size: 12px;
-    margin-right: 6px;
-    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 5px !important;
+    white-space: nowrap;
+    width: 1%;
 }
     </style>
 </head>
@@ -1439,16 +1437,30 @@ setInterval(findAndDisplayBestFaucet, 20000);
 </script>
 
  <script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('tr[id^="faucet"]').forEach(function (row) {
-        const link = row.querySelector('.faucet-link');
-        const match = row.id.match(/^faucet(\d+)$/);
+(function () {
+    function addFaucetIdCells() {
+        document.querySelectorAll('tr[id^="faucet"]').forEach(function (row) {
+            const match = row.id.match(/^faucet(\d+)$/);
+            if (!match) return;
 
-        if (link && match) {
-            link.setAttribute('data-faucet-id', match[1]);
-        }
-    });
-});
-</script> 
+            // Не добавляем повторно
+            if (row.querySelector('.faucet-id-cell')) return;
+
+            const cell = document.createElement('td');
+            cell.className = 'faucet-id-cell';
+            cell.textContent = match[1];
+
+            // Отдельная ячейка перед названием крана
+            row.insertBefore(cell, row.firstElementChild);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addFaucetIdCells);
+    } else {
+        addFaucetIdCells();
+    }
+})();
+</script>
 </body>
 </html>
