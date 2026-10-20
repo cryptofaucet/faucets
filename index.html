@@ -141,17 +141,7 @@ tr.globally-disabled .btn-reset,
 tr.globally-disabled .btn-limit {
     opacity: 0.35;
 }
-	/* Номер крана слева от кнопки */
-.faucet-id {
-    display: inline-block !important;
-    color: #fff !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    white-space: nowrap !important;
-    vertical-align: middle;
-    margin-right: 6px;
-    text-decoration: none !important;
-}	  
+	 
     </style>
 </head>
 <body>
@@ -1446,16 +1436,17 @@ setInterval(findAndDisplayBestFaucet, 20000);
             const match = row.id.match(/^faucet(\d+)$/);
             if (!match) return;
 
-            // Удаляем номер из предыдущей версии, если он был
-            const oldBadge = row.querySelector('.faucet-id');
-            if (oldBadge) oldBadge.remove();
+            // Убираем предыдущий номер, если он уже добавлен
+            const oldId = link.querySelector('.faucet-id');
+            if (oldId) oldId.remove();
 
             const badge = document.createElement('span');
             badge.className = 'faucet-id';
-            badge.textContent = match[1];
+            badge.textContent = match[1] + ' ';
+            badge.style.cssText =
+                'display:inline;color:white;font-weight:800;font-size:12px;white-space:nowrap;text-decoration:none';
 
-            // Вставляем номер непосредственно перед ссылкой
-            link.parentNode.insertBefore(badge, link);
+            link.insertBefore(badge, link.firstChild);
         });
     }
 
