@@ -196,9 +196,15 @@
             flex-shrink: 0;
         }
 
-        .faucet-label {
-            overflow-wrap: anywhere;
-        }
+         .faucet-label {
+    overflow-wrap: anywhere;
+    min-width: 0;
+}
+
+.faucet-label:hover {
+    text-decoration: underline !important;
+    color: #ffcc00 !important;
+}
 
         .status-btn {
             width: auto;
@@ -569,8 +575,16 @@ function renderAdminList() {
 
         const label = document.createElement("span");
         label.className = "faucet-label";
-        label.textContent = name;
-        nameSpan.append(idSpan, label);
+         const link = document.createElement("a");
+link.className = "faucet-label";
+link.textContent = name;
+link.href = faucet.url;
+link.target = "_blank";
+link.rel = "noopener noreferrer";
+link.style.color = "#00ffcc";
+link.style.textDecoration = "none";
+
+nameSpan.append(idSpan, link);
 
         const button = document.createElement("button");
         button.type = "button";
