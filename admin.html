@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -82,7 +82,8 @@ async function login() {
     const token = document.getElementById('tokenInput').value.trim();
     if (!token) return alert('Введите токен!');
 
-    const url = 'https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
+    // ССЫЛКА ИСПРАВЛЕНА
+    const url = 'https://api.github.com/repos/' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
 
     try {
         const response = await fetch(url, {
@@ -146,7 +147,9 @@ async function saveChanges() {
 
     const jsonString = JSON.stringify(newContent, null, 2);
     const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
-    const url = 'https://github.com' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
+    
+    // ССЫЛКА ИСПРАВЛЕНА
+    const url = 'https://api.github.com/repos/' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + FILE_PATH;
 
     try {
         const response = await fetch(url, {
