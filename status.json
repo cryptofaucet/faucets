@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:57:59.952Z",
+  "last_updated": "2026-10-21T00:58:48.776Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -213,6 +213,14 @@
       "coin": "BTC",
       "minutes": 30,
       "_updated_at": "2026-10-21T00:57:59.952Z"
+    },
+    "26": {
+      "name": "Fasttrx",
+      "url": "https://fasttrx.site/?r=z34bwpuw",
+      "reward": "0.00000150",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T00:58:48.776Z"
     }
   }
 }
