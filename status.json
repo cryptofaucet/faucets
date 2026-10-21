@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:52:53.238Z",
+  "last_updated": "2026-10-21T00:53:48.078Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -157,6 +157,14 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-10-21T00:52:53.238Z"
+    },
+    "19": {
+      "name": "Instafaucet",
+      "url": "https://instafaucet.xyz/?r=kb2vccc8",
+      "reward": "0.001",
+      "coin": "TRX",
+      "minutes": 60,
+      "_updated_at": "2026-10-21T00:53:48.078Z"
     },
     "23": {
       "name": "Limitless",
