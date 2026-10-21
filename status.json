@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T01:02:26.336Z",
+  "last_updated": "2026-10-21T01:02:49.886Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -269,6 +269,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-10-21T01:02:26.336Z"
+    },
+    "33": {
+      "name": "FreeFlare Crypto",
+      "url": "https://freeflarcrypto.com/",
+      "reward": "0.001",
+      "coin": "DGB",
+      "minutes": 30,
+      "_updated_at": "2026-10-21T01:02:49.886Z"
     }
   }
 }
