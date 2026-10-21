@@ -13,7 +13,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:40:32.336Z",
+  "last_updated": "2026-10-21T00:41:10.745Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -54,6 +54,14 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-10-21T00:40:32.336Z"
+    },
+    "7": {
+      "name": "Ghfaucet",
+      "url": "https://ghfaucet.com/",
+      "reward": "0.00000050",
+      "coin": "BTC",
+      "minutes": 30,
+      "_updated_at": "2026-10-21T00:41:10.745Z"
     },
     "23": {
       "name": "Limitless",
