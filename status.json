@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:59:43.360Z",
+  "last_updated": "2026-10-21T01:00:06.280Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -237,6 +237,14 @@
       "coin": "DOGE",
       "minutes": 1440,
       "_updated_at": "2026-10-21T00:59:43.360Z"
+    },
+    "29": {
+      "name": "Prairiehash",
+      "url": "https://prairiehash.com/?r=5hikidck",
+      "reward": "0.0005967",
+      "coin": "DOGE",
+      "minutes": 5,
+      "_updated_at": "2026-10-21T01:00:06.280Z"
     }
   }
 }
