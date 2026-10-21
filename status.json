@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T01:01:19.960Z",
+  "last_updated": "2026-10-21T01:01:54.363Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -253,6 +253,14 @@
       "coin": "DOGE",
       "minutes": 1,
       "_updated_at": "2026-10-21T01:01:19.960Z"
+    },
+    "31": {
+      "name": "Fpay",
+      "url": "https://fpay.space/",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T01:01:54.363Z"
     }
   }
 }
