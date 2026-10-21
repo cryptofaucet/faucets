@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:55:20.615Z",
+  "last_updated": "2026-10-21T00:55:52.222Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -181,6 +181,14 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-10-21T00:55:20.615Z"
+    },
+    "22": {
+      "name": "Peperush",
+      "url": "https://peperush.site/?r=xz3j7cpn",
+      "reward": "10",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T00:55:52.222Z"
     },
     "23": {
       "name": "Limitless",
