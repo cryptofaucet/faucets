@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:53:48.078Z",
+  "last_updated": "2026-10-21T00:54:27.212Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -165,6 +165,14 @@
       "coin": "TRX",
       "minutes": 60,
       "_updated_at": "2026-10-21T00:53:48.078Z"
+    },
+    "20": {
+      "name": "Freecoins foryou",
+      "url": "https://freecoinsforyou.online/?r=7z6rymrq",
+      "reward": "0.00005",
+      "coin": "LTC",
+      "minutes": 1440,
+      "_updated_at": "2026-10-21T00:54:27.212Z"
     },
     "23": {
       "name": "Limitless",
