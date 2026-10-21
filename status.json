@@ -6,14 +6,13 @@
     "CoinDrip",
     "SocialFaucet",
     "Orthofaucet",
-    "Coinearnhub",
     "Сrypto Gem",
     "Zerdacoins",
     "Mooncrypto",
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:48:18.150Z",
+  "last_updated": "2026-10-21T00:48:29.475Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
