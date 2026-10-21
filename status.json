@@ -14,7 +14,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-21T02:20:48.501Z",
+  "last_updated": "2026-10-21T02:23:36.911Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -405,8 +405,8 @@
       "url": "https://earnon.site/?r=gc9y4udj",
       "reward": "0.00002",
       "coin": "LTC",
-      "minutes": 5,
-      "_updated_at": "2026-10-21T02:20:48.501Z"
+      "minutes": 3,
+      "_updated_at": "2026-10-21T02:23:36.911Z"
     }
   }
 }
