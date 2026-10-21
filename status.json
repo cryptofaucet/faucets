@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T01:02:49.886Z",
+  "last_updated": "2026-10-21T01:03:09.381Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -277,6 +277,14 @@
       "coin": "DGB",
       "minutes": 30,
       "_updated_at": "2026-10-21T01:02:49.886Z"
+    },
+    "34": {
+      "name": "DM Crypto",
+      "url": "https://dmcrypto.site/?r=drcb98js",
+      "reward": "0.00003",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-10-21T01:03:09.381Z"
     }
   }
 }
