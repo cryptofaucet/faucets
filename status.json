@@ -1,7 +1,7 @@
 {
   "disabled_faucets": [
     "Ghfaucet",
-    "faucet2 shipbroman",
+    "Faucet2 shipbroman",
     "ZukyFaucet",
     "CoinDrip",
     "SocialFaucet",
@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:57:22.511Z",
+  "last_updated": "2026-10-21T00:57:59.952Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -205,6 +205,14 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-10-21T00:57:22.511Z"
+    },
+    "25": {
+      "name": "Faucet2 shipbroman",
+      "url": "https://faucet2.shipbroman.com/",
+      "reward": "0.00000020",
+      "coin": "BTC",
+      "minutes": 30,
+      "_updated_at": "2026-10-21T00:57:59.952Z"
     }
   }
 }
