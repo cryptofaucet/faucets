@@ -14,7 +14,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-21T02:02:55.717Z",
+  "last_updated": "2026-10-21T02:08:33.178Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -367,6 +367,14 @@
       "coin": "ETH",
       "minutes": 60,
       "_updated_at": "2026-10-21T02:02:55.717Z"
+    },
+    "45": {
+      "name": "Arcade 2Cash",
+      "url": "https://arcade2cash.com/arcade",
+      "reward": "0.0434375",
+      "coin": "DOGE",
+      "minutes": 60,
+      "_updated_at": "2026-10-21T02:08:33.178Z"
     }
   }
 }
