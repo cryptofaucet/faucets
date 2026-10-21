@@ -13,7 +13,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:43:52.433Z",
+  "last_updated": "2026-10-21T00:46:07.375Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -94,6 +94,14 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-10-21T00:42:22.592Z"
+    },
+    "11": {
+      "name": "Zerdacoins",
+      "url": "https://zerdacoins.space/?r=5ye5muq3",
+      "reward": "0.000015",
+      "coin": "USDT",
+      "minutes": 60,
+      "_updated_at": "2026-10-21T00:46:07.375Z"
     },
     "23": {
       "name": "Limitless",
