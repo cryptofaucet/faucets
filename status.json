@@ -13,7 +13,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:41:44.112Z",
+  "last_updated": "2026-10-21T00:42:22.592Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -70,6 +70,14 @@
       "coin": "DOGE",
       "minutes": 5,
       "_updated_at": "2026-10-21T00:41:44.112Z"
+    },
+    "10": {
+      "name": "Dragon claims",
+      "url": "https://dragonclaims.it.com/?r=z8yyrm5u",
+      "reward": "0.000001",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T00:42:22.592Z"
     },
     "23": {
       "name": "Limitless",
