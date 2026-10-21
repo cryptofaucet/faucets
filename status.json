@@ -13,7 +13,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:47:25.660Z",
+  "last_updated": "2026-10-21T00:48:18.150Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -134,6 +134,14 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-10-21T00:47:25.660Z"
+    },
+    "16": {
+      "name": "Coinearnhub",
+      "url": "https://coinearnhub.com/?r=3rwrmrgd",
+      "reward": "0.00000002",
+      "coin": "BTC",
+      "minutes": 60,
+      "_updated_at": "2026-10-21T00:48:18.150Z"
     },
     "23": {
       "name": "Limitless",
