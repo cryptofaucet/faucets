@@ -14,7 +14,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-21T02:14:49.949Z",
+  "last_updated": "2026-10-21T02:16:17.198Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -391,6 +391,14 @@
       "coin": "DOGE",
       "minutes": 3,
       "_updated_at": "2026-10-21T02:14:49.949Z"
+    },
+    "48": {
+      "name": "BitDrop",
+      "url": "https://bitdrop.fun/?r=4zqt4cdb",
+      "reward": "0.001",
+      "coin": "DOGE",
+      "minutes": 4,
+      "_updated_at": "2026-10-21T02:16:17.198Z"
     }
   }
 }
