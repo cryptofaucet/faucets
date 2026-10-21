@@ -14,7 +14,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-21T02:23:36.911Z",
+  "last_updated": "2026-10-21T02:25:42.385Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -407,6 +407,14 @@
       "coin": "LTC",
       "minutes": 3,
       "_updated_at": "2026-10-21T02:23:36.911Z"
+    },
+    "50": {
+      "name": "Myeasyfaucet",
+      "url": "https://myeasyfaucet.world/",
+      "reward": "0.000001",
+      "coin": "LTC",
+      "minutes": 5,
+      "_updated_at": "2026-10-21T02:25:42.385Z"
     }
   }
 }
