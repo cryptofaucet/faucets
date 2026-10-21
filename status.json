@@ -13,7 +13,7 @@
     "Flowfaucet",
     "Faas Faucet"
   ],
-  "last_updated": "2026-10-21T01:43:50.838Z",
+  "last_updated": "2026-10-21T01:45:12.758Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -326,6 +326,14 @@
       "coin": "TRX",
       "minutes": 1,
       "_updated_at": "2026-10-21T01:43:50.838Z"
+    },
+    "40": {
+      "name": "Snaptik",
+      "url": "https://snaptik.one/",
+      "reward": "0.00005000",
+      "coin": "TRX",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T01:45:12.758Z"
     }
   }
 }
