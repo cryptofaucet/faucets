@@ -1199,7 +1199,59 @@ async function addFaucetToIndex() {
         if (!putResponse.ok) {
             throw new Error(`GitHub ${putResponse.status}: ${putData.message || "Не удалось сохранить index.html"}`);
         }
+        // Сохраняем настройки нового крана в status.json
+        button.textContent = "Сохраняю status.json...";
 
+        const statusResponse = await fetch(`${GITHUB_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
+            method: "GET",
+            headers,
+            cache: "no-store"
+        });
+
+        const statusData = await statusResponse.json().catch(() => ({}));
+
+        if (!statusResponse.ok) {
+            throw new Error(`index.html сохранён, но status.json не прочитан: ${statusData.message || statusResponse.status}`);
+        }
+
+        if (!statusData.content || !statusData.sha) {
+            throw new Error("index.html сохранён, но GitHub не вернул содержимое status.json или SHA.");
+        }
+
+        const statusContent = JSON.parse(decodeBase64UTF8(statusData.content));
+
+        if (!statusContent.faucet_settings) {
+            statusContent.faucet_settings = {};
+        }
+
+        statusContent.faucet_settings[String(num)] = {
+            ...(statusContent.faucet_settings[String(num)] || {}),
+            name,
+            url: parsedURL.href,
+            reward,
+            coin,
+            minutes,
+            _updated_at: new Date().toISOString()
+        };
+
+        statusContent.last_updated = new Date().toISOString();
+
+        const saveStatusResponse = await fetch(GITHUB_API_URL, {
+            method: "PUT",
+            headers: { ...headers, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: `Add faucet settings ${num}: ${name}`,
+                content: encodeBase64UTF8(JSON.stringify(statusContent, null, 2)),
+                sha: statusData.sha,
+                branch: BRANCH
+            })
+        });
+
+        const saveStatusData = await saveStatusResponse.json().catch(() => ({}));
+
+        if (!saveStatusResponse.ok) {
+            throw new Error(`index.html сохранён, но status.json не обновлён: ${saveStatusData.message || saveStatusResponse.status}`);
+        }
         if (!FAUCETS.some(faucet => faucet.id === String(num))) {
             FAUCETS.push({ id: String(num), name, url: parsedURL.href });
             renderAdminList();
