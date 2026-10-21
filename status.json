@@ -13,7 +13,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:41:10.745Z",
+  "last_updated": "2026-10-21T00:41:44.112Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -62,6 +62,14 @@
       "coin": "BTC",
       "minutes": 30,
       "_updated_at": "2026-10-21T00:41:10.745Z"
+    },
+    "9": {
+      "name": "Topfaucet",
+      "url": "https://topfaucet.site/",
+      "reward": "0.0005",
+      "coin": "DOGE",
+      "minutes": 5,
+      "_updated_at": "2026-10-21T00:41:44.112Z"
     },
     "23": {
       "name": "Limitless",
