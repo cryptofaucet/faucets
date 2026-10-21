@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T01:01:54.363Z",
+  "last_updated": "2026-10-21T01:02:26.336Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -261,6 +261,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-10-21T01:01:54.363Z"
+    },
+    "32": {
+      "name": "Zyrofaucet",
+      "url": "https://zyrofaucet.online/?r=w6av9j78",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T01:02:26.336Z"
     }
   }
 }
