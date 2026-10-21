@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T01:30:54.669Z",
+  "last_updated": "2026-10-21T01:41:45.462Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -309,6 +309,14 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-10-21T01:30:54.669Z"
+    },
+    "38": {
+      "name": "Faas Faucet",
+      "url": "https://faas.farazfaucets.com/?r=uxrskeir",
+      "reward": "10",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T01:41:45.462Z"
     }
   }
 }
