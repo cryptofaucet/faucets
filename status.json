@@ -13,7 +13,7 @@
     "Flowfaucet",
     "Faas Faucet"
   ],
-  "last_updated": "2026-10-21T01:41:58.099Z",
+  "last_updated": "2026-10-21T01:43:50.838Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -318,6 +318,14 @@
       "coin": "PEPE",
       "minutes": 1,
       "_updated_at": "2026-10-21T01:41:45.462Z"
+    },
+    "39": {
+      "name": "Earnfree",
+      "url": "https://earnfree.site/",
+      "reward": "0.000001",
+      "coin": "TRX",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T01:43:50.838Z"
     }
   }
 }
