@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:58:48.776Z",
+  "last_updated": "2026-10-21T00:59:22.237Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -221,6 +221,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-10-21T00:58:48.776Z"
+    },
+    "27": {
+      "name": "Cryptogreen",
+      "url": "https://cryptogreen.site/?r=ypypjsu2",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 30,
+      "_updated_at": "2026-10-21T00:59:22.237Z"
     }
   }
 }
