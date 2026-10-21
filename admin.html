@@ -749,7 +749,15 @@ async function saveChanges() {
         const currentData = await checkResponse.json();
         fileSha = currentData.sha;
 
+        // Сохраняем остальные настройки кранов, не стирая faucet_settings.
+        let existingContent = {};
+        try {
+            existingContent = JSON.parse(decodeBase64UTF8(currentData.content || ""));
+        } catch (_) {
+            existingContent = {};
+        }
         const newContent = {
+            ...existingContent,
             disabled_faucets: globalDisabledFaucets,
             last_updated: new Date().toISOString()
         };
@@ -979,9 +987,53 @@ async function saveEditedFaucet(event) {
         const putData = await putResponse.json().catch(() => ({}));
         if (!putResponse.ok) throw new Error(`GitHub ${putResponse.status}: ${putData.message || "Не удалось сохранить index.html"}`);
 
-        // Обновляем имя в панели и сохраняем привязку статуса к новому имени.
+        // Обновляем глобальные настройки этого же крана в status.json, сохраняя остальные записи.
+        const statusGetResponse = await fetch(`${GITHUB_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
+            method: "GET", headers, cache: "no-store"
+        });
+        const statusData = await statusGetResponse.json().catch(() => ({}));
+        if (!statusGetResponse.ok || !statusData.content || !statusData.sha) {
+            throw new Error("index.html сохранён, но status.json прочитать не удалось. Проверь status.json отдельно.");
+        }
+        let statusContent;
+        try {
+            statusContent = JSON.parse(decodeBase64UTF8(statusData.content));
+        } catch (_) {
+            throw new Error("index.html сохранён, но status.json содержит некорректный JSON. Остальные настройки не менял.");
+        }
+        statusContent.disabled_faucets = Array.isArray(statusContent.disabled_faucets) ? statusContent.disabled_faucets : [];
+        statusContent.faucet_settings = statusContent.faucet_settings && typeof statusContent.faucet_settings === "object" ? statusContent.faucet_settings : {};
         const oldFaucet = FAUCETS.find(faucet => faucet.id === String(id));
         const oldName = oldFaucet?.name;
+        if (oldName && oldName !== name && statusContent.disabled_faucets.includes(oldName)) {
+            statusContent.disabled_faucets = statusContent.disabled_faucets.map(item => item === oldName ? name : item);
+        }
+        statusContent.faucet_settings[String(id)] = {
+            ...(statusContent.faucet_settings[String(id)] || {}),
+            name,
+            url: parsedURL.href,
+            reward,
+            coin,
+            minutes,
+            _updated_at: new Date().toISOString()
+        };
+        statusContent.last_updated = new Date().toISOString();
+        const statusPutResponse = await fetch(GITHUB_API_URL, {
+            method: "PUT",
+            headers: { ...headers, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: `Update faucet settings ${id}: ${name}`,
+                content: encodeBase64UTF8(JSON.stringify(statusContent, null, 2)),
+                sha: statusData.sha,
+                branch: BRANCH
+            })
+        });
+        const statusPutData = await statusPutResponse.json().catch(() => ({}));
+        if (!statusPutResponse.ok) {
+            throw new Error(`index.html сохранён, но status.json не удалось обновить: ${statusPutData.message || statusPutResponse.status}. Проверь status.json отдельно.`);
+        }
+
+        // Обновляем имя и URL в панели после сохранения обоих файлов.
         if (oldFaucet) {
             oldFaucet.name = name;
             oldFaucet.url = parsedURL.href;
@@ -990,7 +1042,7 @@ async function saveEditedFaucet(event) {
             globalDisabledFaucets = globalDisabledFaucets.map(item => item === oldName ? name : item);
         }
         renderAdminList();
-        showEditMessage(`Готово! Кран ID ${id} обновлён в index.html на GitHub.`);
+        showEditMessage(`Готово! Кран ID ${id} сохранён в index.html и status.json на GitHub.`);
         saveButton.textContent = "Сохранено ✓";
         setTimeout(closeEditFaucet, 900);
     } catch (error) {
