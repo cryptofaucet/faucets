@@ -13,7 +13,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:46:30.871Z",
+  "last_updated": "2026-10-21T00:46:45.061Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -110,6 +110,14 @@
       "coin": "SOL",
       "minutes": 60,
       "_updated_at": "2026-10-21T00:46:30.871Z"
+    },
+    "13": {
+      "name": "SocialFaucet",
+      "url": "https://socialfaucet.xyz/?r=hxwbnwbv",
+      "reward": "0.0000008",
+      "coin": "ETH",
+      "minutes": 120,
+      "_updated_at": "2026-10-21T00:46:45.061Z"
     },
     "23": {
       "name": "Limitless",
