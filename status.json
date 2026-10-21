@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:56:13.710Z",
+  "last_updated": "2026-10-21T00:57:22.511Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -197,6 +197,14 @@
       "coin": "BTC",
       "minutes": 30,
       "_updated_at": "2026-10-21T00:56:13.710Z"
+    },
+    "24": {
+      "name": "Faucetfunds",
+      "url": "https://faucetfunds.com/?r=jpvu2kcu",
+      "reward": "0.00005",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-10-21T00:57:22.511Z"
     }
   }
 }
