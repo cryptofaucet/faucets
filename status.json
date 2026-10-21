@@ -13,7 +13,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:39:52.497Z",
+  "last_updated": "2026-10-21T00:40:32.336Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -46,6 +46,14 @@
       "coin": "BTC",
       "minutes": 5,
       "_updated_at": "2026-10-21T00:39:52.497Z"
+    },
+    "6": {
+      "name": "Сrypto Gem",
+      "url": "https://cryptogem.space/?r=7tyvht3h",
+      "reward": "0.00000050",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T00:40:32.336Z"
     },
     "23": {
       "name": "Limitless",
