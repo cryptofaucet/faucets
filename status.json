@@ -14,7 +14,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-21T01:49:25.668Z",
+  "last_updated": "2026-10-21T01:51:02.803Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -351,6 +351,14 @@
       "coin": "DOGE",
       "minutes": 60,
       "_updated_at": "2026-10-21T01:49:15.166Z"
+    },
+    "43": {
+      "name": "Super Faucet",
+      "url": "https://superfaucet.site/",
+      "reward": "0.001",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T01:51:02.803Z"
     }
   }
 }
