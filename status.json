@@ -14,7 +14,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-21T01:54:14.011Z",
+  "last_updated": "2026-10-21T02:02:55.717Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -363,10 +363,10 @@
     "44": {
       "name": "InstantFP",
       "url": "https://instantfp.site/",
-      "reward": "0.00001",
+      "reward": "0.00000347",
       "coin": "ETH",
       "minutes": 60,
-      "_updated_at": "2026-10-21T01:54:14.011Z"
+      "_updated_at": "2026-10-21T02:02:55.717Z"
     }
   }
 }
