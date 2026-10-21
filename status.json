@@ -10,9 +10,10 @@
     "Zerdacoins",
     "Mooncrypto",
     "Torneira",
-    "Flowfaucet"
+    "Flowfaucet",
+    "Faas Faucet"
   ],
-  "last_updated": "2026-10-21T01:41:45.462Z",
+  "last_updated": "2026-10-21T01:41:58.099Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
