@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:48:29.475Z",
+  "last_updated": "2026-10-21T00:52:13.039Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -141,6 +141,14 @@
       "coin": "BTC",
       "minutes": 60,
       "_updated_at": "2026-10-21T00:48:18.150Z"
+    },
+    "17": {
+      "name": "Gobrya",
+      "url": "https://gobrya.online/",
+      "reward": "0.0001",
+      "coin": "DOGE",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T00:52:13.039Z"
     },
     "23": {
       "name": "Limitless",
