@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T01:04:54.217Z",
+  "last_updated": "2026-10-21T01:05:41.748Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -293,6 +293,14 @@
       "coin": "SOL",
       "minutes": 5,
       "_updated_at": "2026-10-21T01:04:54.217Z"
+    },
+    "36": {
+      "name": "Best Faucet",
+      "url": "https://bestfaucet.site/?r=zjvg92ts",
+      "reward": "0.00000002",
+      "coin": "BTC",
+      "minutes": 5,
+      "_updated_at": "2026-10-21T01:05:41.748Z"
     }
   }
 }
