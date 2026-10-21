@@ -12,7 +12,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T01:05:41.748Z",
+  "last_updated": "2026-10-21T01:30:54.669Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -301,6 +301,14 @@
       "coin": "BTC",
       "minutes": 5,
       "_updated_at": "2026-10-21T01:05:41.748Z"
+    },
+    "37": {
+      "name": "Mint Faucet",
+      "url": "https://mintfaucet.in/",
+      "reward": "0.0004",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-10-21T01:30:54.669Z"
     }
   }
 }
