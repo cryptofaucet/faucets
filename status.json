@@ -13,7 +13,7 @@
     "Torneira",
     "Flowfaucet"
   ],
-  "last_updated": "2026-10-21T00:46:45.061Z",
+  "last_updated": "2026-10-21T00:46:58.191Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -118,6 +118,14 @@
       "coin": "ETH",
       "minutes": 120,
       "_updated_at": "2026-10-21T00:46:45.061Z"
+    },
+    "14": {
+      "name": "Mooncrypto",
+      "url": "https://mooncrypto.space/?r=t5e32kmz",
+      "reward": "16",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-10-21T00:46:58.191Z"
     },
     "23": {
       "name": "Limitless",
