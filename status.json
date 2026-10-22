@@ -4,7 +4,7 @@
     "Faucet2 shipbroman",
     "CoinDrip",
     "SocialFaucet",
-    "Orthofaucet",
+    "Bitclaims",
     "Сrypto Gem",
     "Zerdacoins",
     "Mooncrypto",
@@ -13,7 +13,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-22T13:27:42.003Z",
+  "last_updated": "2026-10-22T13:30:17.881Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -72,12 +72,12 @@
       "_updated_at": "2026-10-21T00:41:10.745Z"
     },
     "8": {
-      "name": "Orthofaucet",
-      "url": "https://orthofaucet.com/",
-      "reward": "0.001",
-      "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-10-21T00:43:52.433Z"
+      "name": "Bitclaims",
+      "url": "https://bitclaims.online/?r=gra3em2q",
+      "reward": "0.000001",
+      "coin": "LTC",
+      "minutes": 3,
+      "_updated_at": "2026-10-22T13:30:17.881Z"
     },
     "9": {
       "name": "Topfaucet",
