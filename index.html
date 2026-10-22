@@ -157,95 +157,27 @@ tr.globally-disabled .btn-limit {
  
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
-    body {
-        padding: 5px;
-        width: 100%;
-        box-sizing: border-box;
-    }
 
-    /* Прокрутка таблиц на телефоне */
-    .tables-container .table-block {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .tables-container table {
-        min-width: 400px;
-        width: 100%;
-    }
- 
- .tables-container .faucet-link {
-    display: inline-block;
-    width: 75px;
-    max-width: 75px;
-    min-width: 0;
-    box-sizing: border-box;
-    white-space: normal;
-    overflow-wrap: normal;
-    word-break: normal;
-    text-align: center;
-}
-    .tables-container {
+    /* Верхние промоблоки — один под другим */
+    .promo-row {
         display: flex;
-        flex-wrap: wrap;
-        align-items: stretch;
-        gap: 15px;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 10px;
         width: 100%;
+        max-width: 100%;
         min-width: 0;
         box-sizing: border-box;
     }
 
-    .tables-container .table-block {
+    .promo-row .promo-box {
         flex: 0 0 auto;
         width: 100%;
-        min-width: 0;
+        min-width: 0 !important;
         max-width: 100%;
-        padding: 6px;
+        height: auto;
+        padding: 5px;
         box-sizing: border-box;
-    }
-
-    .tables-container table {
-        width: 100%;
-    }
-
-    .table-title {
-        font-size: 1rem;
-        margin-bottom: 10px;
-    }
-
-    th, td {
-        padding: 6px 2px;
-        font-size: 10px;
-    }
-
-     
-.faucet-link {
-    display: inline-block;
-    width: auto;
-    max-width: 100%;
-    padding: 7px 6px;
-    font-size: 11px;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    word-break: normal;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-    .faucet-id-cell {
-        padding: 0 2px !important;
-        font-size: 10px;
-    }
-
-    .timer-wrapper {
-        gap: 3px;
-        flex-wrap: wrap;
-    }
-
-    .btn-ref {
-        max-width: 100%;
-        box-sizing: border-box;
-        padding: 10px 14px;
     }
 
     .promo-box {
@@ -255,12 +187,104 @@ tr.globally-disabled .btn-limit {
         box-sizing: border-box;
     }
 
-         .promo-box > div {
+    .promo-box > div {
         max-width: 100%;
         box-sizing: border-box;
     }
 
-         /* Столбец рублей на телефоне */
+    .promo-row .promo-box p {
+        font-size: 11px !important;
+        margin: 0;
+    }
+
+    .promo-row .btn-ref {
+        padding: 5px 7px;
+        font-size: 10px;
+    }
+
+    /* Нижние боксы с таблицами — один под другим */
+    .tables-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 10px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    /* Фиксированная ширина боксов в пределах экрана */
+    .tables-container .table-block {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 6px;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    /* Таблицы подстраиваются под ширину боксов */
+    .tables-container table {
+        width: 100%;
+        min-width: 0;
+        table-layout: fixed;
+        box-sizing: border-box;
+    }
+
+    /* Компактные ячейки */
+    .tables-container th,
+    .tables-container td {
+        padding: 6px 2px;
+        font-size: 10px;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    /* Названия кранов */
+    .tables-container .faucet-link {
+        display: inline-block;
+        width: 75px;
+        max-width: 100%;
+        min-width: 0;
+        padding: 7px 4px;
+        font-size: 11px;
+        white-space: normal;
+        overflow-wrap: normal;
+        word-break: normal;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    /* Номер крана */
+    .tables-container .faucet-id-cell {
+        padding: 0 2px !important;
+        font-size: 10px;
+    }
+
+    /* Таймер */
+    .tables-container .timer-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+
+    /* Кнопки и поля */
+    .tables-container button,
+    .tables-container input {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .btn-ref {
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 10px 14px;
+    }
+
+    /* Столбец рублей */
     .tables-container td:has(.rub-result) {
         min-width: 0 !important;
         padding-left: 2px !important;
@@ -272,26 +296,14 @@ tr.globally-disabled .btn-limit {
     .tables-container .rub-result {
         font-size: 10px !important;
     }
-	 .promo-row {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 10px;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-}
 
-.promo-row .promo-box {
-    flex: 0 0 auto;
-    width: 100%;
-    min-width: 0 !important;
-    max-width: 100%;
-    height: auto;
-    box-sizing: border-box;
-}
+    /* Заголовки таблиц */
+    .table-title {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
 
+    /* Общие размеры текста */
     body {
         font-size: 12px;
     }
@@ -305,23 +317,7 @@ tr.globally-disabled .btn-limit {
         font-size: 11px;
         margin: 5px 0 10px;
     }
-
-    .promo-row .promo-box {
-        padding: 5px;
-    }
-
-    .promo-row .promo-box p {
-        font-size: 11px !important;
-        margin: 0;
-    }
-
-    .promo-row .btn-ref {
-        padding: 5px 7px;
-        font-size: 10px;
-    }
-	 
 }
-
 	</style>
 </head>
 <body>
