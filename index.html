@@ -270,7 +270,16 @@ tr.globally-disabled .btn-limit {
     white-space: nowrap !important;
     text-align: center !important;
 }
-
+/* Сужаем колонку «Монета» */
+.tables-container td:has(.crypto-badge) {
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+}
     /* Таймер */
     .tables-container .timer-wrapper {
         display: flex;
