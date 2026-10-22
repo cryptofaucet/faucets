@@ -2,7 +2,6 @@
   "disabled_faucets": [
     "Ghfaucet",
     "Faucet2 shipbroman",
-    "Adptc",
     "CoinDrip",
     "SocialFaucet",
     "Orthofaucet",
@@ -14,7 +13,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-22T13:27:34.003Z",
+  "last_updated": "2026-10-22T13:27:42.003Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
