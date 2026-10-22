@@ -2012,21 +2012,30 @@ setInterval(findAndDisplayBestFaucet, 20000);
     }
 
     function updateModeButtons() {
-        const localBtn = document.getElementById('localModeBtn');
-        const globalBtn = document.getElementById('globalModeBtn');
+    const localBtn = document.getElementById('localModeBtn');
+    const globalBtn = document.getElementById('globalModeBtn');
+    const lang = localStorage.getItem('siteLanguage') || 'ru';
 
-        if (localBtn) {
-            localBtn.textContent = 'Локал: ' + (localMode ? 'ВКЛ' : 'ВЫКЛ');
-            localBtn.style.background = localMode ? '#28a745' : '#555';
-            localBtn.setAttribute('aria-pressed', String(localMode));
-        }
+    if (localBtn) {
+        localBtn.textContent = lang === 'en'
+            ? 'Local: ' + (localMode ? 'ON' : 'OFF')
+            : 'Локал: ' + (localMode ? 'ВКЛ' : 'ВЫКЛ');
 
-        if (globalBtn) {
-            globalBtn.textContent = 'Глобал: ' + (globalMode ? 'ВКЛ' : 'ВЫКЛ');
-            globalBtn.style.background = globalMode ? '#28a745' : '#555';
-            globalBtn.setAttribute('aria-pressed', String(globalMode));
-        }
+        localBtn.style.background = localMode ? '#28a745' : '#555';
+        localBtn.setAttribute('aria-pressed', String(localMode));
     }
+
+    if (globalBtn) {
+        globalBtn.textContent = lang === 'en'
+            ? 'Global: ' + (globalMode ? 'ON' : 'OFF')
+            : 'Глобал: ' + (globalMode ? 'ВКЛ' : 'ВЫКЛ');
+
+        globalBtn.style.background = globalMode ? '#28a745' : '#555';
+        globalBtn.setAttribute('aria-pressed', String(globalMode));
+    }
+}
+
+window.updateModeButtonsLanguage = updateModeButtons;
 
     const localBtn = document.getElementById('localModeBtn');
     const globalBtn = document.getElementById('globalModeBtn');
