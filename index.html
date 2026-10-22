@@ -153,6 +153,7 @@ tr.globally-disabled .btn-limit {
     width: 1%;
 }
    
+ 
 /* Адаптация сайта для телефонов */
 @media (max-width: 600px) {
     body {
@@ -162,17 +163,27 @@ tr.globally-disabled .btn-limit {
     }
 
     .tables-container {
+        display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
+        align-items: stretch;
         gap: 15px;
         width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
-    .table-block {
+    .tables-container .table-block {
+        flex: 0 0 auto;
         width: 100%;
         min-width: 0;
         max-width: 100%;
         padding: 6px;
+        box-sizing: border-box;
+    }
+
+    .tables-container table {
+        width: 100%;
     }
 
     .table-title {
@@ -208,8 +219,7 @@ tr.globally-disabled .btn-limit {
         box-sizing: border-box;
         padding: 10px 14px;
     }
-}
-@media (max-width: 600px) {
+
     .promo-box {
         min-width: 0 !important;
         width: 100%;
@@ -222,6 +232,7 @@ tr.globally-disabled .btn-limit {
         box-sizing: border-box;
     }
 }
+
 	</style>
 </head>
 <body>
