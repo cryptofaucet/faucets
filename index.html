@@ -358,6 +358,23 @@ tr.globally-disabled .btn-limit {
         margin: 5px 0 10px;
     }
 }
+		 /* Скрываем нижние боксы */
+		.tables-container .table-block.collapsed table {
+    display: none;
+}
+
+.tables-container .table-block .table-title {
+    cursor: pointer;
+}
+
+.tables-container .table-block .table-title::after {
+    content: " ＋";
+    float: right;
+}
+
+.tables-container .table-block:not(.collapsed) .table-title::after {
+    content: " −";
+}
 	</style>
 </head>
 <body>
@@ -2050,5 +2067,51 @@ setInterval(findAndDisplayBestFaucet, 20000);
     }
 })();
 </script>
+	
+	// Скрываем нижние боксы на мобилке.
+<script>
+(function () {
+    function setupFaucetTables() {
+        const isMobile = window.matchMedia('(max-width: 600px)').matches;
+
+        document.querySelectorAll('.tables-container .table-block').forEach(function (block) {
+            const title = block.querySelector('.table-title');
+            if (!title) return;
+
+            if (!title.dataset.collapseReady) {
+                title.dataset.collapseReady = '1';
+                title.style.cursor = 'pointer';
+
+                title.addEventListener('click', function () {
+                    if (!window.matchMedia('(max-width: 600px)').matches) return;
+
+                    block.classList.toggle('collapsed');
+                    title.setAttribute(
+                        'aria-expanded',
+                        String(!block.classList.contains('collapsed'))
+                    );
+                });
+            }
+
+            if (isMobile) {
+                block.classList.add('mobile-collapsible', 'collapsed');
+                title.setAttribute('aria-expanded', 'false');
+            } else {
+                block.classList.remove('mobile-collapsible', 'collapsed');
+                title.removeAttribute('aria-expanded');
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupFaucetTables);
+    } else {
+        setupFaucetTables();
+    }
+
+    window.addEventListener('resize', setupFaucetTables);
+})();
+</script>
+
 </body>
 </html>
