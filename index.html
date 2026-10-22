@@ -1952,7 +1952,9 @@ setInterval(findAndDisplayBestFaucet, 20000);
                 if (!localMode && savedLimit &&
                     !localStorage.getItem(row.id + '_start') &&
                     cell && !window.isFaucetGloballyDisabled(row)) {
-                    cell.textContent = 'Готов';
+                     cell.textContent = localStorage.getItem('siteLanguage') === 'en'
+    ? 'Ready'
+    : 'Готов';
                     cell.className = 'timer-cell ready';
                 }
             }
