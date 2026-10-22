@@ -8,7 +8,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-22T16:27:14.942Z",
+  "last_updated": "2026-10-22T16:29:57.473Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -465,6 +465,14 @@
       "coin": "LTC",
       "minutes": 4,
       "_updated_at": "2026-10-22T16:27:14.942Z"
+    },
+    "58": {
+      "name": "ClickClaims",
+      "url": "https://clickclaims.online/",
+      "reward": "0.000001",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-10-22T16:29:57.473Z"
     }
   }
 }
