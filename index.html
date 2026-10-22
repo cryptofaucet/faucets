@@ -153,10 +153,49 @@ tr.globally-disabled .btn-limit {
     white-space: nowrap;
     width: 1%;
 }
+		.header-row {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-row .language-switch {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 4px;
+}
+
+.language-switch button {
+    padding: 5px 9px;
+    border: 1px solid #52667d;
+    border-radius: 5px;
+    background: #263449;
+    color: white;
+    cursor: pointer;
+}
+
+.language-switch button.active {
+    background: #28a745;
+    border-color: #28a745;
+}
    
  
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
+	 .header-row .language-switch {
+        right: 0;
+    }
+
+    .language-switch button {
+        padding: 4px 6px;
+        font-size: 11px;
+    }
 
     /* Верхние промоблоки — один под другим */
     .promo-row {
@@ -379,7 +418,13 @@ tr.globally-disabled .btn-limit {
 </head>
 <body>
 
+     <div class="header-row">
     <h1>CryptoFaucet Hub</h1>
+    <div class="language-switch">
+        <button type="button" id="langRU" class="active">RU</button>
+        <button type="button" id="langEN">EN</button>
+    </div>
+</div>
     <p class="subtitle">Интеллектуальный ротатор кранов с автоматическим контролем времени сбора</p>
 <!-- ОБЩАЯ СТРОКА ДЛЯ ДВУХ КОНТЕЙНЕРОВ -->
  <div class="promo-row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1200px; margin-bottom: 20px; box-sizing: border-box;">
