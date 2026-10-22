@@ -258,11 +258,17 @@ tr.globally-disabled .btn-limit {
         box-sizing: border-box;
     }
 
-    /* Номер крана */
-    .tables-container .faucet-id-cell {
-        padding: 0 2px !important;
-        font-size: 10px;
-    }
+     /* Номер крана на телефоне */
+.tables-container td.faucet-id-cell {
+    width: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    padding: 0 2px !important;
+    font-size: 10px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    text-align: center;
+}
 
     /* Таймер */
     .tables-container .timer-wrapper {
