@@ -263,6 +263,10 @@ tr.globally-disabled .btn-limit {
         font-size: 10px !important;
     }
 	 .promo-row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
     width: 100%;
     max-width: 100%;
     min-width: 0;
@@ -270,9 +274,12 @@ tr.globally-disabled .btn-limit {
 }
 
 .promo-row .promo-box {
-    flex: 1 1 0;
+    flex: 0 0 auto;
+    width: 100%;
     min-width: 0 !important;
-    width: auto;
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
 }
 }
 
