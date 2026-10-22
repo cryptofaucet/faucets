@@ -912,7 +912,7 @@ tr.globally-disabled .btn-limit {
         </div>
         <!-- ПРАВАЯ ПАНЕЛЬ -->
           <div class="table-block" style="border: 1px solid #ff5252;">
-    <div class="table-title" style="color: #ff5252; text-align: center;"> Неактивные / Тугая капча</div>
+    <div class="table-title" style="color: #ff5252; text-align: center;"> Неактивные </div>
 
             <table>
                 <thead>
@@ -1534,7 +1534,7 @@ function findAndDisplayBestFaucet() {
         return; 
     }
 
-    // 2. ПОИСК ЛУЧШЕГО КРАНА (Твой оригинальный код)
+    // 2. ПОИСК ЛУЧШЕГО КРАНА 
     const allRows = document.querySelectorAll('tr[id^="faucet"]');
     let highestPrice = -1;
     let bestRow = null;
@@ -2068,7 +2068,7 @@ setInterval(findAndDisplayBestFaucet, 20000);
 })();
 </script>
 	
-	// Скрываем нижние боксы на мобилке.
+	 
 <script>
 (function () {
     function setupFaucetTables() {
