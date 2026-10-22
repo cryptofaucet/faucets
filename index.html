@@ -1941,7 +1941,9 @@ setInterval(findAndDisplayBestFaucet, 20000);
                 row.classList.add('out-of-limit');
 
                 if (cell && !window.isFaucetGloballyDisabled(row)) {
-                    cell.textContent = 'Лимит пуст';
+                     cell.textContent = localStorage.getItem('siteLanguage') === 'en'
+    ? 'Limit empty'
+    : 'Лимит пуст';
                     cell.className = 'timer-cell';
                 }
             } else {
@@ -1985,14 +1987,19 @@ setInterval(findAndDisplayBestFaucet, 20000);
 
             if (cell) {
                 if (disabled) {
-                    cell.textContent = 'Глобал выкл.';
+                    cell.textContent = localStorage.getItem('siteLanguage') === 'en'
+    ? 'Global off.'
+    : 'Глобал выкл.';
                     cell.className = 'timer-cell';
                 } else if (cell.textContent === 'Глобал выкл.') {
                     const isLocalLimit =
                         localMode &&
                         localStorage.getItem(row.id + '_limit') === 'true';
 
-                    cell.textContent = isLocalLimit ? 'Лимит пуст' : 'Готов';
+                    const en = localStorage.getItem('siteLanguage') === 'en';
+cell.textContent = isLocalLimit
+    ? (en ? 'Limit empty' : 'Лимит пуст')
+    : (en ? 'Ready' : 'Готов');
                     cell.className = isLocalLimit
                         ? 'timer-cell'
                         : 'timer-cell ready';
@@ -2212,6 +2219,9 @@ window.updateModeButtonsLanguage = updateModeButtons;
         document.getElementById("langRU").classList.toggle("active", lang === "ru");
         document.getElementById("langEN").classList.toggle("active", lang === "en");
         localStorage.setItem("siteLanguage", lang);
+		if (typeof window.updateModeButtonsLanguage === 'function') {
+    window.updateModeButtonsLanguage();
+}
     }
 
     document.getElementById("langRU").addEventListener("click", function () {
