@@ -262,6 +262,18 @@ tr.globally-disabled .btn-limit {
     .tables-container .rub-result {
         font-size: 10px !important;
     }
+	 .promo-row {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.promo-row .promo-box {
+    flex: 1 1 0;
+    min-width: 0 !important;
+    width: auto;
+}
 }
 
 	</style>
@@ -271,7 +283,7 @@ tr.globally-disabled .btn-limit {
     <h1>CryptoFaucet Hub</h1>
     <p class="subtitle">Интеллектуальный ротатор кранов с автоматическим контролем времени сбора</p>
 <!-- ОБЩАЯ СТРОКА ДЛЯ ДВУХ КОНТЕЙНЕРОВ -->
-<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1200px; margin-bottom: 20px; box-sizing: border-box;">
+ <div class="promo-row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1200px; margin-bottom: 20px; box-sizing: border-box;">
 
  <!-- 1 КОНТЕЙНЕР (СЛЕВА) -->
 <div class="promo-box" style="margin: 0; flex: 1; min-width: 360px; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
