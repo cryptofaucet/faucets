@@ -8,7 +8,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-22T19:24:40.199Z",
+  "last_updated": "2026-10-22T19:26:19.193Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -427,12 +427,12 @@
       "_updated_at": "2026-10-22T16:17:22.448Z"
     },
     "53": {
-      "name": "Mycryptocoin",
+      "name": "Mycrypto Coin",
       "url": "https://mycryptocoin.click/?r=qqqufsq7",
       "reward": "0.0005",
       "coin": "DOGE",
       "minutes": 1,
-      "_updated_at": "2026-10-22T16:19:15.682Z"
+      "_updated_at": "2026-10-22T19:26:19.192Z"
     },
     "54": {
       "name": "Diamond Faucet",
