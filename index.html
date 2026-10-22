@@ -1981,35 +1981,41 @@ setInterval(findAndDisplayBestFaucet, 20000);
 
     function applyGlobalMode() {
         document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
-            const disabled = window.isFaucetGloballyDisabled(row);
+            const name = getFaucetName(row);
+const defaults = defaultSettings.get(row.id) || {};
 
-            row.classList.toggle('globally-disabled', disabled);
+const adminDisabled =
+    disabledFaucets.has(normalize(row.id)) ||
+    disabledFaucets.has(normalize(name)) ||
+    disabledFaucets.has(normalize(defaults.name));
 
-            const cell = row.querySelector('.timer-cell');
+const disabled = globalMode && adminDisabled;
 
-            if (cell) {
-                if (disabled) {
-                    cell.textContent = localStorage.getItem('siteLanguage') === 'en'
-    ? 'Global off.'
-    : 'Глобал выкл.';
-                    cell.className = 'timer-cell';
-                 } else if (
-    cell.textContent.includes('Глобал выкл.') ||
-    cell.textContent.includes('Global off.')
-) {
-                    const isLocalLimit =
-                        localMode &&
-                        localStorage.getItem(row.id + '_limit') === 'true';
+row.classList.toggle('globally-disabled', disabled);
 
-                    const en = localStorage.getItem('siteLanguage') === 'en';
-cell.textContent = isLocalLimit
-    ? (en ? 'Limit empty' : 'Лимит пуст')
-    : (en ? 'Ready' : 'Готов');
-                    cell.className = isLocalLimit
-                        ? 'timer-cell'
-                        : 'timer-cell ready';
-                }
-            }
+const cell = row.querySelector('.timer-cell');
+
+if (cell && adminDisabled) {
+    if (disabled) {
+        const en = localStorage.getItem('siteLanguage') === 'en';
+        cell.textContent = en ? 'Global off.' : 'Глобал выкл.';
+        cell.className = 'timer-cell';
+    } else {
+        const isLocalLimit =
+            localMode &&
+            localStorage.getItem(row.id + '_limit') === 'true';
+
+        const en = localStorage.getItem('siteLanguage') === 'en';
+
+        cell.textContent = isLocalLimit
+            ? (en ? 'Limit empty' : 'Лимит пуст')
+            : (en ? 'Ready' : 'Готов');
+
+        cell.className = isLocalLimit
+            ? 'timer-cell'
+            : 'timer-cell ready';
+    }
+}
         });
 
         updateModeButtons();
