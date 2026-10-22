@@ -170,7 +170,7 @@ tr.globally-disabled .btn-limit {
     }
 
     .tables-container table {
-        min-width: 460px;
+        min-width: 400px;
         width: 100%;
     }
 
@@ -251,12 +251,13 @@ tr.globally-disabled .btn-limit {
         box-sizing: border-box;
     }
 
-    /* Сужаем столбец с рублями на телефоне */
+         /* Столбец рублей на телефоне */
     .tables-container td:has(.rub-result) {
         min-width: 0 !important;
-        width: 1%;
         padding-left: 2px !important;
         padding-right: 2px !important;
+        vertical-align: middle !important;
+        white-space: nowrap !important;
     }
 
     .tables-container .rub-result {
