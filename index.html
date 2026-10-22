@@ -246,9 +246,21 @@ tr.globally-disabled .btn-limit {
         box-sizing: border-box;
     }
 
-    .promo-box > div {
+         .promo-box > div {
         max-width: 100%;
         box-sizing: border-box;
+    }
+
+    /* Сужаем столбец с рублями на телефоне */
+    .tables-container td:has(.rub-result) {
+        min-width: 0 !important;
+        width: 1%;
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+
+    .tables-container .rub-result {
+        font-size: 10px !important;
     }
 }
 
