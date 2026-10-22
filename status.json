@@ -8,7 +8,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-22T16:15:10.275Z",
+  "last_updated": "2026-10-22T16:17:22.448Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -417,6 +417,14 @@
       "coin": "DOGE",
       "minutes": 5,
       "_updated_at": "2026-10-22T16:15:10.275Z"
+    },
+    "52": {
+      "name": "Dogecoin Drip",
+      "url": "https://dogecoindrip.me/?r=eszpab53",
+      "reward": "0.00033",
+      "coin": "DOGE",
+      "minutes": 3,
+      "_updated_at": "2026-10-22T16:17:22.448Z"
     }
   }
 }
