@@ -8,7 +8,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-22T13:40:52.808Z",
+  "last_updated": "2026-10-22T13:42:59.749Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -275,12 +275,12 @@
       "_updated_at": "2026-10-21T01:02:49.886Z"
     },
     "34": {
-      "name": "DM Crypto",
-      "url": "https://dmcrypto.site/?r=drcb98js",
-      "reward": "0.00003",
-      "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-10-21T01:03:09.381Z"
+      "name": "luckfaucet",
+      "url": "https://luckfaucet.online/?r=mi7dp3h7",
+      "reward": "0.001",
+      "coin": "DOGE",
+      "minutes": 10,
+      "_updated_at": "2026-10-22T13:42:59.749Z"
     },
     "35": {
       "name": "Ogmaads",
