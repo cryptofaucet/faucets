@@ -998,7 +998,11 @@ tr.globally-disabled .btn-limit {
             } else {
                 const totalRub = parsedValue * rate;
                 tr.setAttribute('data-rub-value', totalRub.toString());
-                resultSpan.innerText = (totalRub < 0.01 ? totalRub.toFixed(8) : totalRub.toFixed(2)) + ' ₽';
+                const isMobile = window.matchMedia('(max-width: 600px)').matches;
+resultSpan.innerText =
+    (totalRub < 0.01
+        ? totalRub.toFixed(isMobile ? 3 : 8)
+        : totalRub.toFixed(2)) + ' ₽';
             }
         }
     }
