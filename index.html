@@ -2157,6 +2157,56 @@ setInterval(findAndDisplayBestFaucet, 20000);
     window.addEventListener('resize', setupFaucetTables);
 })();
 </script>
+ 
+<script>
+(function () {
+    const translations = {
+        "Интеллектуальный ротатор кранов с автоматическим контролем времени сбора": "Smart faucet rotator with automatic claim timer tracking",
+        "Для выплаты с кранов зарегистрируйте единый аккаунт:": "Register one account to receive faucet payouts:",
+        "Открыть аккаунт FaucetPay": "Open FaucetPay account",
+        "Список Кранов": "Faucet List",
+        "Кран": "Faucet",
+        "Награда": "Reward",
+        "Монета": "Coin",
+        "Рубли": "RUB",
+        "Кулдаун / Статус": "Cooldown / Status",
+        "Готов": "Ready",
+        "Локал: ВКЛ": "Local: ON",
+        "Глобал: ВЫКЛ": "Global: OFF"
+    };
+
+    const originalTexts = new Map();
+
+    function translatePage(lang) {
+        document.querySelectorAll("body *").forEach(function (el) {
+            if (el.children.length !== 0) return;
+
+            const original = originalTexts.get(el) || el.textContent.trim();
+            if (!originalTexts.has(el)) originalTexts.set(el, original);
+
+            if (lang === "en" && translations[original]) {
+                el.textContent = translations[original];
+            } else {
+                el.textContent = original;
+            }
+        });
+
+        document.getElementById("langRU").classList.toggle("active", lang === "ru");
+        document.getElementById("langEN").classList.toggle("active", lang === "en");
+        localStorage.setItem("siteLanguage", lang);
+    }
+
+    document.getElementById("langRU").addEventListener("click", function () {
+        translatePage("ru");
+    });
+
+    document.getElementById("langEN").addEventListener("click", function () {
+        translatePage("en");
+    });
+
+    translatePage(localStorage.getItem("siteLanguage") || "ru");
+})();
+</script>
 
 </body>
 </html>
