@@ -5,14 +5,14 @@
     "CoinDrip",
     "SocialFaucet",
     "Сrypto Gem",
-    "Zerdacoins",
+    "ExtraClaims",
     "Mooncrypto",
     "Torneira",
     "Flowfaucet",
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-22T13:30:27.353Z",
+  "last_updated": "2026-10-22T13:33:56.859Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -95,12 +95,12 @@
       "_updated_at": "2026-10-21T00:42:22.592Z"
     },
     "11": {
-      "name": "Zerdacoins",
-      "url": "https://zerdacoins.space/?r=5ye5muq3",
-      "reward": "0.000015",
-      "coin": "USDT",
-      "minutes": 60,
-      "_updated_at": "2026-10-21T00:46:07.375Z"
+      "name": "ExtraClaims",
+      "url": "https://extraclaims.online/?r=4pzssbb5",
+      "reward": "0.000001",
+      "coin": "LTC",
+      "minutes": 3,
+      "_updated_at": "2026-10-22T13:33:56.859Z"
     },
     "12": {
       "name": "Blockxs",
