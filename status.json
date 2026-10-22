@@ -8,7 +8,7 @@
     "Faas Faucet",
     "Ksplayer"
   ],
-  "last_updated": "2026-10-22T16:21:06.587Z",
+  "last_updated": "2026-10-22T16:23:39.184Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -441,6 +441,14 @@
       "coin": "DOGE",
       "minutes": 1,
       "_updated_at": "2026-10-22T16:21:06.587Z"
+    },
+    "55": {
+      "name": "Pythagore Doge",
+      "url": "https://pythagore-doge.website/?r=ar5jg8ck",
+      "reward": "0.0012",
+      "coin": "DOGE",
+      "minutes": 1,
+      "_updated_at": "2026-10-22T16:23:39.184Z"
     }
   }
 }
