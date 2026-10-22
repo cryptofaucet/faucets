@@ -1991,7 +1991,10 @@ setInterval(findAndDisplayBestFaucet, 20000);
     ? 'Global off.'
     : 'Глобал выкл.';
                     cell.className = 'timer-cell';
-                } else if (cell.textContent === 'Глобал выкл.') {
+                 } else if (
+    cell.textContent === 'Глобал выкл.' ||
+    cell.textContent === 'Global off.'
+) {
                     const isLocalLimit =
                         localMode &&
                         localStorage.getItem(row.id + '_limit') === 'true';
