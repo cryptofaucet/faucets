@@ -152,7 +152,65 @@ tr.globally-disabled .btn-limit {
     white-space: nowrap;
     width: 1%;
 }
-    </style>
+   
+/* Адаптация сайта для телефонов */
+@media (max-width: 600px) {
+    body {
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tables-container {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .table-block {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        padding: 6px;
+    }
+
+    .table-title {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    th, td {
+        padding: 8px 3px;
+        font-size: 11px;
+    }
+
+    .faucet-link {
+        width: auto;
+        max-width: 75px;
+        padding: 7px 4px;
+        font-size: 11px;
+        overflow-wrap: anywhere;
+    }
+
+    .faucet-id-cell {
+        padding: 0 2px !important;
+        font-size: 10px;
+    }
+
+    .timer-wrapper {
+        gap: 3px;
+        flex-wrap: wrap;
+    }
+
+    .btn-ref {
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 10px 14px;
+    }
+}
+
+	</style>
 </head>
 <body>
 
