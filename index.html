@@ -1010,6 +1010,7 @@ let usdToRub = 0;
 
 let currentCurrency =
     localStorage.getItem('siteCurrency') === 'USD' ? 'USD' : 'RUB';
+	window.currentCurrency = currentCurrency;
 
 let isEditingMode = false;
 let isMouseOverTable = false;
@@ -1299,7 +1300,8 @@ window.calculateLiveRow = function(trId, cryptoValue) {
 }
 
 function setCurrency(currency) {
-    currentCurrency = currency;
+     currentCurrency = currency;
+window.currentCurrency = currency;
     localStorage.setItem('siteCurrency', currency);
 
     updateCurrencyButtons();
@@ -1805,7 +1807,11 @@ topBox.setAttribute('data-current-best', currentBestMarker);
                     <div style="text-align: left;">
                         <span style="font-size: 11px; color: #ffaa00; font-weight: bold; display: block; text-transform: uppercase; letter-spacing: 0.5px;"> 🔥 ${localStorage.getItem('siteLanguage') === 'en' ? 'Best claim right now:' : 'Выгодный сбор сейчас:'}</span>
                         <strong style="font-size: 15px; color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">${faucetName}</strong> 
-                         <span style="color: #2ecc71; font-weight: bold; margin-left: 5px; font-size: 14px;">${currentCurrency === 'USD' ? (usdToRub > 0 ? (highestPrice / usdToRub).toFixed(2) + ' $' : '—') : highestPrice.toFixed(2) + ' ₽'}</span>
+                         <span style="color: #2ecc71; font-weight: bold; margin-left: 5px; font-size: 14px;">${localStorage.getItem('siteCurrency') === 'USD'
+    ? (Number(localStorage.getItem('usdToRub')) > 0
+        ? (highestPrice / Number(localStorage.getItem('usdToRub'))).toFixed(2) + ' $'
+        : '—')
+    : highestPrice.toFixed(2) + ' ₽'}</span>
                     </div>
                     <div id="top-btn-container"></div>
                 </div>
