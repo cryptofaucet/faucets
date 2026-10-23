@@ -153,13 +153,22 @@ tr.globally-disabled .btn-limit {
     white-space: nowrap;
     width: 1%;
 }
-		.header-row {
+	 .header-row {
     position: relative;
     width: 100%;
     max-width: 1200px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.header-row .currency-switch {
+    position: absolute;
+    right: 78px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 4px;
 }
 
 .header-row .language-switch {
@@ -171,6 +180,7 @@ tr.globally-disabled .btn-limit {
     gap: 4px;
 }
 
+.currency-switch button,
 .language-switch button {
     padding: 5px 9px;
     border: 1px solid #52667d;
@@ -180,21 +190,32 @@ tr.globally-disabled .btn-limit {
     cursor: pointer;
 }
 
+.currency-switch button.active,
 .language-switch button.active {
     background: #28a745;
     border-color: #28a745;
 }
-   
  
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
-	 .header-row .language-switch {
-        right: 0;
+	 .header-row {
+        flex-wrap: wrap;
+        padding-bottom: 38px;
     }
 
-    .language-switch button {
-        padding: 4px 6px;
-        font-size: 11px;
+    .header-row .currency-switch {
+        top: auto;
+        bottom: 0;
+        right: calc(50% + 4px);
+        transform: none;
+    }
+
+    .header-row .language-switch {
+        top: auto;
+        bottom: 0;
+        right: auto;
+        left: calc(50% + 4px);
+        transform: none;
     }
 
     /* Верхние промоблоки — один под другим */
