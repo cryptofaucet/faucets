@@ -1139,53 +1139,47 @@ async function getLiveCryptoRates() {
 
 
     // Живой расчет рублевой стоимости для конкретной строки
-    window.calculateLiveRow = function(trId, cryptoValue) {
-        if (!trId) return;
-        const tr = document.getElementById(trId);
-        if (!tr) return;
-        const cryptoType = tr.getAttribute('data-crypto') || 'DOGE';
-         const rate = currentCurrency === 'USD'
-    ? (cryptoRatesUSD[cryptoType] || 0)
-    : (cryptoRates[cryptoType] || 0);
-        const resultSpan = tr.querySelector('.rub-result');
+     
+window.calculateLiveRow = function(trId, cryptoValue) {
+    if (!trId) return;
 
-        if (resultSpan) {
-            // 🔥 ЗАЩИТА ОТ ХОЛОСТОГО СТАРТА: 
-            // Если курсы с бирж ещё не прилетели, мы ПРЕКРАЩАЕМ расчет и НЕ зануляем данные в строке!
-            if (Object.keys(cryptoRates).length === 0 || rate === 0) {
-                return; 
-            }
+    const tr = document.getElementById(trId);
+    if (!tr) return;
 
-            let cleanValue = String(cryptoValue).replace(',', '.');
-            const parsedValue = parseFloat(cleanValue);
-            
-            if (isNaN(parsedValue) || parsedValue <= 0) {
-                resultSpan.innerText = '0.00 ₽';
-                tr.setAttribute('data-rub-value', '0');
-            } else {
-              else {
-    const totalRub = parsedValue * (cryptoRates[cryptoType] || 0);
+    const cryptoType = tr.getAttribute('data-crypto') || 'DOGE';
+    const rateUSD = cryptoRatesUSD[cryptoType] || 0;
+    const rateRUB = cryptoRates[cryptoType] || 0;
+    const rate = currentCurrency === 'USD' ? rateUSD : rateRUB;
+    const resultSpan = tr.querySelector('.rub-result');
+
+    if (!resultSpan) return;
+
+    if (rate === 0 || rateRUB === 0) return;
+
+    const cleanValue = String(cryptoValue).replace(',', '.');
+    const parsedValue = parseFloat(cleanValue);
+
+    if (isNaN(parsedValue) || parsedValue <= 0) {
+        resultSpan.innerText = currentCurrency === 'USD' ? '0.00 $' : '0.00 ₽';
+        tr.setAttribute('data-rub-value', '0');
+        return;
+    }
+
+    const totalRub = parsedValue * rateRUB;
     const displayTotal = parsedValue * rate;
 
-    // Сортировка всегда использует рублёвую стоимость
+    // Сортировка всегда остаётся по стоимости в рублях
     tr.setAttribute('data-rub-value', totalRub.toString());
 
     const isMobile = window.matchMedia('(max-width: 600px)').matches;
-    const symbol = currentCurrency === 'USD' ? '$' : ' ₽';
+    const symbol = currentCurrency === 'USD' ? ' $' : ' ₽';
 
     resultSpan.innerText =
         (displayTotal < 0.01
             ? displayTotal.toFixed(isMobile ? 3 : 8)
             : displayTotal.toFixed(2)) + symbol;
-}
-                const isMobile = window.matchMedia('(max-width: 600px)').matches;
-resultSpan.innerText =
-    (totalRub < 0.01
-        ? totalRub.toFixed(isMobile ? 3 : 8)
-        : totalRub.toFixed(2)) + ' ₽';
-            }
-        }
-    }
+};
+
 
     // Пересчет всех инпутов на странице после обновления курсов
     function runLiveCalculations() {
