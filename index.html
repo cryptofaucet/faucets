@@ -1809,7 +1809,7 @@ topBox.setAttribute('data-current-best', currentBestMarker);
                         <strong style="font-size: 15px; color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">${faucetName}</strong> 
                          <span style="color: #2ecc71; font-weight: bold; margin-left: 5px; font-size: 14px;">${localStorage.getItem('siteCurrency') === 'USD'
     ? (Number(localStorage.getItem('usdToRub')) > 0
-        ? (highestPrice / Number(localStorage.getItem('usdToRub'))).toFixed(2) + ' $'
+        ? (highestPrice / Number(localStorage.getItem('usdToRub'))).toFixed(8) + ' $'
         : '—')
     : highestPrice.toFixed(2) + ' ₽'}</span>
                     </div>
