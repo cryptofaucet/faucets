@@ -1642,10 +1642,17 @@ if (window.isLocalModeEnabled?.() &&
         if (originalButton) {
             const currentBestMarker = `${faucetName}_${highestPrice.toFixed(4)}`;
             
-            if (topBox.getAttribute('data-current-best') === currentBestMarker) {
-                return; 
-            }
-            topBox.setAttribute('data-current-best', currentBestMarker);
+           if (topBox.getAttribute('data-current-best') === currentBestMarker) {
+    const heading = topBox.querySelector('span');
+    if (heading) {
+        heading.textContent =
+            '🔥 ' + (localStorage.getItem('siteLanguage') === 'en'
+                ? 'Best claim right now:'
+                : 'Выгодный сбор сейчас:');
+    }
+    return;
+}
+topBox.setAttribute('data-current-best', currentBestMarker);
 
             // Клонируем оригинальную кнопку
             const clonedButton = originalButton.cloneNode(true);
