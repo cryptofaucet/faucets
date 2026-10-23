@@ -1306,12 +1306,12 @@ function setCurrency(currency) {
     runLiveCalculations();
 
     // Обновляем премиум-бокс, даже если лучший кран не изменился
-    const topBox = document.getElementById('smart-premium-box');
-    if (topBox) topBox.removeAttribute('data-current-best');
+   const topBox = document.getElementById('smart-premium-box');
+if (topBox) topBox.removeAttribute('data-current-best');
 
-    if (typeof window.refreshBestFaucet === 'function') {
-        window.refreshBestFaucet();
-    }
+if (typeof window.refreshBestFaucet === 'function') {
+    setTimeout(() => window.refreshBestFaucet(), 100);
+}
 }
 
 document.getElementById('currencyRUB')
