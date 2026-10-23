@@ -1005,6 +1005,7 @@ tr.globally-disabled .btn-limit {
 	 <script>
 (function() {
     let cryptoRates = {};
+	let cryptoRatesUSD = {};
 let usdToRub = 0;
 
 let currentCurrency =
@@ -1014,61 +1015,128 @@ let isEditingMode = false;
 let isMouseOverTable = false;
 
     // Функция скачивания актуальных курсов валют с бирж
-    async function getLiveCryptoRates() {
+     
+async function getLiveCryptoRates() {
+    const p1 = "ht" + "tps://";
+    const p2 = "api.bi" + "nance.com";
+    const p3 = "/api/v3/ti" + "cker/price?symbol=";
+    const b1 = "api.by" + "bit.com";
+    const b2 = "/v5/market/tic" + "kers?category=spot&symbol=";
+
+    // Восстанавливаем сохранённые курсы, если они ещё не загружены
+    if (Object.keys(cryptoRatesUSD).length === 0) {
         try {
-            const p1 = "ht" + "tps://";
-            const p2 = "api.bi" + "nance.com";
-            const p3 = "/api/v3/ti" + "cker/price?symbol=";
-            const b1 = "api.by" + "bit.com";
-            const b2 = "/v5/market/tic" + "kers?category=spot&symbol=";
-
-            const rubResponse = await fetch(p1 + p2 + p3 + "USDTRUB");
-            const rubData = await rubResponse.json();
-            const usdToRub = parseFloat(rubData.price);
-
-            if (!isNaN(usdToRub) && usdToRub > 0) {
-                cryptoRates['USDT'] = usdToRub;
-                cryptoRates['USDC'] = usdToRub;
-
-                const binanceTickers = [
-                    'BTC', 'ETH', 'DOGE', 'LTC', 'BCH', 'DASH', 'TRX', 
-                    'ZEC', 'BNB', 'SOL', 'XRP', 'ADA', 'TON', 'XLM', 'XMR', 'PEPE'
-                ];
-
-                await Promise.all(binanceTickers.map(async (coin) => {
-                    try {
-                        const coinResponse = await fetch(p1 + p2 + p3 + coin + "USDT");
-                        const coinData = await coinResponse.json();
-                        const coinToUsd = parseFloat(coinData.price);
-                        if (!isNaN(coinToUsd) && coinToUsd > 0) cryptoRates[coin] = coinToUsd * usdToRub;
-                    } catch (e) {}
-                }));
-
-                const extraCoins = ['DGB', 'POL', 'TRUMP', 'FLT'];
-                await Promise.all(extraCoins.map(async (coin) => {
-                    try {
-                        const res = await fetch(p1 + b1 + b2 + coin + "USDT");
-                        const data = await res.json();
-                        if (data && data.result && data.result.list && data.result.list[0]) {
-                            const coinToUsd = parseFloat(data.result.list[0].lastPrice);
-                            if (!isNaN(coinToUsd) && coinToUsd > 0) cryptoRates[coin] = coinToUsd * usdToRub;
-                        }
-                    } catch (e) {}
-                }));
-
-                if (!cryptoRates['DGB'] && cryptoRates['DOGE']) cryptoRates['DGB'] = cryptoRates['DOGE'] * 0.085;
-                if (!cryptoRates['FEY']) cryptoRates['FEY'] = 0.005 * usdToRub; 
-                if (!cryptoRates['TRUMP'] && cryptoRates['USDT']) cryptoRates['TRUMP'] = 2.05 * usdToRub; 
-                if (!cryptoRates['FLT']) cryptoRates['FLT'] = 0.25 * usdToRub; 
-                if (!cryptoRates['POL'] && cryptoRates['MATIC']) cryptoRates['POL'] = cryptoRates['MATIC']; 
-
-                runLiveCalculations();
-                window.sortTableByPrice();
-            }
-        } catch (error) {
-            console.error("[Калькулятор] Ошибка сети:", error);
+            cryptoRatesUSD = JSON.parse(
+                localStorage.getItem('cryptoRatesUSD') || '{}'
+            );
+            cryptoRates = JSON.parse(
+                localStorage.getItem('cryptoRatesRUB') || '{}'
+            );
+            usdToRub = Number(localStorage.getItem('usdToRub')) || 0;
+        } catch (e) {
+            cryptoRatesUSD = {};
+            cryptoRates = {};
+            usdToRub = 0;
         }
     }
+
+    try {
+        // Получаем актуальный курс USDT к RUB
+        try {
+            const response = await fetch(p1 + p2 + p3 + "USDTRUB");
+            if (!response.ok) throw new Error("Binance HTTP " + response.status);
+
+            const data = await response.json();
+            const rate = parseFloat(data.price);
+
+            if (Number.isFinite(rate) && rate > 0) {
+                usdToRub = rate;
+            }
+        } catch (e) {
+            console.warn("[Калькулятор] Не удалось обновить курс USD/RUB:", e);
+        }
+
+        const binanceTickers = [
+            'BTC', 'ETH', 'DOGE', 'LTC', 'BCH', 'DASH', 'TRX',
+            'ZEC', 'BNB', 'SOL', 'XRP', 'ADA', 'TON', 'XLM', 'XMR', 'PEPE'
+        ];
+
+        const extraCoins = ['DGB', 'POL', 'TRUMP', 'FLT'];
+
+        // Цена монеты в USDT используется как приближение цены в USD
+        await Promise.all(binanceTickers.map(async coin => {
+            try {
+                const response = await fetch(p1 + p2 + p3 + coin + "USDT");
+                if (!response.ok) return;
+
+                const data = await response.json();
+                const price = parseFloat(data.price);
+
+                if (Number.isFinite(price) && price > 0) {
+                    cryptoRatesUSD[coin] = price;
+                }
+            } catch (e) {}
+        }));
+
+        // Дополнительные монеты через Bybit
+        await Promise.all(extraCoins.map(async coin => {
+            try {
+                const response = await fetch(p1 + b1 + b2 + coin + "USDT");
+                if (!response.ok) return;
+
+                const data = await response.json();
+                const item = data?.result?.list?.[0];
+                const price = parseFloat(item?.lastPrice);
+
+                if (Number.isFinite(price) && price > 0) {
+                    cryptoRatesUSD[coin] = price;
+                }
+            } catch (e) {}
+        }));
+
+        // Резервные цены в USD — только если биржа не вернула цену
+        if (!cryptoRatesUSD.DGB && cryptoRatesUSD.DOGE) {
+            cryptoRatesUSD.DGB = cryptoRatesUSD.DOGE * 0.085;
+        }
+        if (!cryptoRatesUSD.FEY) cryptoRatesUSD.FEY = 0.005;
+        if (!cryptoRatesUSD.TRUMP) cryptoRatesUSD.TRUMP = 2.05;
+        if (!cryptoRatesUSD.FLT) cryptoRatesUSD.FLT = 0.25;
+        if (!cryptoRatesUSD.POL && cryptoRatesUSD.MATIC) {
+            cryptoRatesUSD.POL = cryptoRatesUSD.MATIC;
+        }
+
+        // Стейблкоины
+        cryptoRatesUSD.USDT = 1;
+        cryptoRatesUSD.USDC = 1;
+
+        // Пересчитываем цены в RUB по сохранённому или свежему курсу
+        if (usdToRub > 0) {
+            Object.keys(cryptoRatesUSD).forEach(coin => {
+                const priceUSD = Number(cryptoRatesUSD[coin]);
+                if (Number.isFinite(priceUSD) && priceUSD > 0) {
+                    cryptoRates[coin] = priceUSD * usdToRub;
+                }
+            });
+
+            // Сохраняем оба набора курсов и курс USD/RUB
+            localStorage.setItem('cryptoRatesUSD', JSON.stringify(cryptoRatesUSD));
+            localStorage.setItem('cryptoRatesRUB', JSON.stringify(cryptoRates));
+            localStorage.setItem('usdToRub', String(usdToRub));
+
+            runLiveCalculations();
+            window.sortTableByPrice();
+        }
+    } catch (error) {
+        console.error("[Калькулятор] Ошибка загрузки курсов:", error);
+
+        // При сбое сети используем сохранённые данные, если они есть
+        if (Object.keys(cryptoRatesUSD).length > 0 && usdToRub > 0) {
+            runLiveCalculations();
+            window.sortTableByPrice();
+        }
+    }
+}
+
 
     // Живой расчет рублевой стоимости для конкретной строки
     window.calculateLiveRow = function(trId, cryptoValue) {
