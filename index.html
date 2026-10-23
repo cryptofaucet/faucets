@@ -196,6 +196,22 @@ tr.globally-disabled .btn-limit {
     border-color: #28a745;
 }
  
+.apk-download {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.apk-download:hover {
+    background: #218838;
+}
+
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
 	 .header-row {
@@ -437,19 +453,28 @@ tr.globally-disabled .btn-limit {
 }
 	</style>
 </head>
+ 
 <body>
 
-     <div class="header-row">
+<div class="header-row">
     <h1>CryptoFaucet Hub</h1>
-		 <div class="currency-switch">
-    <button type="button" id="currencyRUB" class="active">RUB</button>
-    <button type="button" id="currencyUSD">USD</button>
-</div>
+
+    <a href="https://github.com/cryptofaucet/faucets/releases/download/v1.0.0/crypto_faucet.apk"
+       class="apk-download">
+        📱 Скачать APK
+    </a>
+
+    <div class="currency-switch">
+        <button type="button" id="currencyRUB" class="active">RUB</button>
+        <button type="button" id="currencyUSD">USD</button>
+    </div>
+
     <div class="language-switch">
         <button type="button" id="langRU" class="active">RU</button>
         <button type="button" id="langEN">EN</button>
     </div>
 </div>
+
     <p class="subtitle">Интеллектуальный ротатор кранов с автоматическим контролем времени сбора</p>
 <!-- ОБЩАЯ СТРОКА ДЛЯ ДВУХ КОНТЕЙНЕРОВ -->
  <div class="promo-row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1200px; margin-bottom: 20px; box-sizing: border-box;">
