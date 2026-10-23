@@ -2317,12 +2317,18 @@ window.updateModeButtonsLanguage = updateModeButtons;
             }
 
             if (isMobile) {
-                block.classList.add('mobile-collapsible', 'collapsed');
-                title.setAttribute('aria-expanded', 'false');
-            } else {
-                block.classList.remove('mobile-collapsible', 'collapsed');
-                title.removeAttribute('aria-expanded');
-            }
+    block.classList.add('mobile-collapsible');
+
+    // Сворачиваем только при первоначальной настройке блока.
+    if (!block.dataset.collapseInitialized) {
+        block.classList.add('collapsed');
+        title.setAttribute('aria-expanded', 'false');
+        block.dataset.collapseInitialized = '1';
+    }
+} else {
+    block.classList.remove('mobile-collapsible', 'collapsed');
+    title.removeAttribute('aria-expanded');
+}
         });
     }
 
