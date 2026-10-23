@@ -1144,7 +1144,9 @@ async function getLiveCryptoRates() {
         const tr = document.getElementById(trId);
         if (!tr) return;
         const cryptoType = tr.getAttribute('data-crypto') || 'DOGE';
-        const rate = cryptoRates[cryptoType] || 0;
+         const rate = currentCurrency === 'USD'
+    ? (cryptoRatesUSD[cryptoType] || 0)
+    : (cryptoRates[cryptoType] || 0);
         const resultSpan = tr.querySelector('.rub-result');
 
         if (resultSpan) {
@@ -1161,8 +1163,21 @@ async function getLiveCryptoRates() {
                 resultSpan.innerText = '0.00 ₽';
                 tr.setAttribute('data-rub-value', '0');
             } else {
-                const totalRub = parsedValue * rate;
-                tr.setAttribute('data-rub-value', totalRub.toString());
+              else {
+    const totalRub = parsedValue * (cryptoRates[cryptoType] || 0);
+    const displayTotal = parsedValue * rate;
+
+    // Сортировка всегда использует рублёвую стоимость
+    tr.setAttribute('data-rub-value', totalRub.toString());
+
+    const isMobile = window.matchMedia('(max-width: 600px)').matches;
+    const symbol = currentCurrency === 'USD' ? '$' : ' ₽';
+
+    resultSpan.innerText =
+        (displayTotal < 0.01
+            ? displayTotal.toFixed(isMobile ? 3 : 8)
+            : displayTotal.toFixed(2)) + symbol;
+}
                 const isMobile = window.matchMedia('(max-width: 600px)').matches;
 resultSpan.innerText =
     (totalRub < 0.01
@@ -1281,6 +1296,37 @@ resultSpan.innerText =
         }
         setInterval(window.sortTableByPrice, 1000);
     });
+	function updateCurrencyButtons() {
+    document.getElementById('currencyRUB')
+        ?.classList.toggle('active', currentCurrency === 'RUB');
+
+    document.getElementById('currencyUSD')
+        ?.classList.toggle('active', currentCurrency === 'USD');
+}
+
+function setCurrency(currency) {
+    currentCurrency = currency;
+    localStorage.setItem('siteCurrency', currency);
+
+    updateCurrencyButtons();
+    runLiveCalculations();
+
+    // Обновляем премиум-бокс, даже если лучший кран не изменился
+    const topBox = document.getElementById('smart-premium-box');
+    if (topBox) topBox.removeAttribute('data-current-best');
+
+    if (typeof window.refreshBestFaucet === 'function') {
+        window.refreshBestFaucet();
+    }
+}
+
+document.getElementById('currencyRUB')
+    ?.addEventListener('click', () => setCurrency('RUB'));
+
+document.getElementById('currencyUSD')
+    ?.addEventListener('click', () => setCurrency('USD'));
+
+updateCurrencyButtons();
 })();
 </script>
 
