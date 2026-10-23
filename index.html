@@ -2245,7 +2245,14 @@ window.updateModeButtonsLanguage = updateModeButtons;
 
     function translatePage(lang) {
         document.querySelectorAll("body *").forEach(function (el) {
-            if (el.children.length !== 0) return;
+    if (el.children.length !== 0) return;
+
+    // Не трогаем динамические значения калькулятора
+    if (
+        el.classList.contains('rub-result') ||
+        el.classList.contains('crypto-input') ||
+        el.classList.contains('time-input')
+    ) return;
 
             const original = originalTexts.get(el) || el.textContent.trim();
             if (!originalTexts.has(el)) originalTexts.set(el, original);
