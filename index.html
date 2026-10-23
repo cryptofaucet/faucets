@@ -984,8 +984,13 @@ tr.globally-disabled .btn-limit {
 	 <script>
 (function() {
     let cryptoRates = {};
-    let isEditingMode = false;
-    let isMouseOverTable = false; 
+let usdToRub = 0;
+
+let currentCurrency =
+    localStorage.getItem('siteCurrency') === 'USD' ? 'USD' : 'RUB';
+
+let isEditingMode = false;
+let isMouseOverTable = false;
 
     // Функция скачивания актуальных курсов валют с бирж
     async function getLiveCryptoRates() {
