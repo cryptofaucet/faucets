@@ -199,20 +199,20 @@ async function loadFees() {
         return null;
       }
 
-      const coinCell = row.querySelector('td');
+   const coinCell = row.querySelector('td');
 
-      let name = cells[0];
-      let ticker = '';
+const name = coinCell?.querySelector('.text-\\[13px\\]')?.textContent.trim() || '';
+const ticker = coinCell?.querySelector('.mono')?.textContent.trim() || '';
 
-      if (coinCell) {
-        const elements = [
-          ...coinCell.querySelectorAll('*')
-        ];
-
-        // Ищем короткий элемент с тикером.
-        const tickerElement = elements.find(el => {
-          if (el.children.length !== 0) {
-            return false;
+return {
+  name,
+  ticker,
+  network: cells[1],
+  normalFee: cells[2],
+  normalMin: cells[3],
+  priorityFee: cells[4],
+  priorityMin: cells[5]
+};
           }
 
           const value = cleanText(el.textContent);
