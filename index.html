@@ -214,6 +214,28 @@ tr.globally-disabled .btn-limit {
     opacity: 0.8;
 }
  
+/* Подсказка перед кнопкой лимитов */
+.limits-text {
+    margin: 8px 0 !important;
+    color: #8a99ad;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Кнопка лимитов в стиле CryptoFaucet Hub */
+#limitsBtn {
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Эффект при наведении */
+#limitsBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,255,204,0.35);
+}
+
 
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
@@ -521,7 +543,12 @@ tr.globally-disabled .btn-limit {
     <span><b>Глобал</b> — общие настройки, заданные администратором.</span>
     <span class="mode-info-note">Оба режима можно включить одновременно.</span>
 </div>
-	<button type="button" id="limitsBtn">Лимиты FaucetPay</button>
+<p id="limitsText" class="limits-text">
+    Минимальную сумму вывода и комиссии FaucetPay смотрите здесь:
+</p>
+	 <button type="button" id="limitsBtn" class="btn-ref faucet-link">
+    Лимиты FaucetPay
+</button>
 	<script>
 document.getElementById('limitsBtn').addEventListener('click', function () {
     const isEnglish = document.getElementById('langEN').classList.contains('active');
