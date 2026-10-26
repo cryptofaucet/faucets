@@ -2186,45 +2186,56 @@ function moveGloballyDisabledFaucets() {
         }
     }
 
-    function applyGlobalMode() {
-        document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
-            const name = getFaucetName(row);
-const defaults = defaultSettings.get(row.id) || {};
+    
+function applyGlobalMode() {
+    document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+        const name = getFaucetName(row);
+        const defaults = defaultSettings.get(row.id) || {};
 
-const adminDisabled =
-    disabledFaucets.has(normalize(row.id)) ||
-    disabledFaucets.has(normalize(name)) ||
-    disabledFaucets.has(normalize(defaults.name));
+        const adminDisabled =
+            disabledFaucets.has(normalize(row.id)) ||
+            disabledFaucets.has(normalize(name)) ||
+            disabledFaucets.has(normalize(defaults.name));
 
-const disabled = globalMode && adminDisabled;
+        const disabled = globalMode && adminDisabled;
+        row.classList.toggle('globally-disabled', disabled);
 
-row.classList.toggle('globally-disabled', disabled);
+        const cell = row.querySelector('.timer-cell');
 
-const cell = row.querySelector('.timer-cell');
+        if (cell && adminDisabled) {
+            if (disabled) {
+                const en = localStorage.getItem('siteLanguage') === 'en';
+                cell.textContent = en ? 'Global off.' : 'Глобал выкл.';
+                cell.className = 'timer-cell';
+            } else {
+                const isLocalLimit =
+                    localMode &&
+                    localStorage.getItem(row.id + '_limit') === 'true';
+                const en = localStorage.getItem('siteLanguage') === 'en';
 
-if (cell && adminDisabled) {
-    if (disabled) {
-        const en = localStorage.getItem('siteLanguage') === 'en';
-        cell.textContent = en ? 'Global off.' : 'Глобал выкл.';
-        cell.className = 'timer-cell';
-    } else {
-        const isLocalLimit =
-            localMode &&
-            localStorage.getItem(row.id + '_limit') === 'true';
+                cell.textContent = isLocalLimit
+                    ? (en ? 'Limit empty' : 'Лимит пуст')
+                    : (en ? 'Ready' : 'Готов');
 
-        const en = localStorage.getItem('siteLanguage') === 'en';
+                cell.className = isLocalLimit
+                    ? 'timer-cell'
+                    : 'timer-cell ready';
+            }
+        }
+    });
 
-        cell.textContent = isLocalLimit
-            ? (en ? 'Limit empty' : 'Лимит пуст')
-            : (en ? 'Ready' : 'Готов');
+    moveGloballyDisabledFaucets();
+    updateModeButtons();
 
-        cell.className = isLocalLimit
-            ? 'timer-cell'
-            : 'timer-cell ready';
+    if (typeof window.sortTableByPrice === 'function') {
+        window.sortTableByPrice(true);
+    }
+
+    if (typeof window.refreshBestFaucet === 'function') {
+        window.refreshBestFaucet();
     }
 }
-        });
-		        moveGloballyDisabledFaucets();
+
 
         updateModeButtons();
 
