@@ -14,7 +14,7 @@
     "BitEarnix",
     "247faucet"
   ],
-  "last_updated": "2026-10-26T23:25:05.526Z",
+  "last_updated": "2026-10-26T23:28:25.235Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -107,10 +107,10 @@
     "12": {
       "name": "Blockxs",
       "url": "https://faucet.blockxs.com/?r=7vgkuypp",
-      "reward": "0.000025",
+      "reward": "0.000006",
       "coin": "SOL",
-      "minutes": 60,
-      "_updated_at": "2026-10-21T00:46:30.871Z"
+      "minutes": 15,
+      "_updated_at": "2026-10-26T23:28:25.235Z"
     },
     "13": {
       "name": "ExtraFaucets",
