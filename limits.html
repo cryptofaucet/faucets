@@ -138,18 +138,44 @@ async function loadFees() {
       throw new Error('Таблица комиссий не найдена');
     }
 
-    const data = rows.slice(1).map(row => {
-      const cells = [...row.querySelectorAll('th, td')]
-        .map(cell => cleanText(cell.innerText));
+     
+const data = rows.slice(1).map(row => {
+  const cells = [...row.querySelectorAll('th, td')]
+    .map(cell => cleanText(cell.innerText));
 
-      if (cells.length < 6) return null;
+  if (cells.length < 6) return null;
 
-      const coinCell = row.querySelector('td');
-      const parts = coinCell
-        ? [...coinCell.querySelectorAll('*')]
-            .map(el => cleanText(el.innerText))
-            .filter(Boolean)
-        : [];
+  const coinCell = row.querySelector('td');
+  let name = cells[0];
+  let ticker = '';
+
+  if (coinCell) {
+    const elements = [...coinCell.querySelectorAll('*')];
+
+    const tickerElement = elements.find(el =>
+      el.children.length === 0 &&
+      /^[a-z0-9]{2,12}$/i.test(cleanText(el.innerText))
+    );
+
+    if (tickerElement) {
+      ticker = cleanText(tickerElement.innerText);
+      name = cleanText(coinCell.innerText)
+        .replace(new RegExp(ticker + '$', 'i'), '')
+        .trim();
+    }
+  }
+
+  return {
+    name,
+    ticker,
+    network: cells[1],
+    normalFee: cells[2],
+    normalMin: cells[3],
+    priorityFee: cells[4],
+    priorityMin: cells[5]
+  };
+}).filter(Boolean);
+
 
       // Название и тикер в исходной таблице могут находиться
       // внутри одной ячейки. Пока сохраняем их как отображаемый текст.
