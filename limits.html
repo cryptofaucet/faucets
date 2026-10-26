@@ -153,9 +153,9 @@ tr:last-child td {
 
 </div>
 
+ 
 <script>
-const FEES_URL =
-  'https://proxy.cors.dev/https://faucetpay.io/fees';
+const FEES_URL = 'https://proxy.cors.dev/https://faucetpay.io/fees';
 
 const statusEl = document.getElementById('status');
 const bodyEl = document.getElementById('feesBody');
@@ -170,69 +170,44 @@ async function loadFees() {
   statusEl.textContent = 'Получаем данные с FaucetPay...';
 
   try {
-    const response = await fetch(FEES_URL, {
-      cache: 'no-store'
-    });
+    const response = await fetch(FEES_URL, { cache: 'no-store' });
 
     if (!response.ok) {
       throw new Error('HTTP ' + response.status);
     }
 
     const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const rows = [...doc.querySelectorAll('table tbody tr')];
 
-    const doc = new DOMParser().parseFromString(
-      html,
-      'text/html'
-    );
-
-    const rows = [...doc.querySelectorAll('table tr')];
-
-    if (rows.length < 2) {
+    if (!rows.length) {
       throw new Error('Таблица комиссий не найдена');
     }
 
-    const data = rows.slice(1).map(row => {
+    const data = rows.map(row => {
       const cells = [...row.querySelectorAll('th, td')]
-        .map(cell => cleanText(cell.innerText));
+        .map(cell => cleanText(cell.innerText || cell.textContent));
 
-      if (cells.length < 6) {
-        return null;
-      }
+      if (cells.length < 6) return null;
 
-   const coinCell = row.querySelector('td');
+      const coinCell = row.querySelector('td');
+      const innerDivs = coinCell
+        ? coinCell.querySelectorAll(':scope > div > div')
+        : [];
 
-const name = coinCell?.querySelector('.text-\\[13px\\]')?.textContent.trim() || '';
-const ticker = coinCell?.querySelector('.mono')?.textContent.trim() || '';
+      const name = cleanText(innerDivs[0]?.textContent);
+      const ticker = cleanText(innerDivs[1]?.textContent);
 
-return {
-  name,
-  ticker,
-  network: cells[1],
-  normalFee: cells[2],
-  normalMin: cells[3],
-  priorityFee: cells[4],
-  priorityMin: cells[5]
-};
-          }
-
-          const value = cleanText(el.textContent);
-
-          return /^[a-z0-9]{2,12}$/i.test(value);
-        });
-
-        if (tickerElement) {
-          ticker = cleanText(tickerElement.textContent);
-
-          name = cleanText(coinCell.innerText)
-            .replace(
-              new RegExp(
-                ticker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$',
-                'i'
-              ),
-              ''
-            )
-            .trim();
-        }
+      if (!name || !ticker) {
+        return {
+          name: cells[0],
+          ticker: '',
+          network: cells[1],
+          normalFee: cells[2],
+          normalMin: cells[3],
+          priorityFee: cells[4],
+          priorityMin: cells[5]
+        };
       }
 
       return {
@@ -250,13 +225,10 @@ return {
       throw new Error('Не удалось прочитать строки таблицы');
     }
 
-    // Формируем новую таблицу отдельно.
-    // При ошибке загрузки прежние данные не исчезнут.
     const fragment = document.createDocumentFragment();
 
     data.forEach(item => {
       const tr = document.createElement('tr');
-
       const values = [
         item.name,
         item.ticker.toUpperCase(),
@@ -269,20 +241,11 @@ return {
 
       values.forEach((value, index) => {
         const td = document.createElement('td');
-
         td.textContent = value;
 
-        if (index === 0) {
-          td.className = 'coin-name';
-        }
-
-        if (index === 1) {
-          td.className = 'ticker';
-        }
-
-        if (index >= 3) {
-          td.classList.add('num');
-        }
+        if (index === 0) td.className = 'coin-name';
+        if (index === 1) td.className = 'ticker';
+        if (index >= 3) td.classList.add('num');
 
         tr.appendChild(td);
       });
@@ -291,27 +254,23 @@ return {
     });
 
     bodyEl.replaceChildren(fragment);
-
     statusEl.textContent =
       'Загружено монет: ' + data.length +
-      '. Обновлено: ' +
-      new Date().toLocaleString('ru-RU');
+      '. Обновлено: ' + new Date().toLocaleString('ru-RU');
 
   } catch (error) {
     console.error('Ошибка загрузки FaucetPay:', error);
-
     statusEl.textContent =
       'Ошибка загрузки: ' + error.message +
       '. Нажми «Обновить данные» и попробуй ещё раз.';
-
   } finally {
     refreshBtn.disabled = false;
   }
 }
 
 refreshBtn.addEventListener('click', loadFees);
-
 loadFees();
 </script>
+
 </body>
 </html>
