@@ -195,7 +195,24 @@ tr.globally-disabled .btn-limit {
     background: #28a745;
     border-color: #28a745;
 }
- 
+ .mode-info {
+    text-align: center;
+    padding: 10px 12px;
+    margin: 8px 0 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.mode-info span {
+    margin-left: 10px;
+}
+
+.mode-info-note {
+    display: block;
+    font-size: 12px;
+    opacity: 0.8;
+}
  
 
 /* Адаптация сайта для телефонов */
@@ -419,7 +436,7 @@ tr.globally-disabled .btn-limit {
         font-size: 11px;
         margin: 5px 0 10px;
     }
-}
+
 		 /* Скрываем нижние боксы */
 		.tables-container .table-block.collapsed table {
     display: none;
@@ -436,6 +453,17 @@ tr.globally-disabled .btn-limit {
 
 .tables-container .table-block:not(.collapsed) .table-title::after {
     content: " −";
+}
+		   .mode-info {
+        padding: 8px 5px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .mode-info span {
+        display: block;
+        margin-left: 0;
+    }
 }
 	</style>
 </head>
@@ -484,6 +512,14 @@ tr.globally-disabled .btn-limit {
 </div>
 
 </div> <!-- ЗДЕСЬ СТРОКА ЗАКРЫВАЕТСЯ, И ДАЛЬШЕ ПОД НЕЙ ИДУТ ТАБЛИЦЫ КРАНОВ -->
+
+	<!-- Пояснение режимов -->
+<div class="mode-info">
+    <strong>Режимы работы:</strong>
+    <span><b>Локал</b> — личные настройки кранов на твоём устройстве.</span>
+    <span><b>Глобал</b> — общие настройки, заданные администратором.</span>
+    <span class="mode-info-note">Оба режима можно включить одновременно.</span>
+</div>
 
     <div class="tables-container">
         <!-- ЛЕВАЯ ПАНЕЛЬ -->
