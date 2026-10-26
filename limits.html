@@ -1,12 +1,15 @@
-
+ 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Лимиты FaucetPay — CryptoFaucet Hub</title>
+
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -21,7 +24,9 @@ body {
   margin: auto;
 }
 
-h1 { font-size: 26px; }
+h1 {
+  font-size: 26px;
+}
 
 .info {
   color: #aab6cc;
@@ -35,6 +40,11 @@ button {
   background: #3678f5;
   color: white;
   cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 .status {
@@ -52,7 +62,7 @@ button {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 700px;
+  min-width: 800px;
   background: #171f30;
 }
 
@@ -68,32 +78,63 @@ th {
   color: #9fc1ff;
 }
 
-tr:last-child td { border-bottom: 0; }
+tr:last-child td {
+  border-bottom: 0;
+}
 
-.num { font-family: Consolas, monospace; }
+.num {
+  font-family: Consolas, monospace;
+}
+
+.coin-name {
+  font-weight: bold;
+}
+
+.ticker {
+  color: #9fc1ff;
+  font-weight: bold;
+}
 
 @media (max-width: 600px) {
-  body { padding: 12px; }
-  h1 { font-size: 22px; }
-  th, td { padding: 10px 8px; }
+  body {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  th, td {
+    padding: 10px 8px;
+  }
 }
 </style>
 </head>
+
 <body>
 <div class="container">
+
   <h1>Лимиты и комиссии FaucetPay</h1>
+
   <p class="info">
-    Данные публичной страницы FaucetPay. Вход в аккаунт не требуется.
+    Данные публичной страницы FaucetPay.
+    Вход в аккаунт не требуется.
   </p>
 
-  <button id="refreshBtn" type="button">Обновить данные</button>
-  <div class="status" id="status">Загрузка данных...</div>
+  <button id="refreshBtn" type="button">
+    Обновить данные
+  </button>
+
+  <div class="status" id="status">
+    Загрузка данных...
+  </div>
 
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
           <th>Монета</th>
+          <th>Тикер</th>
           <th>Сеть</th>
           <th>Обычная комиссия</th>
           <th>Мин. вывод</th>
@@ -101,22 +142,27 @@ tr:last-child td { border-bottom: 0; }
           <th>Мин. вывод</th>
         </tr>
       </thead>
+
       <tbody id="feesBody">
-        <tr><td colspan="6">Ожидание данных...</td></tr>
+        <tr>
+          <td colspan="7">Ожидание данных...</td>
+        </tr>
       </tbody>
     </table>
   </div>
+
 </div>
 
 <script>
- const FEES_URL = 'https://proxy.cors.dev/https://faucetpay.io/fees';
+const FEES_URL =
+  'https://proxy.cors.dev/https://faucetpay.io/fees';
 
 const statusEl = document.getElementById('status');
 const bodyEl = document.getElementById('feesBody');
 const refreshBtn = document.getElementById('refreshBtn');
 
 function cleanText(value) {
-  return value.replace(/\s+/g, ' ').trim();
+  return (value || '').replace(/\s+/g, ' ').trim();
 }
 
 async function loadFees() {
@@ -124,63 +170,74 @@ async function loadFees() {
   statusEl.textContent = 'Получаем данные с FaucetPay...';
 
   try {
-    const response = await fetch(FEES_URL, { cache: 'no-store' });
+    const response = await fetch(FEES_URL, {
+      cache: 'no-store'
+    });
 
     if (!response.ok) {
-      throw new Error('FaucetPay вернул HTTP ' + response.status);
+      throw new Error('HTTP ' + response.status);
     }
 
     const html = await response.text();
-    const doc = new DOMParser().parseFromString(html, 'text/html');
+
+    const doc = new DOMParser().parseFromString(
+      html,
+      'text/html'
+    );
+
     const rows = [...doc.querySelectorAll('table tr')];
 
     if (rows.length < 2) {
       throw new Error('Таблица комиссий не найдена');
     }
 
-     
-const data = rows.slice(1).map(row => {
-  const cells = [...row.querySelectorAll('th, td')]
-    .map(cell => cleanText(cell.innerText));
+    const data = rows.slice(1).map(row => {
+      const cells = [...row.querySelectorAll('th, td')]
+        .map(cell => cleanText(cell.innerText));
 
-  if (cells.length < 6) return null;
+      if (cells.length < 6) {
+        return null;
+      }
 
-  const coinCell = row.querySelector('td');
-  let name = cells[0];
-  let ticker = '';
+      const coinCell = row.querySelector('td');
 
-  if (coinCell) {
-    const elements = [...coinCell.querySelectorAll('*')];
+      let name = cells[0];
+      let ticker = '';
 
-    const tickerElement = elements.find(el =>
-      el.children.length === 0 &&
-      /^[a-z0-9]{2,12}$/i.test(cleanText(el.innerText))
-    );
+      if (coinCell) {
+        const elements = [
+          ...coinCell.querySelectorAll('*')
+        ];
 
-    if (tickerElement) {
-      ticker = cleanText(tickerElement.innerText);
-      name = cleanText(coinCell.innerText)
-        .replace(new RegExp(ticker + '$', 'i'), '')
-        .trim();
-    }
-  }
+        // Ищем короткий элемент с тикером.
+        const tickerElement = elements.find(el => {
+          if (el.children.length !== 0) {
+            return false;
+          }
 
-  return {
-    name,
-    ticker,
-    network: cells[1],
-    normalFee: cells[2],
-    normalMin: cells[3],
-    priorityFee: cells[4],
-    priorityMin: cells[5]
-  };
-}).filter(Boolean);
+          const value = cleanText(el.textContent);
 
+          return /^[a-z0-9]{2,12}$/i.test(value);
+        });
 
-      // Название и тикер в исходной таблице могут находиться
-      // внутри одной ячейки. Пока сохраняем их как отображаемый текст.
+        if (tickerElement) {
+          ticker = cleanText(tickerElement.textContent);
+
+          name = cleanText(coinCell.innerText)
+            .replace(
+              new RegExp(
+                ticker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$',
+                'i'
+              ),
+              ''
+            )
+            .trim();
+        }
+      }
+
       return {
-        name: cells[0],
+        name,
+        ticker,
         network: cells[1],
         normalFee: cells[2],
         normalMin: cells[3],
@@ -193,51 +250,67 @@ const data = rows.slice(1).map(row => {
       throw new Error('Не удалось прочитать строки таблицы');
     }
 
-    bodyEl.replaceChildren();
+    // Формируем новую таблицу отдельно.
+    // При ошибке загрузки прежние данные не исчезнут.
+    const fragment = document.createDocumentFragment();
 
     data.forEach(item => {
       const tr = document.createElement('tr');
 
-      [
+      const values = [
         item.name,
+        item.ticker.toUpperCase(),
         item.network,
         item.normalFee,
         item.normalMin,
         item.priorityFee,
         item.priorityMin
-      ].forEach((value, index) => {
+      ];
+
+      values.forEach((value, index) => {
         const td = document.createElement('td');
+
         td.textContent = value;
-        if (index >= 2) td.className = 'num';
+
+        if (index === 0) {
+          td.className = 'coin-name';
+        }
+
+        if (index === 1) {
+          td.className = 'ticker';
+        }
+
+        if (index >= 3) {
+          td.classList.add('num');
+        }
+
         tr.appendChild(td);
       });
 
-      bodyEl.appendChild(tr);
+      fragment.appendChild(tr);
     });
+
+    bodyEl.replaceChildren(fragment);
 
     statusEl.textContent =
       'Загружено монет: ' + data.length +
-      '. Обновлено: ' + new Date().toLocaleString('ru-RU');
+      '. Обновлено: ' +
+      new Date().toLocaleString('ru-RU');
 
   } catch (error) {
-    bodyEl.replaceChildren();
-
-    const tr = document.createElement('tr');
-    const td = document.createElement('td');
-    td.colSpan = 6;
-    td.textContent = 'Не удалось загрузить данные напрямую.';
-    tr.appendChild(td);
-    bodyEl.appendChild(tr);
+    console.error('Ошибка загрузки FaucetPay:', error);
 
     statusEl.textContent =
-      'Ошибка: ' + error.message +
-      '. Возможно, браузер блокирует запрос из-за CORS.';
+      'Ошибка загрузки: ' + error.message +
+      '. Нажми «Обновить данные» и попробуй ещё раз.';
+
   } finally {
     refreshBtn.disabled = false;
   }
 }
 
 refreshBtn.addEventListener('click', loadFees);
+
 loadFees();
 </script>
 </body>
