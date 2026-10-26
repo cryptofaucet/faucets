@@ -12,9 +12,10 @@
     "Coinearnhub",
     "Prairiehash",
     "BitEarnix",
-    "247faucet"
+    "247faucet",
+    "Tfaucet"
   ],
-  "last_updated": "2026-10-26T23:28:25.235Z",
+  "last_updated": "2026-10-26T23:30:50.792Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
