@@ -191,12 +191,11 @@ async function loadFees() {
       if (cells.length < 6) return null;
 
       const coinCell = row.querySelector('td');
-      const innerDivs = coinCell
-        ? coinCell.querySelectorAll(':scope > div > div')
-        : [];
+const coinInfo = coinCell?.querySelector('img[alt]')?.nextElementSibling;
+const infoDivs = coinInfo?.children;
 
-      const name = cleanText(innerDivs[0]?.textContent);
-      const ticker = cleanText(innerDivs[1]?.textContent);
+const name = cleanText(infoDivs?.[0]?.textContent);
+const ticker = cleanText(coinCell?.querySelector('img[alt]')?.alt);
 
       if (!name || !ticker) {
         return {
