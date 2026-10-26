@@ -1649,7 +1649,14 @@ if (window.isLocalModeEnabled?.() &&
 // Глобальная функция перемещения кранов (теперь строго 2 направления)
 window.moveFaucetColumn = function(rowId, targetSide) {
     const row = document.getElementById(rowId); if (!row) return;
-    const targetContainer = document.querySelector(targetSide === 'left' ? '.left-faucets' : '.right-faucets');
+     // Глобально отключённый кран всегда остаётся справа.
+if (window.isFaucetGloballyDisabled?.(row)) {
+    targetSide = 'right';
+}
+
+const targetContainer = document.querySelector(
+    targetSide === 'left' ? '.left-faucets' : '.right-faucets'
+);
     if (targetContainer) { 
         targetContainer.appendChild(row); 
         localStorage.setItem('position_' + rowId, targetSide); 
@@ -2044,6 +2051,49 @@ setInterval(findAndDisplayBestFaucet, 20000);
     window.isGlobalModeEnabled = function () {
         return globalMode;
     };
+	// Перемещаем глобально отключённые краны в правый бокс.
+function moveGloballyDisabledFaucets() {
+    const left = document.querySelector('.left-faucets');
+    const right = document.querySelector('.right-faucets');
+
+    if (!left || !right) return;
+
+    document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
+        const defaults = defaultSettings.get(row.id) || {};
+
+        const adminDisabled =
+            disabledFaucets.has(normalize(row.id)) ||
+            disabledFaucets.has(normalize(getFaucetName(row))) ||
+            disabledFaucets.has(normalize(defaults.name));
+
+        const marker = 'global_moved_' + row.id;
+        const isDisabled = globalMode && adminDisabled;
+
+        if (isDisabled) {
+            // Помечаем, что положение изменено глобальным режимом.
+            localStorage.setItem(marker, 'true');
+
+            if (row.parentElement !== right) {
+                right.appendChild(row);
+            }
+
+            localStorage.setItem('position_' + row.id, 'right');
+
+        } else if (localStorage.getItem(marker) === 'true') {
+            // Кран включили обратно — возвращаем в основной бокс.
+            if (row.parentElement !== left) {
+                left.appendChild(row);
+            }
+
+            localStorage.setItem('position_' + row.id, 'left');
+            localStorage.removeItem(marker);
+        }
+    });
+
+    if (typeof window.refreshAllArrows === 'function') {
+        window.refreshAllArrows();
+    }
+}
 
     // Загружаем status.json один раз при открытии страницы.
     async function loadGlobalStatus() {
@@ -2174,6 +2224,11 @@ if (cell && adminDisabled) {
     }
 }
         });
+		        moveGloballyDisabledFaucets();
+
+        updateModeButtons();
+
+        if (typeof window.sortTableByPrice === 'function') {
 
         updateModeButtons();
 
