@@ -494,6 +494,18 @@ tr.globally-disabled .btn-limit {
     <p style="margin: 0; font-size: 14px; font-weight: bold;">Для выплаты с кранов зарегистрируйте единый аккаунт:</p>
     <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; width: 100%;">
         <a href="https://faucetpay.io/r/9047046" target="_blank" class="btn-ref faucet-link">Открыть аккаунт FaucetPay</a>
+		<button onclick="openLimits()">Лимиты FaucetPay</button>
+
+<script>
+function openLimits() {
+  const lang = navigator.language.toLowerCase();
+  const page = lang.startsWith('ru')
+    ? 'limits.html'
+    : 'limits-en.html';
+
+  window.open(page, '_blank', 'noopener,noreferrer');
+}
+</script>
 
         <button id="localModeBtn" type="button" class="btn-ref" style="background: #28a745; color: white; border: none; cursor: pointer;">
             Локал: ВКЛ
@@ -521,6 +533,7 @@ tr.globally-disabled .btn-limit {
     <span><b>Глобал</b> — общие настройки, заданные администратором.</span>
     <span class="mode-info-note">Оба режима можно включить одновременно.</span>
 </div>
+	
 
     <div class="tables-container">
         <!-- ЛЕВАЯ ПАНЕЛЬ -->
