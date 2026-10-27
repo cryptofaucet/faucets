@@ -18,7 +18,7 @@
     "Arcade 2Cash",
     "Heavenltc"
   ],
-  "last_updated": "2026-10-26T23:51:49.612Z",
+  "last_updated": "2026-10-27T21:09:48.496Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -499,6 +499,14 @@
       "coin": "LTC",
       "minutes": 60,
       "_updated_at": "2026-10-22T16:33:40.793Z"
+    },
+    "61": {
+      "name": "High5btc",
+      "url": "https://high5btc.site/?r=4cx2wstd",
+      "reward": "0.001",
+      "coin": "DOGE",
+      "minutes": 5,
+      "_updated_at": "2026-10-27T21:09:48.496Z"
     }
   }
 }
