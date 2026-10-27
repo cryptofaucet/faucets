@@ -1,0 +1,275 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Монитор выплат — CryptoFaucet Hub</title>
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #10151f;
+  --panel: #1b2433;
+  --border: #303d50;
+  --text: #edf3ff;
+  --muted: #9baac0;
+  --accent: #39d98a;
+  --blue: #4c91ff;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px Arial, sans-serif;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+h1 { font-size: 25px; margin: 0; }
+h2 { font-size: 18px; margin-top: 0; }
+
+a { color: #82b5ff; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #8591a3;
+}
+
+.dot.running {
+  background: var(--accent);
+  box-shadow: 0 0 10px #39d98a77;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 16px;
+  margin: 4px 5px 4px 0;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.primary { background: var(--accent); color: #092117; }
+.secondary { background: var(--blue); color: white; }
+.stop { background: #e45c68; color: white; }
+
+.note {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 13px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.stat {
+  background: #121a27;
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: 9px;
+  min-width: 0;
+}
+
+.stat-label { color: var(--muted); font-size: 12px; }
+.stat-value { font-size: 21px; font-weight: bold; margin-top: 8px; overflow-wrap: anywhere; }
+
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+th { color: var(--muted); font-size: 12px; }
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 28px 10px;
+}
+
+#message {
+  margin-top: 12px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  body { padding: 12px; }
+  h1 { font-size: 21px; }
+  .panel { padding: 14px; }
+  .stats { grid-template-columns: 1fr; }
+  button { padding: 12px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <h1>💰 Монитор выплат</h1>
+  <a href="index.html">← CryptoFaucet Hub</a>
+</header>
+
+<section class="panel">
+  <h2>FaucetPay</h2>
+
+  <div class="status">
+    <span id="statusDot" class="dot"></span>
+    <strong id="statusText">Монитор остановлен</strong>
+  </div>
+
+  <button id="startBtn" class="primary">▶ Запустить монитор</button>
+  <button id="stopBtn" class="stop" disabled>■ Остановить</button>
+  <button id="soundBtn" class="secondary">🔔 Проверить звук</button>
+
+  <div id="message">
+    Монитор пока не подключён к API FaucetPay.
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Новые выплаты</div>
+      <div class="stat-value" id="totalCount">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Последняя проверка</div>
+      <div class="stat-value" id="lastCheck">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Интервал</div>
+      <div class="stat-value">5 сек.</div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Последние поступления</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Время</th>
+          <th>Кран</th>
+          <th>Монета</th>
+          <th>Сумма</th>
+          <th>ID</th>
+        </tr>
+      </thead>
+      <tbody id="transactions">
+        <tr>
+          <td colspan="5" class="empty">
+            Новых выплат пока нет
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Как будет работать монитор</h2>
+  <p class="note">
+    После подключения FaucetPay монитор будет периодически проверять
+    историю поступлений, обнаруживать новые транзакции и воспроизводить
+    звук WebMoney. При первом запуске существующие транзакции не должны
+    вызывать звуковые уведомления.
+  </p>
+  <p class="note">
+    Важно: одной страницы GitHub Pages недостаточно для автоматического
+    доступа к авторизованной сессии FaucetPay. Подключение API проверим
+    отдельно, не передавая пароль или секретные данные на GitHub Pages.
+  </p>
+</section>
+
+</div>
+
+<audio id="moneySound"
+  src="https://raw.githubusercontent.com/cryptofaucet/faucets/main/money.mp3"
+  preload="auto"></audio>
+
+<script>
+const startBtn = document.getElementById('startBtn');
+const stopBtn = document.getElementById('stopBtn');
+const soundBtn = document.getElementById('soundBtn');
+const statusDot = document.getElementById('statusDot');
+const statusText = document.getElementById('statusText');
+const message = document.getElementById('message');
+const sound = document.getElementById('moneySound');
+
+startBtn.addEventListener('click', () => {
+  message.textContent =
+    'Страница готова. Для подключения мониторинга нужно проверить доступ к API FaucetPay из этой страницы.';
+});
+
+stopBtn.addEventListener('click', () => {
+  statusDot.classList.remove('running');
+  statusText.textContent = 'Монитор остановлен';
+});
+
+soundBtn.addEventListener('click', async () => {
+  try {
+    sound.currentTime = 0;
+    await sound.play();
+    message.textContent = 'Звук WebMoney воспроизведён.';
+  } catch (error) {
+    message.textContent = 'Не удалось воспроизвести звук: ' + error.message;
+  }
+});
+</script>
+
+</body>
+</html>
+```
