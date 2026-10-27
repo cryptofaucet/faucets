@@ -18,7 +18,7 @@
     "Arcade 2Cash",
     "Heavenltc"
   ],
-  "last_updated": "2026-10-27T21:09:48.496Z",
+  "last_updated": "2026-10-27T21:14:15.487Z",
   "faucet_settings": {
     "1": {
       "name": "BitEarnix",
@@ -507,6 +507,14 @@
       "coin": "DOGE",
       "minutes": 5,
       "_updated_at": "2026-10-27T21:09:48.496Z"
+    },
+    "62": {
+      "name": "Satoshi Vault",
+      "url": "https://satoshivault.site/?r=7mxhkann",
+      "reward": "0.00015",
+      "coin": "USTD",
+      "minutes": 5,
+      "_updated_at": "2026-10-27T21:14:15.487Z"
     }
   }
 }
