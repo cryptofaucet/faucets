@@ -240,9 +240,15 @@ th { color: var(--muted); font-size: 12px; }
   preload="auto"></audio>
 
  
+ <!-- Оставляем всю верстку monitor.html из шаблона чата, меняем только <script> -->
+ 
 <script>
+const BACKEND_URL = 'http://127.0.0.1:8080/payouts';
+const CHECK_INTERVAL = 30000; // 30 секунд
+
 const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
+const soundBtn = document.getElementById('soundBtn');
 const statusDot = document.getElementById('statusDot');
 const statusText = document.getElementById('statusText');
 const message = document.getElementById('message');
@@ -252,30 +258,52 @@ const tbody = document.getElementById('transactions');
 const sound = document.getElementById('moneySound');
 
 let timer = null;
-let known = null;
+let knownIds = new Set();
+let initialized = false;
 let total = 0;
 let busy = false;
 
 function setStatus(running) {
   statusDot.classList.toggle('running', running);
-  statusText.textContent = running ? 'Монитор работает' : 'Монитор остановлен';
+  statusText.textContent = running
+    ? 'Монитор работает'
+    : 'Монитор остановлен';
+
   startBtn.disabled = running;
   stopBtn.disabled = !running;
 }
 
 function addTransaction(t) {
   const tr = document.createElement('tr');
-  const time = new Date(Number(t.date) * 1000).toLocaleTimeString();
 
-  [time, t.faucet_name || 'Неизвестно', t.coin || '?',
-   t.amount_bitcoin || '?', t.id].forEach(value => {
+  const time = t.date
+    ? new Date(Number(t.date) * 1000).toLocaleTimeString()
+    : '—';
+
+  const values = [
+    time,
+    t.faucet_name || '—',
+    t.coin || '—',
+    t.amount_bitcoin || '—',
+    t.id ?? '—'
+  ];
+
+  for (const value of values) {
     const td = document.createElement('td');
-    td.textContent = value;
+    td.textContent = String(value);
     tr.appendChild(td);
-  });
+  }
 
-  if (tbody.querySelector('.empty')) tbody.innerHTML = '';
+  if (tbody.querySelector('.empty')) {
+    tbody.innerHTML = '';
+  }
+
   tbody.prepend(tr);
+
+  // Оставляем в таблице не больше 50 строк
+  while (tbody.rows.length > 50) {
+    tbody.deleteRow(tbody.rows.length - 1);
+  }
 }
 
 async function check() {
@@ -283,51 +311,76 @@ async function check() {
   busy = true;
 
   try {
-    const response = await fetch(
-      'https://faucetpay.io/app-api/wallet/faucet-transactions',
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        credentials: 'include',
-        cache: 'no-store',
-        body: JSON.stringify({ page: 1 })
-      }
-    );
+    const response = await fetch(BACKEND_URL, {
+      cache: 'no-store'
+    });
 
-    if (!response.ok) throw new Error('HTTP ' + response.status);
+    if (!response.ok) {
+      throw new Error('HTTP ' + response.status);
+    }
 
     const data = await response.json();
-    if (!data.ok) throw new Error('FaucetPay не вернул данные');
 
-    const transactions = data.transactions || [];
+    if (!data || data.ok !== true ||
+        !Array.isArray(data.transactions)) {
+      throw new Error(data?.error || 'Неверный формат ответа FaucetPay');
+    }
+
+    const transactions = data.transactions;
     lastCheck.textContent = new Date().toLocaleTimeString();
 
-    if (known === null) {
-      known = new Set(transactions.map(t => String(t.id)));
-      message.textContent = 'Подключение успешно. Начальное количество выплат: ' + known.size;
+    // Первый успешный ответ: запоминаем историю без звуков
+    if (!initialized) {
+      initialized = true;
+
+      for (const t of transactions) {
+        knownIds.add(String(t.id));
+      }
+
+      transactions.slice(0, 10).forEach(addTransaction);
+
+      message.textContent =
+        'Подключено. Загружена текущая история выплат.';
+
       return;
     }
 
-    const fresh = transactions.filter(t => !known.has(String(t.id)));
+    // Находим новые выплаты по настоящему ID
+    const fresh = transactions.filter(
+      t => t.id != null && !knownIds.has(String(t.id))
+    );
 
-    for (const t of fresh.reverse()) {
-      known.add(String(t.id));
+    // Сначала запоминаем все новые ID, чтобы не повторять уведомления
+    for (const t of fresh) {
+      knownIds.add(String(t.id));
+    }
+
+    // API возвращает новые выплаты первыми.
+    // Добавляем в обратном порядке, чтобы самые новые оказались сверху.
+    for (const t of [...fresh].reverse()) {
       addTransaction(t);
-      total++;
+    }
+
+    if (fresh.length > 0) {
+      total += fresh.length;
       totalCount.textContent = total;
 
+      message.textContent =
+        `Новые выплаты: +${fresh.length}`;
+
+      // Один звуковой сигнал на проверку с новыми выплатами
       try {
         sound.currentTime = 0;
         await sound.play();
       } catch (e) {
         console.warn('Не удалось воспроизвести звук:', e);
+        message.textContent +=
+          ' (Разреши воспроизведение звука кнопкой проверки.)';
       }
+    } else {
+      message.textContent = 'Новых выплат нет.';
     }
 
-    for (const t of transactions) known.add(String(t.id));
-    message.textContent = fresh.length
-      ? 'Обнаружены новые выплаты!'
-      : 'Подключено. Новых выплат нет.';
   } catch (e) {
     message.textContent = 'Ошибка подключения: ' + e.message;
     console.error(e);
@@ -337,15 +390,18 @@ async function check() {
 }
 
 startBtn.addEventListener('click', () => {
-  if (timer) clearInterval(timer);
+  if (timer) return;
+
   setStatus(true);
-  message.textContent = 'Подключаемся к FaucetPay...';
+  message.textContent = 'Подключаемся к локальному серверу...';
+
   check();
-  timer = setInterval(check, 5000);
+  timer = setInterval(check, CHECK_INTERVAL);
 });
 
 stopBtn.addEventListener('click', () => {
   if (timer) clearInterval(timer);
+
   timer = null;
   setStatus(false);
   message.textContent = 'Монитор остановлен.';
@@ -355,12 +411,15 @@ soundBtn.addEventListener('click', async () => {
   try {
     sound.currentTime = 0;
     await sound.play();
-    message.textContent = 'Звук WebMoney работает.';
+    message.textContent = 'Дзинь! Звук работает. 🔔';
   } catch (e) {
-    message.textContent = 'Ошибка звука: ' + e.message;
+    message.textContent =
+      'Не удалось воспроизвести звук. Проверь подключение к интернету.';
   }
 });
 </script>
+
+
 
 
 </body>
