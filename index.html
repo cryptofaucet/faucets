@@ -2392,12 +2392,7 @@ window.updatePublicFaucetStats = updatePublicFaucetStats;
 
             const data = await response.json();
 
-            disabledFaucets = new Set(
-                (Array.isArray(data.disabled_faucets)
-                    ? data.disabled_faucets
-                    : []
-                ).map(normalize)
-            );
+           disabledFaucets = getDisabledFaucetIds(data.disabled_faucets);
 
             globalSettings =
                 data.faucet_settings &&
