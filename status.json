@@ -3,15 +3,11 @@
     "Ghfaucet",
     "Сrypto Gem",
     "Faas Faucet",
-    "Watchearn Faucet",
     "FreeLTC5m",
     "Coinearnhub",
-    "Mint Faucet",
-    "LiteClaim",
-    "Heavenltc",
-    "Best Faucet"
+    "Heavenltc"
   ],
-  "last_updated": "2026-10-29T18:19:18.210Z",
+  "last_updated": "2026-10-29T18:19:39.381Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
