@@ -1,15 +1,15 @@
 {
   "disabled_faucets": [
-    "Ghfaucet",
-    "Сrypto Gem",
     "Faas Faucet",
     "FreeLTC5m",
     "Coinearnhub",
     "CryptoGravy",
     "BitDrop",
-    "faucet2"
+    "faucet2",
+    "Сrypto Gem",
+    "Ghfaucet"
   ],
-  "last_updated": "2026-10-29T19:54:07.303Z",
+  "last_updated": "2026-10-29T20:07:07.347Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
