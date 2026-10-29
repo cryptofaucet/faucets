@@ -2,7 +2,6 @@
   "disabled_faucets": [
     "Ghfaucet",
     "Faucet2 shipbroman",
-    "CoinDrip",
     "Сrypto Gem",
     "Flowfaucet",
     "Faas Faucet",
@@ -18,7 +17,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:26:46.793Z",
+  "last_updated": "2026-10-29T17:27:45.535Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
