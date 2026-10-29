@@ -11,7 +11,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T18:03:07.168Z",
+  "last_updated": "2026-10-29T18:04:45.875Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -280,10 +280,10 @@
     "34": {
       "name": "Luckfaucet",
       "url": "https://luckfaucet.online/?r=mi7dp3h7",
-      "reward": "0.001",
+      "reward": "0.0005",
       "coin": "DOGE",
       "minutes": 10,
-      "_updated_at": "2026-10-22T13:43:59.444Z"
+      "_updated_at": "2026-10-29T18:04:45.875Z"
     },
     "35": {
       "name": "Ogmaads",
