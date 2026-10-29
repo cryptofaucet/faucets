@@ -7,9 +7,10 @@
     "Coinearnhub",
     "CryptoGravy",
     "BitDrop",
-    "faucet2"
+    "faucet2",
+    "FaucetFun"
   ],
-  "last_updated": "2026-10-29T18:38:29.258Z",
+  "last_updated": "2026-10-29T19:27:56.885Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
