@@ -5,9 +5,12 @@
     "Faas Faucet",
     "FreeLTC5m",
     "Coinearnhub",
-    "Heavenltc"
+    "Heavenltc",
+    "CryptoGravy",
+    "BitDrop",
+    "faucet2"
   ],
-  "last_updated": "2026-10-29T18:25:11.367Z",
+  "last_updated": "2026-10-29T18:25:16.258Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
