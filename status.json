@@ -16,7 +16,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:31:56.863Z",
+  "last_updated": "2026-10-29T17:35:38.562Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -95,8 +95,8 @@
       "url": "https://dragonclaims.it.com/?r=z8yyrm5u",
       "reward": "0.000001",
       "coin": "LTC",
-      "minutes": 1,
-      "_updated_at": "2026-10-21T00:42:22.592Z"
+      "minutes": 3,
+      "_updated_at": "2026-10-29T17:35:38.562Z"
     },
     "11": {
       "name": "ExtraClaims",
