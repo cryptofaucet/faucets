@@ -4,14 +4,14 @@
     "Сrypto Gem",
     "Faas Faucet",
     "Watchearn Faucet",
-    "InstantFP",
+    "FreeLTC5m",
     "Coinearnhub",
     "Mint Faucet",
     "Arcade 2Cash",
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T18:14:25.072Z",
+  "last_updated": "2026-10-29T18:17:38.462Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -358,12 +358,12 @@
       "_updated_at": "2026-10-21T01:51:02.803Z"
     },
     "44": {
-      "name": "InstantFP",
-      "url": "https://instantfp.site/",
-      "reward": "0.00000347",
-      "coin": "ETH",
-      "minutes": 60,
-      "_updated_at": "2026-10-21T02:02:55.717Z"
+      "name": "FreeLTC5m",
+      "url": "https://freeltc5m.site/",
+      "reward": "0.0004",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-10-29T18:17:38.462Z"
     },
     "45": {
       "name": "Arcade 2Cash",
