@@ -7,7 +7,7 @@
     "Coinearnhub",
     "Heavenltc"
   ],
-  "last_updated": "2026-10-29T18:24:34.540Z",
+  "last_updated": "2026-10-29T18:25:11.367Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -406,8 +406,8 @@
       "url": "https://myeasyfaucet.world/",
       "reward": "0.000001",
       "coin": "LTC",
-      "minutes": 5,
-      "_updated_at": "2026-10-22T19:24:40.198Z"
+      "minutes": 3,
+      "_updated_at": "2026-10-29T18:25:11.366Z"
     },
     "51": {
       "name": "Drfaucet",
