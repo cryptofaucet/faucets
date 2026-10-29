@@ -7,7 +7,7 @@
     "Coinearnhub",
     "Heavenltc"
   ],
-  "last_updated": "2026-10-29T18:22:18.520Z",
+  "last_updated": "2026-10-29T18:24:34.540Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -396,10 +396,10 @@
     "49": {
       "name": "faucet2",
       "url": "https://earnon.site/?r=gc9y4udj",
-      "reward": "0.00002",
+      "reward": "0.0000035",
       "coin": "LTC",
       "minutes": 3,
-      "_updated_at": "2026-10-21T02:23:36.911Z"
+      "_updated_at": "2026-10-29T18:24:34.540Z"
     },
     "50": {
       "name": "Myeasy Faucet",
