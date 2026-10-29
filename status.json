@@ -10,7 +10,7 @@
     "BitDrop",
     "faucet2"
   ],
-  "last_updated": "2026-10-29T18:31:02.854Z",
+  "last_updated": "2026-10-29T18:35:02.664Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -473,8 +473,8 @@
       "url": "https://clickclaims.online/",
       "reward": "0.000001",
       "coin": "LTC",
-      "minutes": 1,
-      "_updated_at": "2026-10-22T16:29:57.473Z"
+      "minutes": 3,
+      "_updated_at": "2026-10-29T18:35:02.664Z"
     },
     "59": {
       "name": "Heavenltc",
