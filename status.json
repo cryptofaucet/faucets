@@ -9,13 +9,13 @@
     "InstantFP",
     "Limitless",
     "Coinearnhub",
-    "Iloveusdt",
+    "Satoshi Drop",
     "Mint Faucet",
     "Arcade 2Cash",
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:41:16.199Z",
+  "last_updated": "2026-10-29T17:48:24.232Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -154,12 +154,12 @@
       "_updated_at": "2026-10-21T00:52:13.039Z"
     },
     "18": {
-      "name": "Iloveusdt",
-      "url": "https://iloveusdt.site/?r=tec8zah4",
-      "reward": "0.0005",
+      "name": "Satoshi Drop",
+      "url": "https://satoshidrop.site/?r=csrgbxbh",
+      "reward": "0.0001",
       "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-10-21T00:52:53.238Z"
+      "minutes": 1,
+      "_updated_at": "2026-10-29T17:48:24.232Z"
     },
     "19": {
       "name": "Instafaucet",
