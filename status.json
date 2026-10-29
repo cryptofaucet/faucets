@@ -7,11 +7,11 @@
     "FreeLTC5m",
     "Coinearnhub",
     "Mint Faucet",
-    "Arcade 2Cash",
+    "LiteClaim",
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T18:17:38.462Z",
+  "last_updated": "2026-10-29T18:19:18.210Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -366,12 +366,12 @@
       "_updated_at": "2026-10-29T18:17:38.462Z"
     },
     "45": {
-      "name": "Arcade 2Cash",
-      "url": "https://arcade2cash.com/arcade",
-      "reward": "0.0434375",
-      "coin": "DOGE",
-      "minutes": 60,
-      "_updated_at": "2026-10-21T02:08:33.178Z"
+      "name": "LiteClaim",
+      "url": "https://liteclaim.online/",
+      "reward": "0.000001",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-10-29T18:19:18.210Z"
     },
     "46": {
       "name": "CryptoGravy",
