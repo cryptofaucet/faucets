@@ -16,7 +16,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:35:38.562Z",
+  "last_updated": "2026-10-29T17:37:30.672Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -109,10 +109,10 @@
     "12": {
       "name": "Blockxs",
       "url": "https://faucet.blockxs.com/?r=7vgkuypp",
-      "reward": "0.000006",
+      "reward": "0.000005",
       "coin": "SOL",
       "minutes": 15,
-      "_updated_at": "2026-10-26T23:28:25.235Z"
+      "_updated_at": "2026-10-29T17:37:30.672Z"
     },
     "13": {
       "name": "ExtraFaucets",
