@@ -554,6 +554,23 @@ tr.globally-disabled .btn-limit {
     margin-left: 0;
 }
 }
+
+		@keyframes premiumBoxPulse {
+    0%, 100% {
+        box-shadow: 0 0 3px rgba(255, 193, 7, 0.2);
+        border-color: rgba(255, 193, 7, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 14px rgba(255, 193, 7, 0.9);
+        border-color: #ffc107;
+    }
+}
+
+.promo-box:has(#smart-premium-box) {
+    border: 2px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    animation: premiumBoxPulse 1.8s ease-in-out infinite;
+}
 	</style>
 </head>
  
