@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -70,6 +70,46 @@
 
         .hidden {
             display: none;
+        }
+
+        .faucet-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin: 16px 0 22px;
+        }
+        .faucet-stat {
+            background: #202630;
+            border: 1px solid #41414c;
+            border-radius: 8px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+        .faucet-stat-label {
+            color: #b8c2cf;
+            font-size: 13px;
+        }
+        .faucet-stat-value {
+            display: block;
+            font-size: 26px;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+        #statsTotal { color: #00d9ff; }
+        #statsWorking { color: #2ecc71; }
+        #statsDisabled { color: #ff7777; }
+        .faucet-stats-updated {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #aab4c2;
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+        @media (max-width: 520px) {
+            .faucet-stats { gap: 5px; }
+            .faucet-stat { padding: 9px 4px; }
+            .faucet-stat-label { font-size: 11px; }
+            .faucet-stat-value { font-size: 22px; }
         }
 
         /* Генератор нового крана */
@@ -325,6 +365,22 @@
     <div id="adminBlock" class="hidden">
         <h1>Управление кранами</h1>
 
+        <div class="faucet-stats" aria-live="polite">
+            <div class="faucet-stat">
+                <span class="faucet-stat-label">Всего кранов</span>
+                <strong class="faucet-stat-value" id="statsTotal">—</strong>
+            </div>
+            <div class="faucet-stat">
+                <span class="faucet-stat-label">Работают</span>
+                <strong class="faucet-stat-value" id="statsWorking">—</strong>
+            </div>
+            <div class="faucet-stat">
+                <span class="faucet-stat-label">Отключены</span>
+                <strong class="faucet-stat-value" id="statsDisabled">—</strong>
+            </div>
+            <div class="faucet-stats-updated" id="statsUpdated">Последнее изменение: —</div>
+        </div>
+
         <div class="add-faucet-panel">
             <h2>➕ Добавить новый кран</h2>
 
@@ -504,6 +560,7 @@ async function login() {
         }
 
         const content = JSON.parse(decodeBase64UTF8(data.content));
+        statsLastUpdated = content.last_updated || null;
 
         if (
             !content ||
@@ -538,6 +595,40 @@ async function login() {
         loginButton.disabled = false;
         loginButton.textContent = "Войти";
     }
+}
+
+// Дата последнего изменения, прочитанная из status.json или обновлённая после сохранения.
+let statsLastUpdated = null;
+
+function formatStatsDate(value) {
+    if (!value) return "—";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "—";
+    return new Intl.DateTimeFormat("ru-RU", {
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit", second: "2-digit"
+    }).format(date);
+}
+
+function updateFaucetStats() {
+    const total = FAUCETS.length;
+    const knownNames = new Set(FAUCETS.map(f => f.name));
+    const disabled = new Set(globalDisabledFaucets.filter(name => knownNames.has(name))).size;
+    const working = Math.max(0, total - disabled);
+
+    const totalEl = document.getElementById("statsTotal");
+    const workingEl = document.getElementById("statsWorking");
+    const disabledEl = document.getElementById("statsDisabled");
+    const updatedEl = document.getElementById("statsUpdated");
+    if (totalEl) totalEl.textContent = String(total);
+    if (workingEl) workingEl.textContent = String(working);
+    if (disabledEl) disabledEl.textContent = String(disabled);
+    if (updatedEl) updatedEl.textContent = "Последнее изменение: " + formatStatsDate(statsLastUpdated);
+}
+
+function markStatsUpdated(value = new Date().toISOString()) {
+    statsLastUpdated = value;
+    updateFaucetStats();
 }
 
 // Загружаем список кранов через GitHub API.
@@ -604,6 +695,7 @@ async function fetchAndParseFaucets() {
         FAUCETS = Array.from(
             new Map(FAUCETS.map(faucet => [faucet.name, faucet])).values()
         );
+        updateFaucetStats();
 
         if (FAUCETS.length === 0) {
             listDiv.innerHTML =
@@ -713,6 +805,7 @@ function toggleFaucet(name) {
     }
 
     renderAdminList();
+    updateFaucetStats();
 }
 
 // Сохранение status.json в GitHub
@@ -756,10 +849,11 @@ async function saveChanges() {
         } catch (_) {
             existingContent = {};
         }
+        const statusTimestamp = new Date().toISOString();
         const newContent = {
             ...existingContent,
             disabled_faucets: globalDisabledFaucets,
-            last_updated: new Date().toISOString()
+            last_updated: statusTimestamp
         };
 
         const jsonString = JSON.stringify(newContent, null, 2);
@@ -794,6 +888,7 @@ async function saveChanges() {
             fileSha = result.content.sha;
         }
 
+        markStatsUpdated(statusTimestamp);
         alert(
             "Статусы сохранены в status.json!\n" +
             "Главная страница применит их, если в index.html " +
@@ -1008,6 +1103,7 @@ async function saveEditedFaucet(event) {
         if (oldName && oldName !== name && statusContent.disabled_faucets.includes(oldName)) {
             statusContent.disabled_faucets = statusContent.disabled_faucets.map(item => item === oldName ? name : item);
         }
+        const editTimestamp = new Date().toISOString();
         statusContent.faucet_settings[String(id)] = {
             ...(statusContent.faucet_settings[String(id)] || {}),
             name,
@@ -1015,9 +1111,9 @@ async function saveEditedFaucet(event) {
             reward,
             coin,
             minutes,
-            _updated_at: new Date().toISOString()
+            _updated_at: editTimestamp
         };
-        statusContent.last_updated = new Date().toISOString();
+        statusContent.last_updated = editTimestamp;
         const statusPutResponse = await fetch(GITHUB_API_URL, {
             method: "PUT",
             headers: { ...headers, "Content-Type": "application/json" },
@@ -1041,7 +1137,9 @@ async function saveEditedFaucet(event) {
         if (oldName && oldName !== name && globalDisabledFaucets.includes(oldName)) {
             globalDisabledFaucets = globalDisabledFaucets.map(item => item === oldName ? name : item);
         }
+        markStatsUpdated(editTimestamp);
         renderAdminList();
+        updateFaucetStats();
         showEditMessage(`Готово! Кран ID ${id} сохранён в index.html и status.json на GitHub.`);
         saveButton.textContent = "Сохранено ✓";
         setTimeout(closeEditFaucet, 900);
@@ -1224,6 +1322,7 @@ async function addFaucetToIndex() {
             statusContent.faucet_settings = {};
         }
 
+        const addTimestamp = new Date().toISOString();
         statusContent.faucet_settings[String(num)] = {
             ...(statusContent.faucet_settings[String(num)] || {}),
             name,
@@ -1231,10 +1330,10 @@ async function addFaucetToIndex() {
             reward,
             coin,
             minutes,
-            _updated_at: new Date().toISOString()
+            _updated_at: addTimestamp
         };
 
-        statusContent.last_updated = new Date().toISOString();
+        statusContent.last_updated = addTimestamp;
 
         const saveStatusResponse = await fetch(GITHUB_API_URL, {
             method: "PUT",
@@ -1254,8 +1353,10 @@ async function addFaucetToIndex() {
         }
         if (!FAUCETS.some(faucet => faucet.id === String(num))) {
             FAUCETS.push({ id: String(num), name, url: parsedURL.href });
-            renderAdminList();
         }
+        markStatsUpdated(addTimestamp);
+        renderAdminList();
+        updateFaucetStats();
 
         setAddFaucetMessage(`Готово! «${name}» (ID ${num}) добавлен в index.html на GitHub.\nОбнови главную страницу, когда GitHub Pages опубликует изменения.`);
         document.getElementById("newFaucetName").value = "";
