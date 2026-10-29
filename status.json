@@ -10,7 +10,7 @@
     "BitDrop",
     "faucet2"
   ],
-  "last_updated": "2026-10-29T18:25:16.258Z",
+  "last_updated": "2026-10-29T18:28:51.518Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -431,10 +431,10 @@
     "53": {
       "name": "Mycrypto Coin",
       "url": "https://mycryptocoin.click/?r=qqqufsq7",
-      "reward": "0.0005",
+      "reward": "0.00035",
       "coin": "DOGE",
       "minutes": 1,
-      "_updated_at": "2026-10-22T19:26:19.192Z"
+      "_updated_at": "2026-10-29T18:28:51.518Z"
     },
     "54": {
       "name": "Diamond Faucet",
