@@ -2231,11 +2231,7 @@ function getDisabledFaucetIds(entries) {
     window.isFaucetGloballyDisabled = function (row) {
         if (!globalMode || !row) return false;
 
-        const defaults = defaultSettings.get(row.id) || {};
-
-        return disabledFaucets.has(normalize(row.id)) ||
-               disabledFaucets.has(normalize(getFaucetName(row))) ||
-               disabledFaucets.has(normalize(defaults.name));
+        return disabledFaucets.has(normalize(row.id));
     };
 
     window.isLocalModeEnabled = function () {
@@ -2255,10 +2251,7 @@ function moveGloballyDisabledFaucets() {
     document.querySelectorAll('tr[id^="faucet"]').forEach(row => {
         const defaults = defaultSettings.get(row.id) || {};
 
-        const adminDisabled =
-            disabledFaucets.has(normalize(row.id)) ||
-            disabledFaucets.has(normalize(getFaucetName(row))) ||
-            disabledFaucets.has(normalize(defaults.name));
+         const adminDisabled = disabledFaucets.has(normalize(row.id));
 
         const marker = 'global_moved_' + row.id;
         const isDisabled = globalMode && adminDisabled;
@@ -2299,26 +2292,15 @@ function updatePublicFaucetStats(data = lastPublicStatusData) {
         document.querySelectorAll('tr[id^="faucet"]')
     ).filter(row => /^faucet\d+$/.test(row.id));
 
-    const disabledNames = new Set(
-        (Array.isArray(data.disabled_faucets)
-            ? data.disabled_faucets : []
-        ).map(normalize)
-    );
+    const disabledIds = getDisabledFaucetIds(data.disabled_faucets);
 
     const settings = data.faucet_settings &&
         typeof data.faucet_settings === 'object'
         ? data.faucet_settings : {};
 
-    const disabledCount = rows.filter(row => {
-        const defaults = defaultSettings.get(row.id) || {};
-        const setting = settings[row.id.replace(/^faucet/, '')] || {};
-        const currentName =
-            setting.name || getFaucetName(row) || defaults.name || '';
-
-        return disabledNames.has(normalize(row.id)) ||
-            disabledNames.has(normalize(currentName)) ||
-            disabledNames.has(normalize(defaults.name));
-    }).length;
+   const disabledCount = rows.filter(row =>
+    disabledIds.has(normalize(row.id))
+).length;
 
     const en = localStorage.getItem('siteLanguage') === 'en';
 
@@ -2471,11 +2453,8 @@ function applyGlobalMode() {
         const name = getFaucetName(row);
         const defaults = defaultSettings.get(row.id) || {};
 
-        const adminDisabled =
-            disabledFaucets.has(normalize(row.id)) ||
-            disabledFaucets.has(normalize(name)) ||
-            disabledFaucets.has(normalize(defaults.name));
-
+         const adminDisabled = disabledFaucets.has(normalize(row.id));
+		
         const disabled = globalMode && adminDisabled;
         row.classList.toggle('globally-disabled', disabled);
 
