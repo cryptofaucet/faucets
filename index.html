@@ -236,7 +236,73 @@ tr.globally-disabled .btn-limit {
     box-shadow: 0 6px 20px rgba(0,255,204,0.35);
 }
 
+/* Статистика кранов */
+.faucet-stats-public {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 720px;
+    box-sizing: border-box;
+    margin: 8px auto 14px;
+    padding: 10px;
+    background: #111622;
+    border: 1px solid #1f2638;
+    border-radius: 10px;
+}
 
+.faucet-stats-public .stat-item {
+    flex: 1 1 110px;
+    min-width: 0;
+    text-align: center;
+    padding: 5px;
+}
+
+.faucet-stats-public .stat-label {
+    display: block;
+    color: #8a99ad;
+    font-size: 12px;
+}
+
+.faucet-stats-public .stat-value {
+    display: block;
+    margin-top: 3px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+#publicStatsTotal { color: #00b3ff; }
+#publicStatsWorking { color: #00ff66; }
+#publicStatsDisabled { color: #ff7777; }
+
+#publicStatsUpdated {
+    flex: 0 0 100%;
+    color: #8a99ad;
+    font-size: 11px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .faucet-stats-public {
+        gap: 3px;
+        padding: 6px;
+        margin: 5px auto 10px;
+    }
+
+    .faucet-stats-public .stat-item {
+        flex-basis: 85px;
+        padding: 3px;
+    }
+
+    .faucet-stats-public .stat-label {
+        font-size: 10px;
+    }
+
+    .faucet-stats-public .stat-value {
+        font-size: 20px;
+    }
+}
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
 	 .header-row {
@@ -508,6 +574,21 @@ tr.globally-disabled .btn-limit {
 </div>
 
     <p class="subtitle">Интеллектуальный ротатор кранов с автоматическим контролем времени сбора</p>
+	<div class="faucet-stats-public" id="publicFaucetStats" aria-live="polite">
+    <div class="stat-item">
+        <span class="stat-label" data-stat-label="total">Всего кранов</span>
+        <strong class="stat-value" id="publicStatsTotal">—</strong>
+    </div>
+    <div class="stat-item">
+        <span class="stat-label" data-stat-label="working">Работают</span>
+        <strong class="stat-value" id="publicStatsWorking">—</strong>
+    </div>
+    <div class="stat-item">
+        <span class="stat-label" data-stat-label="disabled">Отключены</span>
+        <strong class="stat-value" id="publicStatsDisabled">—</strong>
+    </div>
+    <div id="publicStatsUpdated">Последнее изменение: —</div>
+</div>
 <!-- ОБЩАЯ СТРОКА ДЛЯ ДВУХ КОНТЕЙНЕРОВ -->
  <div class="promo-row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1200px; margin-bottom: 20px; box-sizing: border-box;">
 
@@ -2192,7 +2273,96 @@ function moveGloballyDisabledFaucets() {
         window.refreshAllArrows();
     }
 }
+let lastPublicStatusData = null;
 
+function updatePublicFaucetStats(data = lastPublicStatusData) {
+    if (data) lastPublicStatusData = data;
+    data = lastPublicStatusData;
+    if (!data) return;
+
+    const rows = Array.from(
+        document.querySelectorAll('tr[id^="faucet"]')
+    ).filter(row => /^faucet\d+$/.test(row.id));
+
+    const disabledNames = new Set(
+        (Array.isArray(data.disabled_faucets)
+            ? data.disabled_faucets : []
+        ).map(normalize)
+    );
+
+    const settings = data.faucet_settings &&
+        typeof data.faucet_settings === 'object'
+        ? data.faucet_settings : {};
+
+    const disabledCount = rows.filter(row => {
+        const defaults = defaultSettings.get(row.id) || {};
+        const setting = settings[row.id.replace(/^faucet/, '')] || {};
+        const currentName =
+            setting.name || getFaucetName(row) || defaults.name || '';
+
+        return disabledNames.has(normalize(row.id)) ||
+            disabledNames.has(normalize(currentName)) ||
+            disabledNames.has(normalize(defaults.name));
+    }).length;
+
+    const en = localStorage.getItem('siteLanguage') === 'en';
+
+    const totalEl = document.getElementById('publicStatsTotal');
+    const workingEl = document.getElementById('publicStatsWorking');
+    const disabledEl = document.getElementById('publicStatsDisabled');
+    const updatedEl = document.getElementById('publicStatsUpdated');
+
+    const labels = document.querySelectorAll(
+        '#publicFaucetStats [data-stat-label]'
+    );
+
+    if (totalEl) totalEl.textContent = String(rows.length);
+    if (workingEl) {
+        workingEl.textContent = String(
+            Math.max(0, rows.length - disabledCount)
+        );
+    }
+    if (disabledEl) disabledEl.textContent = String(disabledCount);
+
+    labels.forEach(label => {
+        const key = label.getAttribute('data-stat-label');
+
+        label.textContent = key === 'total'
+            ? (en ? 'Total faucets' : 'Всего кранов')
+            : key === 'working'
+                ? (en ? 'Working' : 'Работают')
+                : (en ? 'Disabled' : 'Отключены');
+    });
+
+    let dateText = '—';
+
+    if (data.last_updated) {
+        const date = new Date(data.last_updated);
+
+        if (!Number.isNaN(date.getTime())) {
+            dateText = new Intl.DateTimeFormat(
+                en ? 'en-GB' : 'ru-RU',
+                {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                }
+            ).format(date);
+        }
+    }
+
+    if (updatedEl) {
+        updatedEl.textContent = en
+            ? 'Last updated: ' + dateText
+            : 'Последнее изменение: ' + dateText;
+    }
+}
+
+window.updatePublicFaucetStats = updatePublicFaucetStats;
+	
     // Загружаем status.json один раз при открытии страницы.
     async function loadGlobalStatus() {
         try {
@@ -2226,6 +2396,7 @@ function moveGloballyDisabledFaucets() {
             applyFaucetSettings();
             applyLocalMode();
             applyGlobalMode();
+			updatePublicFaucetStats(data);
 
         } catch (error) {
             console.error(
@@ -2572,15 +2743,21 @@ window.updateModeButtonsLanguage = updateModeButtons;
         });
 
         document.getElementById("langRU").classList.toggle("active", lang === "ru");
-        document.getElementById("langEN").classList.toggle("active", lang === "en");
-        localStorage.setItem("siteLanguage", lang);
-		if (typeof window.updateModeButtonsLanguage === 'function') {
+document.getElementById("langEN").classList.toggle("active", lang === "en");
+localStorage.setItem("siteLanguage", lang);
+
+if (typeof window.updatePublicFaucetStats === 'function') {
+    window.updatePublicFaucetStats();
+}
+
+if (typeof window.updateModeButtonsLanguage === 'function') {
     window.updateModeButtonsLanguage();
 }
-		if (typeof window.refreshBestFaucet === 'function') {
+
+if (typeof window.refreshBestFaucet === 'function') {
     window.refreshBestFaucet();
 }
-    }
+}
 
     document.getElementById("langRU").addEventListener("click", function () {
         translatePage("ru");
