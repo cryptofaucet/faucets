@@ -11,7 +11,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T18:05:40.875Z",
+  "last_updated": "2026-10-29T18:10:15.914Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -306,8 +306,8 @@
       "url": "https://mintfaucet.in/",
       "reward": "0.0004",
       "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-10-21T01:30:54.669Z"
+      "minutes": 3,
+      "_updated_at": "2026-10-29T18:10:15.914Z"
     },
     "38": {
       "name": "Faas Faucet",
