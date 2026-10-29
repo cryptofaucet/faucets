@@ -7,7 +7,7 @@
     "Coinearnhub",
     "Heavenltc"
   ],
-  "last_updated": "2026-10-29T18:19:39.381Z",
+  "last_updated": "2026-10-29T18:20:38.824Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -380,10 +380,10 @@
     "47": {
       "name": "Crypto Site",
       "url": "https://crypto-site.site/?r=crpw7bs4",
-      "reward": "0.003",
+      "reward": "0.001230",
       "coin": "DOGE",
-      "minutes": 3,
-      "_updated_at": "2026-10-21T02:14:49.949Z"
+      "minutes": 1,
+      "_updated_at": "2026-10-29T18:20:38.824Z"
     },
     "48": {
       "name": "BitDrop",
