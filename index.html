@@ -2055,9 +2055,24 @@ setInterval(findAndDisplayBestFaucet, 20000);
     // Сохраняем исходные значения HTML до запуска остальных скриптов.
     const defaultSettings = new Map();
 
-    function normalize(value) {
-        return String(value || '').trim().toLowerCase();
-    }
+     function normalize(value) {
+    return String(value || '').trim().toLowerCase();
+}
+
+function getDisabledFaucetIds(entries) {
+    const ids = new Set();
+
+    (Array.isArray(entries) ? entries : []).forEach(entry => {
+        const value = String(entry || '').trim();
+        const match = value.match(/\((faucet\d+)\)\s*$/i);
+
+        if (match) {
+            ids.add(normalize(match[1]));
+        }
+    });
+
+    return ids;
+}
 
     function getFaucetName(row) {
         const link = row.querySelector('.faucet-link');
