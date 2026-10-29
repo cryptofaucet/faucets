@@ -2,7 +2,6 @@
   "disabled_faucets": [
     "Ghfaucet",
     "Сrypto Gem",
-    "Flowfaucet",
     "Faas Faucet",
     "Ksplayer",
     "InstantFP",
@@ -12,7 +11,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:59:51.438Z",
+  "last_updated": "2026-10-29T17:59:58.539Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
