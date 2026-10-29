@@ -1,7 +1,7 @@
 {
   "disabled_faucets": [
     "Ghfaucet",
-    "Faucet2 shipbroman",
+    "Planet Faucet",
     "Сrypto Gem",
     "Flowfaucet",
     "Faas Faucet",
@@ -14,7 +14,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:51:50.430Z",
+  "last_updated": "2026-10-29T17:56:23.205Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -209,12 +209,12 @@
       "_updated_at": "2026-10-21T00:57:22.511Z"
     },
     "25": {
-      "name": "Faucet2 shipbroman",
-      "url": "https://faucet2.shipbroman.com/",
-      "reward": "0.00000020",
-      "coin": "BTC",
-      "minutes": 30,
-      "_updated_at": "2026-10-21T00:57:59.952Z"
+      "name": "Planet Faucet",
+      "url": "https://planetfaucet.com/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-29T17:56:23.205Z"
     },
     "26": {
       "name": "Fasttrx",
