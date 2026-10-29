@@ -1,20 +1,18 @@
 {
   "disabled_faucets": [
     "Ghfaucet",
-    "Planet Faucet",
     "Сrypto Gem",
     "Flowfaucet",
     "Faas Faucet",
     "Ksplayer",
     "InstantFP",
-    "Limitless",
     "Coinearnhub",
     "Mint Faucet",
     "Arcade 2Cash",
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:56:23.205Z",
+  "last_updated": "2026-10-29T17:56:28.928Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
