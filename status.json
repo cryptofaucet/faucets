@@ -11,7 +11,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T18:10:15.914Z",
+  "last_updated": "2026-10-29T18:12:02.453Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -328,10 +328,10 @@
     "40": {
       "name": "Snaptik",
       "url": "https://snaptik.one/",
-      "reward": "0.00005000",
+      "reward": "0.00005",
       "coin": "TRX",
       "minutes": 1,
-      "_updated_at": "2026-10-21T01:45:12.758Z"
+      "_updated_at": "2026-10-29T18:12:02.453Z"
     },
     "41": {
       "name": "Qpcrypto",
