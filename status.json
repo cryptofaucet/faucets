@@ -11,7 +11,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:59:58.539Z",
+  "last_updated": "2026-10-29T18:03:07.168Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -270,12 +270,12 @@
       "_updated_at": "2026-10-21T01:02:26.336Z"
     },
     "33": {
-      "name": "FreeFlare Crypto",
-      "url": "https://freeflarcrypto.com/",
-      "reward": "0.001",
-      "coin": "DGB",
+      "name": "BitLoot",
+      "url": "https://bitloot.ee/?r=hhv9v6i6",
+      "reward": "0.0000001",
+      "coin": "BNB",
       "minutes": 30,
-      "_updated_at": "2026-10-21T01:02:49.886Z"
+      "_updated_at": "2026-10-29T18:03:07.168Z"
     },
     "34": {
       "name": "Luckfaucet",
