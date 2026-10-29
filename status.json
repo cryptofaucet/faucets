@@ -9,7 +9,7 @@
     "BitDrop",
     "faucet2"
   ],
-  "last_updated": "2026-10-29T19:30:08.650Z",
+  "last_updated": "2026-10-29T19:34:01.213Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -506,6 +506,14 @@
       "coin": "USTD",
       "minutes": 5,
       "_updated_at": "2026-10-27T21:14:15.487Z"
+    },
+    "63": {
+      "name": "Vipfaucet",
+      "url": "https://vipfaucet.site/",
+      "reward": "0.000006",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-10-29T19:34:01.213Z"
     }
   }
 }
