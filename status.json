@@ -10,7 +10,7 @@
     "BitDrop",
     "faucet2"
   ],
-  "last_updated": "2026-10-29T18:28:51.518Z",
+  "last_updated": "2026-10-29T18:31:02.854Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -447,10 +447,10 @@
     "55": {
       "name": "Pythagore Doge",
       "url": "https://pythagore-doge.website/?r=ar5jg8ck",
-      "reward": "0.0012",
+      "reward": "0.00048345",
       "coin": "DOGE",
       "minutes": 1,
-      "_updated_at": "2026-10-22T16:23:39.184Z"
+      "_updated_at": "2026-10-29T18:31:02.854Z"
     },
     "56": {
       "name": "FaucetHive",
