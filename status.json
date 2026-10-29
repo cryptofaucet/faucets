@@ -9,15 +9,15 @@
     "BitDrop",
     "faucet2"
   ],
-  "last_updated": "2026-10-29T19:29:03.913Z",
+  "last_updated": "2026-10-29T19:29:53.782Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
       "url": "https://faucetfun.com/?r=wntszkp3",
       "reward": "0.00000001",
       "coin": "BTC",
-      "minutes": 120,
-      "_updated_at": "2026-10-29T17:26:39.635Z"
+      "minutes": 12,
+      "_updated_at": "2026-10-29T19:29:53.782Z"
     },
     "2": {
       "name": "CoinDrip",
