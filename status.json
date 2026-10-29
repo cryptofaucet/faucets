@@ -3,7 +3,7 @@
     "Ghfaucet",
     "Сrypto Gem",
     "Faas Faucet",
-    "Ksplayer",
+    "Watchearn Faucet",
     "InstantFP",
     "Coinearnhub",
     "Mint Faucet",
@@ -11,7 +11,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T18:12:02.453Z",
+  "last_updated": "2026-10-29T18:14:25.072Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -342,12 +342,12 @@
       "_updated_at": "2026-10-21T01:47:24.188Z"
     },
     "42": {
-      "name": "Ksplayer",
-      "url": "https://ksplayer.online/?r=2kbm3583",
-      "reward": "1",
+      "name": "Watchearn Faucet",
+      "url": "https://watchearn.ltd/",
+      "reward": "0.0001",
       "coin": "DOGE",
-      "minutes": 60,
-      "_updated_at": "2026-10-21T01:49:15.166Z"
+      "minutes": 1,
+      "_updated_at": "2026-10-29T18:14:25.072Z"
     },
     "43": {
       "name": "Super Faucet",
