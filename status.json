@@ -10,7 +10,7 @@
     "BitDrop",
     "faucet2"
   ],
-  "last_updated": "2026-10-29T18:35:02.664Z",
+  "last_updated": "2026-10-29T18:35:55.616Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -482,7 +482,7 @@
       "reward": "0.000005",
       "coin": "LTC",
       "minutes": 60,
-      "_updated_at": "2026-10-22T16:31:12.294Z"
+      "_updated_at": "2026-10-29T18:35:55.616Z"
     },
     "60": {
       "name": "TakeLtc",
