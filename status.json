@@ -7,7 +7,7 @@
     "Coinearnhub",
     "Heavenltc"
   ],
-  "last_updated": "2026-10-29T18:20:38.824Z",
+  "last_updated": "2026-10-29T18:21:37.038Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -374,8 +374,8 @@
       "url": "https://cryptogravy.site/?r=b5ar92nx",
       "reward": "0.001230",
       "coin": "DOGE",
-      "minutes": 5,
-      "_updated_at": "2026-10-21T02:11:28.411Z"
+      "minutes": 1,
+      "_updated_at": "2026-10-29T18:21:37.038Z"
     },
     "47": {
       "name": "Crypto Site",
