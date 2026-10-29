@@ -14,7 +14,7 @@
     "Heavenltc",
     "Best Faucet"
   ],
-  "last_updated": "2026-10-29T17:49:32.467Z",
+  "last_updated": "2026-10-29T17:51:50.430Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -177,12 +177,12 @@
       "_updated_at": "2026-10-21T00:54:27.212Z"
     },
     "21": {
-      "name": "Instafaucet 4gamers",
-      "url": "https://instafaucet4gamers.xyz/?r=j8jqpr8q",
-      "reward": "0.0000006",
-      "coin": "LTC",
+      "name": "Faucetino",
+      "url": "https://faucetino.com/?r=chhq85qx",
+      "reward": "0.0001",
+      "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-10-21T00:55:20.615Z"
+      "_updated_at": "2026-10-29T17:51:50.430Z"
     },
     "22": {
       "name": "Peperush",
