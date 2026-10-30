@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:14:37.306Z",
+  "last_updated": "2026-10-30T01:16:06.784Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -638,6 +638,14 @@
       "coin": "TRX",
       "minutes": 5,
       "_updated_at": "2026-10-30T01:14:28.918Z"
+    },
+    "79": {
+      "name": "Feyflash",
+      "url": "https://feyflash.site/",
+      "reward": "0.0001",
+      "coin": "FEY",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T01:16:06.784Z"
     }
   }
 }
