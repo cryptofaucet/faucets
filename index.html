@@ -3223,12 +3223,13 @@ window.updateModeButtonsLanguage = updateModeButtons;
         document.querySelectorAll("body *").forEach(function (el) {
     if (el.children.length !== 0) return;
 
-    // Не трогаем динамические значения калькулятора
-    if (
-        el.classList.contains('rub-result') ||
-        el.classList.contains('crypto-input') ||
-        el.classList.contains('time-input')
-    ) return;
+     // Не трогаем динамические значения калькулятора и поле порога
+if (
+    el.classList.contains('rub-result') ||
+    el.classList.contains('crypto-input') ||
+    el.classList.contains('time-input') ||
+    el.id === 'premium-alert-limit'
+) return;
 
             const original = originalTexts.get(el) || el.textContent.trim();
             if (!originalTexts.has(el)) originalTexts.set(el, original);
