@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:41:33.182Z",
+  "last_updated": "2026-10-30T01:43:57.551Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -735,6 +735,14 @@
       "coin": "SOL",
       "minutes": 1,
       "_updated_at": "2026-10-30T01:40:30.111Z"
+    },
+    "91": {
+      "name": "Cryptosugar",
+      "url": "https://cryptosugar.site/?r=8y8h26ft",
+      "reward": "0.000145",
+      "coin": "USDT",
+      "minutes": 3,
+      "_updated_at": "2026-10-30T01:43:57.551Z"
     }
   }
 }
