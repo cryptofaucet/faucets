@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:45:30.001Z",
+  "last_updated": "2026-10-30T01:47:02.087Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -751,6 +751,14 @@
       "coin": "USDT",
       "minutes": 10,
       "_updated_at": "2026-10-30T01:45:30.001Z"
+    },
+    "93": {
+      "name": "Faucet Claimx",
+      "url": "https://faucet.claimx.online/",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T01:47:02.087Z"
     }
   }
 }
