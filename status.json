@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:55:55.077Z",
+  "last_updated": "2026-10-30T01:57:58.214Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -799,6 +799,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-10-30T01:55:55.077Z"
+    },
+    "99": {
+      "name": "Pythagore Usdt",
+      "url": "https://pythagore.website/",
+      "reward": "0.00005",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T01:57:58.214Z"
     }
   }
 }
