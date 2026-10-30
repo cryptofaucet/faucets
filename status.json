@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:18:24.449Z",
+  "last_updated": "2026-10-30T01:20:55.551Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -654,6 +654,14 @@
       "coin": "ZEC",
       "minutes": 30,
       "_updated_at": "2026-10-30T01:18:24.449Z"
+    },
+    "81": {
+      "name": "Dripdrop",
+      "url": "https://dripdrop.lol/?r=w2qsifhg",
+      "reward": "0.0001",
+      "coin": "TON",
+      "minutes": 5,
+      "_updated_at": "2026-10-30T01:20:55.551Z"
     }
   }
 }
