@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:36:27.606Z",
+  "last_updated": "2026-10-30T01:39:07.301Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -718,6 +718,14 @@
       "coin": "SOL",
       "minutes": 60,
       "_updated_at": "2026-10-30T01:36:27.606Z"
+    },
+    "89": {
+      "name": "Freefaucet",
+      "url": "https://freefaucet.site/?r=mx3z8tgj",
+      "reward": "0.000001",
+      "coin": "SOL",
+      "minutes": 60,
+      "_updated_at": "2026-10-30T01:39:07.301Z"
     }
   }
 }
