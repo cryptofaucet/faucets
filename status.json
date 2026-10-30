@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T02:07:59.728Z",
+  "last_updated": "2026-10-30T02:09:37.605Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -847,6 +847,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-10-30T02:07:59.728Z"
+    },
+    "105": {
+      "name": "BitBitFlow",
+      "url": "https://bitbitflow.online/?r=7am47sjd",
+      "reward": "0.0004",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-10-30T02:09:37.605Z"
     }
   }
 }
