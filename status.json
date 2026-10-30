@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T02:06:11.108Z",
+  "last_updated": "2026-10-30T02:07:59.728Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -839,6 +839,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-10-30T02:06:11.108Z"
+    },
+    "104": {
+      "name": "HichamFaucet",
+      "url": "https://hichamfaucet.site/?r=dnkh2z6c",
+      "reward": "0.0005",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T02:07:59.728Z"
     }
   }
 }
