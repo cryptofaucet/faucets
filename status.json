@@ -11,7 +11,7 @@
     "Ssatom (faucet67)",
     "CryptoGravyTron (faucet76)"
   ],
-  "last_updated": "2026-10-30T01:09:35.595Z",
+  "last_updated": "2026-10-30T01:11:33.698Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -620,6 +620,14 @@
       "coin": "TRX",
       "minutes": 1,
       "_updated_at": "2026-10-30T01:09:23.805Z"
+    },
+    "77": {
+      "name": "Cryptotimes",
+      "url": "https://cryptotimes.site/?r=9uirddsk",
+      "reward": "0.0001",
+      "coin": "TRX",
+      "minutes": 60,
+      "_updated_at": "2026-10-30T01:11:33.698Z"
     }
   }
 }
