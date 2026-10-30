@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:52:46.219Z",
+  "last_updated": "2026-10-30T01:54:20.503Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -783,6 +783,14 @@
       "coin": "USDT",
       "minutes": 10,
       "_updated_at": "2026-10-30T01:52:46.219Z"
+    },
+    "97": {
+      "name": "FaaSet",
+      "url": "https://faaset.com/?r=dbmrf3mx",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-10-30T01:54:20.503Z"
     }
   }
 }
