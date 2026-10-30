@@ -9,7 +9,7 @@
     "Ghfaucet (faucet7)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-10-30T00:42:19.465Z",
+  "last_updated": "2026-10-30T00:44:13.254Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -530,6 +530,14 @@
       "coin": "LTC",
       "minutes": 10,
       "_updated_at": "2026-10-30T00:42:19.465Z"
+    },
+    "66": {
+      "name": "Brazas Earn",
+      "url": "https://bbux.net/?r=qdtjp9xz",
+      "reward": "0.000001",
+      "coin": "LTC",
+      "minutes": 60,
+      "_updated_at": "2026-10-30T00:44:13.254Z"
     }
   }
 }
