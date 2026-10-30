@@ -9,9 +9,10 @@
     "Ghfaucet (faucet7)",
     "CoinDrip (faucet2)",
     "Ssatom (faucet67)",
-    "CryptoGravyTron (faucet76)"
+    "CryptoGravyTron (faucet76)",
+    "Cryptotimes (faucet77)"
   ],
-  "last_updated": "2026-10-30T01:11:33.698Z",
+  "last_updated": "2026-10-30T01:12:40.928Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
