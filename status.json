@@ -7,9 +7,10 @@
     "BitDrop (faucet48)",
     "Сrypto Gem (faucet6)",
     "Ghfaucet (faucet7)",
-    "CoinDrip (faucet2)"
+    "CoinDrip (faucet2)",
+    "Ssatom (faucet67)"
   ],
-  "last_updated": "2026-10-30T00:47:10.852Z",
+  "last_updated": "2026-10-30T00:47:25.344Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
