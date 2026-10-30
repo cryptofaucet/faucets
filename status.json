@@ -9,7 +9,7 @@
     "Ghfaucet (faucet7)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-10-30T00:39:35.422Z",
+  "last_updated": "2026-10-30T00:42:19.465Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -522,6 +522,14 @@
       "coin": "BCH",
       "minutes": 60,
       "_updated_at": "2026-10-30T00:39:35.422Z"
+    },
+    "65": {
+      "name": "Cro Faucet",
+      "url": "https://crofaucet.site/",
+      "reward": "0.00000350",
+      "coin": "LTC",
+      "minutes": 10,
+      "_updated_at": "2026-10-30T00:42:19.465Z"
     }
   }
 }
