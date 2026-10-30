@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:20:55.551Z",
+  "last_updated": "2026-10-30T01:23:27.425Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -662,6 +662,14 @@
       "coin": "TON",
       "minutes": 5,
       "_updated_at": "2026-10-30T01:20:55.551Z"
+    },
+    "82": {
+      "name": "RushFaucet",
+      "url": "https://rushfaucet.top/?r=mvab4djc",
+      "reward": "0.0002",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-10-30T01:23:27.425Z"
     }
   }
 }
