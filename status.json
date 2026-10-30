@@ -10,7 +10,7 @@
     "CoinDrip (faucet2)",
     "Ssatom (faucet67)"
   ],
-  "last_updated": "2026-10-30T00:47:25.344Z",
+  "last_updated": "2026-10-30T00:49:11.820Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -547,6 +547,14 @@
       "coin": "LTC",
       "minutes": 5,
       "_updated_at": "2026-10-30T00:47:10.852Z"
+    },
+    "68": {
+      "name": "CRYPTOFAUCET",
+      "url": "https://cryptofaucet.cyou/?r=gu6pdp49",
+      "reward": "0.0000015",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T00:49:11.820Z"
     }
   }
 }
