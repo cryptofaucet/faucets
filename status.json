@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:16:06.784Z",
+  "last_updated": "2026-10-30T01:18:24.449Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -646,6 +646,14 @@
       "coin": "FEY",
       "minutes": 1,
       "_updated_at": "2026-10-30T01:16:06.784Z"
+    },
+    "80": {
+      "name": "666faucet",
+      "url": "https://666faucet.site/?r=in74s258",
+      "reward": "0.00000007",
+      "coin": "ZEC",
+      "minutes": 30,
+      "_updated_at": "2026-10-30T01:18:24.449Z"
     }
   }
 }
