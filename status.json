@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:34:08.935Z",
+  "last_updated": "2026-10-30T01:36:27.606Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -710,6 +710,14 @@
       "coin": "SOL",
       "minutes": 30,
       "_updated_at": "2026-10-30T01:34:08.935Z"
+    },
+    "88": {
+      "name": "Sol24",
+      "url": "https://sol24.online/?r=fdb895pp",
+      "reward": "0.0000001",
+      "coin": "SOL",
+      "minutes": 60,
+      "_updated_at": "2026-10-30T01:36:27.606Z"
     }
   }
 }
