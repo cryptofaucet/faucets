@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T02:09:37.605Z",
+  "last_updated": "2026-10-30T02:12:00.635Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -855,6 +855,14 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-10-30T02:09:37.605Z"
+    },
+    "106": {
+      "name": "Centpay",
+      "url": "https://centpay.online/?r=imh9pc8p",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T02:12:00.635Z"
     }
   }
 }
