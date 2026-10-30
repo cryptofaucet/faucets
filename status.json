@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:32:03.786Z",
+  "last_updated": "2026-10-30T01:34:08.935Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -702,6 +702,14 @@
       "coin": "PEPE",
       "minutes": 1,
       "_updated_at": "2026-10-30T01:32:03.786Z"
+    },
+    "87": {
+      "name": "Cryptomania",
+      "url": "https://cryptomania.space/?r=tccd25tn",
+      "reward": "0.00005",
+      "coin": "SOL",
+      "minutes": 30,
+      "_updated_at": "2026-10-30T01:34:08.935Z"
     }
   }
 }
