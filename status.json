@@ -10,7 +10,7 @@
     "CoinDrip (faucet2)",
     "Ssatom (faucet67)"
   ],
-  "last_updated": "2026-10-30T01:02:16.568Z",
+  "last_updated": "2026-10-30T01:03:58.671Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -595,6 +595,14 @@
       "coin": "TRX",
       "minutes": 60,
       "_updated_at": "2026-10-30T01:02:16.568Z"
+    },
+    "74": {
+      "name": "Wcfaucet",
+      "url": "https://wcfaucet.site/?r=yrgufhc6",
+      "reward": "0.001",
+      "coin": "TRX",
+      "minutes": 2,
+      "_updated_at": "2026-10-30T01:03:58.671Z"
     }
   }
 }
