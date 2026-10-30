@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:29:40.595Z",
+  "last_updated": "2026-10-30T01:32:03.786Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -694,6 +694,14 @@
       "coin": "PEPE",
       "minutes": 1,
       "_updated_at": "2026-10-30T01:29:40.595Z"
+    },
+    "86": {
+      "name": "Snow Faucet",
+      "url": "https://snowfaucet.site/",
+      "reward": "0.01",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T01:32:03.786Z"
     }
   }
 }
