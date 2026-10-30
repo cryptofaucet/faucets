@@ -10,9 +10,10 @@
     "CoinDrip (faucet2)",
     "Ssatom (faucet67)",
     "CryptoGravyTron (faucet76)",
-    "Cryptotimes (faucet77)"
+    "Cryptotimes (faucet77)",
+    "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:14:28.918Z",
+  "last_updated": "2026-10-30T01:14:37.306Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
