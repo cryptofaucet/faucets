@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T02:13:37.482Z",
+  "last_updated": "2026-10-30T10:51:47.616Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -871,6 +871,14 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-10-30T02:13:37.482Z"
+    },
+    "108": {
+      "name": "BeezyPay",
+      "url": "https://beezypay.space/?r=wpr6szuu",
+      "reward": "0.000005",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T10:51:47.616Z"
     }
   }
 }
