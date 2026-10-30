@@ -11,9 +11,10 @@
     "Ssatom (faucet67)",
     "CryptoGravyTron (faucet76)",
     "Cryptotimes (faucet77)",
-    "Vipcypto (faucet78)"
+    "Vipcypto (faucet78)",
+    "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:40:30.111Z",
+  "last_updated": "2026-10-30T01:41:33.182Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
