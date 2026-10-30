@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:43:57.551Z",
+  "last_updated": "2026-10-30T01:45:30.001Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -743,6 +743,14 @@
       "coin": "USDT",
       "minutes": 3,
       "_updated_at": "2026-10-30T01:43:57.551Z"
+    },
+    "92": {
+      "name": "Cornearn",
+      "url": "https://cornearn.win/?r=yu26byjf",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 10,
+      "_updated_at": "2026-10-30T01:45:30.001Z"
     }
   }
 }
