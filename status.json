@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:51:07.169Z",
+  "last_updated": "2026-10-30T01:52:46.219Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -775,6 +775,14 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-10-30T01:51:07.169Z"
+    },
+    "96": {
+      "name": "Myfaucetj",
+      "url": "https://jhoalfaucet.click/",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 10,
+      "_updated_at": "2026-10-30T01:52:46.219Z"
     }
   }
 }
