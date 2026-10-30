@@ -10,7 +10,7 @@
     "CoinDrip (faucet2)",
     "Ssatom (faucet67)"
   ],
-  "last_updated": "2026-10-30T00:51:26.286Z",
+  "last_updated": "2026-10-30T00:53:10.573Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -563,6 +563,14 @@
       "coin": "DASH",
       "minutes": 5,
       "_updated_at": "2026-10-30T00:51:26.286Z"
+    },
+    "70": {
+      "name": "Faucetoday",
+      "url": "https://faucetoday.site/?r=7u94ayem",
+      "reward": "0.00001",
+      "coin": "DGB",
+      "minutes": 120,
+      "_updated_at": "2026-10-30T00:53:10.573Z"
     }
   }
 }
