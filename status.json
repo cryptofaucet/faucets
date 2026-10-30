@@ -10,7 +10,7 @@
     "CoinDrip (faucet2)",
     "Ssatom (faucet67)"
   ],
-  "last_updated": "2026-10-30T01:06:16.734Z",
+  "last_updated": "2026-10-30T01:09:23.805Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -611,6 +611,14 @@
       "coin": "TRX",
       "minutes": 60,
       "_updated_at": "2026-10-30T01:06:16.734Z"
+    },
+    "76": {
+      "name": "CryptoGravyTron",
+      "url": "https://cryptogravytron.site/?r=r88ngs94",
+      "reward": "0.0005",
+      "coin": "TRX",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T01:09:23.805Z"
     }
   }
 }
