@@ -13,9 +13,10 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)",
-    "Limitless (faucet23)"
+    "Limitless (faucet23)",
+    "Fpclicker (faucet71)"
   ],
-  "last_updated": "2026-10-30T11:07:20.572Z",
+  "last_updated": "2026-10-30T11:09:30.443Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
