@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:57:58.214Z",
+  "last_updated": "2026-10-30T01:59:34.486Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -807,6 +807,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-10-30T01:57:58.214Z"
+    },
+    "100": {
+      "name": "Crypto Faucet",
+      "url": "https://crypto-faucet.site/?r=6yri2rnt",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T01:59:34.486Z"
     }
   }
 }
