@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T02:12:00.635Z",
+  "last_updated": "2026-10-30T02:13:37.482Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -863,6 +863,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-10-30T02:12:00.635Z"
+    },
+    "107": {
+      "name": "Lagfaucet",
+      "url": "https://lagfaucet.online/?r=uv5vp2xt",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-10-30T02:13:37.482Z"
     }
   }
 }
