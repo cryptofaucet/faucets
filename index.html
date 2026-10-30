@@ -642,7 +642,7 @@ tr.globally-disabled .btn-limit {
 <div class="promo-box premium-pulse"
      style="margin: 0; flex: 1; min-width: 360px; height: auto; min-height: 90px; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; position: relative;">
 
-     <!-- НАСТРОЙКА ОПОВЕЩЕНИЯ -->
+      <!-- НАСТРОЙКА ОПОВЕЩЕНИЯ -->
 <div style="width: 100%; max-width: 468px; display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding-left: 8px; margin-bottom: 8px; box-sizing: border-box;">
 
     <label for="premium-alert-limit" style="white-space: nowrap;">
@@ -653,12 +653,12 @@ tr.globally-disabled .btn-limit {
         type="number"
         id="premium-alert-limit"
         min="0"
-        step="1"
-        value="10"
-        style="width: 65px; text-align: center; margin-left: 4px; -moz-appearance: textfield;"
+        step="0.01"
+        value="0.10"
+        style="width: 85px; text-align: center; margin-left: 4px; -moz-appearance: textfield;"
     >
 
-    <span>коп.</span>
+    <span id="premium-alert-currency">₽</span>
 
 </div>
 
@@ -1606,6 +1606,91 @@ document.getElementById('limitsBtn').addEventListener('click', function () {
     let cryptoRates = {};
 	let cryptoRatesUSD = {};
 let usdToRub = 0;
+	let premiumAlertLimitRub = null;
+
+// Получаем введённое значение и сохраняем его в рублях
+function capturePremiumAlertLimit() {
+    const input = document.getElementById('premium-alert-limit');
+    if (!input || input.value.trim() === '') return;
+
+    const value = parseFloat(input.value.replace(',', '.'));
+
+    if (!Number.isFinite(value) || value < 0) return;
+
+    if (currentCurrency === 'USD') {
+        if (usdToRub <= 0) return;
+        premiumAlertLimitRub = value * usdToRub;
+    } else {
+        premiumAlertLimitRub = value;
+    }
+
+    localStorage.setItem(
+        'premiumAlertLimitRUB',
+        String(premiumAlertLimitRub)
+    );
+}
+
+// Отображаем порог в выбранной валюте
+function renderPremiumAlertLimit() {
+    const input = document.getElementById('premium-alert-limit');
+    const symbol = document.getElementById('premium-alert-currency');
+
+    if (!input || !symbol) return;
+
+    if (premiumAlertLimitRub === null) {
+        const saved = localStorage.getItem('premiumAlertLimitRUB');
+
+        if (saved !== null && Number.isFinite(Number(saved)) && Number(saved) >= 0) {
+            premiumAlertLimitRub = Number(saved);
+        } else {
+            premiumAlertLimitRub = 0.10;
+            localStorage.setItem('premiumAlertLimitRUB', '0.10');
+        }
+    }
+
+    if (currentCurrency === 'USD') {
+        symbol.textContent = '$';
+        input.step = '0.000001';
+
+        if (usdToRub > 0) {
+            input.disabled = false;
+            input.value = (premiumAlertLimitRub / usdToRub).toFixed(6);
+        } else {
+            input.value = '';
+            input.placeholder = 'Загрузка курса';
+            input.disabled = true;
+        }
+    } else {
+        symbol.textContent = '₽';
+        input.disabled = false;
+        input.placeholder = '';
+        input.step = '0.01';
+        input.value = premiumAlertLimitRub.toFixed(2);
+    }
+}
+
+// Инициализация поля
+function initPremiumAlertLimit() {
+    const input = document.getElementById('premium-alert-limit');
+    if (!input) return;
+
+    const saved = localStorage.getItem('premiumAlertLimitRUB');
+
+    if (saved !== null && Number.isFinite(Number(saved)) && Number(saved) >= 0) {
+        premiumAlertLimitRub = Number(saved);
+    } else {
+        premiumAlertLimitRub = 0.10;
+    }
+
+    input.addEventListener('input', capturePremiumAlertLimit);
+
+    input.addEventListener('change', function() {
+        capturePremiumAlertLimit();
+        renderPremiumAlertLimit();
+    });
+
+    renderPremiumAlertLimit();
+}
 
 let currentCurrency =
     localStorage.getItem('siteCurrency') === 'USD' ? 'USD' : 'RUB';
@@ -1722,6 +1807,7 @@ async function getLiveCryptoRates() {
             localStorage.setItem('cryptoRatesUSD', JSON.stringify(cryptoRatesUSD));
             localStorage.setItem('cryptoRatesRUB', JSON.stringify(cryptoRates));
             localStorage.setItem('usdToRub', String(usdToRub));
+			renderPremiumAlertLimit();
 
             runLiveCalculations();
             window.sortTableByPrice();
@@ -1881,6 +1967,7 @@ window.calculateLiveRow = function(trId, cryptoValue) {
         });
         
         getLiveCryptoRates();
+		initPremiumAlertLimit();
         setInterval(getLiveCryptoRates, 900000); 
         
         const container = document.querySelector('.tables-container');
@@ -1898,21 +1985,28 @@ window.calculateLiveRow = function(trId, cryptoValue) {
         ?.classList.toggle('active', currentCurrency === 'USD');
 }
 
-function setCurrency(currency) {
-     currentCurrency = currency;
-window.currentCurrency = currency;
+ function setCurrency(currency) {
+    capturePremiumAlertLimit();
+
+    currentCurrency = currency;
+    window.currentCurrency = currency;
+
     localStorage.setItem('siteCurrency', currency);
 
     updateCurrencyButtons();
     runLiveCalculations();
 
-    // Обновляем премиум-бокс, даже если лучший кран не изменился
-   const topBox = document.getElementById('smart-premium-box');
-if (topBox) topBox.removeAttribute('data-current-best');
+    // Обновляем порог оповещения
+    renderPremiumAlertLimit();
 
-if (typeof window.refreshBestFaucet === 'function') {
-    setTimeout(() => window.refreshBestFaucet(), 100);
-}
+    // Обновляем премиум-бокс
+    const topBox = document.getElementById('smart-premium-box');
+
+    if (topBox) topBox.removeAttribute('data-current-best');
+
+    if (typeof window.refreshBestFaucet === 'function') {
+        setTimeout(() => window.refreshBestFaucet(), 100);
+    }
 }
 
 document.getElementById('currencyRUB')
