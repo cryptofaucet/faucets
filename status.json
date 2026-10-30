@@ -10,7 +10,7 @@
     "CoinDrip (faucet2)",
     "Ssatom (faucet67)"
   ],
-  "last_updated": "2026-10-30T00:49:11.820Z",
+  "last_updated": "2026-10-30T00:51:26.286Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -555,6 +555,14 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-10-30T00:49:11.820Z"
+    },
+    "69": {
+      "name": "KingsXstation",
+      "url": "https://kingsxstation.site/",
+      "reward": "0.00000001",
+      "coin": "DASH",
+      "minutes": 5,
+      "_updated_at": "2026-10-30T00:51:26.286Z"
     }
   }
 }
