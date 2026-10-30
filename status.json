@@ -14,7 +14,7 @@
     "Vipcypto (faucet78)",
     "Egofaucet (faucet90)"
   ],
-  "last_updated": "2026-10-30T01:48:38.593Z",
+  "last_updated": "2026-10-30T01:51:07.169Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -767,6 +767,14 @@
       "coin": "USDT",
       "minutes": 60,
       "_updated_at": "2026-10-30T01:48:38.593Z"
+    },
+    "95": {
+      "name": "EarnCrypto",
+      "url": "https://earnltcsol.in/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-10-30T01:51:07.169Z"
     }
   }
 }
