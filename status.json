@@ -13,7 +13,7 @@
     "Cryptotimes (faucet77)",
     "Vipcypto (faucet78)"
   ],
-  "last_updated": "2026-10-30T01:27:25.808Z",
+  "last_updated": "2026-10-30T01:29:40.595Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -686,6 +686,14 @@
       "coin": "USDC",
       "minutes": 1,
       "_updated_at": "2026-10-30T01:27:25.808Z"
+    },
+    "85": {
+      "name": "Pythagore Pepe",
+      "url": "https://pythagore-pepe.website/?r=2hr344a9",
+      "reward": "8.65",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-10-30T01:29:40.595Z"
     }
   }
 }
