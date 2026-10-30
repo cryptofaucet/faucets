@@ -314,6 +314,31 @@ tr.globally-disabled .btn-limit {
     -moz-appearance: textfield;
     appearance: textfield;
 }
+		.premium-alert-part {
+    height: 25px;
+    padding: 2px 3px;
+    border: 1px solid #52667d;
+    border-radius: 4px;
+    background: #151a26;
+    color: #00ffcc;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#premium-alert-whole {
+    width: 35px;
+}
+
+#premium-alert-fraction {
+    width: 65px;
+}
+
+.premium-alert-part:focus {
+    border-color: #00b3ff;
+}
 		
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
@@ -643,23 +668,47 @@ tr.globally-disabled .btn-limit {
      style="margin: 0; flex: 1; min-width: 360px; height: auto; min-height: 90px; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; position: relative;">
 
       <!-- НАСТРОЙКА ОПОВЕЩЕНИЯ -->
-<div style="width: 100%; max-width: 468px; display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding-left: 8px; margin-bottom: 8px; box-sizing: border-box;">
+<div style="width: 100%; max-width: 468px; display: flex;
+align-items: center; justify-content: flex-start;
+gap: 8px; padding-left: 8px; margin-bottom: 8px;
+box-sizing: border-box;">
 
-    <label for="premium-alert-limit" style="white-space: nowrap;">
+    <label for="premium-alert-whole" style="white-space: nowrap;">
         🔔 Оповещать от:
     </label>
 
     <input
-        type="number"
+        type="text"
+        id="premium-alert-whole"
+        class="premium-alert-part"
+        inputmode="numeric"
+        maxlength="2"
+        autocomplete="off"
+        value="0"
+        aria-label="Целая часть"
+    >
+
+    <span style="font-weight: bold;">.</span>
+
+    <input
+        type="text"
+        id="premium-alert-fraction"
+        class="premium-alert-part"
+        inputmode="numeric"
+        maxlength="2"
+        autocomplete="off"
+        value="10"
+        aria-label="Дробная часть"
+    >
+
+    <!-- Совместимость со старым JavaScript -->
+    <input
+        type="hidden"
         id="premium-alert-limit"
-        min="0"
-        step="0.01"
         value="0.10"
-        style="width: 85px; text-align: center; margin-left: 4px; -moz-appearance: textfield;"
     >
 
     <span id="premium-alert-currency">₽</span>
-
 </div>
 
     <!-- ПРЕМИУМ-БОКС -->
@@ -1608,14 +1657,27 @@ document.getElementById('limitsBtn').addEventListener('click', function () {
 let usdToRub = 0;
 	let premiumAlertLimitRub = null;
 
-// Получаем введённое значение и сохраняем его в рублях
+ // Получаем порог из двух полей
 function capturePremiumAlertLimit() {
+    const whole = document.getElementById('premium-alert-whole');
+    const fraction = document.getElementById('premium-alert-fraction');
     const input = document.getElementById('premium-alert-limit');
-    if (!input || input.value.trim() === '') return;
 
-    const value = parseFloat(input.value.replace(',', '.'));
+    if (!whole || !fraction || !input) return;
 
-    if (!Number.isFinite(value) || value < 0) return;
+    const digits = currentCurrency === 'USD' ? 6 : 2;
+
+    whole.value = whole.value.replace(/\D/g, '').slice(0, 2);
+    fraction.value = fraction.value.replace(/\D/g, '').slice(0, digits);
+
+    const integerPart = whole.value || '0';
+    const decimalPart = fraction.value.padEnd(digits, '0');
+
+    const value = Number(integerPart + '.' + decimalPart);
+
+    if (!Number.isFinite(value)) return;
+
+    input.value = String(value);
 
     if (currentCurrency === 'USD') {
         if (usdToRub <= 0) return;
@@ -1628,14 +1690,20 @@ function capturePremiumAlertLimit() {
         'premiumAlertLimitRUB',
         String(premiumAlertLimitRub)
     );
+
+    // Совместимость со старым хранилищем
+    localStorage.setItem('premiumAlertLimit', String(value));
 }
+
 
 // Отображаем порог в выбранной валюте
 function renderPremiumAlertLimit() {
+    const whole = document.getElementById('premium-alert-whole');
+    const fraction = document.getElementById('premium-alert-fraction');
     const input = document.getElementById('premium-alert-limit');
     const symbol = document.getElementById('premium-alert-currency');
 
-    if (!input || !symbol) return;
+    if (!whole || !fraction || !input || !symbol) return;
 
     if (premiumAlertLimitRub === null) {
         const saved = localStorage.getItem('premiumAlertLimitRUB');
@@ -1644,35 +1712,61 @@ function renderPremiumAlertLimit() {
             premiumAlertLimitRub = Number(saved);
         } else {
             premiumAlertLimitRub = 0.10;
-            localStorage.setItem('premiumAlertLimitRUB', '0.10');
         }
     }
+
+    let value;
+    let digits;
 
     if (currentCurrency === 'USD') {
         symbol.textContent = '$';
-        input.step = '0.000001';
+        digits = 6;
 
-        if (usdToRub > 0) {
-            input.disabled = false;
-            input.value = (premiumAlertLimitRub / usdToRub).toFixed(6);
-        } else {
-            input.value = '';
-            input.placeholder = 'Загрузка курса';
-            input.disabled = true;
+        if (usdToRub <= 0) {
+            whole.value = '0';
+            fraction.value = '';
+            fraction.placeholder = 'Курс...';
+            whole.disabled = true;
+            fraction.disabled = true;
+            return;
         }
+
+        whole.disabled = false;
+        fraction.disabled = false;
+
+        value = premiumAlertLimitRub / usdToRub;
     } else {
         symbol.textContent = '₽';
-        input.disabled = false;
-        input.placeholder = '';
-        input.step = '0.01';
-        input.value = premiumAlertLimitRub.toFixed(2);
+        digits = 2;
+
+        whole.disabled = false;
+        fraction.disabled = false;
+        fraction.placeholder = '';
+
+        value = premiumAlertLimitRub;
     }
+
+    const formatted = value.toFixed(digits);
+    const parts = formatted.split('.');
+
+    whole.value = parts[0];
+    fraction.value = parts[1];
+
+    fraction.maxLength = digits;
+
+    input.value = formatted;
+
+    // Синхронизация старого хранилища
+    localStorage.setItem('premiumAlertLimit', formatted);
 }
 
-// Инициализация поля
+
+// Инициализация
 function initPremiumAlertLimit() {
-    const input = document.getElementById('premium-alert-limit');
-    if (!input) return;
+    const whole = document.getElementById('premium-alert-whole');
+    const fraction = document.getElementById('premium-alert-fraction');
+
+    if (!whole || !fraction) return;
 
     const saved = localStorage.getItem('premiumAlertLimitRUB');
 
@@ -1682,16 +1776,26 @@ function initPremiumAlertLimit() {
         premiumAlertLimitRub = 0.10;
     }
 
-    input.addEventListener('input', capturePremiumAlertLimit);
+    function handleInput() {
+        const digits = currentCurrency === 'USD' ? 6 : 2;
 
-    input.addEventListener('change', function() {
+        whole.value = whole.value.replace(/\D/g, '').slice(0, 2);
+        fraction.value = fraction.value.replace(/\D/g, '').slice(0, digits);
+
         capturePremiumAlertLimit();
-        renderPremiumAlertLimit();
-    });
+    }
+
+    whole.addEventListener('input', handleInput);
+    fraction.addEventListener('input', handleInput);
+
+    whole.addEventListener('change', renderPremiumAlertLimit);
+    fraction.addEventListener('change', renderPremiumAlertLimit);
+
+    whole.addEventListener('blur', renderPremiumAlertLimit);
+    fraction.addEventListener('blur', renderPremiumAlertLimit);
 
     renderPremiumAlertLimit();
 }
-
 let currentCurrency =
     localStorage.getItem('siteCurrency') === 'USD' ? 'USD' : 'RUB';
 	window.currentCurrency = currentCurrency;
