@@ -626,11 +626,29 @@ tr.globally-disabled .btn-limit {
     </div>
 </div>
 	
- <!-- 2 КОНТЕЙНЕР (СПРАВА): ОГРАНИЧЕН ПО ШИРИНЕ И ВЫСОТЕ -->
-<div class="promo-box premium-pulse" style="margin: 0; flex: 1; min-width: 360px; height: auto; min-height: 90px; padding: 10px; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative;">
+  <!-- 2 КОНТЕЙНЕР (СПРАВА) -->
+<div class="promo-box premium-pulse"
+     style="margin: 0; flex: 1; min-width: 360px; height: auto; min-height: 90px; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; position: relative;">
+
+    <!-- НАСТРОЙКА ОПОВЕЩЕНИЯ -->
+    <div style="width: 100%; max-width: 468px; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+        <label for="premium-alert-limit">🔔 Оповещать от:</label>
+        <input
+            type="number"
+            id="premium-alert-limit"
+            min="0"
+            step="1"
+            value="10"
+            style="width: 65px; text-align: center;"
+        >
+        <span>коп.</span>
+    </div>
+
+    <!-- ПРЕМИУМ-БОКС -->
     <div id="smart-premium-box" style="width: 100%; max-width: 468px; margin: auto;">
         <!-- Сюда ваш JS-скрипт будет автоматически закидывать краны -->
     </div>
+
 </div>
 
 </div> <!-- ЗДЕСЬ СТРОКА ЗАКРЫВАЕТСЯ, И ДАЛЬШЕ ПОД НЕЙ ИДУТ ТАБЛИЦЫ КРАНОВ -->
@@ -3138,5 +3156,33 @@ if (typeof window.refreshBestFaucet === 'function') {
 })();
 </script>
 
+	<script>
+// =========================================================
+// PREMIUM BOX — ALERT THRESHOLD
+// =========================================================
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('premium-alert-limit');
+    if (!input) return;
+
+    const savedValue = localStorage.getItem('premiumAlertLimit');
+
+    if (savedValue !== null) {
+        input.value = savedValue;
+    }
+
+    input.addEventListener('change', function () {
+        let value = parseFloat(input.value);
+
+        if (isNaN(value) || value < 0) {
+            value = 10;
+        }
+
+        input.value = value;
+        localStorage.setItem('premiumAlertLimit', value);
+
+        console.log('Порог оповещения:', value, 'коп.');
+    });
+});
+</script>
 </body>
 </html>
