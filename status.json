@@ -17,7 +17,7 @@
     "Flowfaucet (faucet30)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-10-31T15:29:34.687Z",
+  "last_updated": "2026-10-31T15:41:20.110Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -890,6 +890,14 @@
       "coin": "USDT",
       "minutes": 60,
       "_updated_at": "2026-10-31T15:29:34.687Z"
+    },
+    "110": {
+      "name": "Pepedrop",
+      "url": "https://pepedrop.space/?r=vnx7ikb5",
+      "reward": "16",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-10-31T15:41:20.110Z"
     }
   }
 }
