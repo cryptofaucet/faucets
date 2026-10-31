@@ -20,7 +20,7 @@
     "FaucetFun (faucet1)",
     "Flowfaucet (faucet30)"
   ],
-  "last_updated": "2026-10-31T12:26:12.792Z",
+  "last_updated": "2026-10-31T12:45:07.113Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -575,12 +575,12 @@
       "_updated_at": "2026-10-30T00:51:26.286Z"
     },
     "70": {
-      "name": "Faucetoday",
-      "url": "https://faucetoday.site/?r=7u94ayem",
-      "reward": "0.00001",
-      "coin": "DGB",
-      "minutes": 120,
-      "_updated_at": "2026-10-30T00:53:10.573Z"
+      "name": "Gimmecrypto",
+      "url": "https://gimmecrypto.site/?r=tzedgs9x",
+      "reward": "0.00000004",
+      "coin": "SOL",
+      "minutes": 30,
+      "_updated_at": "2026-10-31T12:45:07.113Z"
     },
     "71": {
       "name": "Fpclicker",
