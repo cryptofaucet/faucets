@@ -20,7 +20,7 @@
     "FaucetFun (faucet1)",
     "Flowfaucet (faucet30)"
   ],
-  "last_updated": "2026-10-30T19:01:20.364Z",
+  "last_updated": "2026-10-31T12:15:11.981Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -137,10 +137,10 @@
     "15": {
       "name": "Faucet Alaska",
       "url": "https://faucetalaska.online/",
-      "reward": "0.00000005",
+      "reward": "0.00000001",
       "coin": "BTC",
       "minutes": 600,
-      "_updated_at": "2026-10-29T17:40:59.730Z"
+      "_updated_at": "2026-10-31T12:15:11.981Z"
     },
     "16": {
       "name": "Coinearnhub",
