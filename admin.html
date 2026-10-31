@@ -1,4 +1,4 @@
- 
+  
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -41,6 +41,7 @@ button:disabled{opacity:.6;cursor:wait}
 .faucet-name{font-weight:bold;overflow-wrap:anywhere;display:flex;align-items:flex-start;gap:9px;min-width:0}
 .faucet-id{color:#ff9d2e;font-weight:800;min-width:2.2em;flex-shrink:0}
 .faucet-label{overflow-wrap:anywhere}
+.faucet-reward-display{flex:1;min-width:0;text-align:center;color:#2ecc71;font-size:14px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
 .admin-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .status-btn,.edit-btn{width:auto;flex-shrink:0;padding:7px 10px;font-size:13px}
 .edit-btn{background:#3498db;color:#fff}
@@ -369,7 +370,19 @@ async function fetchAndParseFaucets() {
                 if (!match || !link) return null;
                 const name = link.textContent.trim();
                 if (!name) return null;
-                return { id: match[1], name, url: link.getAttribute("href") || "" };
+
+                // Берём выплату и валюту из тех же элементов index.html,
+                // которые используются при открытии окна редактирования.
+                const rewardInput = row.querySelector("input.crypto-input");
+                const badge = row.querySelector(".crypto-badge");
+
+                return {
+                    id: match[1],
+                    name,
+                    url: link.getAttribute("href") || "",
+                    reward: rewardInput?.getAttribute("value") ?? rewardInput?.value ?? "",
+                    coin: badge?.textContent.trim().toUpperCase() || ""
+                };
             })
             .filter(Boolean);
 
@@ -427,6 +440,13 @@ function renderAdminList() {
 
         nameSpan.append(idSpan, label);
 
+        // Выплата и валюта — только для просмотра, без полей редактирования.
+        const rewardDisplay = document.createElement("span");
+        rewardDisplay.className = "faucet-reward-display";
+        rewardDisplay.textContent = faucet.reward && faucet.coin
+            ? `${faucet.reward} ${faucet.coin}`
+            : "—";
+
         const actions = document.createElement("div");
         actions.className = "admin-actions";
 
@@ -443,7 +463,7 @@ function renderAdminList() {
         button.addEventListener("click", () => toggleFaucet(name, id));
 
         actions.append(editButton, button);
-        item.append(nameSpan, actions);
+        item.append(nameSpan, rewardDisplay, actions);
         listDiv.appendChild(item);
     });
 }
