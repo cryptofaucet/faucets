@@ -17,7 +17,7 @@
     "Flowfaucet (faucet30)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-10-31T13:49:07.469Z",
+  "last_updated": "2026-10-31T15:29:34.687Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -882,6 +882,14 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-10-30T10:51:47.616Z"
+    },
+    "109": {
+      "name": "Joy-dream",
+      "url": "https://joy-dream.website/",
+      "reward": "0.0005",
+      "coin": "USDT",
+      "minutes": 60,
+      "_updated_at": "2026-10-31T15:29:34.687Z"
     }
   }
 }
