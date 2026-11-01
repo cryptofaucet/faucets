@@ -748,10 +748,24 @@ $("messageInput").addEventListener("keydown", event => {
 
  /* ---------------- АУДИО И ВИДЕОЗВОНКИ WEBRTC ---------------- */
 
+ const meteredUsername = " 008cf2ca835aa4940af75d82";
+const meteredPassword = "9ekjTKUt9JlGWsws";
+
 const rtcConfig = {
   iceServers: [
-    { urls: "stun:stun.l.google.com:19302" },
-    { urls: "stun:stun1.l.google.com:19302" }
+    {
+      urls: "stun:stun.relay.metered.ca:80"
+    },
+    {
+      urls: [
+        "turn:global.relay.metered.ca:80",
+        "turn:global.relay.metered.ca:80?transport=tcp",
+        "turn:global.relay.metered.ca:443",
+        "turns:global.relay.metered.ca:443?transport=tcp"
+      ],
+      username: meteredUsername,
+      credential: meteredPassword
+    }
   ]
 };
 
