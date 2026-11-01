@@ -340,7 +340,7 @@ tr.globally-disabled .btn-limit {
     border-color: #00b3ff;
 }
 	.timer-wrapper .timer-cell.ready {
-    font-size: 10px !important;
+    font-size: 12px !important;
 }	
 	/* Результат в рублях — ПК */
 .rub-result {
@@ -350,6 +350,10 @@ tr.globally-disabled .btn-limit {
 		.tables-container td:has(.rub-result) {
     padding: 0 !important;
     min-width: 0 !important;
+}
+		.tables-container td:has(.timer-wrapper) {
+    text-align: left !important;
+    padding-left: 0 !important;
 }
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
