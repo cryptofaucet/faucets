@@ -135,7 +135,37 @@ header strong {font-size:17px}
 .call-buttons button {flex:1;min-width:90px}
 #callIcon {font-size:30px;margin-bottom:10px}
 #remoteAudio {display:none}
+#callPanel {
+  width:min(480px,calc(100vw - 30px));
+}
 
+#videoArea {
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#080c12;
+  border-radius:10px;
+  overflow:hidden;
+  margin:12px 0;
+}
+
+#remoteVideo {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+#localVideo {
+  position:absolute;
+  right:10px;
+  bottom:10px;
+  width:28%;
+  max-height:35%;
+  object-fit:cover;
+  border:2px solid white;
+  border-radius:8px;
+  background:#111;
+}
 @media(max-width:700px) {
   #sidebar {width:100%;min-width:0;border-right:0}
   #main {display:none}
@@ -219,7 +249,8 @@ header strong {font-size:17px}
       <div id="chatHeader" class="hidden">
         <button id="mobileBack" class="btn-gray">←</button>
         <strong id="chatPersonName"></strong>
-        <button id="callButton" title="Аудиозвонок">📞 Позвонить</button>
+         <button id="callAudioButton" title="Аудиозвонок">📞 Аудио</button>
+<button id="callVideoButton" title="Видеозвонок">📹 Видео</button>
       </div>
 
       <div id="messages" class="hidden"></div>
@@ -233,16 +264,24 @@ header strong {font-size:17px}
   </div>
 </div>
 
-<div id="callPanel" class="hidden">
+ <div id="callPanel" class="hidden">
   <div id="callIcon">📞</div>
-  <h3 id="callTitle">Аудиозвонок</h3>
+  <h3 id="callTitle">Звонок</h3>
   <div id="callStatus">Подготовка...</div>
+
+  <div id="videoArea" class="hidden">
+    <video id="remoteVideo" autoplay playsinline></video>
+    <video id="localVideo" autoplay playsinline muted></video>
+  </div>
+
   <div class="call-buttons" id="incomingButtons">
     <button id="acceptCallButton" class="btn-green">Принять</button>
     <button id="rejectCallButton" class="btn-red">Отклонить</button>
   </div>
+
   <div class="call-buttons hidden" id="activeButtons">
     <button id="muteButton" class="btn-gray">🎙 Выключить микрофон</button>
+    <button id="cameraButton" class="btn-gray hidden">📷 Выключить камеру</button>
     <button id="hangupButton" class="btn-red">Завершить</button>
   </div>
 </div>
@@ -273,7 +312,11 @@ let answerApplied = false;
 let callTimer = null;
 let callSeconds = 0;
 let muted = false;
-
+let callPollTimer = null;
+let icePollTimer = null;
+let seenIceKeys = new Set();
+let isVideoCall = false; 
+ 
 const $ = id => document.getElementById(id);
 
 function escapeHtml(value) {
@@ -701,7 +744,7 @@ $("messageInput").addEventListener("keydown", event => {
   }
 });
 
-/* ---------------- АУДИОЗВОНКИ WEBRTC ---------------- */
+ /* ---------------- АУДИО И ВИДЕОЗВОНКИ WEBRTC ---------------- */
 
 const rtcConfig = {
   iceServers: [
@@ -714,6 +757,7 @@ function showCallPanel(title, status, mode) {
   $("callPanel").classList.remove("hidden");
   $("callTitle").textContent = title;
   $("callStatus").textContent = status;
+
   $("incomingButtons").classList.toggle("hidden", mode !== "incoming");
   $("activeButtons").classList.toggle("hidden", mode !== "active");
 }
@@ -729,17 +773,19 @@ function formatDuration(seconds) {
 }
 
 function startCallTimer() {
-  clearInterval(callTimer);
+  if (callTimer) return;
+
   callSeconds = 0;
+
   callTimer = setInterval(() => {
     callSeconds++;
     updateCallStatus("Разговор: " + formatDuration(callSeconds));
   }, 1000);
 }
 
-async function getMicrophone() {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    throw new Error("Браузер не поддерживает доступ к микрофону. Открой сайт по HTTPS.");
+async function getCallMedia(video = false) {
+  if (!navigator.mediaDevices?.getUserMedia) {
+    throw new Error("Браузер не поддерживает микрофон или камеру. Нужен HTTPS.");
   }
 
   return await navigator.mediaDevices.getUserMedia({
@@ -748,8 +794,78 @@ async function getMicrophone() {
       noiseSuppression: true,
       autoGainControl: true
     },
-    video: false
+    video: video ? {
+      width: { ideal: 640 },
+      height: { ideal: 480 },
+      facingMode: "user"
+    } : false
   });
+}
+
+function showLocalVideo() {
+  if (!isVideoCall || !localStream) return;
+
+  $("videoArea").classList.remove("hidden");
+  $("localVideo").srcObject = localStream;
+  $("cameraButton").classList.remove("hidden");
+}
+
+function showRemoteVideo() {
+  $("videoArea").classList.remove("hidden");
+}
+
+function startCallPolling() {
+  clearInterval(callPollTimer);
+  clearInterval(icePollTimer);
+
+  callPollTimer = setInterval(pollCallState, 1200);
+  icePollTimer = setInterval(pollRemoteIce, 1200);
+
+  pollCallState();
+  pollRemoteIce();
+}
+
+async function pollCallState() {
+  const callId = activeCall?.id || incomingCall?.id;
+  if (!callId) return;
+
+  const { data, error } = await db
+    .from("calls")
+    .select("*")
+    .eq("id", callId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Ошибка проверки звонка:", error);
+    return;
+  }
+
+  if (data) {
+    handleCallChange({
+      eventType: "UPDATE",
+      new: data
+    });
+  }
+}
+
+async function pollRemoteIce() {
+  const callId = activeCall?.id || incomingCall?.id;
+  if (!callId) return;
+
+  const { data, error } = await db
+    .from("call_ice_candidates")
+    .select("*")
+    .eq("call_id", callId)
+    .neq("user_id", currentUser.id);
+
+  if (error) {
+    console.error("Ошибка получения ICE:", error);
+    return;
+  }
+
+  for (const row of data || []) {
+    await receiveIceCandidate(row);
+  }
 }
 
 function createPeerConnection(callId) {
@@ -760,20 +876,36 @@ function createPeerConnection(callId) {
   });
 
   peerConnection.ontrack = event => {
-    $("remoteAudio").srcObject = event.streams[0];
-    $("remoteAudio").play().catch(() => {
-      updateCallStatus("Нажми на страницу, чтобы разрешить воспроизведение звука.");
-    });
+    const stream = event.streams?.[0];
+
+    if (!stream) return;
+
+    if (isVideoCall) {
+      $("remoteVideo").srcObject = stream;
+      showRemoteVideo();
+
+      $("remoteVideo").play().catch(() => {
+        updateCallStatus("Нажми на страницу, чтобы разрешить видео.");
+      });
+    } else {
+      $("remoteAudio").srcObject = stream;
+
+      $("remoteAudio").play().catch(() => {
+        updateCallStatus("Нажми на страницу, чтобы разрешить звук.");
+      });
+    }
   };
 
   peerConnection.onicecandidate = async event => {
     if (!event.candidate || !activeCall || activeCall.id !== callId) return;
 
-    const { error } = await db.from("call_ice_candidates").insert({
-      call_id: callId,
-      user_id: currentUser.id,
-      candidate: event.candidate.toJSON()
-    });
+    const { error } = await db
+      .from("call_ice_candidates")
+      .insert({
+        call_id: callId,
+        user_id: currentUser.id,
+        candidate: event.candidate.toJSON()
+      });
 
     if (error) console.error("Ошибка отправки ICE:", error);
   };
@@ -784,65 +916,87 @@ function createPeerConnection(callId) {
     const state = peerConnection.connectionState;
 
     if (state === "connected") {
-      updateCallStatus("Разговор: " + formatDuration(callSeconds));
       startCallTimer();
     } else if (state === "connecting") {
-      updateCallStatus("Соединение...");
+      updateCallStatus("Устанавливаем соединение...");
     } else if (state === "disconnected") {
-      updateCallStatus("Связь прервана, пытаемся восстановить...");
+      updateCallStatus("Связь прервана...");
     } else if (state === "failed") {
-      updateCallStatus("Не удалось установить соединение. Завершаем звонок.");
-      setTimeout(() => {
-        if (activeCall) hangupCall();
-      }, 1500);
+      updateCallStatus("Не удалось установить соединение.");
     }
   };
 
   return peerConnection;
 }
 
+async function receiveIceCandidate(row) {
+  const callId = activeCall?.id || incomingCall?.id;
+
+  if (!callId || row.call_id !== callId) return;
+  if (row.user_id === currentUser.id) return;
+
+  const key = JSON.stringify(row.candidate);
+  if (seenIceKeys.has(key)) return;
+
+  seenIceKeys.add(key);
+
+  if (!activeCall || !peerConnection || !peerConnection.remoteDescription) {
+    remoteIceQueue.push(row.candidate);
+    return;
+  }
+
+  try {
+    await peerConnection.addIceCandidate(
+      new RTCIceCandidate(row.candidate)
+    );
+  } catch (error) {
+    console.error("Ошибка добавления ICE:", error);
+  }
+}
+
 async function flushRemoteIce() {
-  if (!peerConnection || !peerConnection.remoteDescription) return;
+  if (!peerConnection?.remoteDescription) return;
 
   const queue = [...remoteIceQueue];
   remoteIceQueue = [];
 
   for (const candidate of queue) {
     try {
-      await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+      await peerConnection.addIceCandidate(
+        new RTCIceCandidate(candidate)
+      );
     } catch (error) {
-      console.error("Ошибка добавления ICE:", error);
+      console.error("Ошибка ICE:", error);
     }
   }
 }
 
-async function receiveIceCandidate(row) {
-  if (!activeCall || row.call_id !== activeCall.id) return;
-  if (row.user_id === currentUser.id) return;
-
-  if (!peerConnection || !peerConnection.remoteDescription) {
-    remoteIceQueue.push(row.candidate);
-    return;
-  }
-
-  try {
-    await peerConnection.addIceCandidate(new RTCIceCandidate(row.candidate));
-  } catch (error) {
-    console.error("Ошибка ICE candidate:", error);
-  }
-}
-
-async function startAudioCall() {
+async function startCall(video = false) {
   if (!activeFriend || activeCall || incomingCall) return;
 
   if (!window.isSecureContext) {
-    alert("Для аудиозвонков нужен защищённый HTTPS-сайт.");
+    alert("Для звонков нужен HTTPS.");
     return;
   }
 
-  $("callButton").disabled = true;
+  $("callAudioButton").disabled = true;
+  $("callVideoButton").disabled = true;
+
+  isVideoCall = video;
+  seenIceKeys.clear();
+  remoteIceQueue = [];
 
   try {
+    showCallPanel(
+      video ? "Видеозвонок" : "Аудиозвонок",
+      "Запрашиваем " + (video ? "камеру и микрофон..." : "микрофон..."),
+      "active"
+    );
+
+    localStream = await getCallMedia(video);
+
+    if (video) showLocalVideo();
+
     const { data: call, error } = await db
       .from("calls")
       .insert({
@@ -859,20 +1013,21 @@ async function startAudioCall() {
       id: call.id,
       role: "caller",
       caller_id: currentUser.id,
-      callee_id: activeFriend.id
+      callee_id: activeFriend.id,
+      video
     };
 
-    showCallPanel("Звоним: " + activeFriend.display_name, "Запрашиваем микрофон...", "active");
-
-    localStream = await getMicrophone();
     createPeerConnection(call.id);
+    startCallPolling();
 
     const offer = await peerConnection.createOffer();
     await peerConnection.setLocalDescription(offer);
 
     const { error: updateError } = await db
       .from("calls")
-      .update({ offer: peerConnection.localDescription.toJSON() })
+      .update({
+        offer: peerConnection.localDescription.toJSON()
+      })
       .eq("id", call.id);
 
     if (updateError) throw updateError;
@@ -880,40 +1035,83 @@ async function startAudioCall() {
     updateCallStatus("Вызов... Ожидаем ответа.");
   } catch (error) {
     console.error(error);
+
     alert("Не удалось начать звонок: " + error.message);
+
     if (activeCall) {
-      await db.from("calls").update({ status: "ended" }).eq("id", activeCall.id);
+      await db.from("calls")
+        .update({ status: "ended" })
+        .eq("id", activeCall.id);
     }
+
     cleanupCall("Звонок не состоялся");
   } finally {
-    $("callButton").disabled = false;
+    $("callAudioButton").disabled = false;
+    $("callVideoButton").disabled = false;
   }
 }
 
-$("callButton").addEventListener("click", startAudioCall);
+$("callAudioButton").addEventListener("click", () => startCall(false));
+$("callVideoButton").addEventListener("click", () => startCall(true));
+
+async function showIncomingCall(row) {
+  const callId = row.id;
+
+  const profiles = await getProfiles([row.caller_id]);
+
+  // Не используем устаревшие данные, если звонок уже изменился.
+  if (!incomingCall || incomingCall.id !== callId) return;
+
+  const latest = incomingCall;
+  const caller = profiles[row.caller_id];
+  const name = caller?.display_name || "Пользователь";
+
+  const video = !!latest.offer?.sdp?.includes("m=video");
+
+  showCallPanel(
+    (video ? "📹 Видеозвонок: " : "📞 Аудиозвонок: ") + name,
+    latest.offer ? "Вам звонят!" : "Ожидаем соединение...",
+    "incoming"
+  );
+
+  $("acceptCallButton").disabled = !latest.offer;
+}
 
 async function acceptIncomingCall() {
   if (!incomingCall || !incomingCall.offer || activeCall) return;
 
   const call = incomingCall;
-  incomingCall = null;
+
+  isVideoCall = !!call.offer.sdp?.includes("m=video");
 
   activeCall = {
     id: call.id,
     role: "callee",
     caller_id: call.caller_id,
-    callee_id: call.callee_id
+    callee_id: call.callee_id,
+    video: isVideoCall
   };
 
-  try {
-    showCallPanel("Аудиозвонок", "Запрашиваем микрофон...", "active");
+  incomingCall = null;
 
-    localStream = await getMicrophone();
+  try {
+    showCallPanel(
+      isVideoCall ? "Видеозвонок" : "Аудиозвонок",
+      "Запрашиваем " + (isVideoCall ? "камеру и микрофон..." : "микрофон..."),
+      "active"
+    );
+
+    localStream = await getCallMedia(isVideoCall);
+
+    if (isVideoCall) showLocalVideo();
+
     createPeerConnection(call.id);
+    startCallPolling();
 
     await peerConnection.setRemoteDescription(
       new RTCSessionDescription(call.offer)
     );
+
     await flushRemoteIce();
 
     const answer = await peerConnection.createAnswer();
@@ -932,8 +1130,13 @@ async function acceptIncomingCall() {
     updateCallStatus("Соединение...");
   } catch (error) {
     console.error(error);
+
     alert("Не удалось принять звонок: " + error.message);
-    await db.from("calls").update({ status: "ended" }).eq("id", call.id);
+
+    await db.from("calls")
+      .update({ status: "ended" })
+      .eq("id", call.id);
+
     cleanupCall("Не удалось принять звонок");
   }
 }
@@ -946,7 +1149,10 @@ async function rejectIncomingCall() {
   const id = incomingCall.id;
   incomingCall = null;
 
-  await db.from("calls").update({ status: "rejected" }).eq("id", id);
+  await db.from("calls")
+    .update({ status: "rejected" })
+    .eq("id", id);
+
   cleanupCall("Вызов отклонён");
 }
 
@@ -956,13 +1162,10 @@ async function hangupCall() {
   if (!activeCall) return;
 
   const id = activeCall.id;
-  activeCall = null;
 
-  try {
-    await db.from("calls").update({ status: "ended" }).eq("id", id);
-  } catch (error) {
-    console.error(error);
-  }
+  await db.from("calls")
+    .update({ status: "ended" })
+    .eq("id", id);
 
   cleanupCall("Звонок завершён");
 }
@@ -973,6 +1176,7 @@ $("muteButton").addEventListener("click", () => {
   if (!localStream) return;
 
   muted = !muted;
+
   localStream.getAudioTracks().forEach(track => {
     track.enabled = !muted;
   });
@@ -982,15 +1186,41 @@ $("muteButton").addEventListener("click", () => {
     : "🎙 Выключить микрофон";
 });
 
+$("cameraButton").addEventListener("click", () => {
+  if (!localStream) return;
+
+  const tracks = localStream.getVideoTracks();
+  if (!tracks.length) return;
+
+  const enabled = !tracks[0].enabled;
+
+  tracks.forEach(track => {
+    track.enabled = enabled;
+  });
+
+  $("cameraButton").textContent = enabled
+    ? "📷 Выключить камеру"
+    : "📷 Включить камеру";
+});
+
 function cleanupCall(message = "") {
   clearInterval(callTimer);
+  clearInterval(callPollTimer);
+  clearInterval(icePollTimer);
+
   callTimer = null;
+  callPollTimer = null;
+  icePollTimer = null;
+
   callSeconds = 0;
   answerApplied = false;
   remoteIceQueue = [];
+  seenIceKeys.clear();
+
   incomingCall = null;
   activeCall = null;
   muted = false;
+  isVideoCall = false;
 
   if (peerConnection) {
     peerConnection.ontrack = null;
@@ -1005,8 +1235,15 @@ function cleanupCall(message = "") {
   }
 
   $("remoteAudio").srcObject = null;
+  $("remoteVideo").srcObject = null;
+  $("localVideo").srcObject = null;
+
+  $("videoArea").classList.add("hidden");
+  $("cameraButton").classList.add("hidden");
+
   $("callPanel").classList.add("hidden");
   $("muteButton").textContent = "🎙 Выключить микрофон";
+  $("cameraButton").textContent = "📷 Выключить камеру";
 
   if (message) $("notice").textContent = message;
 }
@@ -1015,50 +1252,66 @@ function handleCallChange(payload) {
   const row = payload.new;
   if (!row || !currentUser) return;
 
-  /* Новый входящий вызов */
+  // Новый входящий вызов.
   if (
     payload.eventType === "INSERT" &&
     row.callee_id === currentUser.id &&
     row.status === "ringing"
   ) {
     if (activeCall || incomingCall) {
-      db.from("calls").update({ status: "rejected" }).eq("id", row.id);
+      db.from("calls")
+        .update({ status: "rejected" })
+        .eq("id", row.id);
       return;
     }
 
     incomingCall = row;
+    seenIceKeys.clear();
+    remoteIceQueue = [];
 
-    getProfiles([row.caller_id]).then(profiles => {
-      const caller = profiles[row.caller_id];
-      const name = caller?.display_name || "Пользователь";
+    showCallPanel(
+      "Входящий звонок",
+      "Ожидаем соединение...",
+      "incoming"
+    );
 
-      showCallPanel(
-        "Входящий вызов: " + name,
-        row.offer ? "Вам звонят!" : "Ожидаем соединение...",
-        "incoming"
-      );
+    $("acceptCallButton").disabled = !row.offer;
 
-      $("acceptCallButton").disabled = !row.offer;
-    });
-
+    startCallPolling();
+    showIncomingCall(row);
     return;
   }
 
-  /* Обновление входящего вызова — например, появилась offer */
+  // Обновление входящего вызова.
   if (
     incomingCall &&
     row.id === incomingCall.id &&
     row.callee_id === currentUser.id
   ) {
     incomingCall = row;
+
     $("acceptCallButton").disabled = !row.offer;
-    if (row.offer) updateCallStatus("Вам звонят!");
+
+    if (row.offer) {
+      const video = !!row.offer.sdp?.includes("m=video");
+
+      $("callTitle").textContent = video
+        ? "📹 Входящий видеозвонок"
+        : "📞 Входящий аудиозвонок";
+
+      updateCallStatus("Вам звонят!");
+    }
+
+    if (row.status === "ended" || row.status === "rejected") {
+      cleanupCall("Вызов завершён");
+    }
+
     return;
   }
 
   if (!activeCall || row.id !== activeCall.id) return;
 
-  /* Звонивший получил ответ */
+  // Звонивший получил ответ.
   if (
     activeCall.role === "caller" &&
     row.status === "accepted" &&
@@ -1072,11 +1325,12 @@ function handleCallChange(payload) {
         await peerConnection.setRemoteDescription(
           new RTCSessionDescription(row.answer)
         );
+
         await flushRemoteIce();
         updateCallStatus("Соединение...");
       } catch (error) {
         console.error("Ошибка установки ответа:", error);
-        updateCallStatus("Ошибка соединения.");
+        updateCallStatus("Ошибка соединения: " + error.message);
       }
     })();
 
@@ -1090,49 +1344,6 @@ function handleCallChange(payload) {
   } else if (row.status === "missed") {
     cleanupCall("Пропущенный вызов");
   }
-}
-
-function subscribeRealtime() {
-  if (realtimeChannel) db.removeChannel(realtimeChannel);
-
-  realtimeChannel = db.channel("chat-live-" + currentUser.id)
-    .on("postgres_changes", {
-      event:"*",
-      schema:"public",
-      table:"messages"
-    }, payload => {
-      const message = payload.new;
-      if (!message || !activeFriend) return;
-
-      if (
-        (message.sender_id === currentUser.id && message.recipient_id === activeFriend.id) ||
-        (message.sender_id === activeFriend.id && message.recipient_id === currentUser.id)
-      ) {
-        loadMessages();
-      }
-    })
-    .on("postgres_changes", {
-      event:"*",
-      schema:"public",
-      table:"friend_requests"
-    }, async () => {
-      await loadRequests();
-      if (currentTab === "friends") await loadFriends();
-      if (currentTab === "search") await searchUsers();
-    })
-    .on("postgres_changes", {
-      event:"*",
-      schema:"public",
-      table:"calls"
-    }, handleCallChange)
-    .on("postgres_changes", {
-      event:"INSERT",
-      schema:"public",
-      table:"call_ice_candidates"
-    }, payload => {
-      if (payload.new) receiveIceCandidate(payload.new);
-    })
-    .subscribe();
 }
 
 $("mobileBack").addEventListener("click", () => {
