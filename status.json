@@ -17,7 +17,7 @@
     "Flowfaucet (faucet30)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-10-31T15:41:20.110Z",
+  "last_updated": "2026-11-01T14:47:26.518Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -584,8 +584,8 @@
       "url": "https://fpclicker.com/",
       "reward": "0.01",
       "coin": "TRX",
-      "minutes": 30,
-      "_updated_at": "2026-10-30T00:56:00.784Z"
+      "minutes": 10,
+      "_updated_at": "2026-11-01T14:47:26.518Z"
     },
     "72": {
       "name": "123faucet",
