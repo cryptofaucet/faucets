@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CryptoFaucet Chat</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: #10141e;
+    color: #e8edf7;
+    font-family: Arial, sans-serif;
+}
+
+button, input { font: inherit; }
+
+button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 8px;
+    padding: 11px 16px;
+    background: #3978ee;
+    color: white;
+}
+
+button:hover { filter: brightness(1.12); }
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin: 7px 0;
+    border: 1px solid #30394b;
+    border-radius: 8px;
+    background: #171e2c;
+    color: white;
+    outline: none;
+}
+
+input:focus { border-color: #3978ee; }
+
+.hidden { display: none !important; }
+
+header {
+    height: 60px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #171e2c;
+    border-bottom: 1px solid #30394b;
+}
+
+.logo {
+    font-size: 19px;
+    font-weight: bold;
+    color: #66a0ff;
+}
+
+#authPanel {
+    width: min(390px, calc(100% - 30px));
+    margin: 90px auto;
+    padding: 25px;
+    background: #171e2c;
+    border: 1px solid #30394b;
+    border-radius: 14px;
+}
+
+#authPanel h2 { margin-top: 0; }
+
+#authPanel button { width: 100%; margin-top: 10px; }
+
+#authSwitch {
+    display: block;
+    margin: 18px auto 0;
+    padding: 5px;
+    background: transparent;
+    color: #80aaff;
+}
+
+#authMessage {
+    color: #f0bd65;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 12px;
+}
+
+#app {
+    height: calc(100dvh - 60px);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 350px;
+}
+
+#usersPanel {
+    overflow-y: auto;
+    background: #171e2c;
+    border-right: 1px solid #30394b;
+}
+
+.panelTitle {
+    padding: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #30394b;
+}
+
+.user {
+    width: 100%;
+    display: block;
+    padding: 15px;
+    text-align: left;
+    border-radius: 0;
+    background: transparent;
+    border-bottom: 1px solid #252e3e;
+}
+
+.user.active { background: #273b5d; }
+
+.user small {
+    display: block;
+    margin-top: 5px;
+    color: #93a1b8;
+    font-size: 11px;
+}
+
+#chatPanel {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+#chatHeader {
+    padding: 17px;
+    background: #171e2c;
+    border-bottom: 1px solid #30394b;
+    font-weight: bold;
+}
+
+#messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    max-width: min(75%, 550px);
+    padding: 11px 14px;
+    border-radius: 12px;
+    background: #252f41;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.message.mine {
+    align-self: flex-end;
+    background: #2859a7;
+}
+
+.message time {
+    display: block;
+    margin-top: 6px;
+    font-size: 10px;
+    color: #c0cde1;
+    text-align: right;
+}
+
+#sendPanel {
+    display: flex;
+    gap: 10px;
+    padding: 14px;
+    background: #171e2c;
+    border-top: 1px solid #30394b;
+}
+
+#sendPanel input { margin: 0; }
+
+#sendPanel button { min-width: 90px; }
+
+#emptyChat {
+    margin: auto;
+    color: #8795aa;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 650px) {
+    #app { grid-template-columns: 115px 1fr; }
+    .panelTitle { padding: 13px 8px; font-size: 13px; }
+    .user { padding: 13px 8px; font-size: 12px; }
+    .user small { font-size: 10px; }
+    #messages { padding: 12px; }
+    .message { max-width: 90%; }
+    #sendPanel { padding: 9px; gap: 6px; }
+    #sendPanel button { min-width: 65px; padding: 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">CryptoFaucet Chat</div>
+    <button id="logoutBtn" class="hidden">Выйти</button>
+</header>
+
+<section id="authPanel">
+    <h2 id="authTitle">Вход в чат</h2>
+
+    <form id="authForm">
+        <input id="nameInput" class="hidden"
+               type="text" placeholder="Ваше имя">
+
+        <input id="emailInput" type="email"
+               placeholder="Электронная почта" required>
+
+        <input id="passwordInput" type="password"
+               placeholder="Пароль" minlength="6" required>
+
+        <button id="authSubmit" type="submit">Войти</button>
+    </form>
+
+    <button id="authSwitch">Создать аккаунт</button>
+    <div id="authMessage"></div>
+</section>
+
+<section id="app" class="hidden">
+
+    <aside id="usersPanel">
+        <div class="panelTitle">Пользователи</div>
+        <div id="usersList"></div>
+    </aside>
+
+    <main id="chatPanel">
+        <div id="chatHeader">Выберите собеседника</div>
+
+        <div id="messages">
+            <div id="emptyChat">Выберите пользователя слева,<br>чтобы начать переписку.</div>
+        </div>
+
+        <form id="sendPanel" class="hidden">
+            <input id="messageInput"
+                   type="text"
+                   placeholder="Написать сообщение..."
+                   autocomplete="off"
+                   required>
+            <button type="submit">Отправить</button>
+        </form>
+    </main>
+
+</section>
+
+<script type="module">
+import { createClient }
+from 'https://esm.sh/@supabase/supabase-js@2';
+
+const SUPABASE_URL = 'https://quihcivmcbeznpltaojt.supabase.co';
+
+const SUPABASE_KEY =
+'sb_publishable_YmDuDjBQDevwqIlQUfiIKQ_vNywFXBL';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const $ = id => document.getElementById(id);
+
+let currentUser = null;
+let selectedUser = null;
+let users = [];
+let authMode = 'login';
+let realtimeChannel = null;
+
+function showAuth() {
+    $('authPanel').classList.remove('hidden');
+    $('app').classList.add('hidden');
+    $('logoutBtn').classList.add('hidden');
+}
+
+function showApp() {
+    $('authPanel').classList.add('hidden');
+    $('app').classList.remove('hidden');
+    $('logoutBtn').classList.remove('hidden');
+}
+
+function setAuthMessage(message) {
+    $('authMessage').textContent = message;
+}
+
+$('authSwitch').addEventListener('click', () => {
+    authMode = authMode === 'login' ? 'signup' : 'login';
+
+    $('authTitle').textContent =
+        authMode === 'login' ? 'Вход в чат' : 'Регистрация';
+
+    $('authSubmit').textContent =
+        authMode === 'login' ? 'Войти' : 'Зарегистрироваться';
+
+    $('authSwitch').textContent =
+        authMode === 'login' ? 'Создать аккаунт' : 'Уже есть аккаунт? Войти';
+
+    $('nameInput').classList.toggle('hidden', authMode !== 'signup');
+    $('nameInput').required = authMode === 'signup';
+
+    setAuthMessage('');
+});
+
+$('authForm').addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const email = $('emailInput').value.trim();
+    const password = $('passwordInput').value;
+    const name = $('nameInput').value.trim();
+
+    $('authSubmit').disabled = true;
+    setAuthMessage('Подождите...');
+
+    try {
+        if (authMode === 'signup') {
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: { display_name: name || email.split('@')[0] },
+                    emailRedirectTo: window.location.href
+                }
+            });
+
+            if (error) throw error;
+
+            if (!data.session) {
+                setAuthMessage(
+                    'Регистрация почти завершена! Проверьте почту и подтвердите адрес электронной почты.'
+                );
+            } else {
+                setAuthMessage('Аккаунт создан!');
+            }
+        } else {
+            const { error } = await supabase.auth.signInWithPassword({
+                email,
+                password
+            });
+
+            if (error) throw error;
+        }
+    } catch (error) {
+        setAuthMessage(error.message);
+    } finally {
+        $('authSubmit').disabled = false;
+    }
+});
+
+$('logoutBtn').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+});
+
+async function loadUsers() {
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('id, display_name')
+        .order('display_name');
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    users = (data || []).filter(user => user.id !== currentUser.id);
+
+    const list = $('usersList');
+    list.replaceChildren();
+
+    if (!users.length) {
+        const info = document.createElement('div');
+        info.style.padding = '15px';
+        info.style.color = '#93a1b8';
+        info.textContent = 'Пока нет других пользователей.';
+        list.appendChild(info);
+        return;
+    }
+
+    users.forEach(user => {
+        const button = document.createElement('button');
+        button.className = 'user';
+        button.textContent = user.display_name || 'Пользователь';
+
+        const small = document.createElement('small');
+        small.textContent = 'CryptoFaucet Chat';
+        button.appendChild(small);
+
+        button.addEventListener('click', () => selectUser(user));
+        list.appendChild(button);
+    });
+}
+
+async function selectUser(user) {
+    selectedUser = user;
+
+    $('chatHeader').textContent =
+        user.display_name || 'Пользователь';
+
+    $('sendPanel').classList.remove('hidden');
+
+    document.querySelectorAll('.user').forEach(button => {
+        button.classList.toggle(
+            'active',
+            button.textContent.startsWith(user.display_name || 'Пользователь')
+        );
+    });
+
+    await loadMessages();
+    $('messageInput').focus();
+}
+
+async function loadMessages() {
+    if (!selectedUser) return;
+
+    const otherId = selectedUser.id;
+    const myId = currentUser.id;
+
+    const { data, error } = await supabase
+        .from('messages')
+        .select('id, sender_id, recipient_id, content, created_at')
+        .or(
+            `and(sender_id.eq.${myId},recipient_id.eq.${otherId}),and(sender_id.eq.${otherId},recipient_id.eq.${myId})`
+        )
+        .order('created_at', { ascending: true });
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    renderMessages(data || []);
+}
+
+function renderMessages(data) {
+    const container = $('messages');
+    container.replaceChildren();
+
+    if (!data.length) {
+        const empty = document.createElement('div');
+        empty.id = 'emptyChat';
+        empty.textContent = 'Пока сообщений нет. Напишите первым!';
+        container.appendChild(empty);
+        return;
+    }
+
+    data.forEach(message => {
+        const bubble = document.createElement('div');
+        bubble.className = 'message';
+
+        if (message.sender_id === currentUser.id) {
+            bubble.classList.add('mine');
+        }
+
+        const content = document.createElement('div');
+        content.textContent = message.content;
+
+        const time = document.createElement('time');
+        time.textContent = new Date(message.created_at)
+            .toLocaleString();
+
+        bubble.append(content, time);
+        container.appendChild(bubble);
+    });
+
+    container.scrollTop = container.scrollHeight;
+}
+
+$('sendPanel').addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const content = $('messageInput').value.trim();
+
+    if (!content || !selectedUser) return;
+
+    $('messageInput').disabled = true;
+
+    const { error } = await supabase
+        .from('messages')
+        .insert({
+            sender_id: currentUser.id,
+            recipient_id: selectedUser.id,
+            content
+        });
+
+    $('messageInput').disabled = false;
+
+    if (error) {
+        alert('Не удалось отправить сообщение: ' + error.message);
+        return;
+    }
+
+    $('messageInput').value = '';
+    await loadMessages();
+    $('messageInput').focus();
+});
+
+function setupRealtime() {
+    if (realtimeChannel) {
+        supabase.removeChannel(realtimeChannel);
+    }
+
+    realtimeChannel = supabase
+        .channel('chat-messages')
+        .on(
+            'postgres_changes',
+            {
+                event: 'INSERT',
+                schema: 'public',
+                table: 'messages'
+            },
+            payload => {
+                const message = payload.new;
+
+                if (
+                    selectedUser &&
+                    (
+                        (message.sender_id === currentUser.id &&
+                         message.recipient_id === selectedUser.id) ||
+                        (message.sender_id === selectedUser.id &&
+                         message.recipient_id === currentUser.id)
+                    )
+                ) {
+                    loadMessages();
+                }
+            }
+        )
+        .subscribe();
+}
+
+async function initializeChat(user) {
+    currentUser = user;
+    showApp();
+    await loadUsers();
+    setupRealtime();
+}
+
+supabase.auth.onAuthStateChange((event, session) => {
+    const user = session?.user || null;
+
+    if (user) {
+        if (!currentUser || currentUser.id !== user.id) {
+            initializeChat(user);
+        }
+    } else {
+        currentUser = null;
+        selectedUser = null;
+
+        if (realtimeChannel) {
+            supabase.removeChannel(realtimeChannel);
+            realtimeChannel = null;
+        }
+
+        showAuth();
+    }
+});
+
+const { data: { session } } = await supabase.auth.getSession();
+
+if (session?.user) {
+    await initializeChat(session.user);
+} else {
+    showAuth();
+}
+</script>
+
+</body>
+</html>
