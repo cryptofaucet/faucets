@@ -1,573 +1,843 @@
-
+ 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CryptoFaucet Chat</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoFaucet Hub — Чат</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-* { box-sizing: border-box; }
-
+:root {
+  --bg:#10141c;
+  --panel:#19212d;
+  --panel2:#202b3a;
+  --border:#303d50;
+  --text:#e8edf5;
+  --muted:#91a0b5;
+  --blue:#2878e8;
+  --blue2:#1d5fbd;
+  --green:#36b779;
+  --red:#dc6262;
+}
+* {box-sizing:border-box}
 body {
-    margin: 0;
-    background: #10141e;
-    color: #e8edf7;
-    font-family: Arial, sans-serif;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  height:100vh;
+  overflow:hidden;
 }
-
-button, input { font: inherit; }
-
+button,input {font:inherit}
 button {
-    cursor: pointer;
-    border: 0;
-    border-radius: 8px;
-    padding: 11px 16px;
-    background: #3978ee;
-    color: white;
+  cursor:pointer;
+  border:0;
+  border-radius:7px;
+  padding:9px 13px;
+  color:white;
+  background:var(--blue);
 }
-
-button:hover { filter: brightness(1.12); }
-
+button:hover {filter:brightness(1.12)}
+button:disabled {opacity:.45;cursor:default}
 input {
-    width: 100%;
-    padding: 13px;
-    margin: 7px 0;
-    border: 1px solid #30394b;
-    border-radius: 8px;
-    background: #171e2c;
-    color: white;
-    outline: none;
+  width:100%;
+  background:#111925;
+  border:1px solid var(--border);
+  border-radius:7px;
+  color:var(--text);
+  padding:11px;
+  outline:none;
 }
-
-input:focus { border-color: #3978ee; }
-
-.hidden { display: none !important; }
-
-header {
-    height: 60px;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #171e2c;
-    border-bottom: 1px solid #30394b;
+input:focus {border-color:var(--blue)}
+.hidden {display:none!important}
+.muted {color:var(--muted)}
+.small {font-size:12px}
+#authScreen {
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:18px;
 }
-
-.logo {
-    font-size: 19px;
-    font-weight: bold;
-    color: #66a0ff;
+.auth-box {
+  width:100%;
+  max-width:390px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:25px;
 }
-
-#authPanel {
-    width: min(390px, calc(100% - 30px));
-    margin: 90px auto;
-    padding: 25px;
-    background: #171e2c;
-    border: 1px solid #30394b;
-    border-radius: 14px;
-}
-
-#authPanel h2 { margin-top: 0; }
-
-#authPanel button { width: 100%; margin-top: 10px; }
-
-#authSwitch {
-    display: block;
-    margin: 18px auto 0;
-    padding: 5px;
-    background: transparent;
-    color: #80aaff;
-}
-
-#authMessage {
-    color: #f0bd65;
-    font-size: 13px;
-    line-height: 1.5;
-    margin-top: 12px;
-}
-
+.auth-box h2 {margin:0 0 8px}
+.auth-box input {margin:8px 0}
+.auth-box button {width:100%;margin-top:9px}
+#authMessage {margin-top:12px;line-height:1.4}
 #app {
-    height: calc(100dvh - 60px);
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    min-height: 350px;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
 }
-
-#usersPanel {
-    overflow-y: auto;
-    background: #171e2c;
-    border-right: 1px solid #30394b;
+header {
+  height:58px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  background:#151d28;
+  border-bottom:1px solid var(--border);
 }
-
-.panelTitle {
-    padding: 18px;
-    font-weight: bold;
-    border-bottom: 1px solid #30394b;
+header strong {font-size:17px}
+.header-right {display:flex;align-items:center;gap:12px}
+#layout {
+  flex:1;
+  min-height:0;
+  display:flex;
 }
-
-.user {
-    width: 100%;
-    display: block;
-    padding: 15px;
-    text-align: left;
-    border-radius: 0;
-    background: transparent;
-    border-bottom: 1px solid #252e3e;
+#sidebar {
+  width:310px;
+  min-width:260px;
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  min-height:0;
 }
-
-.user.active { background: #273b5d; }
-
-.user small {
-    display: block;
-    margin-top: 5px;
-    color: #93a1b8;
-    font-size: 11px;
+#myProfile {
+  padding:14px;
+  border-bottom:1px solid var(--border);
 }
-
-#chatPanel {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
+#myProfile strong {font-size:15px}
+#myProfile .muted {margin-top:4px}
+.tabs {
+  display:flex;
+  padding:9px;
+  gap:5px;
+  border-bottom:1px solid var(--border);
 }
-
+.tabs button {
+  flex:1;
+  padding:9px 5px;
+  font-size:12px;
+  background:var(--panel2);
+  color:var(--muted);
+}
+.tabs button.active {
+  background:var(--blue);
+  color:white;
+}
+#sideContent {
+  overflow-y:auto;
+  min-height:0;
+  flex:1;
+  padding:10px;
+}
+.section-title {
+  color:var(--muted);
+  font-size:12px;
+  margin:5px 0 10px;
+}
+.person {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:5px;
+  background:#202a38;
+  cursor:pointer;
+  min-width:0;
+}
+.person:hover {background:#29384b}
+.person.selected {background:#294b75}
+.person-info {min-width:0;flex:1}
+.person-name {
+  font-size:14px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.person-nick {
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+}
+.person-actions {
+  display:flex;
+  gap:5px;
+  flex-shrink:0;
+}
+.person-actions button {
+  padding:6px 8px;
+  font-size:11px;
+}
+.btn-green {background:#237e56}
+.btn-red {background:#a94343}
+.btn-gray {background:#46566c}
+#main {
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+#emptyState {
+  margin:auto;
+  text-align:center;
+  color:var(--muted);
+  padding:20px;
+}
 #chatHeader {
-    padding: 17px;
-    background: #171e2c;
-    border-bottom: 1px solid #30394b;
-    font-weight: bold;
+  height:58px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  padding:0 18px;
+  border-bottom:1px solid var(--border);
+  background:#151d28;
 }
-
+#chatHeader strong {font-size:15px}
 #messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding:15px 18px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:7px;
 }
-
 .message {
-    max-width: min(75%, 550px);
-    padding: 11px 14px;
-    border-radius: 12px;
-    background: #252f41;
-    overflow-wrap: anywhere;
-    white-space: pre-wrap;
+  max-width:min(78%,650px);
+  min-width:70px;
+  padding:9px 12px 6px;
+  border-radius:10px;
+  background:#303b4c;
+  color:#edf2fa;
+  overflow-wrap:anywhere;
+  align-self:flex-start;
 }
-
 .message.mine {
-    align-self: flex-end;
-    background: #2859a7;
+  background:#185db5;
+  align-self:flex-start;
 }
-
-.message time {
-    display: block;
-    margin-top: 6px;
-    font-size: 10px;
-    color: #c0cde1;
-    text-align: right;
+.message-text {
+  font-size:14px;
+  line-height:1.4;
+  white-space:pre-wrap;
 }
-
-#sendPanel {
-    display: flex;
-    gap: 10px;
-    padding: 14px;
-    background: #171e2c;
-    border-top: 1px solid #30394b;
+.message-time {
+  font-size:10px;
+  opacity:.7;
+  text-align:right;
+  margin-top:4px;
 }
-
-#sendPanel input { margin: 0; }
-
-#sendPanel button { min-width: 90px; }
-
-#emptyChat {
-    margin: auto;
-    color: #8795aa;
-    text-align: center;
-    padding: 20px;
+#sendArea {
+  display:flex;
+  gap:9px;
+  padding:12px 15px;
+  border-top:1px solid var(--border);
+  background:#151d28;
 }
-
-@media (max-width: 650px) {
-    #app { grid-template-columns: 115px 1fr; }
-    .panelTitle { padding: 13px 8px; font-size: 13px; }
-    .user { padding: 13px 8px; font-size: 12px; }
-    .user small { font-size: 10px; }
-    #messages { padding: 12px; }
-    .message { max-width: 90%; }
-    #sendPanel { padding: 9px; gap: 6px; }
-    #sendPanel button { min-width: 65px; padding: 10px; }
+#messageInput {flex:1;min-width:0}
+#sendButton {min-width:85px}
+#notice {
+  padding:8px 12px;
+  font-size:12px;
+  color:var(--muted);
+  min-height:28px;
+}
+#mobileBack {display:none}
+@media(max-width:700px) {
+  #sidebar {width:100%;min-width:0;border-right:0}
+  #main {display:none}
+  #layout.chat-open #sidebar {display:none}
+  #layout.chat-open #main {display:flex}
+  #mobileBack {display:inline-block;margin-right:10px}
+  header {padding:0 12px}
+  header strong {font-size:14px}
+  .header-right {gap:6px}
+  .header-right button {padding:7px 9px;font-size:12px}
+  #messages {padding:12px}
+  .message {max-width:88%}
 }
 </style>
 </head>
-
 <body>
 
-<header>
-    <div class="logo">CryptoFaucet Chat</div>
-    <button id="logoutBtn" class="hidden">Выйти</button>
-</header>
+<div id="authScreen">
+  <div class="auth-box">
+    <h2>CryptoFaucet Hub</h2>
+    <div class="muted small">Вход в чат</div>
+    <input id="displayName" placeholder="Отображаемое имя (при регистрации)">
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Пароль">
+    <button id="loginButton">Войти</button>
+    <button id="registerButton" class="btn-green">Регистрация</button>
+    <div id="authMessage" class="small muted"></div>
+  </div>
+</div>
 
-<section id="authPanel">
-    <h2 id="authTitle">Вход в чат</h2>
+<div id="app" class="hidden">
+  <header>
+    <strong>CryptoFaucet Hub — Чат</strong>
+    <div class="header-right">
+      <span id="headerNick" class="small muted"></span>
+      <button id="logoutButton" class="btn-gray">Выйти</button>
+    </div>
+  </header>
 
-    <form id="authForm">
-        <input id="nameInput" class="hidden"
-               type="text" placeholder="Ваше имя">
+  <div id="layout">
+    <aside id="sidebar">
+      <div id="myProfile">
+        <strong id="myName">Пользователь</strong>
+        <div id="myNick" class="muted small"></div>
+      </div>
 
-        <input id="emailInput" type="email"
-               placeholder="Электронная почта" required>
+      <div class="tabs">
+        <button class="active" data-tab="friends">Друзья</button>
+        <button data-tab="search">Поиск</button>
+        <button data-tab="requests">Заявки <span id="requestCount"></span></button>
+      </div>
 
-        <input id="passwordInput" type="password"
-               placeholder="Пароль" minlength="6" required>
-
-        <button id="authSubmit" type="submit">Войти</button>
-    </form>
-
-    <button id="authSwitch">Создать аккаунт</button>
-    <div id="authMessage"></div>
-</section>
-
-<section id="app" class="hidden">
-
-    <aside id="usersPanel">
-        <div class="panelTitle">Пользователи</div>
-        <div id="usersList"></div>
-    </aside>
-
-    <main id="chatPanel">
-        <div id="chatHeader">Выберите собеседника</div>
-
-        <div id="messages">
-            <div id="emptyChat">Выберите пользователя слева,<br>чтобы начать переписку.</div>
+      <div id="sideContent">
+        <div id="friendsPanel">
+          <div class="section-title">МОИ ДРУЗЬЯ</div>
+          <div id="friendsList"></div>
         </div>
 
-        <form id="sendPanel" class="hidden">
-            <input id="messageInput"
-                   type="text"
-                   placeholder="Написать сообщение..."
-                   autocomplete="off"
-                   required>
-            <button type="submit">Отправить</button>
-        </form>
+        <div id="searchPanel" class="hidden">
+          <div class="section-title">ПОИСК ПО НИКУ</div>
+          <input id="searchInput" placeholder="Например: @fakker">
+          <div id="searchResults" style="margin-top:12px"></div>
+        </div>
+
+        <div id="requestsPanel" class="hidden">
+          <div class="section-title">ВХОДЯЩИЕ ЗАЯВКИ</div>
+          <div id="incomingRequests"></div>
+          <div class="section-title" style="margin-top:20px">ОТПРАВЛЕННЫЕ ЗАЯВКИ</div>
+          <div id="outgoingRequests"></div>
+        </div>
+      </div>
+    </aside>
+
+    <main id="main">
+      <div id="emptyState">
+        <div style="font-size:35px;margin-bottom:10px">💬</div>
+        Выбери друга, чтобы начать переписку
+      </div>
+
+      <div id="chatHeader" class="hidden">
+        <button id="mobileBack" class="btn-gray">←</button>
+        <strong id="chatPersonName"></strong>
+      </div>
+
+      <div id="messages" class="hidden"></div>
+      <div id="notice"></div>
+
+      <div id="sendArea" class="hidden">
+        <input id="messageInput" placeholder="Напиши сообщение..." maxlength="4000">
+        <button id="sendButton">Отправить</button>
+      </div>
     </main>
+  </div>
+</div>
 
-</section>
+<script>
+const SUPABASE_URL = "https://quihcivmcbeznpltaojt.supabase.co";
+const SUPABASE_KEY = "sb_publishable_YmDuDjBQDevwqIlQUfiIKQ_vNywFXBL";
 
-<script type="module">
-import { createClient }
-from 'https://esm.sh/@supabase/supabase-js@2';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const SUPABASE_URL = 'https://quihcivmcbeznpltaojt.supabase.co';
-
-const SUPABASE_KEY =
-'sb_publishable_YmDuDjBQDevwqIlQUfiIKQ_vNywFXBL';
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+let currentUser = null;
+let myProfile = null;
+let activeFriend = null;
+let allRequests = [];
+let realtimeChannel = null;
+let searchTimer = null;
+let currentTab = "friends";
 
 const $ = id => document.getElementById(id);
 
-let currentUser = null;
-let selectedUser = null;
-let users = [];
-let authMode = 'login';
-let realtimeChannel = null;
-
-function showAuth() {
-    $('authPanel').classList.remove('hidden');
-    $('app').classList.add('hidden');
-    $('logoutBtn').classList.add('hidden');
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  })[char]);
 }
 
-function showApp() {
-    $('authPanel').classList.add('hidden');
-    $('app').classList.remove('hidden');
-    $('logoutBtn').classList.remove('hidden');
+function showAuthMessage(message, error = false) {
+  $("authMessage").textContent = message;
+  $("authMessage").style.color = error ? "#ff8585" : "#91a0b5";
 }
 
-function setAuthMessage(message) {
-    $('authMessage').textContent = message;
+function setTab(tab) {
+  currentTab = tab;
+
+  document.querySelectorAll(".tabs button").forEach(button => {
+    button.classList.toggle("active", button.dataset.tab === tab);
+  });
+
+  $("friendsPanel").classList.toggle("hidden", tab !== "friends");
+  $("searchPanel").classList.toggle("hidden", tab !== "search");
+  $("requestsPanel").classList.toggle("hidden", tab !== "requests");
+
+  if (tab === "friends") loadFriends();
+  if (tab === "requests") renderRequests();
 }
 
-$('authSwitch').addEventListener('click', () => {
-    authMode = authMode === 'login' ? 'signup' : 'login';
-
-    $('authTitle').textContent =
-        authMode === 'login' ? 'Вход в чат' : 'Регистрация';
-
-    $('authSubmit').textContent =
-        authMode === 'login' ? 'Войти' : 'Зарегистрироваться';
-
-    $('authSwitch').textContent =
-        authMode === 'login' ? 'Создать аккаунт' : 'Уже есть аккаунт? Войти';
-
-    $('nameInput').classList.toggle('hidden', authMode !== 'signup');
-    $('nameInput').required = authMode === 'signup';
-
-    setAuthMessage('');
+document.querySelectorAll(".tabs button").forEach(button => {
+  button.addEventListener("click", () => setTab(button.dataset.tab));
 });
 
-$('authForm').addEventListener('submit', async event => {
-    event.preventDefault();
+async function register() {
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  const displayName = $("displayName").value.trim();
 
-    const email = $('emailInput').value.trim();
-    const password = $('passwordInput').value;
-    const name = $('nameInput').value.trim();
+  if (!email || !password || !displayName) {
+    showAuthMessage("Заполни имя, email и пароль.", true);
+    return;
+  }
 
-    $('authSubmit').disabled = true;
-    setAuthMessage('Подождите...');
+  const { error } = await db.auth.signUp({
+    email,
+    password,
+    options: { data: { display_name: displayName } }
+  });
 
-    try {
-        if (authMode === 'signup') {
-            const { data, error } = await supabase.auth.signUp({
-                email,
-                password,
-                options: {
-                    data: { display_name: name || email.split('@')[0] },
-                    emailRedirectTo: window.location.href
-                }
-            });
+  if (error) {
+    showAuthMessage(error.message, true);
+    return;
+  }
 
-            if (error) throw error;
+  showAuthMessage("Регистрация выполнена. Если включено подтверждение email, проверь почту и затем войди.");
+}
 
-            if (!data.session) {
-                setAuthMessage(
-                    'Регистрация почти завершена! Проверьте почту и подтвердите адрес электронной почты.'
-                );
-            } else {
-                setAuthMessage('Аккаунт создан!');
-            }
-        } else {
-            const { error } = await supabase.auth.signInWithPassword({
-                email,
-                password
-            });
+async function login() {
+  const email = $("email").value.trim();
+  const password = $("password").value;
 
-            if (error) throw error;
-        }
-    } catch (error) {
-        setAuthMessage(error.message);
-    } finally {
-        $('authSubmit').disabled = false;
-    }
+  if (!email || !password) {
+    showAuthMessage("Введи email и пароль.", true);
+    return;
+  }
+
+  const { error } = await db.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    showAuthMessage(error.message, true);
+    return;
+  }
+
+  await startApp();
+}
+
+$("registerButton").addEventListener("click", register);
+$("loginButton").addEventListener("click", login);
+
+$("logoutButton").addEventListener("click", async () => {
+  await db.auth.signOut();
+  location.reload();
 });
 
-$('logoutBtn').addEventListener('click', async () => {
-    await supabase.auth.signOut();
-});
+async function startApp() {
+  const { data: { user } } = await db.auth.getUser();
+  if (!user) return;
 
-async function loadUsers() {
-    const { data, error } = await supabase
-        .from('profiles')
-        .select('id, display_name')
-        .order('display_name');
+  currentUser = user;
 
-    if (error) {
-        console.error(error);
-        return;
-    }
+  const { data: profile, error } = await db
+    .from("profiles")
+    .select("id, username, display_name")
+    .eq("id", user.id)
+    .single();
 
-    users = (data || []).filter(user => user.id !== currentUser.id);
+  if (error) {
+    alert("Не удалось загрузить профиль: " + error.message);
+    return;
+  }
 
-    const list = $('usersList');
-    list.replaceChildren();
+  myProfile = profile;
 
-    if (!users.length) {
-        const info = document.createElement('div');
-        info.style.padding = '15px';
-        info.style.color = '#93a1b8';
-        info.textContent = 'Пока нет других пользователей.';
-        list.appendChild(info);
-        return;
-    }
+  $("authScreen").classList.add("hidden");
+  $("app").classList.remove("hidden");
 
-    users.forEach(user => {
-        const button = document.createElement('button');
-        button.className = 'user';
-        button.textContent = user.display_name || 'Пользователь';
+  const displayName = profile.display_name || "Пользователь";
+  const nick = profile.username ? "@" + profile.username : "Ник не задан";
 
-        const small = document.createElement('small');
-        small.textContent = 'CryptoFaucet Chat';
-        button.appendChild(small);
+  $("myName").textContent = displayName;
+  $("myNick").textContent = nick;
+  $("headerNick").textContent = nick;
 
-        button.addEventListener('click', () => selectUser(user));
-        list.appendChild(button);
+  await loadRequests();
+  await loadFriends();
+  subscribeRealtime();
+}
+
+async function loadRequests() {
+  const { data, error } = await db
+    .from("friend_requests")
+    .select("*")
+    .or(`requester_id.eq.${currentUser.id},addressee_id.eq.${currentUser.id}`)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Ошибка загрузки заявок:", error);
+    return;
+  }
+
+  allRequests = data || [];
+  renderRequests();
+  $("requestCount").textContent = allRequests.filter(
+    r => r.addressee_id === currentUser.id && r.status === "pending"
+  ).length ? " •" : "";
+}
+
+async function getProfiles(ids) {
+  const uniqueIds = [...new Set(ids)].filter(Boolean);
+  if (!uniqueIds.length) return {};
+
+  const { data, error } = await db
+    .from("profiles")
+    .select("id, username, display_name")
+    .in("id", uniqueIds);
+
+  if (error) {
+    console.error("Ошибка загрузки пользователей:", error);
+    return {};
+  }
+
+  return Object.fromEntries((data || []).map(p => [p.id, p]));
+}
+
+function personHtml(profile, actions = "", selected = false) {
+  const name = escapeHtml(profile.display_name || "Пользователь");
+  const nick = profile.username ? "@" + escapeHtml(profile.username) : "без ника";
+
+  return `
+    <div class="person ${selected ? "selected" : ""}" data-person="${profile.id}">
+      <div class="person-info">
+        <div class="person-name">${name}</div>
+        <div class="person-nick">${nick}</div>
+      </div>
+      ${actions ? `<div class="person-actions">${actions}</div>` : ""}
+    </div>`;
+}
+
+async function loadFriends() {
+  if (!currentUser) return;
+
+  const { data, error } = await db
+    .from("friend_requests")
+    .select("*")
+    .eq("status", "accepted")
+    .or(`requester_id.eq.${currentUser.id},addressee_id.eq.${currentUser.id}`);
+
+  if (error) {
+    $("friendsList").textContent = "Ошибка загрузки: " + error.message;
+    return;
+  }
+
+  const friendIds = (data || []).map(r =>
+    r.requester_id === currentUser.id ? r.addressee_id : r.requester_id
+  );
+
+  const profiles = await getProfiles(friendIds);
+
+  if (!friendIds.length) {
+    $("friendsList").innerHTML = '<div class="muted small">Пока нет друзей. Найди пользователя через вкладку «Поиск».</div>';
+    return;
+  }
+
+  $("friendsList").innerHTML = friendIds
+    .filter(id => profiles[id])
+    .map(id => personHtml(profiles[id], "", activeFriend?.id === id))
+    .join("");
+
+  $("friendsList").querySelectorAll(".person").forEach(el => {
+    el.addEventListener("click", () => {
+      const friend = profiles[el.dataset.person];
+      if (friend) openChat(friend);
     });
+  });
 }
 
-async function selectUser(user) {
-    selectedUser = user;
+async function searchUsers() {
+  const query = $("searchInput").value.trim().replace(/^@/, "").toLowerCase();
 
-    $('chatHeader').textContent =
-        user.display_name || 'Пользователь';
+  if (query.length < 2) {
+    $("searchResults").innerHTML = '<div class="muted small">Введи минимум 2 символа ника.</div>';
+    return;
+  }
 
-    $('sendPanel').classList.remove('hidden');
+  const { data, error } = await db
+    .from("profiles")
+    .select("id, username, display_name")
+    .ilike("username", `%${query}%`)
+    .neq("id", currentUser.id)
+    .limit(20);
 
-    document.querySelectorAll('.user').forEach(button => {
-        button.classList.toggle(
-            'active',
-            button.textContent.startsWith(user.display_name || 'Пользователь')
-        );
-    });
+  if (error) {
+    $("searchResults").textContent = "Ошибка поиска: " + error.message;
+    return;
+  }
 
-    await loadMessages();
-    $('messageInput').focus();
+  if (!data.length) {
+    $("searchResults").innerHTML = '<div class="muted small">Никого не нашёл.</div>';
+    return;
+  }
+
+  const html = data.map(profile => {
+    const existing = allRequests.find(r =>
+      (r.requester_id === currentUser.id && r.addressee_id === profile.id) ||
+      (r.addressee_id === currentUser.id && r.requester_id === profile.id)
+    );
+
+    let action = "";
+
+    if (!existing) {
+      action = `<button class="add-friend" data-id="${profile.id}">Добавить</button>`;
+    } else if (existing.status === "accepted") {
+      action = '<button class="btn-green" disabled>Друг</button>';
+    } else if (existing.status === "pending" && existing.requester_id === currentUser.id) {
+      action = '<button class="btn-gray" disabled>Отправлено</button>';
+    } else if (existing.status === "pending") {
+      action = '<button class="btn-gray" disabled>Есть заявка</button>';
+    } else {
+      action = '<button class="btn-gray" disabled>Заявка закрыта</button>';
+    }
+
+    return personHtml(profile, action);
+  }).join("");
+
+  $("searchResults").innerHTML = html;
+
+  $("searchResults").querySelectorAll(".add-friend").forEach(button => {
+    button.addEventListener("click", () => sendFriendRequest(button.dataset.id));
+  });
+}
+
+$("searchInput").addEventListener("input", () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(searchUsers, 300);
+});
+
+async function sendFriendRequest(userId) {
+  const { error } = await db.from("friend_requests").insert({
+    requester_id: currentUser.id,
+    addressee_id: userId,
+    status: "pending"
+  });
+
+  if (error) {
+    alert("Не удалось отправить заявку: " + error.message);
+    return;
+  }
+
+  await loadRequests();
+  await searchUsers();
+}
+
+async function renderRequests() {
+  if (!currentUser) return;
+
+  const incoming = allRequests.filter(r =>
+    r.addressee_id === currentUser.id && r.status === "pending"
+  );
+
+  const outgoing = allRequests.filter(r =>
+    r.requester_id === currentUser.id && r.status === "pending"
+  );
+
+  const profiles = await getProfiles([
+    ...incoming.map(r => r.requester_id),
+    ...outgoing.map(r => r.addressee_id)
+  ]);
+
+  $("incomingRequests").innerHTML = incoming.length
+    ? incoming.map(r => {
+        const p = profiles[r.requester_id];
+        if (!p) return "";
+        return personHtml(p, `
+          <button class="btn-green accept-request" data-id="${r.id}">✓</button>
+          <button class="btn-red reject-request" data-id="${r.id}">✕</button>
+        `);
+      }).join("")
+    : '<div class="muted small">Новых заявок нет.</div>';
+
+  $("outgoingRequests").innerHTML = outgoing.length
+    ? outgoing.map(r => profiles[r.addressee_id] ? personHtml(profiles[r.addressee_id], '<button class="btn-gray" disabled>Ожидание</button>') : "").join("")
+    : '<div class="muted small">Отправленных заявок нет.</div>';
+
+  $("incomingRequests").querySelectorAll(".accept-request").forEach(button => {
+    button.addEventListener("click", () => updateRequest(button.dataset.id, "accepted"));
+  });
+
+  $("incomingRequests").querySelectorAll(".reject-request").forEach(button => {
+    button.addEventListener("click", () => updateRequest(button.dataset.id, "rejected"));
+  });
+}
+
+async function updateRequest(requestId, status) {
+  const { error } = await db
+    .from("friend_requests")
+    .update({ status })
+    .eq("id", requestId)
+    .eq("addressee_id", currentUser.id)
+    .eq("status", "pending");
+
+  if (error) {
+    alert("Не удалось обновить заявку: " + error.message);
+    return;
+  }
+
+  await loadRequests();
+  await loadFriends();
+}
+
+async function openChat(friend) {
+  activeFriend = friend;
+
+  $("layout").classList.add("chat-open");
+  $("emptyState").classList.add("hidden");
+  $("chatHeader").classList.remove("hidden");
+  $("messages").classList.remove("hidden");
+  $("sendArea").classList.remove("hidden");
+  $("chatPersonName").textContent =
+    (friend.display_name || "Пользователь") +
+    (friend.username ? "  @" + friend.username : "");
+
+  await loadMessages();
+  $("messageInput").focus();
 }
 
 async function loadMessages() {
-    if (!selectedUser) return;
+  if (!activeFriend) return;
 
-    const otherId = selectedUser.id;
-    const myId = currentUser.id;
+  const { data, error } = await db
+    .from("messages")
+    .select("id, sender_id, recipient_id, content, created_at")
+    .or(
+      `and(sender_id.eq.${currentUser.id},recipient_id.eq.${activeFriend.id}),and(sender_id.eq.${activeFriend.id},recipient_id.eq.${currentUser.id})`
+    )
+    .order("created_at", { ascending: true })
+    .limit(300);
 
-    const { data, error } = await supabase
-        .from('messages')
-        .select('id, sender_id, recipient_id, content, created_at')
-        .or(
-            `and(sender_id.eq.${myId},recipient_id.eq.${otherId}),and(sender_id.eq.${otherId},recipient_id.eq.${myId})`
-        )
-        .order('created_at', { ascending: true });
+  if (error) {
+    $("notice").textContent = "Ошибка загрузки сообщений: " + error.message;
+    return;
+  }
 
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    renderMessages(data || []);
+  $("notice").textContent = "";
+  $("messages").innerHTML = (data || []).map(messageHtml).join("");
+  scrollMessages();
 }
 
-function renderMessages(data) {
-    const container = $('messages');
-    container.replaceChildren();
+function messageHtml(message) {
+  const mine = message.sender_id === currentUser.id;
+  const date = new Date(message.created_at);
+  const time = date.toLocaleTimeString("ru-RU", {
+    hour:"2-digit", minute:"2-digit"
+  });
 
-    if (!data.length) {
-        const empty = document.createElement('div');
-        empty.id = 'emptyChat';
-        empty.textContent = 'Пока сообщений нет. Напишите первым!';
-        container.appendChild(empty);
-        return;
-    }
-
-    data.forEach(message => {
-        const bubble = document.createElement('div');
-        bubble.className = 'message';
-
-        if (message.sender_id === currentUser.id) {
-            bubble.classList.add('mine');
-        }
-
-        const content = document.createElement('div');
-        content.textContent = message.content;
-
-        const time = document.createElement('time');
-        time.textContent = new Date(message.created_at)
-            .toLocaleString();
-
-        bubble.append(content, time);
-        container.appendChild(bubble);
-    });
-
-    container.scrollTop = container.scrollHeight;
+  return `
+    <div class="message ${mine ? "mine" : ""}" data-message="${message.id}">
+      <div class="message-text">${escapeHtml(message.content)}</div>
+      <div class="message-time">${time}</div>
+    </div>`;
 }
 
-$('sendPanel').addEventListener('submit', async event => {
+function scrollMessages() {
+  $("messages").scrollTop = $("messages").scrollHeight;
+}
+
+async function sendMessage() {
+  if (!activeFriend) return;
+
+  const content = $("messageInput").value.trim();
+  if (!content) return;
+
+  $("sendButton").disabled = true;
+
+  const { error } = await db.from("messages").insert({
+    sender_id: currentUser.id,
+    recipient_id: activeFriend.id,
+    content
+  });
+
+  $("sendButton").disabled = false;
+
+  if (error) {
+    alert("Не удалось отправить сообщение: " + error.message);
+    return;
+  }
+
+  $("messageInput").value = "";
+  await loadMessages();
+  $("messageInput").focus();
+}
+
+$("sendButton").addEventListener("click", sendMessage);
+
+$("messageInput").addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
-
-    const content = $('messageInput').value.trim();
-
-    if (!content || !selectedUser) return;
-
-    $('messageInput').disabled = true;
-
-    const { error } = await supabase
-        .from('messages')
-        .insert({
-            sender_id: currentUser.id,
-            recipient_id: selectedUser.id,
-            content
-        });
-
-    $('messageInput').disabled = false;
-
-    if (error) {
-        alert('Не удалось отправить сообщение: ' + error.message);
-        return;
-    }
-
-    $('messageInput').value = '';
-    await loadMessages();
-    $('messageInput').focus();
+    sendMessage();
+  }
 });
 
-function setupRealtime() {
-    if (realtimeChannel) {
-        supabase.removeChannel(realtimeChannel);
-    }
+$("mobileBack").addEventListener("click", () => {
+  $("layout").classList.remove("chat-open");
+});
 
-    realtimeChannel = supabase
-        .channel('chat-messages')
-        .on(
-            'postgres_changes',
-            {
-                event: 'INSERT',
-                schema: 'public',
-                table: 'messages'
-            },
-            payload => {
-                const message = payload.new;
+function subscribeRealtime() {
+  if (realtimeChannel) {
+    db.removeChannel(realtimeChannel);
+  }
 
-                if (
-                    selectedUser &&
-                    (
-                        (message.sender_id === currentUser.id &&
-                         message.recipient_id === selectedUser.id) ||
-                        (message.sender_id === selectedUser.id &&
-                         message.recipient_id === currentUser.id)
-                    )
-                ) {
-                    loadMessages();
-                }
-            }
+  realtimeChannel = db.channel("chat-live-" + currentUser.id)
+    .on("postgres_changes", {
+      event:"*",
+      schema:"public",
+      table:"messages"
+    }, payload => {
+      const message = payload.new;
+      if (!message) return;
+
+      if (
+        activeFriend &&
+        (
+          (message.sender_id === currentUser.id && message.recipient_id === activeFriend.id) ||
+          (message.sender_id === activeFriend.id && message.recipient_id === currentUser.id)
         )
-        .subscribe();
+      ) {
+        loadMessages();
+      }
+    })
+    .on("postgres_changes", {
+      event:"*",
+      schema:"public",
+      table:"friend_requests"
+    }, async () => {
+      await loadRequests();
+      if (currentTab === "friends") await loadFriends();
+      if (currentTab === "search") await searchUsers();
+    })
+    .subscribe();
 }
 
-async function initializeChat(user) {
-    currentUser = user;
-    showApp();
-    await loadUsers();
-    setupRealtime();
+async function init() {
+  const { data: { session } } = await db.auth.getSession();
+  if (session) {
+    await startApp();
+  }
 }
 
-supabase.auth.onAuthStateChange((event, session) => {
-    const user = session?.user || null;
-
-    if (user) {
-        if (!currentUser || currentUser.id !== user.id) {
-            initializeChat(user);
-        }
-    } else {
-        currentUser = null;
-        selectedUser = null;
-
-        if (realtimeChannel) {
-            supabase.removeChannel(realtimeChannel);
-            realtimeChannel = null;
-        }
-
-        showAuth();
-    }
+db.auth.onAuthStateChange((event, session) => {
+  if (event === "SIGNED_IN" && session && !currentUser) {
+    setTimeout(startApp, 0);
+  }
 });
 
-const { data: { session } } = await supabase.auth.getSession();
-
-if (session?.user) {
-    await initializeChat(session.user);
-} else {
-    showAuth();
-}
+init();
 </script>
-
 </body>
 </html>
