@@ -17,7 +17,7 @@
     "Flowfaucet (faucet30)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-01T14:47:32.864Z",
+  "last_updated": "2026-11-01T15:02:57.089Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -898,6 +898,14 @@
       "coin": "PEPE",
       "minutes": 1,
       "_updated_at": "2026-10-31T15:41:20.110Z"
+    },
+    "111": {
+      "name": "Arcade2cash",
+      "url": "https://arcade2cash.com/arcade",
+      "reward": "0.0695",
+      "coin": "DOGE",
+      "minutes": 60,
+      "_updated_at": "2026-11-01T15:02:57.089Z"
     }
   }
 }
