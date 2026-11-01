@@ -313,6 +313,7 @@ let callTimer = null;
 let callSeconds = 0;
 let muted = false;
 let callPollTimer = null;
+ let incomingCallPollTimer = null;
 let icePollTimer = null;
 let seenIceKeys = new Set();
 let isVideoCall = false; 
@@ -427,9 +428,10 @@ async function startApp() {
   $("myNick").textContent = nick;
   $("headerNick").textContent = nick;
 
-  await loadRequests();
-  await loadFriends();
-  subscribeRealtime();
+   await loadRequests();
+await loadFriends();
+subscribeRealtime();
+startIncomingCallPolling();
 }
 
 async function loadRequests() {
@@ -814,6 +816,64 @@ function showRemoteVideo() {
   $("videoArea").classList.remove("hidden");
 }
 
+ /* Проверка входящих звонков независимо от Realtime */
+
+async function pollIncomingCalls() {
+  if (!currentUser || activeCall) return;
+
+  const { data: call, error } = await db
+    .from("calls")
+    .select("*")
+    .eq("callee_id", currentUser.id)
+    .eq("status", "ringing")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Ошибка поиска входящего звонка:", error);
+    return;
+  }
+
+  if (!call) return;
+
+  // Если это уже известный звонок — обновляем его данные.
+  if (incomingCall && incomingCall.id === call.id) {
+    incomingCall = call;
+    await showIncomingCall(call);
+    return;
+  }
+
+  // Не переключаемся на другой звонок во время текущего.
+  if (incomingCall) return;
+
+  incomingCall = call;
+  seenIceKeys.clear();
+  remoteIceQueue = [];
+
+  const video = !!call.offer?.sdp?.includes("m=video");
+
+  showCallPanel(
+    video ? "📹 Входящий видеозвонок" : "📞 Входящий аудиозвонок",
+    "Вам звонят!",
+    "incoming"
+  );
+
+  $("acceptCallButton").disabled = !call.offer;
+
+  startCallPolling();
+  await showIncomingCall(call);
+}
+
+function startIncomingCallPolling() {
+  clearInterval(incomingCallPollTimer);
+
+  pollIncomingCalls();
+
+  incomingCallPollTimer = setInterval(() => {
+    pollIncomingCalls();
+  }, 2000);
+}
 function startCallPolling() {
   clearInterval(callPollTimer);
   clearInterval(icePollTimer);
