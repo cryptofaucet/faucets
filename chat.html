@@ -1346,6 +1346,99 @@ function handleCallChange(payload) {
   }
 }
 
+ /* ---------------- SUPABASE REALTIME ---------------- */
+
+function subscribeRealtime() {
+  // Удаляем старый канал, если он уже существовал.
+  if (realtimeChannel) {
+    db.removeChannel(realtimeChannel);
+    realtimeChannel = null;
+  }
+
+  realtimeChannel = db
+    .channel("cryptofaucet-chat-" + currentUser.id)
+
+    // Новые сообщения
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "messages"
+      },
+      async payload => {
+        const message = payload.new;
+
+        if (!activeFriend) return;
+
+        const isOurConversation =
+          (message.sender_id === currentUser.id &&
+           message.recipient_id === activeFriend.id) ||
+          (message.sender_id === activeFriend.id &&
+           message.recipient_id === currentUser.id);
+
+        if (isOurConversation) {
+          await loadMessages();
+        }
+      }
+    )
+
+    // Звонки: создание и изменение
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "calls"
+      },
+      payload => {
+        handleCallChange(payload);
+      }
+    )
+
+    // ICE-кандидаты для WebRTC
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "call_ice_candidates"
+      },
+      payload => {
+        if (payload.new) {
+          receiveIceCandidate(payload.new);
+        }
+      }
+    )
+
+    // Заявки в друзья
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "friend_requests"
+      },
+      async () => {
+        await loadRequests();
+        await loadFriends();
+      }
+    )
+
+    .subscribe((status, error) => {
+      console.log("Supabase Realtime:", status);
+
+      if (status === "SUBSCRIBED") {
+        $("notice").textContent = "Соединение чата активно";
+      }
+
+      if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+        $("notice").textContent =
+          "Ошибка соединения чата. Проверь подключение.";
+        console.error("Realtime error:", error);
+      }
+    });
+}
 $("mobileBack").addEventListener("click", () => {
   $("layout").classList.remove("chat-open");
 });
