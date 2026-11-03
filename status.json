@@ -15,7 +15,7 @@
     "Cryptomania (faucet87)",
     "Сrypto Gem (faucet6)"
   ],
-  "last_updated": "2026-11-03T00:47:06.564Z",
+  "last_updated": "2026-11-03T00:48:14.060Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -119,7 +119,7 @@
       "reward": "0.0000008",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-03T00:47:06.564Z"
+      "_updated_at": "2026-11-03T00:48:14.060Z"
     },
     "14": {
       "name": "BigMob",
