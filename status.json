@@ -15,7 +15,7 @@
     "Cryptomania (faucet87)",
     "Сrypto Gem (faucet6)"
   ],
-  "last_updated": "2026-11-03T00:44:49.294Z",
+  "last_updated": "2026-11-03T00:45:29.710Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -92,10 +92,10 @@
     "10": {
       "name": "Dragon claims",
       "url": "https://dragonclaims.it.com/?r=z8yyrm5u",
-      "reward": "0.000001",
+      "reward": "0.0000008",
       "coin": "LTC",
-      "minutes": 3,
-      "_updated_at": "2026-10-29T17:35:38.562Z"
+      "minutes": 1,
+      "_updated_at": "2026-11-03T00:45:29.710Z"
     },
     "11": {
       "name": "ExtraClaims",
