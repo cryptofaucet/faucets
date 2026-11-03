@@ -18,7 +18,7 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-03T01:40:38.233Z",
+  "last_updated": "2026-11-03T01:43:59.945Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -907,6 +907,14 @@
       "coin": "DOGE",
       "minutes": 60,
       "_updated_at": "2026-11-01T15:02:57.089Z"
+    },
+    "112": {
+      "name": "Cryptodon Exchange",
+      "url": "https://cryptodon.exchange/?r=6tgjjcy2",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-03T01:43:59.945Z"
     }
   }
 }
