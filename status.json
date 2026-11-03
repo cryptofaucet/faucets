@@ -14,11 +14,11 @@
     "Сrypto Gem (faucet6)",
     "Faucet Alaska (faucet15)",
     "Qpcrypto (faucet41)",
-    "Heavenltc (faucet59)",
+    "alhor faucet (faucet59)",
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-03T01:37:25.657Z",
+  "last_updated": "2026-11-03T01:40:27.878Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -485,12 +485,12 @@
       "_updated_at": "2026-10-29T18:35:02.664Z"
     },
     "59": {
-      "name": "Heavenltc",
-      "url": "https://heavenltc.site/",
-      "reward": "0.000005",
-      "coin": "LTC",
-      "minutes": 60,
-      "_updated_at": "2026-10-29T18:35:55.616Z"
+      "name": "alhor faucet",
+      "url": "https://alhorfaucet.website/?r=kpqnryqi",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-03T01:40:27.878Z"
     },
     "60": {
       "name": "TakeLtc",
