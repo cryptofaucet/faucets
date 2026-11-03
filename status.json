@@ -18,7 +18,7 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-03T01:56:42.133Z",
+  "last_updated": "2026-11-03T01:59:48.941Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -923,6 +923,14 @@
       "coin": "TRX",
       "minutes": 1,
       "_updated_at": "2026-11-03T01:56:42.133Z"
+    },
+    "114": {
+      "name": "Free BNB Pick",
+      "url": "https://freebnbpick.vip/?r=uw9zmqbg",
+      "reward": "0.00000075",
+      "coin": "BNB",
+      "minutes": 60,
+      "_updated_at": "2026-11-03T01:59:48.941Z"
     }
   }
 }
