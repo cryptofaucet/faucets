@@ -18,7 +18,7 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-03T01:43:59.945Z",
+  "last_updated": "2026-11-03T01:56:42.133Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -915,6 +915,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-03T01:43:59.945Z"
+    },
+    "113": {
+      "name": "Ethiomi",
+      "url": "https://ethiomi.com/#claim",
+      "reward": "0.00001",
+      "coin": "TRX",
+      "minutes": 1,
+      "_updated_at": "2026-11-03T01:56:42.133Z"
     }
   }
 }
