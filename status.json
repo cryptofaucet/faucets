@@ -17,7 +17,7 @@
     "Qpcrypto (faucet41)",
     "Heavenltc (faucet59)"
   ],
-  "last_updated": "2026-11-03T01:14:10.569Z",
+  "last_updated": "2026-11-03T01:16:04.423Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -694,10 +694,10 @@
     "85": {
       "name": "Pythagore Pepe",
       "url": "https://pythagore-pepe.website/?r=2hr344a9",
-      "reward": "8.65",
+      "reward": "7.33",
       "coin": "PEPE",
       "minutes": 1,
-      "_updated_at": "2026-10-30T01:29:40.595Z"
+      "_updated_at": "2026-11-03T01:16:04.423Z"
     },
     "86": {
       "name": "Snow Faucet",
