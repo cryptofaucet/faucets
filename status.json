@@ -11,13 +11,13 @@
     "247faucet (faucet5)",
     "Best Faucet (faucet36)",
     "Flowfaucet (faucet30)",
-    "Cryptomania (faucet87)",
     "Сrypto Gem (faucet6)",
     "Faucet Alaska (faucet15)",
     "Qpcrypto (faucet41)",
-    "Heavenltc (faucet59)"
+    "Heavenltc (faucet59)",
+    "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-03T01:16:04.423Z",
+  "last_updated": "2026-11-03T01:21:27.842Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
