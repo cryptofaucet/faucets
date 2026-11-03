@@ -8,7 +8,7 @@
     "Ssatom (faucet67)",
     "Egofaucet (faucet90)",
     "Limitless (faucet23)",
-    "247faucet (faucet5)",
+    "Bitfaucet (faucet5)",
     "Best Faucet (faucet36)",
     "Flowfaucet (faucet30)",
     "Сrypto Gem (faucet6)",
@@ -18,7 +18,7 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-03T01:25:09.618Z",
+  "last_updated": "2026-11-03T01:37:25.657Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -53,12 +53,12 @@
       "_updated_at": "2026-10-21T00:39:19.255Z"
     },
     "5": {
-      "name": "247faucet",
-      "url": "https://247faucet.site/?r=qy3qdjkg",
-      "reward": "0.00000001",
+      "name": "Bitfaucet",
+      "url": "https://bitfaucet.offers4all.xyz/",
+      "reward": "0.00000010",
       "coin": "BTC",
-      "minutes": 5,
-      "_updated_at": "2026-10-21T00:39:52.497Z"
+      "minutes": 360,
+      "_updated_at": "2026-11-03T01:37:25.657Z"
     },
     "6": {
       "name": "Сrypto Gem",
