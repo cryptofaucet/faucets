@@ -15,9 +15,10 @@
     "Faucet Alaska (faucet15)",
     "Qpcrypto (faucet41)",
     "Heavenltc (faucet59)",
-    "Cryptomania (faucet87)"
+    "Cryptomania (faucet87)",
+    "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-03T01:21:27.842Z",
+  "last_updated": "2026-11-03T01:25:09.618Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
