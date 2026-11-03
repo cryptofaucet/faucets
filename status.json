@@ -15,7 +15,7 @@
     "Cryptomania (faucet87)",
     "Сrypto Gem (faucet6)"
   ],
-  "last_updated": "2026-11-03T00:45:42.227Z",
+  "last_updated": "2026-11-03T00:46:08.977Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -100,10 +100,10 @@
     "11": {
       "name": "ExtraClaims",
       "url": "https://extraclaims.online/?r=4pzssbb5",
-      "reward": "0.000001",
+      "reward": "0.0000008",
       "coin": "LTC",
-      "minutes": 3,
-      "_updated_at": "2026-10-22T13:33:56.859Z"
+      "minutes": 1,
+      "_updated_at": "2026-11-03T00:46:08.977Z"
     },
     "12": {
       "name": "Blockxs",
