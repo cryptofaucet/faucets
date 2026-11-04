@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -2761,10 +2761,17 @@ function getDisabledFaucetIds(entries) {
 
     (Array.isArray(entries) ? entries : []).forEach(entry => {
         const value = String(entry || '').trim();
-        const match = value.match(/\((faucet\d+)\)\s*$/i);
+        if (!value) return;
 
-        if (match) {
-            ids.add(normalize(match[1]));
+        // Общий формат админки: "Название (faucet12)".
+        // Формат списка Drips: "12" или "faucet12".
+        const namedMatch = value.match(/\((faucet\d+)\)\s*$/i);
+        const idMatch = value.match(/^(?:faucet)?(\d+)$/i);
+
+        if (namedMatch) {
+            ids.add(normalize(namedMatch[1]));
+        } else if (idMatch) {
+            ids.add(normalize('faucet' + idMatch[1]));
         }
     });
 
@@ -2990,6 +2997,9 @@ function updatePublicFaucetStats(data = lastPublicStatusData) {
     ).filter(row => /^faucet\d+$/.test(row.id));
 
     const disabledIds = getDisabledFaucetIds(data.disabled_faucets);
+    getDisabledFaucetIds(data.drips_disabled_faucets).forEach(id => {
+        disabledIds.add(id);
+    });
 
     const settings = data.faucet_settings &&
         typeof data.faucet_settings === 'object'
@@ -3057,11 +3067,12 @@ function updatePublicFaucetStats(data = lastPublicStatusData) {
 
 window.updatePublicFaucetStats = updatePublicFaucetStats;
 	
-    // Загружаем status.json один раз при открытии страницы.
+    // Загружаем настройки Drips из drips.json.
+    // При каждом включении режима «Глобал» файл запрашивается заново.
     async function loadGlobalStatus() {
         try {
             const response = await fetch(
-                './status.json?v=' + Date.now(),
+                './drips.json?v=' + Date.now(),
                 { cache: 'no-store' }
             );
 
@@ -3071,7 +3082,12 @@ window.updatePublicFaucetStats = updatePublicFaucetStats;
 
             const data = await response.json();
 
-           disabledFaucets = getDisabledFaucetIds(data.disabled_faucets);
+            // Объединяем обычные глобальные отключения и отдельные
+            // отключения Drips.
+            disabledFaucets = getDisabledFaucetIds(data.disabled_faucets);
+            getDisabledFaucetIds(data.drips_disabled_faucets).forEach(id => {
+                disabledFaucets.add(id);
+            });
 
             globalSettings =
                 data.faucet_settings &&
@@ -3085,13 +3101,15 @@ window.updatePublicFaucetStats = updatePublicFaucetStats;
             applyFaucetSettings();
             applyLocalMode();
             applyGlobalMode();
-			updatePublicFaucetStats(data);
+            updatePublicFaucetStats(data);
 
+            return true;
         } catch (error) {
             console.error(
-                '[Глобал] Не удалось загрузить status.json:',
+                '[Глобал] Не удалось загрузить drips.json:',
                 error
             );
+            return false;
         }
     }
 
@@ -3248,9 +3266,21 @@ window.updateModeButtonsLanguage = updateModeButtons;
     }
 
     if (globalBtn) {
-        globalBtn.addEventListener('click', function () {
+        globalBtn.addEventListener('click', async function () {
             globalMode = !globalMode;
             localStorage.setItem(GLOBAL_KEY, String(globalMode));
+
+            // При включении «Глобал» обязательно получаем свежий drips.json.
+            if (globalMode) {
+                const loaded = await loadGlobalStatus();
+
+                if (!loaded) {
+                    globalMode = false;
+                    localStorage.setItem(GLOBAL_KEY, 'false');
+                    updateModeButtons();
+                    return;
+                }
+            }
 
             applyFaucetSettings();
             applyGlobalMode();
