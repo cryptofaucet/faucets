@@ -18,7 +18,7 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-04T15:13:26.687Z",
+  "last_updated": "2026-11-04T15:15:41.235Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -947,6 +947,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-04T15:13:26.687Z"
+    },
+    "117": {
+      "name": "starfaucet",
+      "url": "https://starfaucet.win/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-04T15:15:41.235Z"
     }
   }
 }
