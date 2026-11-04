@@ -18,7 +18,7 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-04T15:13:18.192Z",
+  "last_updated": "2026-11-04T15:13:26.687Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -939,6 +939,14 @@
       "coin": "TRX",
       "minutes": 5,
       "_updated_at": "2026-11-04T15:11:46.005Z"
+    },
+    "116": {
+      "name": "Dgbearn",
+      "url": "https://dgbearn.top/?r=c5xus4e5",
+      "reward": "0.0002",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-04T15:13:26.687Z"
     }
   }
 }
