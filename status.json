@@ -18,15 +18,15 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-03T02:15:19.476Z",
+  "last_updated": "2026-11-04T14:55:41.171Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
       "url": "https://faucetfun.com/?r=wntszkp3",
       "reward": "0.00000003",
       "coin": "BTC",
-      "minutes": 30,
-      "_updated_at": "2026-11-03T00:26:18.445Z"
+      "minutes": 15,
+      "_updated_at": "2026-11-04T14:55:41.171Z"
     },
     "2": {
       "name": "CoinDrip",
