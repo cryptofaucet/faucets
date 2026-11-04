@@ -664,7 +664,7 @@ tr.globally-disabled .btn-limit {
 <div class="promo-box" style="margin: 0; flex: 1; min-width: 360px; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
     <p style="margin: 0; font-size: 14px; font-weight: bold;">Для выплаты с кранов зарегистрируйте единый аккаунт:</p>
     <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; width: 100%;">
-        <a href="https://faucetpay.io/r/9047046" target="_blank" class="btn-ref faucet-link">Открыть аккаунт FaucetPay</a>
+        <a href="https://drips.gg/r/k94s5nfh" target="_blank" class="btn-ref faucet-link">Открыть аккаунт Drips</a>
 		 
         <button id="localModeBtn" type="button" class="btn-ref" style="background: #28a745; color: white; border: none; cursor: pointer;">
             Локал: ВКЛ
@@ -740,21 +740,7 @@ box-sizing: border-box;">
     <span><b>Глобал</b><span> — общие настройки, заданные администратором.</span></span>
     <span class="mode-info-note">Оба режима можно включить одновременно.</span>
 </div>
-<p id="limitsText" class="limits-text">
-    Минимальную сумму вывода и комиссии FaucetPay смотрите здесь:
-</p>
-	 <button type="button" id="limitsBtn" class="btn-ref faucet-link">
-    Лимиты FaucetPay
-</button>
-	<script>
-document.getElementById('limitsBtn').addEventListener('click', function () {
-    const isEnglish = document.getElementById('langEN').classList.contains('active');
-
-    const page = isEnglish ? 'limits-en.html' : 'limits.html';
-
-    window.open(page, '_blank', 'noopener,noreferrer');
-});
-</script>
+ 
 
     <div class="tables-container">
         <!-- ЛЕВАЯ ПАНЕЛЬ -->
@@ -3404,7 +3390,7 @@ window.updateModeButtonsLanguage = updateModeButtons;
     const translations = {
         "Интеллектуальный ротатор кранов с автоматическим контролем времени сбора": "Smart faucet rotator with automatic claim timer tracking",
         "Для выплаты с кранов зарегистрируйте единый аккаунт:": "Register one account to receive faucet payouts:",
-        "Открыть аккаунт FaucetPay": "Open FaucetPay account",
+        "Открыть аккаунт Drips": "Open Drips account",
 		 "Режимы работы:": "Operating modes:",
 "Локал — личные настройки кранов на твоём устройстве.": "Local — faucet settings saved on your device.",
 "Глобал — общие настройки, заданные администратором.": "Global — shared settings configured by the administrator.",
@@ -3413,7 +3399,7 @@ window.updateModeButtonsLanguage = updateModeButtons;
 		 "— личные настройки кранов на твоём устройстве.": "— faucet settings saved on your device.",
 "— общие настройки, заданные администратором.": "— shared settings configured by the administrator.",
 "Глобал": "Global",
-		"Минимальную сумму вывода и комиссии FaucetPay смотрите здесь:": "Check minimum withdrawal amounts and FaucetPay fees here:",
+		 
 		"Глобал: ВЫКЛ": "Global: OFF",
 		"Лимиты FaucetPay": "FaucetPay Limits",
 "Выгодный сбор сейчас:": "Best claim right now:",
