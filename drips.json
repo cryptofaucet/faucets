@@ -18,7 +18,7 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-04T20:58:00.265Z",
+  "last_updated": "2026-11-04T20:58:21.675Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -958,6 +958,7 @@
     }
   },
   "drips_disabled_faucets": [
-    "1"
+    "1",
+    "2"
   ]
 }
