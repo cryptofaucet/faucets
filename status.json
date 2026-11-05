@@ -17,7 +17,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T06:18:22.868Z",
+  "last_updated": "2026-11-05T06:21:34.231Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -54,10 +54,10 @@
     "5": {
       "name": "Bitfaucet",
       "url": "https://bitfaucet.offers4all.xyz/",
-      "reward": "0.00000010",
+      "reward": "0.00000001",
       "coin": "BTC",
-      "minutes": 360,
-      "_updated_at": "2026-11-03T01:37:25.657Z"
+      "minutes": 60,
+      "_updated_at": "2026-11-05T06:21:34.231Z"
     },
     "6": {
       "name": "Сrypto Gem",
