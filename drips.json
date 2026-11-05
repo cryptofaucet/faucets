@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T21:33:14.720Z",
+  "last_updated": "2026-11-05T21:35:45.994Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -953,6 +953,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-04T15:15:41.235Z"
+    },
+    "118": {
+      "name": "FinalRound1903",
+      "url": "https://finalround1903.site/?r=nivaa8fn",
+      "reward": "0.00000001",
+      "coin": "PEPE",
+      "minutes": 15,
+      "_updated_at": "2026-11-05T21:35:45.994Z"
     }
   },
   "drips_disabled_faucets": [
