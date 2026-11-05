@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T22:00:41.287Z",
+  "last_updated": "2026-11-05T22:01:28.005Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -331,12 +331,12 @@
       "_updated_at": "2026-10-21T01:43:50.838Z"
     },
     "40": {
-      "name": "Snaptik",
+      "name": "Snaptik Faucet",
       "url": "https://snaptik.one/",
       "reward": "0.00005",
       "coin": "TRX",
       "minutes": 1,
-      "_updated_at": "2026-10-29T18:12:02.453Z"
+      "_updated_at": "2026-11-05T22:01:28.005Z"
     },
     "41": {
       "name": "Qpcrypto",
