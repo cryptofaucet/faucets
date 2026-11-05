@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T21:59:25.077Z",
+  "last_updated": "2026-11-05T22:00:41.287Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -203,12 +203,12 @@
       "_updated_at": "2026-10-21T00:56:13.710Z"
     },
     "24": {
-      "name": "Faucetfunds",
+      "name": "Faucet Funds",
       "url": "https://faucetfunds.com/?r=jpvu2kcu",
       "reward": "0.00005",
       "coin": "USDT",
       "minutes": 5,
-      "_updated_at": "2026-10-21T00:57:22.511Z"
+      "_updated_at": "2026-11-05T22:00:41.287Z"
     },
     "25": {
       "name": "Planet Faucet",
