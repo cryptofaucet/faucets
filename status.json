@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T23:13:09.025Z",
+  "last_updated": "2026-11-05T23:14:26.382Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1025,6 +1025,14 @@
       "coin": "TRX",
       "minutes": 60,
       "_updated_at": "2026-11-05T23:13:09.025Z"
+    },
+    "127": {
+      "name": "Btcrat",
+      "url": "https://btcrat.site/",
+      "reward": "0.00000001",
+      "coin": "BTC",
+      "minutes": 5,
+      "_updated_at": "2026-11-05T23:14:26.382Z"
     }
   }
 }
