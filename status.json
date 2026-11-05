@@ -18,7 +18,7 @@
     "Cryptomania (faucet87)",
     "CoinDrip (faucet2)"
   ],
-  "last_updated": "2026-11-04T21:57:37.182Z",
+  "last_updated": "2026-11-05T06:17:58.073Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -33,8 +33,8 @@
       "url": "https://coindrip.site/?r=zj262589",
       "reward": "0.00000002",
       "coin": "BTC",
-      "minutes": 60,
-      "_updated_at": "2026-11-03T00:27:49.727Z"
+      "minutes": 10,
+      "_updated_at": "2026-11-05T06:17:58.073Z"
     },
     "3": {
       "name": "Adptc",
