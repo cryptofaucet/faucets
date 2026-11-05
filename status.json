@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T23:00:06.411Z",
+  "last_updated": "2026-11-05T23:05:17.273Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1001,6 +1001,14 @@
       "coin": "POL",
       "minutes": 30,
       "_updated_at": "2026-11-05T23:00:06.411Z"
+    },
+    "124": {
+      "name": "Bitcofy",
+      "url": "https://bitcofy.site/?r=whag29uv",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 15,
+      "_updated_at": "2026-11-05T23:05:17.273Z"
     }
   }
 }
