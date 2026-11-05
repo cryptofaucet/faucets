@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T22:04:38.614Z",
+  "last_updated": "2026-11-05T22:06:06.838Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -739,12 +739,12 @@
       "_updated_at": "2026-10-30T01:40:30.111Z"
     },
     "91": {
-      "name": "Cryptosugar",
+      "name": "Crypto Sugar",
       "url": "https://cryptosugar.site/?r=8y8h26ft",
       "reward": "0.000145",
       "coin": "USDT",
       "minutes": 3,
-      "_updated_at": "2026-10-30T01:43:57.551Z"
+      "_updated_at": "2026-11-05T22:06:06.838Z"
     },
     "92": {
       "name": "Cornearn",
