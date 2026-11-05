@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T23:47:17.997Z",
+  "last_updated": "2026-11-05T23:48:22.444Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1057,6 +1057,14 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-05T23:39:01.326Z"
+    },
+    "131": {
+      "name": "GANHAR LITCOIN",
+      "url": "https://ganharlitecoin.site/",
+      "reward": "0.000001",
+      "coin": "LTC",
+      "minutes": 15,
+      "_updated_at": "2026-11-05T23:48:22.444Z"
     }
   },
   "drips_disabled_faucets": [
