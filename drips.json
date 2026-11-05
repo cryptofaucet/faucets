@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T21:58:32.281Z",
+  "last_updated": "2026-11-05T21:59:25.077Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -835,12 +835,12 @@
       "_updated_at": "2026-10-30T02:04:25.910Z"
     },
     "103": {
-      "name": "Cryptogravy usdt",
+      "name": "Cryptogravy Usdt",
       "url": "https://cryptogravyusdt.site/?r=ribjpsut",
       "reward": "0.000101",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-10-30T02:06:11.108Z"
+      "_updated_at": "2026-11-05T21:59:25.077Z"
     },
     "104": {
       "name": "HichamFaucet",
