@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T21:51:58.589Z",
+  "last_updated": "2026-11-05T21:53:47.930Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -977,6 +977,14 @@
       "coin": "BTC",
       "minutes": 3,
       "_updated_at": "2026-11-05T21:42:54.364Z"
+    },
+    "121": {
+      "name": "Crypto Fun",
+      "url": "https://cryptofun.site/?r=kdypu887",
+      "reward": "0.0005",
+      "coin": "TRX",
+      "minutes": 60,
+      "_updated_at": "2026-11-05T21:53:47.930Z"
     }
   },
   "drips_disabled_faucets": [
