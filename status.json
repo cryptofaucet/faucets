@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T23:05:17.273Z",
+  "last_updated": "2026-11-05T23:08:24.091Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1009,6 +1009,14 @@
       "coin": "USDT",
       "minutes": 15,
       "_updated_at": "2026-11-05T23:05:17.273Z"
+    },
+    "125": {
+      "name": "Bitcoplay",
+      "url": "https://bitcoplay.site/",
+      "reward": "0.0001",
+      "coin": "DOGE",
+      "minutes": 1,
+      "_updated_at": "2026-11-05T23:08:24.091Z"
     }
   }
 }
