@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T23:48:22.444Z",
+  "last_updated": "2026-11-05T23:50:55.703Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1065,6 +1065,14 @@
       "coin": "LTC",
       "minutes": 15,
       "_updated_at": "2026-11-05T23:48:22.444Z"
+    },
+    "132": {
+      "name": "Getcash",
+      "url": "https://getcash.site/",
+      "reward": "0.00001",
+      "coin": "DOGE",
+      "minutes": 1,
+      "_updated_at": "2026-11-05T23:50:55.703Z"
     }
   },
   "drips_disabled_faucets": [
