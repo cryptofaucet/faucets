@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T22:02:48.056Z",
+  "last_updated": "2026-11-05T22:03:39.125Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -291,12 +291,12 @@
       "_updated_at": "2026-10-29T18:04:45.875Z"
     },
     "35": {
-      "name": "Ogmaads",
+      "name": "OGMA SPACE",
       "url": "https://ogmaads.space/?r=yryhdt79",
       "reward": "0.000003",
       "coin": "SOL",
       "minutes": 10,
-      "_updated_at": "2026-10-29T18:05:35.175Z"
+      "_updated_at": "2026-11-05T22:03:39.125Z"
     },
     "36": {
       "name": "Best Faucet",
