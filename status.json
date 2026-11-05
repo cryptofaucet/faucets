@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T21:30:32.584Z",
+  "last_updated": "2026-11-05T21:30:54.511Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -435,12 +435,12 @@
       "_updated_at": "2026-10-22T16:17:22.448Z"
     },
     "53": {
-      "name": "MycryptoCoin",
+      "name": "Mycrypto Coin",
       "url": "https://mycryptocoin.click/?r=qqqufsq7",
       "reward": "0.00035",
       "coin": "DOGE",
       "minutes": 1,
-      "_updated_at": "2026-11-05T21:30:32.584Z"
+      "_updated_at": "2026-11-05T21:30:54.511Z"
     },
     "54": {
       "name": "Diamond Faucet",
