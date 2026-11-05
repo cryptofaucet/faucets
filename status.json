@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T22:56:47.706Z",
+  "last_updated": "2026-11-05T23:00:06.411Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -993,6 +993,14 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-11-05T22:56:47.706Z"
+    },
+    "123": {
+      "name": "APower",
+      "url": "https://apower.site/?r=86jyrscr",
+      "reward": "0.0005",
+      "coin": "POL",
+      "minutes": 30,
+      "_updated_at": "2026-11-05T23:00:06.411Z"
     }
   }
 }
