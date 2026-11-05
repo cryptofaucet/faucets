@@ -10,13 +10,13 @@
     "Limitless (faucet23)",
     "Best Faucet (faucet36)",
     "Flowfaucet (faucet30)",
-    "Сrypto Gem (faucet6)",
+    "Crypto Gem (faucet6)",
     "Faucet Alaska (faucet15)",
     "Qpcrypto (faucet41)",
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T22:09:26.215Z",
+  "last_updated": "2026-11-05T22:37:30.242Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -59,12 +59,12 @@
       "_updated_at": "2026-11-05T21:25:57.954Z"
     },
     "6": {
-      "name": "Сrypto Gem",
+      "name": "Crypto Gem",
       "url": "https://cryptogem.space/?r=7tyvht3h",
       "reward": "0.00000050",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-10-21T00:40:32.336Z"
+      "_updated_at": "2026-11-05T22:37:30.242Z"
     },
     "7": {
       "name": "Ghfaucet",
