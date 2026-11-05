@@ -17,7 +17,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T06:18:22.868Z",
+  "last_updated": "2026-11-05T06:19:02.643Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -957,6 +957,7 @@
     }
   },
   "drips_disabled_faucets": [
-    "1"
+    "1",
+    "3"
   ]
 }
