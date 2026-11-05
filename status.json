@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T23:53:30.208Z",
+  "last_updated": "2026-11-05T23:57:02.437Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1081,6 +1081,14 @@
       "coin": "DOGE",
       "minutes": 300,
       "_updated_at": "2026-11-05T23:53:30.208Z"
+    },
+    "134": {
+      "name": "Micro Faucet",
+      "url": "https://microfaucet.site/",
+      "reward": "0.00001",
+      "coin": "DOGE",
+      "minutes": 30,
+      "_updated_at": "2026-11-05T23:57:02.437Z"
     }
   }
 }
