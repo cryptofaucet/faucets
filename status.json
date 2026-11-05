@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T21:57:38.283Z",
+  "last_updated": "2026-11-05T21:58:32.281Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -603,12 +603,12 @@
       "_updated_at": "2026-11-05T21:51:58.589Z"
     },
     "74": {
-      "name": "Wcfaucet",
+      "name": "Wc Faucet",
       "url": "https://wcfaucet.site/?r=yrgufhc6",
       "reward": "0.001",
       "coin": "TRX",
       "minutes": 2,
-      "_updated_at": "2026-10-30T01:03:58.671Z"
+      "_updated_at": "2026-11-05T21:58:32.281Z"
     },
     "75": {
       "name": "Cryptofun",
