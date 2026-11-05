@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T23:50:55.703Z",
+  "last_updated": "2026-11-05T23:53:30.208Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1073,6 +1073,14 @@
       "coin": "DOGE",
       "minutes": 1,
       "_updated_at": "2026-11-05T23:50:55.703Z"
+    },
+    "133": {
+      "name": "honestdoge",
+      "url": "https://honestdoge.com/",
+      "reward": "0.0005",
+      "coin": "DOGE",
+      "minutes": 300,
+      "_updated_at": "2026-11-05T23:53:30.208Z"
     }
   },
   "drips_disabled_faucets": [
