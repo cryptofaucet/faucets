@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-05T21:25:57.954Z",
+  "last_updated": "2026-11-05T21:26:54.980Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -83,12 +83,12 @@
       "_updated_at": "2026-11-03T00:44:49.294Z"
     },
     "9": {
-      "name": "Topfaucet",
+      "name": "Top faucet",
       "url": "https://topfaucet.site/",
       "reward": "0.0005",
       "coin": "DOGE",
       "minutes": 5,
-      "_updated_at": "2026-10-21T00:41:44.112Z"
+      "_updated_at": "2026-11-05T21:26:54.980Z"
     },
     "10": {
       "name": "Dragon claims",
