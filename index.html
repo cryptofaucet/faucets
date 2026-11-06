@@ -353,8 +353,7 @@ tr.globally-disabled .btn-limit {
     text-align: left !important;
     padding-left: 0 !important;
 }
-		/* Проверка доступа CryptoFaucet Hub */
-#accessGate {
+	#accessGate {
     position: fixed;
     inset: 0;
     z-index: 999999;
@@ -362,6 +361,7 @@ tr.globally-disabled .btn-limit {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    overflow-y: auto;
     background: #0b0e14;
     box-sizing: border-box;
 }
@@ -372,47 +372,139 @@ tr.globally-disabled .btn-limit {
 
 #accessGate .access-card {
     width: 100%;
-    max-width: 420px;
-    padding: 25px;
+    max-width: 480px;
+    padding: 28px;
     box-sizing: border-box;
     text-align: center;
-    background: #111622;
+    background: linear-gradient(145deg, #151d2b, #101521);
     border: 1px solid #00ffcc;
-    border-radius: 12px;
+    border-radius: 14px;
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.12);
+}
+
+#accessGate .access-brand {
+    margin-bottom: 18px;
+    color: #00ffcc;
+    font-size: 25px;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(0, 255, 204, 0.3);
 }
 
 #accessGate h2 {
+    margin: 0 0 15px;
     color: #00ffcc;
-    margin-top: 0;
+    font-size: 21px;
+    line-height: 1.4;
 }
 
-#accessUsername {
-    width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    box-sizing: border-box;
-    border: 1px solid #52667d;
-    border-radius: 6px;
-    background: #0b0e14;
-    color: white;
-    font-size: 16px;
+#accessGate .access-description {
+    margin: 0 0 20px;
+    color: #aab7c8;
+    font-size: 14px;
+    line-height: 1.6;
 }
-#accessCheckBtn {
-    width: 100%;
-    padding: 12px;
-    border: 0;
-    border-radius: 6px;
-    background: linear-gradient(90deg, #00ffcc, #00b3ff);
-    color: #0b0e14;
+
+#accessGate .access-register,
+#accessGate .access-check,
+#accessGate .access-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 11px 15px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
     font-weight: bold;
+    text-decoration: none;
+    transition: 0.2s ease;
     cursor: pointer;
 }
 
-#accessMessage {
-    margin-top: 12px;
+#accessGate .access-register,
+#accessGate .access-check {
+    width: 100%;
+    border: none;
+    background: linear-gradient(90deg, #00ffcc, #00b3ff);
+    color: #0b0e14;
+}
+
+#accessGate .access-register:hover,
+#accessGate .access-check:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 18px rgba(0, 255, 204, 0.25);
+}
+
+#accessGate .access-separator {
+    height: 1px;
+    margin: 22px 0;
+    background: #293447;
+}
+
+#accessGate .access-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #c2cede;
+    font-size: 13px;
+    text-align: left;
+}
+
+#accessGate #accessUsername {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    border: 1px solid #52667d;
+    border-radius: 7px;
+    outline: none;
+    background: #0b0e14;
+    color: white;
+    font-size: 15px;
+}
+
+#accessGate #accessUsername:focus {
+    border-color: #00ffcc;
+}
+
+#accessGate .access-check:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+#accessGate #accessMessage {
+    min-height: 20px;
+    margin-top: 10px;
     color: #ff7777;
     font-size: 13px;
+    line-height: 1.4;
 }
+
+#accessGate .access-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#accessGate .access-contact {
+    border: 1px solid #52667d;
+    background: #202b3d;
+    color: #e8f0fa;
+}
+
+#accessGate .access-contact:hover {
+    border-color: #00b3ff;
+    background: #29384e;
+    transform: translateY(-2px);
+}
+
+#accessGate .access-note {
+    margin: 18px 0 0;
+    color: #718198;
+    font-size: 11px;
+    line-height: 1.5;
+}	 
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
 	 .header-row {
@@ -682,30 +774,101 @@ tr.globally-disabled .btn-limit {
     border-radius: 8px;
     animation: premiumBoxPulse 3s ease-in-out infinite;
 }
+		@media (max-width: 480px) {
+    #accessGate {
+        padding: 12px;
+    }
+
+    #accessGate .access-card {
+        padding: 22px 17px;
+    }
+
+    #accessGate h2 {
+        font-size: 19px;
+    }
+
+    #accessGate .access-buttons {
+        grid-template-columns: 1fr;
+    }
+}
 	</style>
 </head>
  
 <body>
+ <!-- ===== CryptoFaucet Hub — Access Gate ===== -->
+
 <div id="accessGate">
     <div class="access-card">
-        <h2>CryptoFaucet Hub</h2>
-        <p>Для доступа к сайту введите свой FaucetPay Username.</p>
+
+        <div class="access-brand">CryptoFaucet Hub</div>
+
+        <h2>Доступ только для рефералов или покупателей</h2>
+
+        <p class="access-description">
+            Для получения доступа зарегистрируйтесь на FaucetPay
+            по нашей реферальной ссылке. После регистрации
+            дождитесь ручного подтверждения администратора.
+        </p>
+
+        <a
+            href="https://faucetpay.io/r/9047046"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="access-register"
+        >
+            Зарегистрироваться на FaucetPay
+        </a>
+
+        <div class="access-separator"></div>
+
+        <label class="access-label" for="accessUsername">
+            Ваш FaucetPay Username
+        </label>
 
         <input
             id="accessUsername"
             type="text"
-            placeholder="FaucetPay Username"
+            placeholder="Введите свой Username"
             autocomplete="username"
         >
 
-        <button id="accessCheckBtn" type="button">
+        <button id="accessCheckBtn" class="access-check" type="button">
             Проверить доступ
         </button>
 
-        <div id="accessMessage"></div>
+        <div id="accessMessage" role="status"></div>
+
+        <div class="access-buttons">
+
+            <a
+                href="https://t.me/crypto_faucet_hub"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="access-contact"
+            >
+                Связаться с администратором
+            </a>
+
+            <a
+                href="https://mmgp.com/threads/1-2-v-den-rotator-kranov-s-vyvodom-na-faucetpay.793951/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="access-contact"
+            >
+                Купить доступ
+            </a>
+
+        </div>
+
+        <p class="access-note">
+            После регистрации или покупки доступ предоставляется
+            администратором вручную.
+        </p>
+
     </div>
 </div>
-	<script>
+
+<script>
 (function () {
     const gate = document.getElementById('accessGate');
     const input = document.getElementById('accessUsername');
@@ -733,7 +896,7 @@ tr.globally-disabled .btn-limit {
             );
 
             if (!response.ok) {
-                throw new Error('Ошибка загрузки access.json: ' + response.status);
+                throw new Error('HTTP ' + response.status);
             }
 
             const data = await response.json();
@@ -744,17 +907,32 @@ tr.globally-disabled .btn-limit {
                 )
                 : null;
 
-            if (user && user.active === true) {
-                localStorage.setItem('cryptoHubAccessUsername', username);
+            const allowedTypes = ['referral', 'buyer', 'admin'];
+
+            if (
+                user &&
+                user.active === true &&
+                allowedTypes.includes(user.type)
+            ) {
+                localStorage.setItem(
+                    'cryptoHubAccessUsername',
+                    username
+                );
+
                 gate.hidden = true;
             } else {
                 localStorage.removeItem('cryptoHubAccessUsername');
-                message.textContent = 'Доступ не разрешён. Обратитесь к администратору.';
+
+                message.textContent =
+                    'Доступ не разрешён. Обратитесь к администратору.';
             }
 
         } catch (error) {
-            message.textContent = 'Не удалось проверить доступ. Попробуйте позже.';
+            message.textContent =
+                'Не удалось проверить доступ. Попробуйте позже.';
+
             console.error('[Access]', error);
+
         } finally {
             button.disabled = false;
             button.textContent = 'Проверить доступ';
@@ -764,11 +942,14 @@ tr.globally-disabled .btn-limit {
     button.addEventListener('click', checkAccess);
 
     input.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') checkAccess();
+        if (event.key === 'Enter') {
+            checkAccess();
+        }
     });
 
-    // При каждом открытии сайта проверяем сохранённый Username заново.
-    const savedUsername = localStorage.getItem('cryptoHubAccessUsername');
+    const savedUsername = localStorage.getItem(
+        'cryptoHubAccessUsername'
+    );
 
     if (savedUsername) {
         input.value = savedUsername;
