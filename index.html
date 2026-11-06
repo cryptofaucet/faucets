@@ -835,6 +835,10 @@ tr.globally-disabled .btn-limit {
         <button id="accessCheckBtn" class="access-check" type="button">
             Проверить доступ
         </button>
+		<button id="accessRequestBtn" class="access-check" type="button"
+    style="margin-top: 10px;">
+    Отправить заявку в Telegram
+</button>
 
         <div id="accessMessage" role="status"></div>
 
@@ -873,6 +877,7 @@ tr.globally-disabled .btn-limit {
     const gate = document.getElementById('accessGate');
     const input = document.getElementById('accessUsername');
     const button = document.getElementById('accessCheckBtn');
+	const requestButton = document.getElementById('accessRequestBtn');
     const message = document.getElementById('accessMessage');
 
     const ACCESS_URL = './access.json';
@@ -940,6 +945,25 @@ tr.globally-disabled .btn-limit {
     }
 
     button.addEventListener('click', checkAccess);
+	requestButton.addEventListener('click', function () {
+    const username = input.value.trim();
+
+    if (!username) {
+        message.textContent = 'Сначала введите FaucetPay Username.';
+        input.focus();
+        return;
+    }
+
+    const text =
+        'Здравствуйте! Я ваш реферал и прошу предоставить мне доступ к CryptoFaucet Hub.\n\n' +
+        'Мой FaucetPay Username: ' + username;
+
+    const telegramUrl =
+        'https://t.me/crypto_faucet_hub?text=' +
+        encodeURIComponent(text);
+
+    window.open(telegramUrl, '_blank', 'noopener');
+});
 
     input.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
