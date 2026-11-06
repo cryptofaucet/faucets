@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-06T00:19:54.835Z",
+  "last_updated": "2026-11-06T00:21:19.993Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -587,12 +587,12 @@
       "_updated_at": "2026-11-01T14:47:26.518Z"
     },
     "72": {
-      "name": "123faucet",
+      "name": "Tron unlimited",
       "url": "https://123faucet.com/?r=kvzm25ur",
       "reward": "0.002",
       "coin": "TRX",
       "minutes": 5,
-      "_updated_at": "2026-10-30T01:00:17.305Z"
+      "_updated_at": "2026-11-06T00:21:19.993Z"
     },
     "73": {
       "name": "TronRiches",
