@@ -353,6 +353,66 @@ tr.globally-disabled .btn-limit {
     text-align: left !important;
     padding-left: 0 !important;
 }
+		/* Проверка доступа CryptoFaucet Hub */
+#accessGate {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #0b0e14;
+    box-sizing: border-box;
+}
+
+#accessGate[hidden] {
+    display: none !important;
+}
+
+#accessGate .access-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 25px;
+    box-sizing: border-box;
+    text-align: center;
+    background: #111622;
+    border: 1px solid #00ffcc;
+    border-radius: 12px;
+}
+
+#accessGate h2 {
+    color: #00ffcc;
+    margin-top: 0;
+}
+
+#accessUsername {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    box-sizing: border-box;
+    border: 1px solid #52667d;
+    border-radius: 6px;
+    background: #0b0e14;
+    color: white;
+    font-size: 16px;
+}
+#accessCheckBtn {
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #00ffcc, #00b3ff);
+    color: #0b0e14;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#accessMessage {
+    margin-top: 12px;
+    color: #ff7777;
+    font-size: 13px;
+}
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
 	 .header-row {
@@ -626,7 +686,96 @@ tr.globally-disabled .btn-limit {
 </head>
  
 <body>
+<div id="accessGate">
+    <div class="access-card">
+        <h2>CryptoFaucet Hub</h2>
+        <p>Для доступа к сайту введите свой FaucetPay Username.</p>
 
+        <input
+            id="accessUsername"
+            type="text"
+            placeholder="FaucetPay Username"
+            autocomplete="username"
+        >
+
+        <button id="accessCheckBtn" type="button">
+            Проверить доступ
+        </button>
+
+        <div id="accessMessage"></div>
+    </div>
+</div>
+	<script>
+(function () {
+    const gate = document.getElementById('accessGate');
+    const input = document.getElementById('accessUsername');
+    const button = document.getElementById('accessCheckBtn');
+    const message = document.getElementById('accessMessage');
+
+    const ACCESS_URL = './access.json';
+
+    async function checkAccess() {
+        const username = input.value.trim().toLowerCase();
+
+        if (!username) {
+            message.textContent = 'Введите FaucetPay Username.';
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = 'Проверка...';
+        message.textContent = '';
+
+        try {
+            const response = await fetch(
+                ACCESS_URL + '?v=' + Date.now(),
+                { cache: 'no-store' }
+            );
+
+            if (!response.ok) {
+                throw new Error('Ошибка загрузки access.json: ' + response.status);
+            }
+
+            const data = await response.json();
+
+            const user = Array.isArray(data.users)
+                ? data.users.find(item =>
+                    String(item.username || '').trim().toLowerCase() === username
+                )
+                : null;
+
+            if (user && user.active === true) {
+                localStorage.setItem('cryptoHubAccessUsername', username);
+                gate.hidden = true;
+            } else {
+                localStorage.removeItem('cryptoHubAccessUsername');
+                message.textContent = 'Доступ не разрешён. Обратитесь к администратору.';
+            }
+
+        } catch (error) {
+            message.textContent = 'Не удалось проверить доступ. Попробуйте позже.';
+            console.error('[Access]', error);
+        } finally {
+            button.disabled = false;
+            button.textContent = 'Проверить доступ';
+        }
+    }
+
+    button.addEventListener('click', checkAccess);
+
+    input.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') checkAccess();
+    });
+
+    // При каждом открытии сайта проверяем сохранённый Username заново.
+    const savedUsername = localStorage.getItem('cryptoHubAccessUsername');
+
+    if (savedUsername) {
+        input.value = savedUsername;
+        checkAccess();
+    }
+})();
+</script>
 <div class="header-row">
     <h1>CryptoFaucet Hub</h1>
 
