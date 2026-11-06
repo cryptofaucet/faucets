@@ -16,7 +16,7 @@
     "alhor faucet (faucet59)",
     "Cryptomania (faucet87)"
   ],
-  "last_updated": "2026-11-06T00:02:24.649Z",
+  "last_updated": "2026-11-06T00:11:01.936Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -675,12 +675,12 @@
       "_updated_at": "2026-10-30T01:23:27.425Z"
     },
     "83": {
-      "name": "Playfp",
+      "name": "Play Games and earn",
       "url": "https://playfp.online/",
       "reward": "0.00001",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-10-30T01:25:19.451Z"
+      "_updated_at": "2026-11-06T00:11:01.936Z"
     },
     "84": {
       "name": "Freeusdt",
