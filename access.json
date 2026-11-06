@@ -1,4 +1,11 @@
 {
-  "users": [],
-  "last_updated": null
+  "users": [
+    {
+      "id": "admin",
+      "name": "CryptoFaucet Hub Owner",
+      "role": "owner",
+      "active": true
+    }
+  ],
+  "last_updated": "2026-11-07"
 }
