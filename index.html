@@ -179,6 +179,31 @@ tr.globally-disabled .btn-limit {
     display: flex;
     gap: 4px;
 }
+		/* Кнопка загрузки Windows-программы */
+.header-download {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    z-index: 2;
+}
+
+.header-download .faucet-link {
+    width: auto;
+    padding: 8px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.header-download-note {
+    color: #8a99ad;
+    font-size: 10px;
+    white-space: nowrap;
+}
 
 .currency-switch button,
 .language-switch button {
@@ -507,11 +532,17 @@ tr.globally-disabled .btn-limit {
 }	 
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
-	 .header-row {
-        flex-wrap: wrap;
-        padding-bottom: 38px;
-    }
+	  .header-row {
+    flex-wrap: wrap;
+    padding-bottom: 78px;
+}
 
+.header-download {
+    top: auto;
+    bottom: 42px;
+    left: 0;
+    transform: none;
+}
     .header-row .currency-switch {
         top: auto;
         bottom: 0;
