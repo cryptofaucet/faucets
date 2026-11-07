@@ -15,7 +15,7 @@
     "ExtraClaims (faucet11)",
     "ExtraFaucets (faucet13)"
   ],
-  "last_updated": "2026-11-07T02:38:36.707Z",
+  "last_updated": "2026-11-07T02:46:21.979Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -502,8 +502,8 @@
       "url": "https://high5btc.site/?r=4cx2wstd",
       "reward": "0.001",
       "coin": "DOGE",
-      "minutes": 5,
-      "_updated_at": "2026-10-27T21:09:48.496Z"
+      "minutes": 3,
+      "_updated_at": "2026-11-07T02:46:21.979Z"
     },
     "62": {
       "name": "Satoshi Vault",
