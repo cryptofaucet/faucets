@@ -16,7 +16,7 @@
     "ExtraFaucets (faucet13)",
     "TimmyTime (faucet64)"
   ],
-  "last_updated": "2026-11-07T03:05:03.955Z",
+  "last_updated": "2026-11-07T03:06:28.026Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -741,10 +741,10 @@
     "91": {
       "name": "Crypto Sugar",
       "url": "https://cryptosugar.site/?r=8y8h26ft",
-      "reward": "0.000145",
+      "reward": "0.00013",
       "coin": "USDT",
       "minutes": 3,
-      "_updated_at": "2026-11-05T22:06:06.838Z"
+      "_updated_at": "2026-11-07T03:06:28.026Z"
     },
     "92": {
       "name": "Cornearn",
