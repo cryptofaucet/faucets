@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -383,9 +383,11 @@ tr.globally-disabled .btn-limit {
     inset: 0;
     z-index: 999999;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 20px;
+    overflow-x: hidden;
     overflow-y: auto;
     background: #0b0e14;
     box-sizing: border-box;
@@ -396,37 +398,70 @@ tr.globally-disabled .btn-limit {
 }
 
 #accessGate .access-card {
+    position: relative;
     width: 100%;
     max-width: 480px;
-    padding: 28px;
+    padding: 16px 22px;
     box-sizing: border-box;
     text-align: center;
     background: linear-gradient(145deg, #151d2b, #101521);
     border: 1px solid #00ffcc;
     border-radius: 14px;
     box-shadow: 0 0 30px rgba(0, 255, 204, 0.12);
+    margin: auto 0;
+}
+
+#accessGate .access-language-switch {
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    width: 100%;
+    margin: 0 0 6px;
+}
+
+#accessGate .access-language-switch button {
+    min-width: 38px;
+    padding: 6px 9px;
+    border: 1px solid #52667d;
+    border-radius: 5px;
+    background: #202b3d;
+    color: #c2cede;
+    font: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#accessGate .access-language-switch button.active {
+    border-color: #00ffcc;
+    background: #00ffcc;
+    color: #0b0e14;
 }
 
 #accessGate .access-brand {
-    margin-bottom: 18px;
+    display: block;
+    visibility: visible;
+    width: 100%;
+    margin: 0 0 8px;
     color: #00ffcc;
-    font-size: 25px;
+    font-size: 21px;
     font-weight: 800;
     text-shadow: 0 0 12px rgba(0, 255, 204, 0.3);
 }
 
 #accessGate h2 {
-    margin: 0 0 15px;
+    margin: 0 0 8px;
     color: #00ffcc;
-    font-size: 21px;
-    line-height: 1.4;
+    font-size: 18px;
+    line-height: 1.25;
 }
 
 #accessGate .access-description {
-    margin: 0 0 20px;
+    margin: 0 0 12px;
     color: #aab7c8;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 12px;
+    line-height: 1.35;
 }
 
 #accessGate .access-register,
@@ -435,12 +470,12 @@ tr.globally-disabled .btn-limit {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    padding: 11px 15px;
+    min-height: 36px;
+    padding: 8px 12px;
     box-sizing: border-box;
     border-radius: 7px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
     transition: 0.2s ease;
@@ -463,13 +498,13 @@ tr.globally-disabled .btn-limit {
 
 #accessGate .access-separator {
     height: 1px;
-    margin: 22px 0;
+    margin: 12px 0;
     background: #293447;
 }
 
 #accessGate .access-label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     color: #c2cede;
     font-size: 13px;
     text-align: left;
@@ -477,8 +512,8 @@ tr.globally-disabled .btn-limit {
 
 #accessGate #accessUsername {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 12px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
     box-sizing: border-box;
     border: 1px solid #52667d;
     border-radius: 7px;
@@ -498,8 +533,8 @@ tr.globally-disabled .btn-limit {
 }
 
 #accessGate #accessMessage {
-    min-height: 20px;
-    margin-top: 10px;
+    min-height: 12px;
+    margin-top: 4px;
     color: #ff7777;
     font-size: 13px;
     line-height: 1.4;
@@ -508,8 +543,8 @@ tr.globally-disabled .btn-limit {
 #accessGate .access-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 8px;
+    margin-top: 10px;
 }
 
 #accessGate .access-contact {
@@ -525,10 +560,10 @@ tr.globally-disabled .btn-limit {
 }
 
 #accessGate .access-note {
-    margin: 18px 0 0;
+    margin: 8px 0 0;
     color: #718198;
-    font-size: 11px;
-    line-height: 1.5;
+    font-size: 10px;
+    line-height: 1.3;
 }	 
 /* Адаптация сайта для телефонов */
  @media (max-width: 600px) {
@@ -811,15 +846,15 @@ tr.globally-disabled .btn-limit {
     }
 
     #accessGate .access-card {
-        padding: 22px 17px;
+        padding: 12px 14px;
     }
 
     #accessGate h2 {
-        font-size: 19px;
+        font-size: 17px;
     }
 
     #accessGate .access-buttons {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 }
 	</style>
@@ -831,11 +866,16 @@ tr.globally-disabled .btn-limit {
 <div id="accessGate">
     <div class="access-card">
 
+        <div class="access-language-switch" aria-label="Access language">
+            <button type="button" id="accessLangRU" class="active">RU</button>
+            <button type="button" id="accessLangEN">EN</button>
+        </div>
+
         <div class="access-brand">CryptoFaucet Hub</div>
 
-        <h2>Доступ только для рефералов или покупателей</h2>
+        <h2 id="accessTitle">Доступ только для рефералов или покупателей</h2>
 
-        <p class="access-description">
+        <p class="access-description" id="accessDescription">
             Для получения доступа зарегистрируйтесь на FaucetPay
             по нашей реферальной ссылке. После регистрации
             дождитесь ручного подтверждения администратора.
@@ -846,13 +886,14 @@ tr.globally-disabled .btn-limit {
             target="_blank"
             rel="noopener noreferrer"
             class="access-register"
+            id="accessRegister"
         >
             Зарегистрироваться на FaucetPay
         </a>
 
         <div class="access-separator"></div>
 
-        <label class="access-label" for="accessUsername">
+        <label class="access-label" id="accessLabel" for="accessUsername">
             Ваш FaucetPay Username
         </label>
 
@@ -876,6 +917,7 @@ tr.globally-disabled .btn-limit {
         <div class="access-buttons">
 
             <a
+                id="accessContact"
                 href="https://t.me/crypto_faucet_hub"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -885,6 +927,7 @@ tr.globally-disabled .btn-limit {
             </a>
 
             <a
+                id="accessBuy"
                 href="https://mmgp.com/threads/1-2-v-den-rotator-kranov-s-vyvodom-na-faucetpay.793951/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -895,7 +938,7 @@ tr.globally-disabled .btn-limit {
 
         </div>
 
-        <p class="access-note">
+        <p class="access-note" id="accessNote">
             После регистрации или покупки доступ предоставляется
             администратором вручную.
         </p>
@@ -908,21 +951,96 @@ tr.globally-disabled .btn-limit {
     const gate = document.getElementById('accessGate');
     const input = document.getElementById('accessUsername');
     const button = document.getElementById('accessCheckBtn');
-	const requestButton = document.getElementById('accessRequestBtn');
+    const requestButton = document.getElementById('accessRequestBtn');
     const message = document.getElementById('accessMessage');
+    const langRU = document.getElementById('accessLangRU');
+    const langEN = document.getElementById('accessLangEN');
 
     const ACCESS_URL = './access.json';
+
+    const accessTexts = {
+        ru: {
+            title: 'Доступ только для рефералов или покупателей',
+            description: 'Для получения доступа зарегистрируйтесь на FaucetPay по нашей реферальной ссылке. После регистрации дождитесь ручного подтверждения администратора.',
+            register: 'Зарегистрироваться на FaucetPay',
+            label: 'Ваш FaucetPay Username',
+            placeholder: 'Введите свой Username',
+            check: 'Проверить доступ',
+            checking: 'Проверка...',
+            request: 'Отправить заявку в Telegram',
+            contact: 'Связаться с администратором',
+            buy: 'Купить доступ',
+            note: 'После регистрации или покупки доступ предоставляется администратором вручную.',
+            enter: 'Введите FaucetPay Username.',
+            requestEnter: 'Сначала введите FaucetPay Username.',
+            denied: 'Доступ не разрешён. Обратитесь к администратору.',
+            failed: 'Не удалось проверить доступ. Попробуйте позже.',
+            telegram: 'Здравствуйте! Я ваш реферал и прошу предоставить мне доступ к CryptoFaucet Hub.\n\nМой FaucetPay Username: '
+        },
+        en: {
+            title: 'Access for Referrals and Buyers Only',
+            description: 'To get access, register on FaucetPay using our referral link. After registering, please wait for manual approval by the administrator.',
+            register: 'Register on FaucetPay',
+            label: 'Your FaucetPay Username',
+            placeholder: 'Enter your Username',
+            check: 'Check Access',
+            checking: 'Checking...',
+            request: 'Send Access Request via Telegram',
+            contact: 'Contact Administrator',
+            buy: 'Buy Access',
+            note: 'Access is granted manually by the administrator after registration or purchase.',
+            enter: 'Enter your FaucetPay Username.',
+            requestEnter: 'Please enter your FaucetPay Username first.',
+            denied: 'Access denied. Please contact the administrator.',
+            failed: 'Unable to check access. Please try again later.',
+            telegram: 'Hello! I registered using your referral link and would like to request access to CryptoFaucet Hub.\n\nMy FaucetPay Username: '
+        }
+    };
+
+    let currentLang = localStorage.getItem('siteLanguage') === 'en' ? 'en' : 'ru';
+
+    function setAccessLanguage(lang) {
+        currentLang = lang === 'en' ? 'en' : 'ru';
+        const t = accessTexts[currentLang];
+
+        document.getElementById('accessTitle').textContent = t.title;
+        document.getElementById('accessDescription').textContent = t.description;
+        document.getElementById('accessRegister').textContent = t.register;
+        document.getElementById('accessLabel').textContent = t.label;
+        input.placeholder = t.placeholder;
+        button.textContent = button.disabled ? t.checking : t.check;
+        requestButton.textContent = t.request;
+        document.getElementById('accessContact').textContent = t.contact;
+        document.getElementById('accessBuy').textContent = t.buy;
+        document.getElementById('accessNote').textContent = t.note;
+
+        langRU.classList.toggle('active', currentLang === 'ru');
+        langEN.classList.toggle('active', currentLang === 'en');
+        localStorage.setItem('siteLanguage', currentLang);
+    }
+
+    function accessText(key) {
+        return accessTexts[currentLang][key];
+    }
+
+    langRU.addEventListener('click', function () {
+        setAccessLanguage('ru');
+    });
+
+    langEN.addEventListener('click', function () {
+        setAccessLanguage('en');
+    });
 
     async function checkAccess() {
         const username = input.value.trim().toLowerCase();
 
         if (!username) {
-            message.textContent = 'Введите FaucetPay Username.';
+            message.textContent = accessText('enter');
             return;
         }
 
         button.disabled = true;
-        button.textContent = 'Проверка...';
+        button.textContent = accessText('checking');
         message.textContent = '';
 
         try {
@@ -958,49 +1076,45 @@ tr.globally-disabled .btn-limit {
                 gate.hidden = true;
             } else {
                 localStorage.removeItem('cryptoHubAccessUsername');
-
-                message.textContent =
-                    'Доступ не разрешён. Обратитесь к администратору.';
+                message.textContent = accessText('denied');
             }
 
         } catch (error) {
-            message.textContent =
-                'Не удалось проверить доступ. Попробуйте позже.';
-
+            message.textContent = accessText('failed');
             console.error('[Access]', error);
 
         } finally {
             button.disabled = false;
-            button.textContent = 'Проверить доступ';
+            button.textContent = accessText('check');
         }
     }
 
     button.addEventListener('click', checkAccess);
-	requestButton.addEventListener('click', function () {
-    const username = input.value.trim();
 
-    if (!username) {
-        message.textContent = 'Сначала введите FaucetPay Username.';
-        input.focus();
-        return;
-    }
+    requestButton.addEventListener('click', function () {
+        const username = input.value.trim();
 
-    const text =
-        'Здравствуйте! Я ваш реферал и прошу предоставить мне доступ к CryptoFaucet Hub.\n\n' +
-        'Мой FaucetPay Username: ' + username;
+        if (!username) {
+            message.textContent = accessText('requestEnter');
+            input.focus();
+            return;
+        }
 
-    const telegramUrl =
-        'https://t.me/crypto_faucet_hub?text=' +
-        encodeURIComponent(text);
+        const text = accessText('telegram') + username;
+        const telegramUrl =
+            'https://t.me/crypto_faucet_hub?text=' +
+            encodeURIComponent(text);
 
-    window.open(telegramUrl, '_blank', 'noopener');
-});
+        window.open(telegramUrl, '_blank', 'noopener');
+    });
 
     input.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             checkAccess();
         }
     });
+
+    setAccessLanguage(currentLang);
 
     const savedUsername = localStorage.getItem(
         'cryptoHubAccessUsername'
