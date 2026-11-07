@@ -16,7 +16,7 @@
     "ExtraFaucets (faucet13)",
     "TimmyTime (faucet64)"
   ],
-  "last_updated": "2026-11-07T02:55:18.147Z",
+  "last_updated": "2026-11-07T03:05:03.955Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -733,10 +733,10 @@
     "90": {
       "name": "Egofaucet",
       "url": "https://egofaucet.com/?r=63sgqbbn",
-      "reward": "0.00998060",
-      "coin": "SOL",
+      "reward": "0.0001",
+      "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-10-30T01:40:30.111Z"
+      "_updated_at": "2026-11-07T03:05:03.955Z"
     },
     "91": {
       "name": "Crypto Sugar",
