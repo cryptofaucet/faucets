@@ -18,7 +18,7 @@
     "24FaucetPay (faucet122)",
     "claim the faucet (faucet128)"
   ],
-  "last_updated": "2026-11-07T13:33:03.964Z",
+  "last_updated": "2026-11-07T13:36:01.566Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1155,6 +1155,14 @@
       "coin": "LTC",
       "minutes": 10,
       "_updated_at": "2026-11-07T13:33:03.964Z"
+    },
+    "143": {
+      "name": "Ifaucet",
+      "url": "https://ifaucet.click/",
+      "reward": "0.000025",
+      "coin": "LTC",
+      "minutes": 60,
+      "_updated_at": "2026-11-07T13:36:01.566Z"
     }
   },
   "drips_disabled_faucets": [
