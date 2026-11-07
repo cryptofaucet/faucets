@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+ 
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -37,9 +38,13 @@ button:disabled{opacity:.6;cursor:wait}
 #addFaucetButton:hover{background:#e08800}
 #addFaucetMessage{margin:10px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
 .faucet-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #444}
-.faucet-name{font-weight:bold;overflow-wrap:anywhere;display:flex;align-items:flex-start;gap:9px;min-width:0}
+.faucet-name{font-weight:bold;overflow-wrap:anywhere;display:flex;align-items:center;gap:9px;min-width:0}
 .faucet-id{color:#ff9d2e;font-weight:800;min-width:2.2em;flex-shrink:0}
 .faucet-label{overflow-wrap:anywhere}
+.vip-toggle{width:auto;flex-shrink:0;padding:5px 8px;border:1px solid #666;border-radius:5px;background:#383838;color:#aaa;font-size:12px;line-height:1.2}
+.vip-toggle:hover{background:#4a4030}
+.vip-toggle.vip-on{background:#d6a900;border-color:#ffe16b;color:#211900}
+.vip-toggle:disabled{opacity:.55}
 .faucet-reward-display{flex:1;min-width:0;text-align:center;color:#2ecc71;font-size:14px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
 .admin-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .status-btn,.edit-btn,.drips-btn{width:auto;flex-shrink:0;padding:7px 10px;font-size:13px}
@@ -81,6 +86,7 @@ button:disabled{opacity:.6;cursor:wait}
  body{padding:10px}.container{padding:12px}
  .faucet-item{align-items:flex-start}
  .faucet-item{flex-wrap:wrap}
+ .faucet-name{flex-wrap:wrap}
  .admin-actions{margin-left:auto}
  .status-btn,.edit-btn,.drips-btn{font-size:12px;padding:7px}
 }
@@ -173,6 +179,7 @@ const DRIPS_INDEX_API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHU
 let FAUCETS = [];
 let globalDisabledFaucets = [];
 let dripsDisabledFaucets = [];
+let vipFaucets = new Set();
 let fileSha = "";
 let statsLastUpdated = null;
 
@@ -234,6 +241,10 @@ async function loadDripsSettings() {
 
 function isDripsDisabled(id) {
     return dripsDisabledFaucets.includes(String(id));
+}
+
+function isVipFaucet(id) {
+    return vipFaucets.has(String(id));
 }
 
 function decodeBase64UTF8(value) {
@@ -368,6 +379,18 @@ async function login() {
 
         fileSha = data.sha;
         globalDisabledFaucets = [...new Set(content.disabled_faucets.map(String))];
+
+        const settings = content.faucet_settings &&
+            typeof content.faucet_settings === "object" &&
+            !Array.isArray(content.faucet_settings)
+                ? content.faucet_settings : {};
+
+        vipFaucets = new Set(
+            Object.entries(settings)
+                .filter(([, value]) => value && typeof value === "object" && value.vip === true)
+                .map(([id]) => String(id))
+        );
+
         statsLastUpdated = content.last_updated || null;
         sessionStorage.setItem("git_admin_token", token);
         await loadDripsSettings();
@@ -486,6 +509,7 @@ function renderAdminList() {
     FAUCETS.forEach(faucet => {
         const { id, name } = faucet;
         const isDisabled = isFaucetDisabled(faucet);
+        const isVip = isVipFaucet(id);
 
         const item = document.createElement("div");
         item.className = "faucet-item";
@@ -497,6 +521,16 @@ function renderAdminList() {
         idSpan.className = "faucet-id";
         idSpan.textContent = id;
         idSpan.setAttribute("aria-label", "ID крана " + id);
+
+        const vipButton = document.createElement("button");
+        vipButton.type = "button";
+        vipButton.className = "vip-toggle" + (isVip ? " vip-on" : "");
+        vipButton.textContent = isVip ? "💎 VIP ✓" : "VIP";
+        vipButton.title = isVip
+            ? "Убрать кран из VIP"
+            : "Добавить кран в VIP";
+        vipButton.setAttribute("aria-pressed", String(isVip));
+        vipButton.addEventListener("click", () => toggleVipFaucet(id, vipButton));
 
         const label = document.createElement("a");
         label.className = "faucet-label";
@@ -514,7 +548,7 @@ function renderAdminList() {
             });
         }
 
-        nameSpan.append(idSpan, label);
+        nameSpan.append(idSpan, vipButton, label);
 
         const rewardDisplay = document.createElement("span");
         rewardDisplay.className = "faucet-reward-display";
@@ -555,6 +589,59 @@ function renderAdminList() {
         item.append(nameSpan, rewardDisplay, cooldownDisplay, actions);
         listDiv.appendChild(item);
     });
+}
+
+async function toggleVipFaucet(id, button) {
+    const idString = String(id);
+    const wasVip = isVipFaucet(idString);
+    const nextVip = !wasVip;
+
+    button.disabled = true;
+    button.textContent = "…";
+
+    try {
+        const timestamp = new Date().toISOString();
+
+        const updated = await updateJsonFile(FILE_PATH, content => {
+            if (!content || typeof content !== "object" || Array.isArray(content)) {
+                throw new Error("Неверный формат status.json.");
+            }
+
+            content.faucet_settings =
+                content.faucet_settings &&
+                typeof content.faucet_settings === "object" &&
+                !Array.isArray(content.faucet_settings)
+                    ? content.faucet_settings : {};
+
+            const previousSettings = content.faucet_settings[idString] &&
+                typeof content.faucet_settings[idString] === "object"
+                    ? content.faucet_settings[idString] : {};
+
+            content.faucet_settings[idString] = {
+                ...previousSettings,
+                vip: nextVip
+            };
+
+            content.last_updated = timestamp;
+            return content;
+        }, `${nextVip ? "Enable" : "Disable"} VIP for faucet ${idString}`);
+
+        const savedSettings = updated.faucet_settings &&
+            updated.faucet_settings[idString];
+
+        if (savedSettings && savedSettings.vip === true) {
+            vipFaucets.add(idString);
+        } else {
+            vipFaucets.delete(idString);
+        }
+
+        markStatsUpdated(timestamp);
+        renderAdminList();
+    } catch (error) {
+        console.error("Ошибка изменения VIP:", error);
+        alert("Не удалось сохранить VIP в status.json.\nСостояние не изменено.\n\n" + error.message);
+        renderAdminList();
+    }
 }
 
 function toggleFaucet(name, id) {
@@ -833,6 +920,17 @@ async function saveEditedFaucet(event) {
         const statusReload = await githubGetFile(FILE_PATH);
         const statusContent = JSON.parse(statusReload.content);
         globalDisabledFaucets = Array.isArray(statusContent.disabled_faucets) ? statusContent.disabled_faucets.map(String) : [];
+
+        const settings = statusContent.faucet_settings &&
+            typeof statusContent.faucet_settings === "object" &&
+            !Array.isArray(statusContent.faucet_settings)
+                ? statusContent.faucet_settings : {};
+
+        vipFaucets = new Set(
+            Object.entries(settings)
+                .filter(([, value]) => value && typeof value === "object" && value.vip === true)
+                .map(([faucetId]) => String(faucetId))
+        );
 
         normalizeDisabledFaucets();
         markStatsUpdated(timestamp);
