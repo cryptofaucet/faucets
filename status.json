@@ -18,7 +18,7 @@
     "24FaucetPay (faucet122)",
     "claim the faucet (faucet128)"
   ],
-  "last_updated": "2026-11-07T03:37:09.978Z",
+  "last_updated": "2026-11-07T04:47:01.974Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -367,10 +367,10 @@
     "44": {
       "name": "FreeLTC5m",
       "url": "https://freeltc5m.site/",
-      "reward": "0.0004",
+      "reward": "0.00000001",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-10-29T18:17:38.462Z"
+      "_updated_at": "2026-11-07T04:47:01.974Z"
     },
     "45": {
       "name": "LiteClaim",
