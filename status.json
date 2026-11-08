@@ -18,7 +18,7 @@
     "24FaucetPay (faucet122)",
     "claim the faucet (faucet128)"
   ],
-  "last_updated": "2026-11-07T23:38:52.759Z",
+  "last_updated": "2026-11-08T00:51:39.996Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1166,11 +1166,11 @@
     },
     "144": {
       "name": "BTC Faucet",
-      "url": "https://btcfaucet.in/",
+      "url": "https://btcfaucet.in/?r=jammy.admin@gmail.com",
       "reward": "0.00000001",
       "coin": "BTC",
       "minutes": 1,
-      "_updated_at": "2026-11-07T23:38:31.979Z",
+      "_updated_at": "2026-11-08T00:51:39.996Z",
       "vip": true
     }
   }
