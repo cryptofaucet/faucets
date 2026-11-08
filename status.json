@@ -18,7 +18,7 @@
     "24FaucetPay (faucet122)",
     "claim the faucet (faucet128)"
   ],
-  "last_updated": "2026-11-08T00:51:39.996Z",
+  "last_updated": "2026-11-08T01:58:34.718Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -602,7 +602,8 @@
       "reward": "0.01",
       "coin": "TRX",
       "minutes": 60,
-      "_updated_at": "2026-11-05T21:51:58.589Z"
+      "_updated_at": "2026-11-05T21:51:58.589Z",
+      "vip": true
     },
     "74": {
       "name": "Wc Faucet",
