@@ -868,6 +868,20 @@ tr.globally-disabled .btn-limit {
 .vip-alert-settings .vip-alert-part:focus{border-color:#a78bfa}
 .vip-box .table-title{color:#c4a7ff}.vip-box table{width:100%;border-collapse:collapse}
 .vip-box-empty{padding:12px;color:#8a99ad;text-align:center;font-size:12px}
+/* VIP BOX: кнопки не подпрыгивают при наведении */
+#vip-box .faucet-link,
+#vip-box .faucet-link:hover,
+#vip-box .faucet-link:focus {
+    transform: none !important;
+}
+
+#vip-box .faucet-link {
+    transition: box-shadow .2s ease, color .2s ease !important;
+}
+
+#vip-box .faucet-link:hover {
+    box-shadow: 0 6px 20px rgba(139,92,246,.35);
+}		
 @media(max-width:600px){.vip-box{padding:6px}.vip-alert-settings{gap:5px;font-size:11px}.vip-box th,.vip-box td{padding:6px 2px;font-size:10px}}
 
 </style>
