@@ -386,7 +386,7 @@
       "coin": "DOGE",
       "minutes": 3,
       "_updated_at": "2026-11-09T23:20:44.738Z",
-      "vip": true
+      "vip": false
     },
     "49": {
       "name": "freedogecoin.online",
@@ -982,5 +982,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T23:30:25.791Z"
+  "last_updated": "2026-11-09T23:33:06.715Z"
 }
