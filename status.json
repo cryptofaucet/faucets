@@ -187,11 +187,11 @@
     },
     "24": {
       "name": "high5btc",
-      "url": "https://high5btc.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:21:34.412Z"
+      "url": "https://high5btc.site/",
+      "reward": "0.001",
+      "coin": "DOGE",
+      "minutes": 3,
+      "_updated_at": "2026-11-09T21:55:09.621Z"
     },
     "25": {
       "name": "Faas Faucet",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T21:54:17.123Z"
+  "last_updated": "2026-11-09T21:55:09.621Z"
 }
