@@ -72,8 +72,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:11:40.609Z"
+    },
+    "11": {
+      "name": "alhorfaucet",
+      "url": "https://alhorfaucet.website",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:11:48.139Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:11:40.609Z"
+  "last_updated": "2026-11-09T17:11:48.139Z"
 }
