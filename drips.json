@@ -147,11 +147,11 @@
     },
     "19": {
       "name": "instafaucet",
-      "url": "https://instafaucet.xyz",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:20:51.708Z"
+      "url": "https://instafaucet.xyz/",
+      "reward": "0.001",
+      "coin": "TRX",
+      "minutes": 60,
+      "_updated_at": "2026-11-09T20:40:25.018Z"
     },
     "20": {
       "name": "Mint Faucet",
@@ -996,5 +996,5 @@
     "1",
     "17"
   ],
-  "last_updated": "2026-11-09T20:38:52.767Z"
+  "last_updated": "2026-11-09T20:40:25.018Z"
 }
