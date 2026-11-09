@@ -443,11 +443,11 @@
     },
     "58": {
       "name": "Ifaucet",
-      "url": "https://ifaucet.click",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:26:31.506Z"
+      "url": "https://ifaucet.click/",
+      "reward": "0.000025",
+      "coin": "LTC",
+      "minutes": 60,
+      "_updated_at": "2026-11-09T18:02:35.022Z"
     },
     "59": {
       "name": "Adptc",
@@ -963,5 +963,5 @@
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:59:51.501Z"
+  "last_updated": "2026-11-09T18:02:35.022Z"
 }
