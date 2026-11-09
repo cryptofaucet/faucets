@@ -936,7 +936,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:35:46.741Z"
+    },
+    "120": {
+      "name": "PepeDrop",
+      "url": "https://pepedrop.space",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:35:56.018Z"
     }
   },
-  "last_updated": "2026-11-09T17:35:46.741Z"
+  "last_updated": "2026-11-09T17:35:56.018Z"
 }
