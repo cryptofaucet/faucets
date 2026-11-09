@@ -312,8 +312,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:24:03.407Z"
+    },
+    "42": {
+      "name": "InstantFP",
+      "url": "https://instantfp.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:24:11.889Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:24:03.407Z"
+  "last_updated": "2026-11-09T17:24:11.889Z"
 }
