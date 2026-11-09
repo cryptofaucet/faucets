@@ -672,7 +672,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:30:43.995Z"
+    },
+    "87": {
+      "name": "LAGFAUCET",
+      "url": "https://lagfaucet.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:30:53.340Z"
     }
   },
-  "last_updated": "2026-11-09T17:30:43.995Z"
+  "last_updated": "2026-11-09T17:30:53.340Z"
 }
