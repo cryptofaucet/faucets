@@ -478,11 +478,11 @@
     },
     "60": {
       "name": "LTCfaucet",
-      "url": "https://ltcfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:26:48.527Z"
+      "url": "https://ltcfaucet.site/",
+      "reward": "0.00000255",
+      "coin": "LTC",
+      "minutes": 4,
+      "_updated_at": "2026-11-09T23:42:18.334Z"
     },
     "61": {
       "name": "BeezyPay",
@@ -1036,5 +1036,5 @@
     "58",
     "59"
   ],
-  "last_updated": "2026-11-09T23:40:19.824Z"
+  "last_updated": "2026-11-09T23:42:18.334Z"
 }
