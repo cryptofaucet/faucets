@@ -448,8 +448,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:26:31.506Z"
+    },
+    "59": {
+      "name": "Adptc",
+      "url": "https://adptc.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:26:39.512Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:26:31.506Z"
+  "last_updated": "2026-11-09T17:26:39.512Z"
 }
