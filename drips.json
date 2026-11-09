@@ -624,8 +624,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:29:47.602Z"
+    },
+    "81": {
+      "name": "WC FAUCET",
+      "url": "https://wcfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:29:56.008Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:29:47.602Z"
+  "last_updated": "2026-11-09T17:29:56.008Z"
 }
