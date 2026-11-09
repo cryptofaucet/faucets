@@ -120,7 +120,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:20:33.726Z"
+    },
+    "18": {
+      "name": "Faucetino",
+      "url": "https://faucetino.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:20:42.694Z"
     }
   },
-  "last_updated": "2026-11-09T17:20:33.726Z"
+  "last_updated": "2026-11-09T17:20:42.694Z"
 }
