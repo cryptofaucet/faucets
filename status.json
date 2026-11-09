@@ -832,7 +832,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:33:44.650Z"
+    },
+    "107": {
+      "name": "Play Games and earn",
+      "url": "https://playfp.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:33:53.659Z"
     }
   },
-  "last_updated": "2026-11-09T17:33:44.650Z"
+  "last_updated": "2026-11-09T17:33:53.659Z"
 }
