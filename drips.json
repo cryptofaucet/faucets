@@ -341,11 +341,11 @@
     },
     "43": {
       "name": "luckfaucet",
-      "url": "https://luckfaucet.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:24:20.797Z"
+      "url": "https://luckfaucet.online/",
+      "reward": "0.0007",
+      "coin": "DOGE",
+      "minutes": 10,
+      "_updated_at": "2026-11-09T23:09:33.985Z"
     },
     "44": {
       "name": "ponyfaucet",
@@ -1020,5 +1020,5 @@
     "41",
     "42"
   ],
-  "last_updated": "2026-11-09T23:08:31.022Z"
+  "last_updated": "2026-11-09T23:09:33.985Z"
 }
