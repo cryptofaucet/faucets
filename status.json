@@ -608,7 +608,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:29:29.013Z"
+    },
+    "79": {
+      "name": "Crypto Fun",
+      "url": "https://cryptofun.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:29:38.763Z"
     }
   },
-  "last_updated": "2026-11-09T17:29:29.013Z"
+  "last_updated": "2026-11-09T17:29:38.763Z"
 }
