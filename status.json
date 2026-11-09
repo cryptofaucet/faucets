@@ -392,7 +392,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:25:29.659Z"
+    },
+    "52": {
+      "name": "Watchearn Faucet",
+      "url": "https://watchearn.ltd",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:25:38.313Z"
     }
   },
-  "last_updated": "2026-11-09T17:25:29.659Z"
+  "last_updated": "2026-11-09T17:25:38.313Z"
 }
