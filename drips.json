@@ -320,8 +320,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:24:11.889Z"
+    },
+    "43": {
+      "name": "luckfaucet",
+      "url": "https://luckfaucet.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:24:20.797Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:24:11.889Z"
+  "last_updated": "2026-11-09T17:24:20.797Z"
 }
