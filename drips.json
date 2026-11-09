@@ -536,8 +536,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:28:07.643Z"
+    },
+    "70": {
+      "name": "liteClaim",
+      "url": "https://liteclaim.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:28:16.385Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:28:07.643Z"
+  "last_updated": "2026-11-09T17:28:16.385Z"
 }
