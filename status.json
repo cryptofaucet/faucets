@@ -552,7 +552,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:28:25.341Z"
+    },
+    "72": {
+      "name": "extraClaims",
+      "url": "https://extraclaims.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:28:35.579Z"
     }
   },
-  "last_updated": "2026-11-09T17:28:25.341Z"
+  "last_updated": "2026-11-09T17:28:35.579Z"
 }
