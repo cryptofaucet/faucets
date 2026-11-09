@@ -56,7 +56,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:11:24.410Z"
+    },
+    "9": {
+      "name": "ClaudeFaucet",
+      "url": "https://claudefaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:11:32.718Z"
     }
   },
-  "last_updated": "2026-11-09T17:11:24.410Z"
+  "last_updated": "2026-11-09T17:11:32.718Z"
 }
