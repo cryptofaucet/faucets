@@ -864,7 +864,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:34:21.247Z"
+    },
+    "111": {
+      "name": "Feyflash",
+      "url": "https://feyflash.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:34:30.331Z"
     }
   },
-  "last_updated": "2026-11-09T17:34:21.247Z"
+  "last_updated": "2026-11-09T17:34:30.331Z"
 }
