@@ -656,7 +656,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:30:24.445Z"
+    },
+    "85": {
+      "name": "Ethiomi faucet",
+      "url": "https://ethiomi.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:30:34.582Z"
     }
   },
-  "last_updated": "2026-11-09T17:30:24.445Z"
+  "last_updated": "2026-11-09T17:30:34.582Z"
 }
