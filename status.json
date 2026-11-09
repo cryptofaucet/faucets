@@ -768,7 +768,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:32:31.974Z"
+    },
+    "99": {
+      "name": "EgoFaucet",
+      "url": "https://egofaucet.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:32:41.861Z"
     }
   },
-  "last_updated": "2026-11-09T17:32:31.974Z"
+  "last_updated": "2026-11-09T17:32:41.861Z"
 }
