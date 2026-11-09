@@ -16,8 +16,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:10:28.127Z"
+    },
+    "4": {
+      "name": "BitEarnix",
+      "url": "https://bitearnix.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:10:46.180Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:10:28.127Z"
+  "last_updated": "2026-11-09T17:10:46.180Z"
 }
