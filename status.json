@@ -365,11 +365,11 @@
     },
     "46": {
       "name": "Mycryptocoin",
-      "url": "https://mycryptocoin.click",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:24:45.339Z"
+      "url": "https://mycryptocoin.click/",
+      "reward": "0.000035",
+      "coin": "DOGE",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T23:13:42.603Z"
     },
     "47": {
       "name": "DrFaucet.site",
@@ -981,5 +981,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T23:12:23.312Z"
+  "last_updated": "2026-11-09T23:13:42.603Z"
 }
