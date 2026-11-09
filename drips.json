@@ -208,8 +208,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:22:09.866Z"
+    },
+    "29": {
+      "name": "Satoshi Vault",
+      "url": "https://satoshivault.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:22:18.488Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:22:09.866Z"
+  "last_updated": "2026-11-09T17:22:18.488Z"
 }
