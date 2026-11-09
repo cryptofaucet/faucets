@@ -20,7 +20,7 @@
     "Pourri (faucet4)",
     "FaucetFun (faucet1)"
   ],
-  "last_updated": "2026-11-09T06:40:56.794Z",
+  "last_updated": "2026-11-09T06:41:04.870Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1178,6 +1178,7 @@
   "drips_disabled_faucets": [
     "1",
     "3",
-    "7"
+    "7",
+    "6"
   ]
 }
