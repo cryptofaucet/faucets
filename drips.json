@@ -160,8 +160,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:21:17.746Z"
+    },
+    "23": {
+      "name": "DragonClaims",
+      "url": "https://dragonclaims.it.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:21:25.837Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:21:17.746Z"
+  "last_updated": "2026-11-09T17:21:25.837Z"
 }
