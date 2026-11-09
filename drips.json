@@ -712,8 +712,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:31:27.991Z"
+    },
+    "92": {
+      "name": "DGBEARN",
+      "url": "https://dgbearn.top",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:31:36.767Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:31:27.991Z"
+  "last_updated": "2026-11-09T17:31:36.767Z"
 }
