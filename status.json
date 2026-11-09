@@ -40,7 +40,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:11:04.978Z"
+    },
+    "7": {
+      "name": "Coin Earn Hub",
+      "url": "https://coinearnhub.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:11:15.178Z"
     }
   },
-  "last_updated": "2026-11-09T17:11:04.978Z"
+  "last_updated": "2026-11-09T17:11:15.178Z"
 }
