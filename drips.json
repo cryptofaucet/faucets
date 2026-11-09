@@ -264,8 +264,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:23:09.938Z"
+    },
+    "36": {
+      "name": "Zyro Faucet",
+      "url": "https://zyrofaucet.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:23:18.622Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:23:09.938Z"
+  "last_updated": "2026-11-09T17:23:18.622Z"
 }
