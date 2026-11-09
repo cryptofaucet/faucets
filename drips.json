@@ -256,8 +256,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:23:01.337Z"
+    },
+    "35": {
+      "name": "DM Crypto",
+      "url": "https://dmcrypto.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:23:09.938Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:23:01.337Z"
+  "last_updated": "2026-11-09T17:23:09.938Z"
 }
