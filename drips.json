@@ -421,11 +421,11 @@
     },
     "53": {
       "name": "Bitcoplay - Earn Online",
-      "url": "https://bitcoplay.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:25:47.074Z"
+      "url": "https://bitcoplay.site/",
+      "reward": "0.0001",
+      "coin": "DOGE",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T23:29:34.542Z"
     },
     "54": {
       "name": "bitcofy",
@@ -1030,5 +1030,5 @@
     "51",
     "52"
   ],
-  "last_updated": "2026-11-09T23:28:54.574Z"
+  "last_updated": "2026-11-09T23:29:34.542Z"
 }
