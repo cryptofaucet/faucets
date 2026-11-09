@@ -80,7 +80,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:11:48.139Z"
+    },
+    "12": {
+      "name": "BigMob Faucet",
+      "url": "https://bigmobfaucet.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:12:03.741Z"
     }
   },
-  "last_updated": "2026-11-09T17:11:48.139Z"
+  "last_updated": "2026-11-09T17:12:03.741Z"
 }
