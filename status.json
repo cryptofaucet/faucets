@@ -57,11 +57,11 @@
     },
     "8": {
       "name": "Faucet Alaska",
-      "url": "https://faucetalaska.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:11:24.410Z"
+      "url": "https://faucetalaska.online/",
+      "reward": "0.00000005",
+      "coin": "BTC",
+      "minutes": 600,
+      "_updated_at": "2026-11-09T20:15:04.890Z"
     },
     "9": {
       "name": "ClaudeFaucet",
@@ -969,5 +969,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T20:13:55.931Z"
+  "last_updated": "2026-11-09T20:15:04.890Z"
 }
