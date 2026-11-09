@@ -595,11 +595,11 @@
     },
     "77": {
       "name": "Tron.riches",
-      "url": "https://tronriches.website",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:29:20.586Z"
+      "url": "https://tronriches.website/",
+      "reward": "0.01",
+      "coin": "TRX",
+      "minutes": 60,
+      "_updated_at": "2026-11-09T17:59:51.501Z"
     },
     "78": {
       "name": "Tron unlimited! Top TRX..",
@@ -963,5 +963,5 @@
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:57:06.742Z"
+  "last_updated": "2026-11-09T17:59:51.501Z"
 }
