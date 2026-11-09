@@ -3,7 +3,8 @@
     "LIMITLESS FAUCET (faucet6)",
     "Bestfaucet -Melhores Ofertas (faucet5)",
     "BitEarnix (faucet4)",
-    "POURRI (faucet3)"
+    "POURRI (faucet3)",
+    "Coin Earn Hub (faucet7)"
   ],
   "faucet_settings": {
     "2": {
@@ -968,5 +969,5 @@
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T20:13:44.404Z"
+  "last_updated": "2026-11-09T20:13:55.931Z"
 }
