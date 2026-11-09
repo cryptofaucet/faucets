@@ -904,8 +904,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:35:08.107Z"
+    },
+    "116": {
+      "name": "Sol24.online",
+      "url": "https://sol24.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:35:18.198Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:35:08.107Z"
+  "last_updated": "2026-11-09T17:35:18.198Z"
 }
