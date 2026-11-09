@@ -784,8 +784,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:32:50.377Z"
+    },
+    "101": {
+      "name": "FaaSet",
+      "url": "https://faaset.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:32:59.343Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:32:50.377Z"
+  "last_updated": "2026-11-09T17:32:59.343Z"
 }
