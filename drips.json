@@ -144,8 +144,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:21:00.630Z"
+    },
+    "21": {
+      "name": "Arcade2Cash",
+      "url": "https://arcade2cash.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:21:08.939Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:21:00.630Z"
+  "last_updated": "2026-11-09T17:21:08.939Z"
 }
