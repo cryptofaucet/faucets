@@ -324,11 +324,11 @@
     },
     "41": {
       "name": "Faucet Funds",
-      "url": "https://faucetfunds.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:24:03.407Z"
+      "url": "https://faucetfunds.com/",
+      "reward": "0.00005",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-11-09T23:05:00.397Z"
     },
     "42": {
       "name": "InstantFP",
@@ -1017,5 +1017,5 @@
     "38",
     "40"
   ],
-  "last_updated": "2026-11-09T22:48:03.805Z"
+  "last_updated": "2026-11-09T23:05:00.397Z"
 }
