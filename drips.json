@@ -528,8 +528,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:27:58.797Z"
+    },
+    "69": {
+      "name": "CRYPTOFAUCET",
+      "url": "https://cryptofaucet.cyou",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:28:07.643Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:27:58.797Z"
+  "last_updated": "2026-11-09T17:28:07.643Z"
 }
