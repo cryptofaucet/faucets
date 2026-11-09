@@ -616,7 +616,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:29:38.763Z"
+    },
+    "80": {
+      "name": "CryptoGravyTron",
+      "url": "https://cryptogravytron.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:29:47.602Z"
     }
   },
-  "last_updated": "2026-11-09T17:29:38.763Z"
+  "last_updated": "2026-11-09T17:29:47.602Z"
 }
