@@ -155,11 +155,11 @@
     },
     "20": {
       "name": "Mint Faucet",
-      "url": "https://mintfaucet.in",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:21:00.630Z"
+      "url": "https://mintfaucet.in/",
+      "reward": "0.0004",
+      "coin": "USDT",
+      "minutes": 3,
+      "_updated_at": "2026-11-09T20:42:35.094Z"
     },
     "21": {
       "name": "Arcade2Cash",
@@ -998,5 +998,5 @@
     "19",
     "18"
   ],
-  "last_updated": "2026-11-09T20:41:50.383Z"
+  "last_updated": "2026-11-09T20:42:35.094Z"
 }
