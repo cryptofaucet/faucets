@@ -736,8 +736,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:31:55.038Z"
+    },
+    "95": {
+      "name": "crypto sugar",
+      "url": "https://cryptosugar.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:32:04.728Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:31:55.038Z"
+  "last_updated": "2026-11-09T17:32:04.728Z"
 }
