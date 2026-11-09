@@ -216,8 +216,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:22:18.488Z"
+    },
+    "30": {
+      "name": "BitLoot.ee | Crypto Rewards",
+      "url": "https://bitloot.ee",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:22:26.597Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:22:18.488Z"
+  "last_updated": "2026-11-09T17:22:26.597Z"
 }
