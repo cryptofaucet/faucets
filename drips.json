@@ -856,8 +856,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:34:12.463Z"
+    },
+    "110": {
+      "name": "RushFaucet",
+      "url": "https://rushfaucet.top",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:34:21.247Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:34:12.463Z"
+  "last_updated": "2026-11-09T17:34:21.247Z"
 }
