@@ -104,7 +104,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:20:14.276Z"
+    },
+    "16": {
+      "name": "Super Faucet",
+      "url": "https://superfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:20:24.523Z"
     }
   },
-  "last_updated": "2026-11-09T17:20:14.276Z"
+  "last_updated": "2026-11-09T17:20:24.523Z"
 }
