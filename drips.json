@@ -96,8 +96,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:12:15.355Z"
+    },
+    "15": {
+      "name": "OGMA AD SPACE",
+      "url": "https://ogmaads.space",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:20:14.276Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:12:15.355Z"
+  "last_updated": "2026-11-09T17:20:14.276Z"
 }
