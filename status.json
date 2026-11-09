@@ -230,8 +230,8 @@
       "url": "https://satoshivault.site/",
       "reward": "0.00015",
       "coin": "USDT",
-      "minutes": 15,
-      "_updated_at": "2026-11-09T22:19:52.154Z"
+      "minutes": 5,
+      "_updated_at": "2026-11-09T22:20:34.377Z"
     },
     "30": {
       "name": "BitLoot.ee | Crypto Rewards",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T22:19:52.154Z"
+  "last_updated": "2026-11-09T22:20:34.377Z"
 }
