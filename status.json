@@ -599,7 +599,8 @@
       "reward": "0.01",
       "coin": "TRX",
       "minutes": 60,
-      "_updated_at": "2026-11-09T17:59:51.501Z"
+      "_updated_at": "2026-11-09T17:59:51.501Z",
+      "vip": true
     },
     "78": {
       "name": "Tron unlimited! Top TRX..",
@@ -962,5 +963,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T17:59:51.501Z"
+  "last_updated": "2026-11-09T17:59:59.107Z"
 }
