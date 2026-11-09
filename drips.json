@@ -688,8 +688,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:31:02.257Z"
+    },
+    "89": {
+      "name": "HichamFaucet",
+      "url": "https://hichamfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:31:10.754Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:31:02.257Z"
+  "last_updated": "2026-11-09T17:31:10.754Z"
 }
