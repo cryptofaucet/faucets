@@ -920,8 +920,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:35:27.572Z"
+    },
+    "118": {
+      "name": "Freeusdt",
+      "url": "https://freeusdt.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:35:37.027Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:35:27.572Z"
+  "last_updated": "2026-11-09T17:35:37.027Z"
 }
