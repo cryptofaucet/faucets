@@ -424,8 +424,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:26:05.117Z"
+    },
+    "56": {
+      "name": "CryptoVibe",
+      "url": "https://leitosa.dpdns.org",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:26:13.907Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:26:05.117Z"
+  "last_updated": "2026-11-09T17:26:13.907Z"
 }
