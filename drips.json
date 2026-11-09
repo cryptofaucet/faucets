@@ -432,8 +432,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:26:13.907Z"
+    },
+    "57": {
+      "name": "clickClaims",
+      "url": "https://clickclaims.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:26:22.857Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:26:13.907Z"
+  "last_updated": "2026-11-09T17:26:22.857Z"
 }
