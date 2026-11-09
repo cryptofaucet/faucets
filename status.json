@@ -454,11 +454,11 @@
     },
     "57": {
       "name": "clickClaims",
-      "url": "https://clickclaims.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:26:22.857Z"
+      "url": "https://clickclaims.online/",
+      "reward": "0.0000008",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T23:36:28.777Z"
     },
     "58": {
       "name": "Ifaucet",
@@ -982,5 +982,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T23:35:21.554Z"
+  "last_updated": "2026-11-09T23:36:28.777Z"
 }
