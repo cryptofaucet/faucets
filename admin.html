@@ -192,7 +192,7 @@ function githubHeaders(token) {
 }
 
 async function githubGetFile(path) {
-    const token = sessionStorage.getItem("git_admin_token");
+    const token = localStorage.getItem("git_admin_token");
     if (!token) throw new Error("Токен GitHub не найден. Войдите заново.");
     const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}?ref=${encodeURIComponent(BRANCH)}`;
     const response = await fetch(url, { headers: githubHeaders(token), cache: "no-store" });
@@ -204,7 +204,7 @@ async function githubGetFile(path) {
 }
 
 async function githubPutFile(path, content, sha, message) {
-    const token = sessionStorage.getItem("git_admin_token");
+    const token = localStorage.getItem("git_admin_token");
     if (!token) throw new Error("Токен GitHub не найден. Войдите заново.");
     const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`;
     const response = await fetch(url, {
@@ -340,7 +340,7 @@ function isFaucetDisabled(faucet) {
 }
 
 window.addEventListener("load", function () {
-    const savedToken = sessionStorage.getItem("git_admin_token");
+    const savedToken = localStorage.getItem("git_admin_token");
     if (savedToken) {
         document.getElementById("tokenInput").value = savedToken;
         login();
@@ -392,7 +392,7 @@ async function login() {
         );
 
         statsLastUpdated = content.last_updated || null;
-        sessionStorage.setItem("git_admin_token", token);
+         localStorage.setItem("git_admin_token", token);
         await loadDripsSettings();
 
         document.getElementById("loginBlock").classList.add("hidden");
@@ -445,7 +445,7 @@ async function fetchAndParseFaucets() {
     listDiv.innerHTML = '<p class="message" style="color:#ffcc00">Загружаю список кранов с GitHub...</p>';
 
     try {
-        const token = sessionStorage.getItem("git_admin_token");
+        const token = localStorage.getItem("git_admin_token");
         if (!token) throw new Error("Токен GitHub не найден. Войдите заново.");
 
         const response = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
@@ -698,7 +698,7 @@ async function toggleDripsFaucet(id, button) {
 }
 
 async function saveChanges() {
-    const token = sessionStorage.getItem("git_admin_token");
+    const token = localStorage.getItem("git_admin_token");
     if (!token) { alert("Сессия истекла. Войдите заново."); return; }
 
     const saveButton = document.getElementById("saveButton");
@@ -762,7 +762,7 @@ document.getElementById("editFaucetCoin").addEventListener("input", function() {
 });
 
 async function openEditFaucet(id) {
-    const token = sessionStorage.getItem("git_admin_token");
+    const token = localStorage.getItem("git_admin_token");
     if (!token) {
         alert("Сессия админки истекла. Войди заново.");
         return;
@@ -863,7 +863,7 @@ async function updateFaucetSettingsJson(path, id, oldName, name, url, reward, co
 async function saveEditedFaucet(event) {
     event.preventDefault();
     const id = editingFaucetId;
-    const token = sessionStorage.getItem("git_admin_token");
+    const token = localStorage.getItem("git_admin_token");
 
     if (!id || !token) {
         showEditMessage("Нет выбранного крана или истекла сессия. Войди заново.", true);
@@ -1002,7 +1002,7 @@ async function addFaucetRowToHtml(path, name, num, url, reward, coin, seconds) {
 }
 
 async function addFaucetToIndex() {
-    const token = sessionStorage.getItem("git_admin_token");
+    const token = localStorage.getItem("git_admin_token");
     if (!token) { setAddFaucetMessage("Сессия админки истекла. Войди заново.", true); return; }
 
     const name = document.getElementById("newFaucetName").value.trim();
