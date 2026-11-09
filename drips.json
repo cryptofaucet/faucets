@@ -232,8 +232,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:22:35.170Z"
+    },
+    "32": {
+      "name": "Gems Faucet",
+      "url": "https://gemsfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:22:44.533Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:22:35.170Z"
+  "last_updated": "2026-11-09T17:22:44.533Z"
 }
