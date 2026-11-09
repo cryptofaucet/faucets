@@ -128,8 +128,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:20:42.694Z"
+    },
+    "19": {
+      "name": "instafaucet",
+      "url": "https://instafaucet.xyz",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:20:51.708Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:20:42.694Z"
+  "last_updated": "2026-11-09T17:20:51.708Z"
 }
