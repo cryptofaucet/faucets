@@ -872,8 +872,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:34:30.331Z"
+    },
+    "112": {
+      "name": "666faucet",
+      "url": "https://666faucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:34:40.233Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:34:30.331Z"
+  "last_updated": "2026-11-09T17:34:40.233Z"
 }
