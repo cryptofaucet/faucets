@@ -888,8 +888,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:34:49.282Z"
+    },
+    "114": {
+      "name": "CryptoMania",
+      "url": "https://cryptomania.space",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:34:58.245Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:34:49.282Z"
+  "last_updated": "2026-11-09T17:34:58.245Z"
 }
