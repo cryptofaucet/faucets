@@ -251,11 +251,11 @@
     },
     "32": {
       "name": "Gems Faucet",
-      "url": "https://gemsfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:22:44.533Z"
+      "url": "https://gemsfaucet.site/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 3,
+      "_updated_at": "2026-11-09T22:23:57.654Z"
     },
     "33": {
       "name": "FreeCoinsForYou",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T22:23:24.825Z"
+  "last_updated": "2026-11-09T22:23:57.654Z"
 }
