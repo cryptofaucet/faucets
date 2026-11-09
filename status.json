@@ -147,11 +147,11 @@
     },
     "21": {
       "name": "Arcade2Cash",
-      "url": "https://arcade2cash.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:21:08.939Z"
+      "url": "https://arcade2cash.com/",
+      "reward": "0.0695",
+      "coin": "DOGE",
+      "minutes": 60,
+      "_updated_at": "2026-11-09T17:51:20.106Z"
     },
     "22": {
       "name": "Cryptodon Faucet Rewards",
@@ -962,5 +962,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T17:36:14.476Z"
+  "last_updated": "2026-11-09T17:51:20.106Z"
 }
