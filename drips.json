@@ -20,7 +20,7 @@
     "Pourri (faucet4)",
     "FaucetFun (faucet1)"
   ],
-  "last_updated": "2026-11-09T06:41:13.046Z",
+  "last_updated": "2026-11-09T06:41:16.556Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -1181,6 +1181,7 @@
     "7",
     "6",
     "5",
-    "4"
+    "4",
+    "2"
   ]
 }
