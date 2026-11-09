@@ -283,11 +283,11 @@
     },
     "36": {
       "name": "Zyro Faucet",
-      "url": "https://zyrofaucet.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:23:18.622Z"
+      "url": "https://zyrofaucet.online/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T22:29:15.855Z"
     },
     "37": {
       "name": "Prairie Hash",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T22:28:39.683Z"
+  "last_updated": "2026-11-09T22:29:15.855Z"
 }
