@@ -640,8 +640,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:30:05.315Z"
+    },
+    "83": {
+      "name": "BitFaucet",
+      "url": "https://bitfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:30:15.170Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:30:05.315Z"
+  "last_updated": "2026-11-09T17:30:15.170Z"
 }
