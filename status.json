@@ -504,7 +504,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:27:32.731Z"
+    },
+    "66": {
+      "name": "myeasyfaucet",
+      "url": "https://myeasyfaucet.world",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:27:41.266Z"
     }
   },
-  "last_updated": "2026-11-09T17:27:32.731Z"
+  "last_updated": "2026-11-09T17:27:41.266Z"
 }
