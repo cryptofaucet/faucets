@@ -560,8 +560,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:28:35.579Z"
+    },
+    "73": {
+      "name": "extraFaucets",
+      "url": "https://extrafaucets.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:28:44.406Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:28:35.579Z"
+  "last_updated": "2026-11-09T17:28:44.406Z"
 }
