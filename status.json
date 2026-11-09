@@ -248,7 +248,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:22:52.706Z"
+    },
+    "34": {
+      "name": "Faucetpay space",
+      "url": "https://fpay.space",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:23:01.337Z"
     }
   },
-  "last_updated": "2026-11-09T17:22:52.706Z"
+  "last_updated": "2026-11-09T17:23:01.337Z"
 }
