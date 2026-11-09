@@ -132,7 +132,7 @@ button:disabled{opacity:.6;cursor:wait}
 <div class="fp-panel">
 <h2>FaucetPay — сканер кранов</h2>
 <div class="fp-buttons">
-<button id="fpLoginButton" type="button">🔐 Войти в FaucetPay</button>
+ <a id="fpLoginButton" href="https://faucetpay.io/login" target="_blank" rel="noopener" style="display:inline-block;padding:10px 16px;background:#00b3ff;color:#fff;text-decoration:none;border-radius:4px;font-weight:bold;flex:1 1 200px;text-align:center">🔐 Войти в FaucetPay</a>
 <button id="fpScanButton" type="button">🔍 Сканировать краны</button>
 </div>
 <p id="fpStatus"></p>
@@ -1146,12 +1146,6 @@ function fpSetStatus(text, color) {
     el.textContent = text;
     el.style.color = color || "#aab4c2";
 }
-
-document.getElementById("fpLoginButton")?.addEventListener("click", () => {
-    fpSetStatus("Открываю FaucetPay в новой вкладке...", "#00b3ff");
-    fetch(SCAN_API + "/faucetpay-login")
-        .catch(() => {});
-});
 
 document.getElementById("fpScanButton")?.addEventListener("click", scanFaucetPay);
 
