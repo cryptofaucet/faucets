@@ -520,8 +520,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:27:50.001Z"
+    },
+    "68": {
+      "name": "Brazas Earn",
+      "url": "https://bbux.net",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:27:58.797Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:27:50.001Z"
+  "last_updated": "2026-11-09T17:27:58.797Z"
 }
