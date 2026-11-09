@@ -848,8 +848,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:34:03.058Z"
+    },
+    "109": {
+      "name": "EarnCrypto",
+      "url": "https://earnltcsol.in",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:34:12.463Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:34:03.058Z"
+  "last_updated": "2026-11-09T17:34:12.463Z"
 }
