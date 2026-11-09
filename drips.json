@@ -176,8 +176,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:21:34.412Z"
+    },
+    "25": {
+      "name": "Faas Faucet",
+      "url": "https://faas.farazfaucets.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:21:42.710Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:21:34.412Z"
+  "last_updated": "2026-11-09T17:21:42.710Z"
 }
