@@ -792,8 +792,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:32:59.343Z"
+    },
+    "102": {
+      "name": "Faucet.Claimx.Online",
+      "url": "https://faucet.claimx.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:33:07.894Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:32:59.343Z"
+  "last_updated": "2026-11-09T17:33:07.894Z"
 }
