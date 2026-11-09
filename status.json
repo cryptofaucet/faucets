@@ -816,7 +816,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:33:26.196Z"
+    },
+    "105": {
+      "name": "mfaucet.top",
+      "url": "https://mfaucet.top",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:33:35.557Z"
     }
   },
-  "last_updated": "2026-11-09T17:33:26.196Z"
+  "last_updated": "2026-11-09T17:33:35.557Z"
 }
