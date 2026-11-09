@@ -90,11 +90,11 @@
     },
     "12": {
       "name": "BigMob Faucet",
-      "url": "https://bigmobfaucet.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:12:03.741Z"
+      "url": "https://bigmobfaucet.com/",
+      "reward": "0.000001",
+      "coin": "SOL",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T20:25:41.543Z"
     },
     "13": {
       "name": "Satoshi Drop",
@@ -970,5 +970,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T20:24:26.811Z"
+  "last_updated": "2026-11-09T20:25:41.543Z"
 }
