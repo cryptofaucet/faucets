@@ -664,7 +664,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:30:34.582Z"
+    },
+    "86": {
+      "name": "Vipcypto",
+      "url": "https://vipcypto.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:30:43.995Z"
     }
   },
-  "last_updated": "2026-11-09T17:30:34.582Z"
+  "last_updated": "2026-11-09T17:30:43.995Z"
 }
