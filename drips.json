@@ -48,8 +48,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:11:15.178Z"
+    },
+    "8": {
+      "name": "Faucet Alaska",
+      "url": "https://faucetalaska.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:11:24.410Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:11:15.178Z"
+  "last_updated": "2026-11-09T17:11:24.410Z"
 }
