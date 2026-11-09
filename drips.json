@@ -114,11 +114,11 @@
     },
     "15": {
       "name": "OGMA AD SPACE",
-      "url": "https://ogmaads.space",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:20:14.276Z"
+      "url": "https://ogmaads.space/",
+      "reward": "0.000003",
+      "coin": "SOL",
+      "minutes": 10,
+      "_updated_at": "2026-11-09T20:31:33.960Z"
     },
     "16": {
       "name": "Super Faucet",
@@ -978,5 +978,5 @@
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T20:28:59.958Z"
+  "last_updated": "2026-11-09T20:31:33.960Z"
 }
