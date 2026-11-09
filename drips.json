@@ -944,8 +944,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:35:56.018Z"
+    },
+    "121": {
+      "name": "Pythagore-PEPE",
+      "url": "https://pythagore-pepe.website",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:36:05.226Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:35:56.018Z"
+  "last_updated": "2026-11-09T17:36:05.226Z"
 }
