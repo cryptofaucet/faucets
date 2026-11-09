@@ -64,8 +64,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:11:32.718Z"
+    },
+    "10": {
+      "name": "Bit Faucet",
+      "url": "https://bitfaucet.offers4all.xyz",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:11:40.609Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:11:32.718Z"
+  "last_updated": "2026-11-09T17:11:40.609Z"
 }
