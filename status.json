@@ -474,8 +474,8 @@
       "url": "https://adptc.site/",
       "reward": "0.000005",
       "coin": "LTC",
-      "minutes": 5,
-      "_updated_at": "2026-11-09T23:39:54.518Z"
+      "minutes": 3,
+      "_updated_at": "2026-11-09T23:40:19.824Z"
     },
     "60": {
       "name": "LTCfaucet",
@@ -983,5 +983,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T23:39:54.518Z"
+  "last_updated": "2026-11-09T23:40:19.824Z"
 }
