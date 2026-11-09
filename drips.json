@@ -373,11 +373,11 @@
     },
     "47": {
       "name": "DrFaucet.site",
-      "url": "https://drfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:24:54.226Z"
+      "url": "https://drfaucet.site/",
+      "reward": "0.001",
+      "coin": "DOGE",
+      "minutes": 5,
+      "_updated_at": "2026-11-09T23:17:13.141Z"
     },
     "48": {
       "name": "Dogecoin drip",
@@ -1024,5 +1024,5 @@
     "45",
     "46"
   ],
-  "last_updated": "2026-11-09T23:14:02.115Z"
+  "last_updated": "2026-11-09T23:17:13.141Z"
 }
