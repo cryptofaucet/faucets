@@ -912,8 +912,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:35:18.198Z"
+    },
+    "117": {
+      "name": "Dripdrop",
+      "url": "https://dripdrop.lol",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:35:27.572Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:35:18.198Z"
+  "last_updated": "2026-11-09T17:35:27.572Z"
 }
