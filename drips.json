@@ -488,8 +488,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:27:14.787Z"
+    },
+    "64": {
+      "name": "faucet2",
+      "url": "https://earnon.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:27:23.359Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:27:14.787Z"
+  "last_updated": "2026-11-09T17:27:23.359Z"
 }
