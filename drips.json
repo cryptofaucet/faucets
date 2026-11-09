@@ -408,8 +408,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:25:47.074Z"
+    },
+    "54": {
+      "name": "bitcofy",
+      "url": "https://bitcofy.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:25:56.800Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:25:47.074Z"
+  "last_updated": "2026-11-09T17:25:56.800Z"
 }
