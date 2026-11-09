@@ -184,8 +184,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:21:42.710Z"
+    },
+    "26": {
+      "name": "BLOCKXS Faucet",
+      "url": "https://faucet.blockxs.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:21:51.594Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:21:42.710Z"
+  "last_updated": "2026-11-09T17:21:51.594Z"
 }
