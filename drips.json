@@ -480,8 +480,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:27:05.515Z"
+    },
+    "63": {
+      "name": "Cro Faucet",
+      "url": "https://crofaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:27:14.787Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:27:05.515Z"
+  "last_updated": "2026-11-09T17:27:14.787Z"
 }
