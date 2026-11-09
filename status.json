@@ -381,11 +381,11 @@
     },
     "48": {
       "name": "Dogecoin drip",
-      "url": "https://dogecoindrip.me",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:25:03.279Z",
+      "url": "https://dogecoindrip.me/",
+      "reward": "0.00033",
+      "coin": "DOGE",
+      "minutes": 3,
+      "_updated_at": "2026-11-09T23:20:44.738Z",
       "vip": true
     },
     "49": {
@@ -982,5 +982,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T23:19:37.641Z"
+  "last_updated": "2026-11-09T23:20:44.738Z"
 }
