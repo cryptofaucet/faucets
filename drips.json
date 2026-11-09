@@ -227,11 +227,11 @@
     },
     "29": {
       "name": "Satoshi Vault",
-      "url": "https://satoshivault.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:22:18.488Z"
+      "url": "https://satoshivault.site/",
+      "reward": "0.00015",
+      "coin": "USDT",
+      "minutes": 15,
+      "_updated_at": "2026-11-09T22:19:52.154Z"
     },
     "30": {
       "name": "BitLoot.ee | Crypto Rewards",
@@ -1006,5 +1006,5 @@
     "27",
     "28"
   ],
-  "last_updated": "2026-11-09T22:18:33.330Z"
+  "last_updated": "2026-11-09T22:19:52.154Z"
 }
