@@ -3,11 +3,11 @@
   "faucet_settings": {
     "2": {
       "name": "CoinDrip",
-      "url": "https://coindrip.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:10:19.280Z"
+      "url": "https://coindrip.site/",
+      "reward": "0.00000002",
+      "coin": "BTC",
+      "minutes": 10,
+      "_updated_at": "2026-11-09T17:57:06.742Z"
     },
     "3": {
       "name": "POURRI",
@@ -962,5 +962,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T17:51:20.106Z"
+  "last_updated": "2026-11-09T17:57:06.742Z"
 }
