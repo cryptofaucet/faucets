@@ -840,7 +840,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:33:53.659Z"
+    },
+    "108": {
+      "name": "My Faucet usdt",
+      "url": "https://jhoalfaucet.click",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:34:03.058Z"
     }
   },
-  "last_updated": "2026-11-09T17:33:53.659Z"
+  "last_updated": "2026-11-09T17:34:03.058Z"
 }
