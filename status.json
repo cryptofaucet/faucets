@@ -880,7 +880,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:34:40.233Z"
+    },
+    "113": {
+      "name": "Free BNB Pick",
+      "url": "https://freebnbpick.vip",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:34:49.282Z"
     }
   },
-  "last_updated": "2026-11-09T17:34:40.233Z"
+  "last_updated": "2026-11-09T17:34:49.282Z"
 }
