@@ -179,11 +179,11 @@
     },
     "23": {
       "name": "DragonClaims",
-      "url": "https://dragonclaims.it.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:21:25.837Z"
+      "url": "https://dragonclaims.it.com/",
+      "reward": "0.0000008",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T21:54:17.123Z"
     },
     "24": {
       "name": "high5btc",
@@ -1001,5 +1001,5 @@
     "21",
     "22"
   ],
-  "last_updated": "2026-11-09T21:53:10.774Z"
+  "last_updated": "2026-11-09T21:54:17.123Z"
 }
