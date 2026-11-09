@@ -18,9 +18,10 @@
     "24FaucetPay (faucet122)",
     "claim the faucet (faucet128)",
     "Pourri (faucet4)",
-    "FaucetFun (faucet1)"
+    "FaucetFun (faucet1)",
+    "Top Faucet (faucet9)"
   ],
-  "last_updated": "2026-11-09T06:12:35.671Z",
+  "last_updated": "2026-11-09T07:13:10.782Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
