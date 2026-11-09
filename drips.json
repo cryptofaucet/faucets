@@ -88,8 +88,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:12:03.741Z"
+    },
+    "13": {
+      "name": "Satoshi Drop",
+      "url": "https://satoshidrop.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:12:15.355Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:12:03.741Z"
+  "last_updated": "2026-11-09T17:12:15.355Z"
 }
