@@ -952,8 +952,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:36:05.226Z"
+    },
+    "122": {
+      "name": "Snow Faucet",
+      "url": "https://snowfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:36:05.226Z"
+  "last_updated": "2026-11-09T17:36:14.476Z"
 }
