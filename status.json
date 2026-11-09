@@ -544,7 +544,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:28:16.385Z"
+    },
+    "71": {
+      "name": "FreeLTC5m",
+      "url": "https://freeltc5m.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:28:25.341Z"
     }
   },
-  "last_updated": "2026-11-09T17:28:16.385Z"
+  "last_updated": "2026-11-09T17:28:25.341Z"
 }
