@@ -808,8 +808,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:33:17.336Z"
+    },
+    "104": {
+      "name": "Pythagore-USDT",
+      "url": "https://pythagore.website",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:33:26.196Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:33:17.336Z"
+  "last_updated": "2026-11-09T17:33:26.196Z"
 }
