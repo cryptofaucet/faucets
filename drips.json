@@ -278,8 +278,8 @@
       "url": "https://dmcrypto.site/",
       "reward": "0.00003",
       "coin": "USDT",
-      "minutes": 3,
-      "_updated_at": "2026-11-09T22:28:14.567Z"
+      "minutes": 5,
+      "_updated_at": "2026-11-09T22:28:39.683Z"
     },
     "36": {
       "name": "Zyro Faucet",
@@ -1012,5 +1012,5 @@
     "34",
     "35"
   ],
-  "last_updated": "2026-11-09T22:28:26.750Z"
+  "last_updated": "2026-11-09T22:28:39.683Z"
 }
