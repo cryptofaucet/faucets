@@ -472,8 +472,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:26:57.400Z"
+    },
+    "62": {
+      "name": "Vipfaucet",
+      "url": "https://vipfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:27:05.515Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:26:57.400Z"
+  "last_updated": "2026-11-09T17:27:05.515Z"
 }
