@@ -824,7 +824,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:33:35.557Z"
+    },
+    "106": {
+      "name": "faucetguy - Ultimate faucet",
+      "url": "https://faucetguy.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:33:44.650Z"
     }
   },
-  "last_updated": "2026-11-09T17:33:35.557Z"
+  "last_updated": "2026-11-09T17:33:44.650Z"
 }
