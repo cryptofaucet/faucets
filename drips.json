@@ -576,8 +576,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:28:53.060Z"
+    },
+    "75": {
+      "name": "KingsXstation",
+      "url": "https://kingsxstation.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:29:01.987Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:28:53.060Z"
+  "last_updated": "2026-11-09T17:29:01.987Z"
 }
