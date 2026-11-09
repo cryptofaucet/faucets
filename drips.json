@@ -112,8 +112,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:20:24.523Z"
+    },
+    "17": {
+      "name": "Top Faucet",
+      "url": "https://topfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:20:33.726Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:20:24.523Z"
+  "last_updated": "2026-11-09T17:20:33.726Z"
 }
