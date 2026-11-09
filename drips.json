@@ -384,8 +384,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:25:20.819Z"
+    },
+    "51": {
+      "name": "Pythagore-DOGE",
+      "url": "https://pythagore-doge.website",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:25:29.659Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:25:20.819Z"
+  "last_updated": "2026-11-09T17:25:29.659Z"
 }
