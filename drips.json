@@ -979,6 +979,14 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:36:14.476Z"
+    },
+    "123": {
+      "name": "Ganhe litecoin Gratis",
+      "url": "https://ganharlitecoin.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T23:49:28.841Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1038,5 +1046,5 @@
     "60",
     "61"
   ],
-  "last_updated": "2026-11-09T23:48:45.077Z"
+  "last_updated": "2026-11-09T23:49:28.841Z"
 }
