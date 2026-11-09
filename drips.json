@@ -978,7 +978,8 @@
     }
   },
   "drips_disabled_faucets": [
-    "15"
+    "15",
+    "14"
   ],
-  "last_updated": "2026-11-09T20:33:30.396Z"
+  "last_updated": "2026-11-09T20:33:35.038Z"
 }
