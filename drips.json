@@ -360,8 +360,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:24:54.226Z"
+    },
+    "48": {
+      "name": "Dogecoin drip",
+      "url": "https://dogecoindrip.me",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:25:03.279Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:24:54.226Z"
+  "last_updated": "2026-11-09T17:25:03.279Z"
 }
