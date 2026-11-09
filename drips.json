@@ -464,8 +464,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:26:48.527Z"
+    },
+    "61": {
+      "name": "BeezyPay",
+      "url": "https://beezypay.space",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:26:57.400Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:26:48.527Z"
+  "last_updated": "2026-11-09T17:26:57.400Z"
 }
