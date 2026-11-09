@@ -240,8 +240,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:22:44.533Z"
+    },
+    "33": {
+      "name": "FreeCoinsForYou",
+      "url": "https://freecoinsforyou.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:22:52.706Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:22:44.533Z"
+  "last_updated": "2026-11-09T17:22:52.706Z"
 }
