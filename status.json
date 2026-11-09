@@ -288,7 +288,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:23:35.593Z"
+    },
+    "39": {
+      "name": "Snaptic Faucet",
+      "url": "https://snaptik.one",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:23:44.671Z"
     }
   },
-  "last_updated": "2026-11-09T17:23:35.593Z"
+  "last_updated": "2026-11-09T17:23:44.671Z"
 }
