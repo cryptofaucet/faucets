@@ -139,11 +139,11 @@
     },
     "18": {
       "name": "Faucetino",
-      "url": "https://faucetino.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:20:42.694Z"
+      "url": "https://faucetino.com/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T20:38:52.767Z"
     },
     "19": {
       "name": "instafaucet",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T20:37:35.508Z"
+  "last_updated": "2026-11-09T20:38:52.767Z"
 }
