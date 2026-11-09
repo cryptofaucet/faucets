@@ -24,7 +24,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:10:46.180Z"
+    },
+    "5": {
+      "name": "Bestfaucet -Melhores Ofertas",
+      "url": "https://bestfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:10:55.042Z"
     }
   },
-  "last_updated": "2026-11-09T17:10:46.180Z"
+  "last_updated": "2026-11-09T17:10:55.042Z"
 }
