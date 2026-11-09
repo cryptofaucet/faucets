@@ -584,8 +584,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:29:01.987Z"
+    },
+    "76": {
+      "name": "Fpclicker.com",
+      "url": "https://fpclicker.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:29:10.802Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:29:01.987Z"
+  "last_updated": "2026-11-09T17:29:10.802Z"
 }
