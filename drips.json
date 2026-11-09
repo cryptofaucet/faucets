@@ -376,8 +376,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:25:12.322Z"
+    },
+    "50": {
+      "name": "Diamondfaucet",
+      "url": "https://diamondfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:25:20.819Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:25:12.322Z"
+  "last_updated": "2026-11-09T17:25:20.819Z"
 }
