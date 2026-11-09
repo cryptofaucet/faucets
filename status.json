@@ -16,9 +16,11 @@
     "ExtraFaucets (faucet13)",
     "TimmyTime (faucet64)",
     "24FaucetPay (faucet122)",
-    "claim the faucet (faucet128)"
+    "claim the faucet (faucet128)",
+    "Pourri (faucet4)",
+    "FaucetFun (faucet1)"
   ],
-  "last_updated": "2026-11-09T06:11:22.936Z",
+  "last_updated": "2026-11-09T06:12:35.671Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
