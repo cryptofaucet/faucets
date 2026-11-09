@@ -336,7 +336,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:24:29.318Z"
+    },
+    "45": {
+      "name": "CryptoGravy",
+      "url": "https://cryptogravy.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:24:37.560Z"
     }
   },
-  "last_updated": "2026-11-09T17:24:29.318Z"
+  "last_updated": "2026-11-09T17:24:37.560Z"
 }
