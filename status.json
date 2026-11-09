@@ -307,11 +307,11 @@
     },
     "39": {
       "name": "Snaptic Faucet",
-      "url": "https://snaptik.one",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:23:44.671Z"
+      "url": "https://snaptik.one/",
+      "reward": "0.00005",
+      "coin": "TRX",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T22:40:28.248Z"
     },
     "40": {
       "name": "Gimme Crypto",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T22:39:25.284Z"
+  "last_updated": "2026-11-09T22:40:28.248Z"
 }
