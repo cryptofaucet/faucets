@@ -896,8 +896,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:34:58.245Z"
+    },
+    "115": {
+      "name": "Freefaucet",
+      "url": "https://freefaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:35:08.107Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:34:58.245Z"
+  "last_updated": "2026-11-09T17:35:08.107Z"
 }
