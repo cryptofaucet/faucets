@@ -696,8 +696,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:31:10.754Z"
+    },
+    "90": {
+      "name": "Easy Faucet",
+      "url": "https://easyfaucet.io",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:31:19.463Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:31:10.754Z"
+  "last_updated": "2026-11-09T17:31:19.463Z"
 }
