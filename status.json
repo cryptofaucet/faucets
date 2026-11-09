@@ -430,11 +430,11 @@
     },
     "54": {
       "name": "bitcofy",
-      "url": "https://bitcofy.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:25:56.800Z"
+      "url": "https://bitcofy.site/",
+      "reward": "0.001",
+      "coin": "DOGE",
+      "minutes": 15,
+      "_updated_at": "2026-11-09T23:30:25.791Z"
     },
     "55": {
       "name": "BitClaims",
@@ -982,5 +982,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T23:29:34.542Z"
+  "last_updated": "2026-11-09T23:30:25.791Z"
 }
