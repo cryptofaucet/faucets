@@ -440,7 +440,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:26:22.857Z"
+    },
+    "58": {
+      "name": "Ifaucet",
+      "url": "https://ifaucet.click",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:26:31.506Z"
     }
   },
-  "last_updated": "2026-11-09T17:26:22.857Z"
+  "last_updated": "2026-11-09T17:26:31.506Z"
 }
