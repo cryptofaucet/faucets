@@ -5,7 +5,8 @@
     "BitEarnix (faucet4)",
     "POURRI (faucet3)",
     "Coin Earn Hub (faucet7)",
-    "Faucet Alaska (faucet8)"
+    "Faucet Alaska (faucet8)",
+    "Top Faucet (faucet17)"
   ],
   "faucet_settings": {
     "2": {
@@ -994,5 +995,5 @@
     "2",
     "1"
   ],
-  "last_updated": "2026-11-09T20:37:02.756Z"
+  "last_updated": "2026-11-09T20:37:35.508Z"
 }
