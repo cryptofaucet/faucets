@@ -349,11 +349,11 @@
     },
     "44": {
       "name": "ponyfaucet",
-      "url": "https://ponyfaucet.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:24:29.318Z"
+      "url": "https://ponyfaucet.online/",
+      "reward": "0.005",
+      "coin": "DOGE",
+      "minutes": 6,
+      "_updated_at": "2026-11-09T23:11:25.116Z"
     },
     "45": {
       "name": "CryptoGravy",
@@ -981,5 +981,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T23:09:33.985Z"
+  "last_updated": "2026-11-09T23:11:25.116Z"
 }
