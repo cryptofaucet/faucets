@@ -568,7 +568,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:28:44.406Z"
+    },
+    "74": {
+      "name": "CRYPTOADPAY",
+      "url": "https://cryptoadpay.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:28:53.060Z"
     }
   },
-  "last_updated": "2026-11-09T17:28:44.406Z"
+  "last_updated": "2026-11-09T17:28:53.060Z"
 }
