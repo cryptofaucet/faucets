@@ -136,7 +136,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:20:51.708Z"
+    },
+    "20": {
+      "name": "Mint Faucet",
+      "url": "https://mintfaucet.in",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:21:00.630Z"
     }
   },
-  "last_updated": "2026-11-09T17:20:51.708Z"
+  "last_updated": "2026-11-09T17:21:00.630Z"
 }
