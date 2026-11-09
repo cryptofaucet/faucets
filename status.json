@@ -130,11 +130,11 @@
     },
     "17": {
       "name": "Top Faucet",
-      "url": "https://topfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:20:33.726Z"
+      "url": "https://topfaucet.site/",
+      "reward": "0.0005",
+      "coin": "DOGE",
+      "minutes": 5,
+      "_updated_at": "2026-11-09T20:37:02.756Z"
     },
     "18": {
       "name": "Faucetino",
@@ -978,5 +978,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T20:32:53.199Z"
+  "last_updated": "2026-11-09T20:37:02.756Z"
 }
