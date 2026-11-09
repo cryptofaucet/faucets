@@ -332,11 +332,11 @@
     },
     "42": {
       "name": "InstantFP",
-      "url": "https://instantfp.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:24:11.889Z"
+      "url": "https://instantfp.site/",
+      "reward": "0.00001",
+      "coin": "ETH",
+      "minutes": 60,
+      "_updated_at": "2026-11-09T23:08:13.406Z"
     },
     "43": {
       "name": "luckfaucet",
@@ -980,5 +980,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T23:05:00.397Z"
+  "last_updated": "2026-11-09T23:08:13.406Z"
 }
