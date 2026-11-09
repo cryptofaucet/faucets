@@ -728,8 +728,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:31:45.899Z"
+    },
+    "94": {
+      "name": "joy-dream",
+      "url": "https://joy-dream.website",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:31:55.038Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:31:45.899Z"
+  "last_updated": "2026-11-09T17:31:55.038Z"
 }
