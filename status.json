@@ -211,11 +211,11 @@
     },
     "27": {
       "name": "Planet Faucet",
-      "url": "https://planetfaucet.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:22:00.480Z"
+      "url": "https://planetfaucet.com/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T22:15:22.864Z"
     },
     "28": {
       "name": "Cryptogreen",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T21:57:39.252Z"
+  "last_updated": "2026-11-09T22:15:22.864Z"
 }
