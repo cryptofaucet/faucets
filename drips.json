@@ -486,11 +486,11 @@
     },
     "61": {
       "name": "BeezyPay",
-      "url": "https://beezypay.space",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:26:57.400Z"
+      "url": "https://beezypay.space/",
+      "reward": "0.000005",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T23:48:25.331Z"
     },
     "62": {
       "name": "Vipfaucet",
@@ -1037,5 +1037,5 @@
     "59",
     "60"
   ],
-  "last_updated": "2026-11-09T23:47:16.986Z"
+  "last_updated": "2026-11-09T23:48:25.331Z"
 }
