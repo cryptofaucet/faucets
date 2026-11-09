@@ -1,9 +1,10 @@
+  
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Панель управления кранами 2</title>
+<title>Панель управления кранами</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:sans-serif;background:#1a1a1a;color:#fff;padding:20px}
@@ -11,7 +12,7 @@ body{font-family:sans-serif;background:#1a1a1a;color:#fff;padding:20px}
 h1,h2{text-align:center;color:#00ffcc}
 .form-group{margin-bottom:15px}
 label{display:block;margin-bottom:5px;color:#ccc}
-input[type=password],input[type=text],input[type=url],input[type=number]{width:100%;padding:10px;border-radius:4px;border:1px solid #444;background:#333;color:#fff}
+input[type=password]{width:100%;padding:10px;border-radius:4px;border:1px solid #444;background:#333;color:#fff}
 button{width:100%;padding:10px;background:#00ffcc;border:0;color:#1a1a1a;font-weight:bold;border-radius:4px;cursor:pointer;font-size:16px}
 button:hover{background:#00ccaa}
 button:disabled{opacity:.6;cursor:wait}
@@ -64,7 +65,32 @@ button:disabled{opacity:.6;cursor:wait}
 .btn-disabled{background:#44ff44;color:#1a1a1a}
 .nav-link{display:inline-block;margin-top:15px;color:#00ffcc;text-decoration:none}
 .message{text-align:center;overflow-wrap:anywhere}
-.faucet-cooldown-display{flex-shrink:0;color:#bb86fc;font-size:13px;font-weight:800;text-align:center;white-space:nowrap}
+.faucet-cooldown-display{
+    flex-shrink:0;
+    color:#bb86fc;
+    font-size:13px;
+    font-weight:800;
+    text-align:center;
+    white-space:nowrap;
+}
+@media(max-width:650px){
+ .add-faucet-row-one{grid-template-columns:minmax(0,1fr) 72px}
+ .add-faucet-row-one .url-field{grid-column:1/-1}
+ .add-faucet-row-two{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:520px){
+ .faucet-stats{gap:5px}.faucet-stat{padding:9px 4px}
+ .faucet-stat-label{font-size:11px}.faucet-stat-value{font-size:22px}
+}
+@media(max-width:450px){
+ body{padding:10px}.container{padding:12px}
+ .faucet-item{align-items:flex-start}
+ .faucet-item{flex-wrap:wrap}
+ .faucet-name{flex-wrap:wrap}
+ .admin-actions{margin-left:auto}
+ .status-btn,.edit-btn,.drips-btn{font-size:12px;padding:7px}
+}
+ /* FaucetPay scanner */
 .fp-panel{background:#1e2838;border:1px solid #2e4a6a;border-radius:8px;padding:16px;margin:16px 0 20px}
 .fp-panel h2{margin:0 0 12px;color:#00b3ff;font-size:18px;text-align:left}
 .fp-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
@@ -86,22 +112,6 @@ button:disabled{opacity:.6;cursor:wait}
 .found-actions .add-to-main{background:#35d05b;color:#102015}
 .found-actions .edit-found{background:#3498db;color:#fff}
 .found-empty{color:#8a99ad;text-align:center;padding:10px;font-size:13px}
-@media(max-width:650px){
- .add-faucet-row-one{grid-template-columns:minmax(0,1fr) 72px}
- .add-faucet-row-one .url-field{grid-column:1/-1}
- .add-faucet-row-two{grid-template-columns:minmax(0,1fr)}
-}
-@media(max-width:520px){
- .faucet-stats{gap:5px}.faucet-stat{padding:9px 4px}
- .faucet-stat-label{font-size:11px}.faucet-stat-value{font-size:22px}
-}
-@media(max-width:450px){
- body{padding:10px}.container{padding:12px}
- .faucet-item{align-items:flex-start;flex-wrap:wrap}
- .faucet-name{flex-wrap:wrap}
- .admin-actions{margin-left:auto}
- .status-btn,.edit-btn,.drips-btn{font-size:12px;padding:7px}
-}
 </style>
 </head>
 <body>
@@ -117,8 +127,8 @@ button:disabled{opacity:.6;cursor:wait}
 </div>
 
 <div id="adminBlock" class="hidden">
-<h1>Управление кранами 2</h1>
-
+<h1>Управление кранами</h1>
+ <!-- FAUCETPAY SCANNER -->
 <div class="fp-panel">
 <h2>FaucetPay — сканер кранов</h2>
 <div class="fp-buttons">
@@ -199,7 +209,6 @@ const INDEX_FILE_PATH = "index.html";
 const DRIPS_FILE_PATH = "drips.json";
 const DRIPS_INDEX_FILE_PATH = "drips.html";
 const BRANCH = "main";
-const SCAN_API = "http://127.0.0.1:8082";
 
 const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
 const INDEX_API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${INDEX_FILE_PATH}`;
@@ -212,9 +221,6 @@ let dripsDisabledFaucets = [];
 let vipFaucets = new Set();
 let fileSha = "";
 let statsLastUpdated = null;
-
-let FOUND_FAUCETS = [];
-let EDITING_FOUND = null;
 
 function githubHeaders(token) {
     return {
@@ -272,8 +278,13 @@ async function loadDripsSettings() {
         ? [...new Set(content.drips_disabled_faucets.map(String))] : [];
 }
 
-function isDripsDisabled(id) { return dripsDisabledFaucets.includes(String(id)); }
-function isVipFaucet(id) { return vipFaucets.has(String(id)); }
+function isDripsDisabled(id) {
+    return dripsDisabledFaucets.includes(String(id));
+}
+
+function isVipFaucet(id) {
+    return vipFaucets.has(String(id));
+}
 
 function decodeBase64UTF8(value) {
     const binary = atob(value.replace(/\s/g, ""));
@@ -301,7 +312,10 @@ function escapeAttribute(value) {
     return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-function getDisabledFaucetEntry(name, id) { return `${name} (faucet${id})`; }
+/* Формат отключённого крана: "Название (faucet23)" */
+function getDisabledFaucetEntry(name, id) {
+    return `${name} (faucet${id})`;
+}
 
 function getDisabledFaucetId(entry) {
     const value = String(entry).trim();
@@ -315,6 +329,10 @@ function getDisabledFaucetName(entry) {
     return value.replace(/\s*\(faucet\d+\)\s*$/i, "").trim();
 }
 
+/*
+ * Старые записи только с названием и записи вида "faucet23"
+ * преобразуются в "Название (faucet23)", когда ID найден в index.html.
+ */
 function normalizeDisabledFaucets() {
     const result = [];
     const seenIds = new Set();
@@ -370,7 +388,10 @@ window.addEventListener("load", function () {
 
 async function login() {
     const token = document.getElementById("tokenInput").value.trim();
-    if (!token) { alert("Введите GitHub Token!"); return; }
+    if (!token) {
+        alert("Введите GitHub Token!");
+        return;
+    }
 
     const loginButton = document.getElementById("loginButton");
     loginButton.disabled = true;
@@ -398,8 +419,10 @@ async function login() {
         fileSha = data.sha;
         globalDisabledFaucets = [...new Set(content.disabled_faucets.map(String))];
 
-        const settings = content.faucet_settings && typeof content.faucet_settings === "object" && !Array.isArray(content.faucet_settings)
-            ? content.faucet_settings : {};
+        const settings = content.faucet_settings &&
+            typeof content.faucet_settings === "object" &&
+            !Array.isArray(content.faucet_settings)
+                ? content.faucet_settings : {};
 
         vipFaucets = new Set(
             Object.entries(settings)
@@ -408,16 +431,13 @@ async function login() {
         );
 
         statsLastUpdated = content.last_updated || null;
-        localStorage.setItem("git_admin_token", token);
+         localStorage.setItem("git_admin_token", token);
         await loadDripsSettings();
 
         document.getElementById("loginBlock").classList.add("hidden");
         document.getElementById("adminBlock").classList.remove("hidden");
 
-        FAUCETS = [];
-        normalizeDisabledFaucets();
-        updateFaucetStats();
-        renderAdminList();
+        await fetchAndParseFaucets();
     } catch (error) {
         console.error("Ошибка входа:", error);
         alert("Не удалось войти в админку.\n\n" + error.message +
@@ -459,14 +479,71 @@ function markStatsUpdated(value = new Date().toISOString()) {
     updateFaucetStats();
 }
 
+async function fetchAndParseFaucets() {
+    const listDiv = document.getElementById("faucetsList");
+    listDiv.innerHTML = '<p class="message" style="color:#ffcc00">Загружаю список кранов с GitHub...</p>';
+
+    try {
+        const token = localStorage.getItem("git_admin_token");
+        if (!token) throw new Error("Токен GitHub не найден. Войдите заново.");
+
+        const response = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
+            headers: githubHeaders(token),
+            cache: "no-store"
+        });
+        const fileData = await response.json().catch(() => ({}));
+
+        if (!response.ok) throw new Error(`GitHub ${response.status}: ${fileData.message || "Не удалось загрузить index.html"}`);
+        if (!fileData.content) throw new Error("GitHub не вернул содержимое index.html.");
+
+        const doc = new DOMParser().parseFromString(decodeBase64UTF8(fileData.content), "text/html");
+        FAUCETS = Array.from(doc.querySelectorAll('tr[id^="faucet"]'))
+            .map(row => {
+                const match = row.id.match(/^faucet(\d+)$/);
+                const link = row.querySelector("a.faucet-link");
+                if (!match || !link) return null;
+
+                const timerMatch = (link.getAttribute("onclick") || "")
+                    .match(/startTimer\s*\(\s*['"]faucet\d+['"]\s*,\s*(\d+(?:\.\d+)?)\s*\)/);
+
+                const minutes = timerMatch ? Number(timerMatch[1]) / 60 : null;
+
+                const name = link.textContent.trim();
+                if (!name) return null;
+
+                const rewardInput = row.querySelector("input.crypto-input");
+                const badge = row.querySelector(".crypto-badge");
+
+                return {
+                    id: match[1],
+                    name,
+                    url: link.getAttribute("href") || "",
+                    reward: rewardInput?.getAttribute("value") ?? rewardInput?.value ?? "",
+                    coin: badge?.textContent.trim().toUpperCase() || "",
+                    minutes
+                };
+            })
+            .filter(Boolean);
+
+        normalizeDisabledFaucets();
+        updateFaucetStats();
+
+        if (!FAUCETS.length) {
+            listDiv.innerHTML = '<p class="message" style="color:#ff6666">Краны не найдены. Проверьте разметку index.html.</p>';
+            return;
+        }
+
+        renderAdminList();
+    } catch (error) {
+        console.error("Ошибка загрузки списка:", error);
+        listDiv.innerHTML = '<p class="message" style="color:#ff6666">Не удалось загрузить список кранов: ' +
+            escapeHTML(error.message) + '</p>';
+    }
+}
+
 function renderAdminList() {
     const listDiv = document.getElementById("faucetsList");
     listDiv.replaceChildren();
-
-    if (!FAUCETS.length) {
-        listDiv.innerHTML = '<p class="message" style="color:#8a99ad">Основной список пуст. Сканируйте краны выше и добавляйте их сюда.</p>';
-        return;
-    }
 
     FAUCETS.forEach(faucet => {
         const { id, name } = faucet;
@@ -488,6 +565,9 @@ function renderAdminList() {
         vipButton.type = "button";
         vipButton.className = "vip-toggle" + (isVip ? " vip-on" : "");
         vipButton.textContent = isVip ? "💎 VIP ✓" : "VIP";
+        vipButton.title = isVip
+            ? "Убрать кран из VIP"
+            : "Добавить кран в VIP";
         vipButton.setAttribute("aria-pressed", String(isVip));
         vipButton.addEventListener("click", () => toggleVipFaucet(id, vipButton));
 
@@ -503,7 +583,7 @@ function renderAdminList() {
         if (!faucet.url) {
             label.addEventListener("click", event => {
                 event.preventDefault();
-                alert("Ссылка на этот кран не найдена.");
+                alert("Ссылка на этот кран не найдена в index.html.");
             });
         }
 
@@ -512,12 +592,14 @@ function renderAdminList() {
         const rewardDisplay = document.createElement("span");
         rewardDisplay.className = "faucet-reward-display";
         rewardDisplay.textContent = faucet.reward && faucet.coin
-            ? `${faucet.reward} ${faucet.coin}` : "—";
+            ? `${faucet.reward} ${faucet.coin}`
+            : "—";
 
         const cooldownDisplay = document.createElement("span");
         cooldownDisplay.className = "faucet-cooldown-display";
         cooldownDisplay.textContent = faucet.minutes !== null && faucet.minutes !== undefined
-            ? `⏱ ${Number(faucet.minutes.toFixed(2))} мин` : "⏱ —";
+            ? `⏱ ${Number(faucet.minutes.toFixed(2))} мин`
+            : "⏱ —";
 
         const actions = document.createElement("div");
         actions.className = "admin-actions";
@@ -539,6 +621,7 @@ function renderAdminList() {
         const dripsOff = isDripsDisabled(id);
         dripsButton.className = "drips-btn" + (dripsOff ? " drips-off" : "");
         dripsButton.textContent = dripsOff ? "Drips ✕" : "Drips ✓";
+        dripsButton.title = dripsOff ? "Отключён в Drips. Нажмите, чтобы включить." : "Разрешён в Drips. Нажмите, чтобы отключить.";
         dripsButton.addEventListener("click", () => toggleDripsFaucet(id, dripsButton));
 
         actions.append(editButton, button, dripsButton);
@@ -559,23 +642,43 @@ async function toggleVipFaucet(id, button) {
         const timestamp = new Date().toISOString();
 
         const updated = await updateJsonFile(FILE_PATH, content => {
-            content.faucet_settings = content.faucet_settings && typeof content.faucet_settings === "object" && !Array.isArray(content.faucet_settings)
-                ? content.faucet_settings : {};
-            const previousSettings = content.faucet_settings[idString] && typeof content.faucet_settings[idString] === "object"
-                ? content.faucet_settings[idString] : {};
-            content.faucet_settings[idString] = { ...previousSettings, vip: nextVip };
+            if (!content || typeof content !== "object" || Array.isArray(content)) {
+                throw new Error("Неверный формат status.json.");
+            }
+
+            content.faucet_settings =
+                content.faucet_settings &&
+                typeof content.faucet_settings === "object" &&
+                !Array.isArray(content.faucet_settings)
+                    ? content.faucet_settings : {};
+
+            const previousSettings = content.faucet_settings[idString] &&
+                typeof content.faucet_settings[idString] === "object"
+                    ? content.faucet_settings[idString] : {};
+
+            content.faucet_settings[idString] = {
+                ...previousSettings,
+                vip: nextVip
+            };
+
             content.last_updated = timestamp;
             return content;
         }, `${nextVip ? "Enable" : "Disable"} VIP for faucet ${idString}`);
 
-        const saved = updated.faucet_settings && updated.faucet_settings[idString];
-        if (saved && saved.vip === true) vipFaucets.add(idString);
-        else vipFaucets.delete(idString);
+        const savedSettings = updated.faucet_settings &&
+            updated.faucet_settings[idString];
+
+        if (savedSettings && savedSettings.vip === true) {
+            vipFaucets.add(idString);
+        } else {
+            vipFaucets.delete(idString);
+        }
 
         markStatsUpdated(timestamp);
         renderAdminList();
     } catch (error) {
-        alert("Не удалось сохранить VIP.\n\n" + error.message);
+        console.error("Ошибка изменения VIP:", error);
+        alert("Не удалось сохранить VIP в status.json.\nСостояние не изменено.\n\n" + error.message);
         renderAdminList();
     }
 }
@@ -588,4 +691,609 @@ function toggleFaucet(name, id) {
 
     if (isDisabled) {
         globalDisabledFaucets = globalDisabledFaucets.filter(entry => {
-            const entry
+            const entryId = getDisabledFaucetId(entry);
+            if (entryId) return entryId !== idString;
+            return getDisabledFaucetName(entry) !== name;
+        });
+    } else {
+        globalDisabledFaucets.push(getDisabledFaucetEntry(name, idString));
+    }
+
+    normalizeDisabledFaucets();
+    renderAdminList();
+    updateFaucetStats();
+}
+
+async function toggleDripsFaucet(id, button) {
+    const idString = String(id);
+    const wasDisabled = isDripsDisabled(idString);
+    const next = wasDisabled
+        ? dripsDisabledFaucets.filter(value => value !== idString)
+        : [...dripsDisabledFaucets, idString];
+
+    button.disabled = true;
+    button.textContent = "…";
+
+    try {
+        const timestamp = new Date().toISOString();
+        const updated = await updateJsonFile(DRIPS_FILE_PATH, content => ({
+            ...content,
+            drips_disabled_faucets: next,
+            last_updated: timestamp
+        }), `${wasDisabled ? "Enable" : "Disable"} faucet ${idString} for Drips`);
+
+        dripsDisabledFaucets = Array.isArray(updated.drips_disabled_faucets)
+            ? [...new Set(updated.drips_disabled_faucets.map(String))] : [];
+
+        renderAdminList();
+        alert(isDripsDisabled(idString)
+            ? `Кран ID ${idString} отключён только для Drips.`
+            : `Кран ID ${idString} снова разрешён для Drips.`);
+    } catch (error) {
+        console.error("Ошибка изменения Drips:", error);
+        alert("Не удалось обновить drips.json. Состояние не изменено.\n\n" + error.message);
+        renderAdminList();
+    }
+}
+
+async function saveChanges() {
+    const token = localStorage.getItem("git_admin_token");
+    if (!token) { alert("Сессия истекла. Войдите заново."); return; }
+
+    const saveButton = document.getElementById("saveButton");
+    saveButton.disabled = true;
+    saveButton.textContent = "Сохранение в оба JSON...";
+
+    try {
+        normalizeDisabledFaucets();
+        const timestamp = new Date().toISOString();
+
+        const updatedStatus = await updateJsonFile(FILE_PATH, content => ({
+            ...content,
+            disabled_faucets: globalDisabledFaucets,
+            last_updated: timestamp
+        }), "Update global faucet statuses");
+
+        await updateJsonFile(DRIPS_FILE_PATH, content => ({
+            ...content,
+            disabled_faucets: globalDisabledFaucets,
+            drips_disabled_faucets: Array.isArray(content.drips_disabled_faucets)
+                ? content.drips_disabled_faucets.map(String) : dripsDisabledFaucets,
+            last_updated: timestamp
+        }), "Sync global faucet statuses for Drips");
+
+        globalDisabledFaucets = Array.isArray(updatedStatus.disabled_faucets)
+            ? updatedStatus.disabled_faucets.map(String) : globalDisabledFaucets;
+
+        markStatsUpdated(timestamp);
+        alert("Общие статусы сохранены в status.json и drips.json.\nОтдельные настройки Drips сохранены без изменений.");
+    } catch (error) {
+        console.error("Ошибка сохранения:", error);
+        alert("Не удалось полностью сохранить изменения. Проверьте оба JSON на GitHub.\n\n" + error.message);
+    } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = "💾 Сохранить изменения на сайт";
+    }
+}
+
+let editingFaucetId = null;
+
+function showEditMessage(message, isError = false) {
+    const el = document.getElementById("editMessage");
+    el.textContent = message;
+    el.style.color = isError ? "#ff7777" : "#2ecc71";
+}
+
+function closeEditFaucet() {
+    document.getElementById("editOverlay").classList.add("hidden");
+    editingFaucetId = null;
+}
+
+document.getElementById("editCancelButton").addEventListener("click", closeEditFaucet);
+document.getElementById("editOverlay").addEventListener("click", function(event) {
+    if (event.target === this) closeEditFaucet();
+});
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeEditFaucet();
+});
+document.getElementById("editFaucetCoin").addEventListener("input", function() {
+    this.value = this.value.toUpperCase();
+});
+
+async function openEditFaucet(id) {
+    const token = localStorage.getItem("git_admin_token");
+    if (!token) {
+        alert("Сессия админки истекла. Войди заново.");
+        return;
+    }
+
+    editingFaucetId = String(id);
+    document.getElementById("editOverlay").classList.remove("hidden");
+    document.getElementById("editIdLabel").textContent = "ID: " + id + " (ID не изменяется)";
+    document.getElementById("editFaucetForm").reset();
+    document.getElementById("editSaveButton").disabled = true;
+    showEditMessage("Загружаю данные крана с GitHub...");
+
+    try {
+        const response = await fetch(`${INDEX_API_URL}?ref=${encodeURIComponent(BRANCH)}`, {
+            headers: githubHeaders(token), cache: "no-store"
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.content) throw new Error(`GitHub ${response.status}: ${data.message || "Не удалось прочитать index.html"}`);
+
+        const doc = new DOMParser().parseFromString(decodeBase64UTF8(data.content), "text/html");
+        const row = doc.getElementById("faucet" + id);
+        if (!row) throw new Error("Строка faucet" + id + " не найдена в index.html.");
+
+        const link = row.querySelector("a.faucet-link");
+        const rewardInput = row.querySelector("input.crypto-input");
+        const badge = row.querySelector(".crypto-badge");
+        if (!link || !rewardInput || !badge) throw new Error("В строке не найдены все необходимые поля.");
+
+        const timerMatch = (link.getAttribute("onclick") || "").match(/startTimer\s*\(\s*['"]faucet\d+['"]\s*,\s*(\d+(?:\.\d+)?)\s*\)/);
+        const seconds = timerMatch ? Number(timerMatch[1]) : 0;
+
+        document.getElementById("editFaucetName").value = link.textContent.trim();
+        document.getElementById("editFaucetUrl").value = link.getAttribute("href") || link.href;
+        document.getElementById("editFaucetReward").value = rewardInput.getAttribute("value") ?? rewardInput.value ?? "";
+        document.getElementById("editFaucetCoin").value = badge.textContent.trim().toUpperCase();
+        document.getElementById("editFaucetTime").value = String(seconds / 60);
+        showEditMessage("Данные загружены. После сохранения изменится только эта строка.");
+    } catch (error) {
+        console.error(error);
+        showEditMessage(error.message || "Не удалось загрузить данные.", true);
+    } finally {
+        document.getElementById("editSaveButton").disabled = false;
+    }
+}
+
+async function updateFaucetInHtmlFile(path, id, name, url, reward, coin, minutes) {
+    const file = await githubGetFile(path);
+    let source = file.content;
+    const doc = new DOMParser().parseFromString(source, "text/html");
+    const row = doc.getElementById("faucet" + id);
+    if (!row) throw new Error(`Строка faucet${id} не найдена в ${path}.`);
+
+    const link = row.querySelector("a.faucet-link");
+    const rewardInput = row.querySelector("input.crypto-input");
+    const badge = row.querySelector(".crypto-badge");
+    if (!link || !rewardInput || !badge) throw new Error(`В ${path} у крана ${id} отсутствуют нужные поля.`);
+
+    link.textContent = name;
+    link.setAttribute("href", url);
+    link.setAttribute("onclick", `startTimer('faucet${id}', ${Math.round(minutes * 60)})`);
+    rewardInput.setAttribute("value", reward);
+    badge.textContent = coin;
+    badge.className = "badge " + coin.toLowerCase() + " crypto-badge";
+    row.setAttribute("data-crypto", coin);
+
+    const rowPattern = new RegExp(`<tr\\b(?=[^>]*\\bid=["']faucet${id}["'])[^>]*>[\\s\\S]*?<\\/tr>`, "i");
+    if (!rowPattern.test(source)) throw new Error(`Не удалось найти HTML-строку крана ${id} в ${path}.`);
+    source = source.replace(rowPattern, row.outerHTML);
+
+    const safeCommentName = name.replace(/--/g, "—").replace(/[<>]/g, "");
+    const commentPattern = new RegExp(`<!--\\s*Faucet\\s+${id}\\s*:[\\s\\S]*?-->\\s*(?=<tr\\b(?=[^>]*\\bid=["']faucet${id}["']))`, "i");
+    source = source.replace(commentPattern, `<!-- Faucet ${id}: ${safeCommentName} -->\n`);
+    await githubPutFile(path, source, file.sha, `Edit faucet ${id}: ${name}`);
+}
+
+async function updateFaucetSettingsJson(path, id, oldName, name, url, reward, coin, minutes, timestamp) {
+    return updateJsonFile(path, content => {
+        content.disabled_faucets = Array.isArray(content.disabled_faucets) ? content.disabled_faucets : [];
+        content.faucet_settings = content.faucet_settings && typeof content.faucet_settings === "object"
+            ? content.faucet_settings : {};
+
+        content.disabled_faucets = content.disabled_faucets.map(entry => {
+            const entryId = getDisabledFaucetId(entry);
+            if (entryId === String(id)) return getDisabledFaucetEntry(name, id);
+            if (!entryId && oldName && getDisabledFaucetName(entry) === oldName) return getDisabledFaucetEntry(name, id);
+            return entry;
+        });
+
+        content.faucet_settings[String(id)] = {
+            ...(content.faucet_settings[String(id)] || {}),
+            name, url, reward, coin, minutes, _updated_at: timestamp
+        };
+        content.last_updated = timestamp;
+        return content;
+    }, `Update faucet settings ${id}: ${name}`);
+}
+
+async function saveEditedFaucet(event) {
+    event.preventDefault();
+    const id = editingFaucetId;
+    const token = localStorage.getItem("git_admin_token");
+
+    if (!id || !token) {
+        showEditMessage("Нет выбранного крана или истекла сессия. Войди заново.", true);
+        return;
+    }
+
+    const name = document.getElementById("editFaucetName").value.trim();
+    const urlText = document.getElementById("editFaucetUrl").value.trim();
+    const reward = document.getElementById("editFaucetReward").value.trim();
+    const coin = document.getElementById("editFaucetCoin").value.trim().toUpperCase();
+    const minutes = Number(document.getElementById("editFaucetTime").value);
+
+    if (!name || !urlText || !reward || !coin || !Number.isFinite(minutes) || minutes < 0) {
+        showEditMessage("Заполни все поля корректно. Таймер должен быть неотрицательным.", true); return;
+    }
+    if (!/^[A-Z0-9._-]+$/.test(coin)) {
+        showEditMessage("В валюте используй латинские буквы, цифры, точку, дефис или подчёркивание.", true); return;
+    }
+
+    let parsedURL;
+    try { parsedURL = new URL(urlText); }
+    catch (_) { showEditMessage("Укажи корректную ссылку.", true); return; }
+
+    if (!["https:", "http:"].includes(parsedURL.protocol)) {
+        showEditMessage("Ссылка должна начинаться с http:// или https://.", true); return;
+    }
+
+    const saveButton = document.getElementById("editSaveButton");
+    saveButton.disabled = true;
+    saveButton.textContent = "Сохраняю обе версии...";
+    showEditMessage("");
+
+    try {
+        const oldFaucet = FAUCETS.find(faucet => String(faucet.id) === String(id));
+        const oldName = oldFaucet?.name || "";
+
+        const mainFile = await githubGetFile(INDEX_FILE_PATH);
+        const mainDoc = new DOMParser().parseFromString(mainFile.content, "text/html");
+        const duplicate = Array.from(mainDoc.querySelectorAll('tr[id^="faucet"] a.faucet-link'))
+            .some(other => other.closest("tr")?.id !== "faucet" + id &&
+                other.textContent.trim().toLowerCase() === name.toLowerCase());
+
+        if (duplicate) throw new Error(`Название «${name}» уже используется другим краном.`);
+
+        await updateFaucetInHtmlFile(INDEX_FILE_PATH, id, name, parsedURL.href, reward, coin, minutes);
+        await updateFaucetInHtmlFile(DRIPS_INDEX_FILE_PATH, id, name, parsedURL.href, reward, coin, minutes);
+
+        const timestamp = new Date().toISOString();
+        await updateFaucetSettingsJson(FILE_PATH, id, oldName, name, parsedURL.href, reward, coin, minutes, timestamp);
+        await updateFaucetSettingsJson(DRIPS_FILE_PATH, id, oldName, name, parsedURL.href, reward, coin, minutes, timestamp);
+
+        if (oldFaucet) Object.assign(oldFaucet, { name, url: parsedURL.href, reward, coin, minutes });
+
+        const statusReload = await githubGetFile(FILE_PATH);
+        const statusContent = JSON.parse(statusReload.content);
+        globalDisabledFaucets = Array.isArray(statusContent.disabled_faucets) ? statusContent.disabled_faucets.map(String) : [];
+
+        const settings = statusContent.faucet_settings &&
+            typeof statusContent.faucet_settings === "object" &&
+            !Array.isArray(statusContent.faucet_settings)
+                ? statusContent.faucet_settings : {};
+
+        vipFaucets = new Set(
+            Object.entries(settings)
+                .filter(([, value]) => value && typeof value === "object" && value.vip === true)
+                .map(([faucetId]) => String(faucetId))
+        );
+
+        normalizeDisabledFaucets();
+        markStatsUpdated(timestamp);
+        renderAdminList();
+        updateFaucetStats();
+
+        showEditMessage(`Готово! Кран ID ${id} обновлён в index.html, drips.html, status.json и drips.json.`);
+        saveButton.textContent = "Сохранено ✓";
+        setTimeout(closeEditFaucet, 900);
+    } catch (error) {
+        console.error("Ошибка сохранения крана:", error);
+        showEditMessage(error.message || "Не удалось сохранить изменения. Проверь обе версии на GitHub.", true);
+    } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = "💾 Сохранить на GitHub";
+    }
+}
+
+document.getElementById("editFaucetForm").addEventListener("submit", saveEditedFaucet);
+
+function setAddFaucetMessage(message, isError = false) {
+    const element = document.getElementById("addFaucetMessage");
+    element.textContent = message;
+    element.style.color = isError ? "#ff7777" : "#2ecc71";
+}
+
+function makeNewFaucetRow(name, num, url, reward, coin, seconds) {
+    const id = "faucet" + num;
+    const safeName = escapeHTML(name);
+    const safeURL = escapeHTML(url);
+    const safeReward = escapeHTML(reward);
+    const safeCoin = escapeHTML(coin);
+    const coinLower = coin.toLowerCase();
+    const commentName = name.replace(/--/g, "—").replace(/[<>]/g, "");
+
+    return `<!-- Faucet ${num}: ${commentName} -->
+<tr id="${id}" data-crypto="${safeCoin}">
+<td><a class="faucet-link" href="${safeURL}" target="_blank" rel="noopener" onclick="startTimer('${id}', ${seconds})">${safeName}</a></td>
+<td style="padding:0 4px;vertical-align:middle;width:1%;white-space:nowrap"><input type="text" inputmode="decimal" class="crypto-input" placeholder="0.00" value="${safeReward}" style="width:55px;height:20px;padding:2px;border:1px dashed #ccc;border-radius:3px;font-size:11px;text-align:center;transition:width .2s" onfocus="this.style.width='110px';this.style.border='1px solid #3498db'" onblur="this.style.width='55px';this.style.border='1px dashed #ccc'"></td>
+<td style="padding:0 4px;vertical-align:middle;width:1%;white-space:nowrap"><span class="badge ${coinLower} crypto-badge" onclick="window.editBadge('${id}', this)">${safeCoin}</span></td>
+<td style="padding:0 8px;vertical-align:middle;min-width:85px;white-space:nowrap"><span class="rub-result" id="rub_res_${id}" style="font-size:13px;font-weight:bold;color:#2ecc71">0.00 ₽</span></td>
+<td><div class="timer-wrapper"><span class="timer-cell ready">Готов</span><button class="btn-reset" onclick="resetTimer('${id}')">✕</button><button class="btn-limit" onclick="toggleLimit('${id}')">⚠️</button></div></td>
+</tr>`;
+}
+
+async function addFaucetRowToHtml(path, name, num, url, reward, coin, seconds) {
+    const file = await githubGetFile(path);
+    let source = file.content;
+    const id = "faucet" + num;
+
+    if (new RegExp(`\\bid=["']${id}["']`, "i").test(source)) {
+        throw new Error(`ID ${id} уже существует в ${path}.`);
+    }
+
+    const doc = new DOMParser().parseFromString(source, "text/html");
+    const duplicate = Array.from(doc.querySelectorAll('tr[id^="faucet"] a.faucet-link'))
+        .some(link => link.textContent.trim().toLowerCase() === name.toLowerCase());
+
+    if (duplicate) throw new Error(`Кран «${name}» уже есть в ${path}.`);
+
+    const tbodyPattern = /(<tbody\b[^>]*class=["'][^"']*\bleft-faucets\b[^"']*["'][^>]*>)([\s\S]*?)(<\/tbody>)/i;
+    const match = source.match(tbodyPattern);
+    if (!match) throw new Error(`Не найден tbody.left-faucets в ${path}.`);
+
+    const rowHTML = makeNewFaucetRow(name, num, url, reward, coin, seconds);
+    source = source.replace(tbodyPattern, () => match[1] + match[2].replace(/\s*$/, "\n") + rowHTML + "\n" + match[3]);
+
+    await githubPutFile(path, source, file.sha, `Add faucet ${num}: ${name}`);
+}
+
+async function addFaucetToIndex() {
+    const token = localStorage.getItem("git_admin_token");
+    if (!token) { setAddFaucetMessage("Сессия админки истекла. Войди заново.", true); return; }
+
+    const name = document.getElementById("newFaucetName").value.trim();
+    const numText = document.getElementById("newFaucetId").value.trim();
+    const urlText = document.getElementById("newFaucetUrl").value.trim();
+    const reward = document.getElementById("newFaucetReward").value.trim();
+    const coin = document.getElementById("newFaucetCoin").value.trim().toUpperCase();
+    const timeText = document.getElementById("newFaucetTime").value.trim();
+
+    if (!name || !numText || !urlText || !reward || !coin || !timeText) {
+        setAddFaucetMessage("Заполни все шесть полей.", true); return;
+    }
+
+    const num = Number(numText);
+    const minutes = Number(timeText);
+
+    if (!Number.isSafeInteger(num) || num < 1) {
+        setAddFaucetMessage("ID должен быть целым положительным числом.", true); return;
+    }
+    if (!Number.isFinite(minutes) || minutes < 0) {
+        setAddFaucetMessage("Укажи корректное время таймера.", true); return;
+    }
+    if (!/^[A-Z0-9._-]+$/.test(coin)) {
+        setAddFaucetMessage("В валюте используй латинские буквы, цифры, точку, дефис или подчёркивание.", true); return;
+    }
+
+    let parsedURL;
+    try { parsedURL = new URL(urlText); }
+    catch (_) { setAddFaucetMessage("Укажи корректную ссылку на кран.", true); return; }
+
+    if (!["https:", "http:"].includes(parsedURL.protocol)) {
+        setAddFaucetMessage("Ссылка должна начинаться с http:// или https://.", true); return;
+    }
+
+    const button = document.getElementById("addFaucetButton");
+    button.disabled = true;
+    button.textContent = "Добавляю в обе версии...";
+    setAddFaucetMessage("");
+
+    try {
+        if (FAUCETS.some(faucet => String(faucet.id) === String(num))) {
+            throw new Error(`ID faucet${num} уже есть в основной базе.`);
+        }
+
+        const seconds = Math.round(minutes * 60);
+
+        await addFaucetRowToHtml(INDEX_FILE_PATH, name, num, parsedURL.href, reward, coin, seconds);
+        await addFaucetRowToHtml(DRIPS_INDEX_FILE_PATH, name, num, parsedURL.href, reward, coin, seconds);
+
+        const timestamp = new Date().toISOString();
+        const updateSettings = content => {
+            content.faucet_settings = content.faucet_settings && typeof content.faucet_settings === "object"
+                ? content.faucet_settings : {};
+
+            content.faucet_settings[String(num)] = {
+                ...(content.faucet_settings[String(num)] || {}),
+                name, url: parsedURL.href, reward, coin, minutes, _updated_at: timestamp
+            };
+            content.last_updated = timestamp;
+            return content;
+        };
+
+        await updateJsonFile(FILE_PATH, updateSettings, `Add faucet settings ${num}: ${name}`);
+        await updateJsonFile(DRIPS_FILE_PATH, updateSettings, `Add faucet settings ${num}: ${name}`);
+
+        FAUCETS.push({ id: String(num), name, url: parsedURL.href, reward, coin, minutes });
+        normalizeDisabledFaucets();
+        markStatsUpdated(timestamp);
+        renderAdminList();
+        updateFaucetStats();
+
+        setAddFaucetMessage(`Готово! «${name}» (ID ${num}) добавлен в index.html, drips.html, status.json и drips.json.\nОбнови обе страницы после публикации GitHub Pages.`);
+
+        ["newFaucetName", "newFaucetUrl", "newFaucetReward", "newFaucetCoin", "newFaucetTime"]
+            .forEach(id => document.getElementById(id).value = "");
+
+        document.getElementById("newFaucetId").value = String(num + 1);
+    } catch (error) {
+        console.error("Ошибка добавления крана:", error);
+        setAddFaucetMessage((error.message || "Неизвестная ошибка.") + "\nПроверь обе версии и оба JSON: при сетевой ошибке предыдущие шаги могли сохраниться.", true);
+    } finally {
+        button.disabled = false;
+        button.textContent = "➕ Добавить кран в обе версии";
+    }
+}
+
+document.getElementById("newFaucetCoin").addEventListener("input", function() {
+    this.value = this.value.toUpperCase();
+});
+document.getElementById("addFaucetButton").addEventListener("click", addFaucetToIndex);
+
+ // =========================================================
+// FAUCETPAY SCANNER (admin2)
+// =========================================================
+const SCAN_API = "http://127.0.0.1:8082";
+let FOUND_FAUCETS = [];
+let EDITING_FOUND_INDEX = -1;
+
+function fpSetStatus(text, color) {
+    const el = document.getElementById("fpStatus");
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = color || "#aab4c2";
+}
+
+document.getElementById("fpLoginButton")?.addEventListener("click", () => {
+    fpSetStatus("Открываю FaucetPay в новой вкладке...", "#00b3ff");
+    fetch(SCAN_API + "/faucetpay-login")
+        .catch(() => {});
+});
+
+document.getElementById("fpScanButton")?.addEventListener("click", scanFaucetPay);
+
+async function scanFaucetPay() {
+    const btn = document.getElementById("fpScanButton");
+    if (!btn) return;
+
+    btn.disabled = true;
+    fpSetStatus("Сканирую 22 валюты... Это может занять 2–5 минут.", "#ffcc00");
+
+    try {
+        const response = await fetch(SCAN_API + "/faucetpay-faucets", { cache: "no-store" });
+        const data = await response.json().catch(() => ({}));
+
+        if (!data || data.ok !== true) {
+            if (data && data.error === "login_required") {
+                fpSetStatus("Ошибка парсинга — нужен логин FaucetPay. Нажмите «Войти в FaucetPay», залогиньтесь, закройте вкладку, обновите F5 и повторите.", "#ff7777");
+            } else {
+                fpSetStatus("Ошибка: " + (data && data.error || "неизвестная"), "#ff7777");
+            }
+            return;
+        }
+
+        FOUND_FAUCETS = Array.isArray(data.faucets) ? data.faucets : [];
+        fpSetStatus("Найдено уникальных кранов: " + FOUND_FAUCETS.length, "#35d05b");
+        renderFound();
+    } catch (e) {
+        fpSetStatus("Не удалось связаться с программой. Запущен ли Admin.exe? (" + e.message + ")", "#ff7777");
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+function renderFound() {
+    const panel = document.getElementById("foundPanel");
+    const list = document.getElementById("foundList");
+    const count = document.getElementById("foundCount");
+    if (!panel || !list || !count) return;
+
+    panel.classList.remove("hidden");
+    count.textContent = String(FOUND_FAUCETS.length);
+    list.replaceChildren();
+
+    if (!FOUND_FAUCETS.length) {
+        list.innerHTML = '<p class="found-empty">Список пуст.</p>';
+        return;
+    }
+
+    FOUND_FAUCETS.forEach((f, index) => {
+        const item = document.createElement("div");
+        item.className = "found-item";
+
+        const name = document.createElement("span");
+        name.className = "found-name";
+        name.textContent = f.name || f.domain || "—";
+
+        const coin = document.createElement("span");
+        coin.className = "found-coin";
+        coin.textContent = (f.coin || "").toUpperCase();
+
+        const actions = document.createElement("div");
+        actions.className = "found-actions";
+
+        const editBtn = document.createElement("button");
+        editBtn.type = "button";
+        editBtn.className = "edit-found";
+        editBtn.textContent = "✏️ Редактировать";
+        editBtn.addEventListener("click", () => openEditFound(index));
+
+        actions.appendChild(editBtn);
+        item.append(name, coin, actions);
+        list.appendChild(item);
+    });
+}
+
+document.getElementById("compareBtn")?.addEventListener("click", () => {
+    if (!FOUND_FAUCETS.length) return;
+
+    const known = new Set(
+        FAUCETS.map(f => {
+            try { return new URL(f.url).host.toLowerCase(); }
+            catch { return ""; }
+        }).filter(Boolean)
+    );
+
+    const before = FOUND_FAUCETS.length;
+    FOUND_FAUCETS = FOUND_FAUCETS.filter(f => !known.has(String(f.domain || "").toLowerCase()));
+
+    fpSetStatus("Сравнение: было " + before + ", осталось новых " + FOUND_FAUCETS.length, "#35d05b");
+    renderFound();
+});
+
+function openEditFound(index) {
+    const f = FOUND_FAUCETS[index];
+    if (!f) return;
+
+    EDITING_FOUND_INDEX = index;
+
+    const suggestedName = f.name || "";
+    const suggestedUrl = f.domain ? ("https://" + f.domain) : "";
+    const suggestedCoin = (f.coin || "").toUpperCase();
+
+    const name = prompt("Название крана:", suggestedName);
+    if (name === null) return;
+    const url = prompt("Ссылка на кран:", suggestedUrl);
+    if (url === null) return;
+    const coin = prompt("Валюта (BTC, LTC, DOGE...):", suggestedCoin);
+    if (coin === null) return;
+    const reward = prompt("Награда (крипта, например 0.0000008):", "0.00000001");
+    if (reward === null) return;
+    const minutes = prompt("Кулдаун (минуты):", "5");
+    if (minutes === null) return;
+
+    const newFaucet = {
+        name: String(name).trim(),
+        url: String(url).trim(),
+        coin: String(coin).trim().toUpperCase(),
+        reward: String(reward).trim(),
+        minutes: Number(minutes)
+    };
+
+    if (!newFaucet.name || !newFaucet.url || !newFaucet.coin || !Number.isFinite(newFaucet.minutes)) {
+        alert("Заполните все поля корректно.");
+        return;
+    }
+
+    FAUCETS.push({
+        id: String(FAUCETS.length + 1),
+        name: newFaucet.name,
+        url: newFaucet.url,
+        coin: newFaucet.coin,
+        reward: newFaucet.reward,
+        minutes: newFaucet.minutes
+    });
+
+    FOUND_FAUCETS.splice(index, 1);
+
+    renderAdminList();
+    updateFaucetStats();
+    renderFound();
+    fpSetStatus("Кран «" + newFaucet.name + "» добавлен в основной список (в памяти). Не забудьте «Сохранить изменения на сайт».", "#35d05b");
+}
+</script>
+</body>
+</html>
