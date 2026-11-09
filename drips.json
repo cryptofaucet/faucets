@@ -152,8 +152,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:21:08.939Z"
+    },
+    "22": {
+      "name": "Cryptodon Faucet Rewards",
+      "url": "https://cryptodon.exchange",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:21:17.746Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:21:08.939Z"
+  "last_updated": "2026-11-09T17:21:17.746Z"
 }
