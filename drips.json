@@ -272,8 +272,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:23:18.622Z"
+    },
+    "37": {
+      "name": "Prairie Hash",
+      "url": "https://prairiehash.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:23:27.124Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:23:18.622Z"
+  "last_updated": "2026-11-09T17:23:27.124Z"
 }
