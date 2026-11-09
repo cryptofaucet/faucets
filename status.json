@@ -512,7 +512,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:27:41.266Z"
+    },
+    "67": {
+      "name": "TakeLtc",
+      "url": "https://takeltc.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:27:50.001Z"
     }
   },
-  "last_updated": "2026-11-09T17:27:41.266Z"
+  "last_updated": "2026-11-09T17:27:50.001Z"
 }
