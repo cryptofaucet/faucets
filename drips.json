@@ -456,8 +456,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:26:39.512Z"
+    },
+    "60": {
+      "name": "LTCfaucet",
+      "url": "https://ltcfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:26:48.527Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:26:39.512Z"
+  "last_updated": "2026-11-09T17:26:48.527Z"
 }
