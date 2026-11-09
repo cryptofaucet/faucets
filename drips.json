@@ -291,11 +291,11 @@
     },
     "37": {
       "name": "Prairie Hash",
-      "url": "https://prairiehash.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:23:27.124Z"
+      "url": "https://prairiehash.com/",
+      "reward": "0.0005967",
+      "coin": "DOGE",
+      "minutes": 5,
+      "_updated_at": "2026-11-09T22:37:08.581Z"
     },
     "38": {
       "name": "Earnfree",
@@ -1013,5 +1013,5 @@
     "35",
     "36"
   ],
-  "last_updated": "2026-11-09T22:29:38.097Z"
+  "last_updated": "2026-11-09T22:37:08.581Z"
 }
