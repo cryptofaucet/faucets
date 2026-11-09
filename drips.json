@@ -66,11 +66,11 @@
     },
     "9": {
       "name": "ClaudeFaucet",
-      "url": "https://claudefaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:11:32.718Z"
+      "url": "https://claudefaucet.site/",
+      "reward": "0.00000002",
+      "coin": "BTC",
+      "minutes": 60,
+      "_updated_at": "2026-11-09T20:21:35.602Z"
     },
     "10": {
       "name": "Bit Faucet",
@@ -970,5 +970,5 @@
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T20:15:22.041Z"
+  "last_updated": "2026-11-09T20:21:35.602Z"
 }
