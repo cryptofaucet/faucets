@@ -496,7 +496,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:27:23.359Z"
+    },
+    "65": {
+      "name": "pkfaucet Instant withdrawal site",
+      "url": "https://pkfaucet.top",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:27:32.731Z"
     }
   },
-  "last_updated": "2026-11-09T17:27:23.359Z"
+  "last_updated": "2026-11-09T17:27:32.731Z"
 }
