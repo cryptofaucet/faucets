@@ -405,11 +405,11 @@
     },
     "51": {
       "name": "Pythagore-DOGE",
-      "url": "https://pythagore-doge.website",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:25:29.659Z"
+      "url": "https://pythagore-doge.website/",
+      "reward": "0.00048345",
+      "coin": "DOGE",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T23:26:11.259Z"
     },
     "52": {
       "name": "Watchearn Faucet",
@@ -1028,5 +1028,5 @@
     "49",
     "50"
   ],
-  "last_updated": "2026-11-09T23:24:40.415Z"
+  "last_updated": "2026-11-09T23:26:11.259Z"
 }
