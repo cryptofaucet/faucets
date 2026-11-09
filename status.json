@@ -368,7 +368,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:25:03.279Z"
+    },
+    "49": {
+      "name": "freedogecoin.online",
+      "url": "https://freedogecoin.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:25:12.322Z"
     }
   },
-  "last_updated": "2026-11-09T17:25:03.279Z"
+  "last_updated": "2026-11-09T17:25:12.322Z"
 }
