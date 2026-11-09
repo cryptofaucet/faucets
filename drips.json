@@ -776,8 +776,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:32:41.861Z"
+    },
+    "100": {
+      "name": "StarFaucet - FREE USDT",
+      "url": "https://starfaucet.win",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:32:50.377Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:32:41.861Z"
+  "last_updated": "2026-11-09T17:32:50.377Z"
 }
