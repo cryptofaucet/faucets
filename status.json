@@ -752,7 +752,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:32:13.491Z"
+    },
+    "97": {
+      "name": "USDT Games",
+      "url": "https://usdtgames.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:32:22.928Z"
     }
   },
-  "last_updated": "2026-11-09T17:32:13.491Z"
+  "last_updated": "2026-11-09T17:32:22.928Z"
 }
