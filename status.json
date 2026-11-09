@@ -243,11 +243,11 @@
     },
     "31": {
       "name": "PepeRush",
-      "url": "https://peperush.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:22:35.170Z"
+      "url": "https://peperush.site/",
+      "reward": "10",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T22:23:24.825Z"
     },
     "32": {
       "name": "Gems Faucet",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T22:21:32.823Z"
+  "last_updated": "2026-11-09T22:23:24.825Z"
 }
