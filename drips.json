@@ -267,11 +267,11 @@
     },
     "34": {
       "name": "Faucetpay space",
-      "url": "https://fpay.space",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:23:01.337Z"
+      "url": "https://fpay.space/",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-09T22:27:07.828Z"
     },
     "35": {
       "name": "DM Crypto",
@@ -1010,5 +1010,5 @@
     "32",
     "33"
   ],
-  "last_updated": "2026-11-09T22:26:13.675Z"
+  "last_updated": "2026-11-09T22:27:07.828Z"
 }
