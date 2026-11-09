@@ -400,8 +400,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:25:38.313Z"
+    },
+    "53": {
+      "name": "Bitcoplay - Earn Online",
+      "url": "https://bitcoplay.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:25:47.074Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:25:38.313Z"
+  "last_updated": "2026-11-09T17:25:47.074Z"
 }
