@@ -344,8 +344,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:24:37.560Z"
+    },
+    "46": {
+      "name": "Mycryptocoin",
+      "url": "https://mycryptocoin.click",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:24:45.339Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:24:37.560Z"
+  "last_updated": "2026-11-09T17:24:45.339Z"
 }
