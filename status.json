@@ -744,7 +744,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:32:04.728Z"
+    },
+    "96": {
+      "name": "Fun Faucet",
+      "url": "https://funfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:32:13.491Z"
     }
   },
-  "last_updated": "2026-11-09T17:32:04.728Z"
+  "last_updated": "2026-11-09T17:32:13.491Z"
 }
