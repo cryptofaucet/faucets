@@ -224,8 +224,16 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:22:26.597Z"
+    },
+    "31": {
+      "name": "PepeRush",
+      "url": "https://peperush.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:22:35.170Z"
     }
   },
   "drips_disabled_faucets": [],
-  "last_updated": "2026-11-09T17:22:26.597Z"
+  "last_updated": "2026-11-09T17:22:35.170Z"
 }
