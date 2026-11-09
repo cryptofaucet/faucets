@@ -18,7 +18,7 @@
     "24FaucetPay (faucet122)",
     "claim the faucet (faucet128)"
   ],
-  "last_updated": "2026-11-08T01:58:34.718Z",
+  "last_updated": "2026-11-09T06:11:22.936Z",
   "faucet_settings": {
     "1": {
       "name": "FaucetFun",
@@ -39,10 +39,10 @@
     "3": {
       "name": "Adptc",
       "url": "https://adptc.site/?r=37etxqdx",
-      "reward": "0.000002",
+      "reward": "0.000005",
       "coin": "LTC",
-      "minutes": 1,
-      "_updated_at": "2026-10-29T17:30:06.335Z"
+      "minutes": 3,
+      "_updated_at": "2026-11-09T06:11:22.936Z"
     },
     "4": {
       "name": "Pourri",
