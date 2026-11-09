@@ -171,11 +171,11 @@
     },
     "22": {
       "name": "Cryptodon Faucet Rewards",
-      "url": "https://cryptodon.exchange",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:21:17.746Z"
+      "url": "https://cryptodon.exchange/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-11-09T20:48:18.505Z"
     },
     "23": {
       "name": "DragonClaims",
@@ -979,5 +979,5 @@
       "_updated_at": "2026-11-09T17:36:14.476Z"
     }
   },
-  "last_updated": "2026-11-09T20:42:35.094Z"
+  "last_updated": "2026-11-09T20:48:18.505Z"
 }
