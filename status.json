@@ -280,7 +280,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-09T17:23:27.124Z"
+    },
+    "38": {
+      "name": "Earnfree",
+      "url": "https://earnfree.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-09T17:23:35.593Z"
     }
   },
-  "last_updated": "2026-11-09T17:23:27.124Z"
+  "last_updated": "2026-11-09T17:23:35.593Z"
 }
