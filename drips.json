@@ -603,11 +603,11 @@
     },
     "76": {
       "name": "Fpclicker.com",
-      "url": "https://fpclicker.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:29:10.802Z"
+      "url": "https://fpclicker.com/",
+      "reward": "0.02813",
+      "coin": "TRX",
+      "minutes": 10,
+      "_updated_at": "2026-11-09T22:47:51.103Z"
     },
     "77": {
       "name": "Tron.riches",
@@ -1016,5 +1016,5 @@
     "38",
     "40"
   ],
-  "last_updated": "2026-11-09T22:41:28.592Z"
+  "last_updated": "2026-11-09T22:47:51.103Z"
 }
