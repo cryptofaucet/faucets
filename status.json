@@ -916,11 +916,11 @@
     },
     "113": {
       "name": "Free BNB Pick",
-      "url": "https://freebnbpick.vip",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:34:49.282Z"
+      "url": "https://freebnbpick.vip/",
+      "reward": "0.00000075",
+      "coin": "BNB",
+      "minutes": 60,
+      "_updated_at": "2026-11-10T17:50:41.519Z"
     },
     "114": {
       "name": "CryptoMania",
@@ -1036,5 +1036,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:49:54.990Z"
+  "last_updated": "2026-11-10T17:50:41.519Z"
 }
