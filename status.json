@@ -495,11 +495,11 @@
     },
     "62": {
       "name": "Vipfaucet",
-      "url": "https://vipfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:27:05.515Z"
+      "url": "https://vipfaucet.site/",
+      "reward": "0.000006",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T00:12:28.911Z"
     },
     "63": {
       "name": "Cro Faucet",
@@ -991,5 +991,5 @@
       "_updated_at": "2026-11-10T00:07:08.336Z"
     }
   },
-  "last_updated": "2026-11-10T00:10:26.072Z"
+  "last_updated": "2026-11-10T00:12:28.911Z"
 }
