@@ -976,11 +976,11 @@
     },
     "122": {
       "name": "Snow Faucet",
-      "url": "https://snowfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:36:14.476Z"
+      "url": "https://snowfaucet.site/",
+      "reward": "1",
+      "coin": "PEPE",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T00:08:08.533Z"
     },
     "123": {
       "name": "Ganhe litecoin Gratis",
@@ -991,5 +991,5 @@
       "_updated_at": "2026-11-10T00:07:08.336Z"
     }
   },
-  "last_updated": "2026-11-10T00:07:08.336Z"
+  "last_updated": "2026-11-10T00:08:08.533Z"
 }
