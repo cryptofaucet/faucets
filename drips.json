@@ -1009,6 +1009,14 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-10T08:20:17.358Z"
+    },
+    "126": {
+      "name": "Bountro PEPE Faucet",
+      "url": "https://trxfaucet.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-10T08:20:26.905Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1082,5 +1090,5 @@
     "71",
     "72"
   ],
-  "last_updated": "2026-11-10T08:20:17.358Z"
+  "last_updated": "2026-11-10T08:20:26.905Z"
 }
