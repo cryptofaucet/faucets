@@ -670,11 +670,11 @@
     },
     "83": {
       "name": "BitFaucet",
-      "url": "https://bitfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:30:15.170Z"
+      "url": "https://bitfaucet.site/",
+      "reward": "0.002",
+      "coin": "TRX",
+      "minutes": 60,
+      "_updated_at": "2026-11-10T16:47:24.262Z"
     },
     "84": {
       "name": "tronstorm",
@@ -1111,5 +1111,5 @@
     "81",
     "82"
   ],
-  "last_updated": "2026-11-10T16:46:44.334Z"
+  "last_updated": "2026-11-10T16:47:24.262Z"
 }
