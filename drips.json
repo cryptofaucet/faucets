@@ -1005,11 +1005,11 @@
     },
     "125": {
       "name": "Web World FAUCETs",
-      "url": "https://webworldfaucets.vip",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-10T08:20:17.358Z"
+      "url": "https://webworldfaucets.vip/",
+      "reward": "0.00000100",
+      "coin": "DOGE",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T08:23:43.124Z"
     },
     "126": {
       "name": "Bountro PEPE Faucet",
@@ -1092,5 +1092,5 @@
     "72",
     "124"
   ],
-  "last_updated": "2026-11-10T08:22:03.514Z"
+  "last_updated": "2026-11-10T08:23:43.124Z"
 }
