@@ -721,11 +721,11 @@
     },
     "89": {
       "name": "HichamFaucet",
-      "url": "https://hichamfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:31:10.754Z"
+      "url": "https://hichamfaucet.site/",
+      "reward": "0.0005",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:04:42.506Z"
     },
     "90": {
       "name": "Easy Faucet",
@@ -1033,5 +1033,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T17:01:22.460Z"
+  "last_updated": "2026-11-10T17:04:42.506Z"
 }
