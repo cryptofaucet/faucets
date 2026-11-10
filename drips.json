@@ -728,11 +728,11 @@
     },
     "90": {
       "name": "Easy Faucet",
-      "url": "https://easyfaucet.io",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:31:19.463Z"
+      "url": "https://easyfaucet.io/",
+      "reward": "0.00005000",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:07:19.536Z"
     },
     "91": {
       "name": "CryptoGravyUSDT",
@@ -1119,5 +1119,5 @@
     "86",
     "89"
   ],
-  "last_updated": "2026-11-10T17:05:09.489Z"
+  "last_updated": "2026-11-10T17:07:19.536Z"
 }
