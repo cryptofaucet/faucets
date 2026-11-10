@@ -664,11 +664,11 @@
     },
     "82": {
       "name": "cryptotimes.site",
-      "url": "https://cryptotimes.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:30:05.315Z"
+      "url": "https://cryptotimes.site/",
+      "reward": "0.001",
+      "coin": "TRX",
+      "minutes": 60,
+      "_updated_at": "2026-11-10T16:45:55.740Z"
     },
     "83": {
       "name": "BitFaucet",
@@ -1032,5 +1032,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T16:44:09.673Z"
+  "last_updated": "2026-11-10T16:45:55.740Z"
 }
