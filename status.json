@@ -819,11 +819,11 @@
     },
     "101": {
       "name": "FaaSet",
-      "url": "https://faaset.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:32:59.343Z"
+      "url": "https://faaset.com/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T17:30:51.759Z"
     },
     "102": {
       "name": "Faucet.Claimx.Online",
@@ -1035,5 +1035,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:30:01.973Z"
+  "last_updated": "2026-11-10T17:30:51.759Z"
 }
