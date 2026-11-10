@@ -827,11 +827,11 @@
     },
     "102": {
       "name": "Faucet.Claimx.Online",
-      "url": "https://faucet.claimx.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:33:07.894Z"
+      "url": "https://faucet.claimx.online/",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:31:47.941Z"
     },
     "103": {
       "name": "crypto faucet",
@@ -1035,5 +1035,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:30:51.759Z"
+  "last_updated": "2026-11-10T17:31:47.941Z"
 }
