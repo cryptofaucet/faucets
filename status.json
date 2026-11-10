@@ -1029,8 +1029,8 @@
       "coin": "BTC",
       "minutes": 7,
       "_updated_at": "2026-11-10T09:15:36.622Z",
-      "vip": true
+      "vip": false
     }
   },
-  "last_updated": "2026-11-10T09:15:36.622Z"
+  "last_updated": "2026-11-10T09:48:01.311Z"
 }
