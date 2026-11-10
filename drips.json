@@ -906,11 +906,11 @@
     },
     "112": {
       "name": "666faucet",
-      "url": "https://666faucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:34:40.233Z"
+      "url": "https://666faucet.site/",
+      "reward": "0.00000007",
+      "coin": "ZEC",
+      "minutes": 30,
+      "_updated_at": "2026-11-10T17:49:54.990Z"
     },
     "113": {
       "name": "Free BNB Pick",
@@ -1142,5 +1142,5 @@
     "110",
     "111"
   ],
-  "last_updated": "2026-11-10T17:49:11.617Z"
+  "last_updated": "2026-11-10T17:49:54.990Z"
 }
