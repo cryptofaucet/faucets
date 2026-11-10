@@ -969,11 +969,11 @@
     },
     "120": {
       "name": "PepeDrop",
-      "url": "https://pepedrop.space",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:35:56.018Z"
+      "url": "https://pepedrop.space/",
+      "reward": "16",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:39:40.118Z"
     },
     "121": {
       "name": "Pythagore-PEPE",
@@ -1135,5 +1135,5 @@
     "106",
     "107"
   ],
-  "last_updated": "2026-11-10T17:38:47.472Z"
+  "last_updated": "2026-11-10T17:39:40.118Z"
 }
