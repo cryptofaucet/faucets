@@ -961,11 +961,11 @@
     },
     "118": {
       "name": "Freeusdt",
-      "url": "https://freeusdt.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:35:37.027Z"
+      "url": "https://freeusdt.site/",
+      "reward": "0.00001000",
+      "coin": "USDC",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:59:06.019Z"
     },
     "119": {
       "name": "FinalRound1903",
@@ -1041,5 +1041,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:57:45.683Z"
+  "last_updated": "2026-11-10T17:59:06.019Z"
 }
