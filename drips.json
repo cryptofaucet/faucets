@@ -982,11 +982,11 @@
     },
     "123": {
       "name": "Ganhe litecoin Gratis",
-      "url": "https://ganharlitecoin.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T23:49:28.841Z"
+      "url": "https://ganharlitecoin.site/",
+      "reward": "0.00000100",
+      "coin": "LTC",
+      "minutes": 15,
+      "_updated_at": "2026-11-10T00:07:08.336Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1046,5 +1046,5 @@
     "60",
     "61"
   ],
-  "last_updated": "2026-11-09T23:49:28.841Z"
+  "last_updated": "2026-11-10T00:07:08.336Z"
 }
