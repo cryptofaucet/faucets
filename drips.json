@@ -785,11 +785,11 @@
     },
     "97": {
       "name": "USDT Games",
-      "url": "https://usdtgames.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:32:22.928Z"
+      "url": "https://usdtgames.site/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 60,
+      "_updated_at": "2026-11-10T17:26:37.316Z"
     },
     "98": {
       "name": "CornEarn",
@@ -1126,5 +1126,5 @@
     "95",
     "96"
   ],
-  "last_updated": "2026-11-10T17:25:20.992Z"
+  "last_updated": "2026-11-10T17:26:37.316Z"
 }
