@@ -843,11 +843,11 @@
     },
     "104": {
       "name": "Pythagore-USDT",
-      "url": "https://pythagore.website",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:33:26.196Z"
+      "url": "https://pythagore.website/",
+      "reward": "0.00005",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:34:44.602Z"
     },
     "105": {
       "name": "mfaucet.top",
@@ -1035,5 +1035,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:32:41.191Z"
+  "last_updated": "2026-11-10T17:34:44.602Z"
 }
