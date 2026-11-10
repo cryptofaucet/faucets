@@ -947,11 +947,11 @@
     },
     "117": {
       "name": "Dripdrop",
-      "url": "https://dripdrop.lol",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:35:27.572Z"
+      "url": "https://dripdrop.lol/",
+      "reward": "0.0001",
+      "coin": "TON",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T17:57:45.683Z"
     },
     "118": {
       "name": "Freeusdt",
@@ -1148,5 +1148,5 @@
     "115",
     "116"
   ],
-  "last_updated": "2026-11-10T17:57:15.011Z"
+  "last_updated": "2026-11-10T17:57:45.683Z"
 }
