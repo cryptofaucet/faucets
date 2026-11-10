@@ -15,7 +15,8 @@
     "liteClaim (faucet70)",
     "FreeLTC5m (faucet71)",
     "extraClaims (faucet72)",
-    "extraFaucets (faucet73)"
+    "extraFaucets (faucet73)",
+    "BTC Rat - 1 Sat. every 5 mins (faucet124)"
   ],
   "faucet_settings": {
     "2": {
@@ -1091,5 +1092,5 @@
     "72",
     "124"
   ],
-  "last_updated": "2026-11-10T08:21:55.829Z"
+  "last_updated": "2026-11-10T08:22:03.514Z"
 }
