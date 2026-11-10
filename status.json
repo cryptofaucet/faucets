@@ -545,11 +545,11 @@
     },
     "68": {
       "name": "Brazas Earn",
-      "url": "https://bbux.net",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:27:58.797Z"
+      "url": "https://bbux.net/",
+      "reward": "0.00000100",
+      "coin": "LTC",
+      "minutes": 60,
+      "_updated_at": "2026-11-10T00:18:29.290Z"
     },
     "69": {
       "name": "CRYPTOFAUCET",
@@ -993,5 +993,5 @@
       "_updated_at": "2026-11-10T00:07:08.336Z"
     }
   },
-  "last_updated": "2026-11-10T00:16:29.902Z"
+  "last_updated": "2026-11-10T00:18:29.290Z"
 }
