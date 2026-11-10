@@ -859,11 +859,11 @@
     },
     "106": {
       "name": "faucetguy - Ultimate faucet",
-      "url": "https://faucetguy.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:33:44.650Z"
+      "url": "https://faucetguy.site/",
+      "reward": "0.00001000",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:37:42.006Z"
     },
     "107": {
       "name": "Play Games and earn",
@@ -1035,5 +1035,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:36:44.277Z"
+  "last_updated": "2026-11-10T17:37:42.006Z"
 }
