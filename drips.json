@@ -993,6 +993,14 @@
       "coin": "LTC",
       "minutes": 15,
       "_updated_at": "2026-11-10T00:07:08.336Z"
+    },
+    "124": {
+      "name": "BTC Rat - 1 Sat. every 5 mins",
+      "url": "https://btcrat.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-10T08:20:08.186Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1066,5 +1074,5 @@
     "71",
     "72"
   ],
-  "last_updated": "2026-11-10T00:23:49.547Z"
+  "last_updated": "2026-11-10T08:20:08.186Z"
 }
