@@ -1020,7 +1020,15 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-10T08:20:26.905Z"
+    },
+    "127": {
+      "name": "aBitcoin.love",
+      "url": "https://abitcoin.love/",
+      "reward": "0.00000001",
+      "coin": "BTC",
+      "minutes": 6,
+      "_updated_at": "2026-11-10T08:33:07.735Z"
     }
   },
-  "last_updated": "2026-11-10T08:23:43.124Z"
+  "last_updated": "2026-11-10T08:33:07.735Z"
 }
