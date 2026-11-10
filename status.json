@@ -734,7 +734,7 @@
       "reward": "0.00005000",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:06:40.095Z"
+      "_updated_at": "2026-11-10T17:07:19.536Z"
     },
     "91": {
       "name": "CryptoGravyUSDT",
@@ -1034,5 +1034,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T17:06:40.095Z"
+  "last_updated": "2026-11-10T17:07:19.536Z"
 }
