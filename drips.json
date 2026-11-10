@@ -19,7 +19,8 @@
     "BLOCKXS Faucet (faucet26)",
     "FaucetFun (faucet1)",
     "tronstorm (faucet84)",
-    "HichamFaucet (faucet89)"
+    "HichamFaucet (faucet89)",
+    "DGBEARN (faucet92)"
   ],
   "faucet_settings": {
     "2": {
@@ -1122,5 +1123,5 @@
     "91",
     "92"
   ],
-  "last_updated": "2026-11-10T17:12:45.199Z"
+  "last_updated": "2026-11-10T17:12:53.714Z"
 }
