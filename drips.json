@@ -1025,8 +1025,8 @@
       "url": "https://abitcoin.love/",
       "reward": "0.00000001",
       "coin": "BTC",
-      "minutes": 6,
-      "_updated_at": "2026-11-10T08:33:07.735Z"
+      "minutes": 7,
+      "_updated_at": "2026-11-10T09:15:36.622Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1102,5 +1102,5 @@
     "124",
     "127"
   ],
-  "last_updated": "2026-11-10T09:13:40.418Z"
+  "last_updated": "2026-11-10T09:15:36.622Z"
 }
