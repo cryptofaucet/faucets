@@ -736,11 +736,11 @@
     },
     "91": {
       "name": "CryptoGravyUSDT",
-      "url": "https://cryptogravyusdt.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:31:27.991Z"
+      "url": "https://cryptogravyusdt.site/",
+      "reward": "0.000101",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:10:58.002Z"
     },
     "92": {
       "name": "DGBEARN",
@@ -1120,5 +1120,5 @@
     "89",
     "90"
   ],
-  "last_updated": "2026-11-10T17:10:22.728Z"
+  "last_updated": "2026-11-10T17:10:58.002Z"
 }
