@@ -640,11 +640,11 @@
     },
     "79": {
       "name": "Crypto Fun",
-      "url": "https://cryptofun.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:29:38.763Z"
+      "url": "https://cryptofun.site/",
+      "reward": "0.0005",
+      "coin": "TRX",
+      "minutes": 60,
+      "_updated_at": "2026-11-10T16:42:07.612Z"
     },
     "80": {
       "name": "CryptoGravyTron",
@@ -1032,5 +1032,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T16:40:43.885Z"
+  "last_updated": "2026-11-10T16:42:07.612Z"
 }
