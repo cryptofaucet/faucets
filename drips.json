@@ -17,7 +17,8 @@
     "extraClaims (faucet72)",
     "extraFaucets (faucet73)",
     "BTC Rat - 1 Sat. every 5 mins (faucet124)",
-    "BLOCKXS Faucet (faucet26)"
+    "BLOCKXS Faucet (faucet26)",
+    "FaucetFun (faucet1)"
   ],
   "faucet_settings": {
     "2": {
@@ -1102,5 +1103,5 @@
     "124",
     "127"
   ],
-  "last_updated": "2026-11-10T09:15:36.622Z"
+  "last_updated": "2026-11-10T15:11:41.107Z"
 }
