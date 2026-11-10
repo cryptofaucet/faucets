@@ -648,11 +648,11 @@
     },
     "80": {
       "name": "CryptoGravyTron",
-      "url": "https://cryptogravytron.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:29:47.602Z"
+      "url": "https://cryptogravytron.site/",
+      "reward": "0.0005",
+      "coin": "TRX",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T16:43:27.673Z"
     },
     "81": {
       "name": "WC FAUCET",
@@ -1032,5 +1032,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T16:42:07.612Z"
+  "last_updated": "2026-11-10T16:43:27.673Z"
 }
