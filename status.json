@@ -25,6 +25,9 @@
     "CryptoMania (faucet114)"
   ],
   "faucet_settings": {
+    "1": {
+      "vip": true
+    },
     "2": {
       "name": "CoinDrip",
       "url": "https://coindrip.site/",
@@ -1038,5 +1041,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:55:15.430Z"
+  "last_updated": "2026-11-10T17:55:25.850Z"
 }
