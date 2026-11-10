@@ -867,11 +867,11 @@
     },
     "107": {
       "name": "Play Games and earn",
-      "url": "https://playfp.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:33:53.659Z"
+      "url": "https://playfp.online/",
+      "reward": "0.00001000",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:38:47.472Z"
     },
     "108": {
       "name": "My Faucet usdt",
@@ -1035,5 +1035,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:37:42.006Z"
+  "last_updated": "2026-11-10T17:38:47.472Z"
 }
