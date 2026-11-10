@@ -966,11 +966,11 @@
     },
     "121": {
       "name": "Pythagore-PEPE",
-      "url": "https://pythagore-pepe.website",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:36:05.226Z"
+      "url": "https://pythagore-pepe.website/",
+      "reward": "7.33",
+      "coin": "PEPE",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T00:10:26.072Z"
     },
     "122": {
       "name": "Snow Faucet",
@@ -1048,5 +1048,5 @@
     "123",
     "122"
   ],
-  "last_updated": "2026-11-10T00:08:08.533Z"
+  "last_updated": "2026-11-10T00:10:26.072Z"
 }
