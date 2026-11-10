@@ -20,7 +20,8 @@
     "FaucetFun (faucet1)",
     "tronstorm (faucet84)",
     "HichamFaucet (faucet89)",
-    "DGBEARN (faucet92)"
+    "DGBEARN (faucet92)",
+    "FinalRound1903 (faucet119)"
   ],
   "faucet_settings": {
     "2": {
@@ -1035,5 +1036,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:40:59.399Z"
+  "last_updated": "2026-11-10T17:41:20.065Z"
 }
