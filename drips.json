@@ -510,11 +510,11 @@
     },
     "64": {
       "name": "faucet2",
-      "url": "https://earnon.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:27:23.359Z"
+      "url": "https://earnon.site/",
+      "reward": "0.0000035",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T00:14:31.817Z"
     },
     "65": {
       "name": "pkfaucet Instant withdrawal site",
@@ -1051,5 +1051,5 @@
     "62",
     "63"
   ],
-  "last_updated": "2026-11-10T00:13:25.475Z"
+  "last_updated": "2026-11-10T00:14:31.817Z"
 }
