@@ -851,11 +851,11 @@
     },
     "105": {
       "name": "mfaucet.top",
-      "url": "https://mfaucet.top",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:33:35.557Z"
+      "url": "https://mfaucet.top/",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:36:44.277Z"
     },
     "106": {
       "name": "faucetguy - Ultimate faucet",
@@ -1035,5 +1035,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:34:44.602Z"
+  "last_updated": "2026-11-10T17:36:44.277Z"
 }
