@@ -695,11 +695,11 @@
     },
     "86": {
       "name": "Vipcypto",
-      "url": "https://vipcypto.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:30:43.995Z"
+      "url": "https://vipcypto.online/",
+      "reward": "0.00000637",
+      "coin": "TRX",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T16:57:48.445Z"
     },
     "87": {
       "name": "LAGFAUCET",
@@ -1114,5 +1114,5 @@
     "84",
     "83"
   ],
-  "last_updated": "2026-11-10T16:54:33.939Z"
+  "last_updated": "2026-11-10T16:57:48.445Z"
 }
