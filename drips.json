@@ -600,9 +600,9 @@
       "name": "CRYPTOADPAY",
       "url": "https://cryptoadpay.com/",
       "reward": "0.0002",
-      "coin": "U",
-      "minutes": 0,
-      "_updated_at": "2026-11-10T16:37:26.316Z"
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T16:37:54.967Z"
     },
     "75": {
       "name": "KingsXstation",
@@ -1102,5 +1102,5 @@
     "124",
     "127"
   ],
-  "last_updated": "2026-11-10T16:37:26.316Z"
+  "last_updated": "2026-11-10T16:37:54.967Z"
 }
