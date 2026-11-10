@@ -607,11 +607,11 @@
     },
     "75": {
       "name": "KingsXstation",
-      "url": "https://kingsxstation.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:29:01.987Z"
+      "url": "https://kingsxstation.site/",
+      "reward": "0.00000001",
+      "coin": "DASH",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T16:39:28.690Z"
     },
     "76": {
       "name": "Fpclicker.com",
@@ -1032,5 +1032,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T16:37:54.967Z"
+  "last_updated": "2026-11-10T16:39:28.690Z"
 }
