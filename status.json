@@ -924,11 +924,11 @@
     },
     "114": {
       "name": "CryptoMania",
-      "url": "https://cryptomania.space",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:34:58.245Z"
+      "url": "https://cryptomania.space/",
+      "reward": "0.00005",
+      "coin": "SOL",
+      "minutes": 30,
+      "_updated_at": "2026-11-10T17:52:39.131Z"
     },
     "115": {
       "name": "Freefaucet",
@@ -1036,5 +1036,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:50:41.519Z"
+  "last_updated": "2026-11-10T17:52:39.131Z"
 }
