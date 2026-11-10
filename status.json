@@ -1027,8 +1027,9 @@
       "reward": "0.00000001",
       "coin": "BTC",
       "minutes": 6,
-      "_updated_at": "2026-11-10T08:33:07.735Z"
+      "_updated_at": "2026-11-10T08:33:07.735Z",
+      "vip": true
     }
   },
-  "last_updated": "2026-11-10T08:33:07.735Z"
+  "last_updated": "2026-11-10T08:33:18.916Z"
 }
