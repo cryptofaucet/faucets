@@ -769,11 +769,11 @@
     },
     "95": {
       "name": "crypto sugar",
-      "url": "https://cryptosugar.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:32:04.728Z"
+      "url": "https://cryptosugar.site/",
+      "reward": "0.000115",
+      "coin": "USDT",
+      "minutes": 3,
+      "_updated_at": "2026-11-10T17:17:45.728Z"
     },
     "96": {
       "name": "Fun Faucet",
@@ -1125,5 +1125,5 @@
     "94",
     "95"
   ],
-  "last_updated": "2026-11-10T17:17:13.077Z"
+  "last_updated": "2026-11-10T17:17:45.728Z"
 }
