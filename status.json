@@ -1015,11 +1015,11 @@
     },
     "126": {
       "name": "Bountro PEPE Faucet",
-      "url": "https://trxfaucet.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-10T08:20:26.905Z"
+      "url": "https://trxfaucet.online/",
+      "reward": "120",
+      "coin": "PEPE",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T08:34:57.460Z"
     },
     "127": {
       "name": "aBitcoin.love",
@@ -1031,5 +1031,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T08:33:18.916Z"
+  "last_updated": "2026-11-10T08:34:57.460Z"
 }
