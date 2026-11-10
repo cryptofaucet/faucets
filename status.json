@@ -945,11 +945,11 @@
     },
     "116": {
       "name": "Sol24.online",
-      "url": "https://sol24.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:35:18.198Z"
+      "url": "https://sol24.online/",
+      "reward": "0.0000001",
+      "coin": "SOL",
+      "minutes": 60,
+      "_updated_at": "2026-11-10T17:56:50.674Z"
     },
     "117": {
       "name": "Dripdrop",
@@ -1041,5 +1041,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:55:25.850Z"
+  "last_updated": "2026-11-10T17:56:50.674Z"
 }
