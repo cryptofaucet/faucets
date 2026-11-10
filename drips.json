@@ -1031,6 +1031,14 @@
       "coin": "BTC",
       "minutes": 7,
       "_updated_at": "2026-11-10T09:15:36.622Z"
+    },
+    "128": {
+      "name": "claimnow",
+      "url": "https://claimx.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-10T22:09:08.249Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1148,5 +1156,5 @@
     "116",
     "117"
   ],
-  "last_updated": "2026-11-10T18:00:19.875Z"
+  "last_updated": "2026-11-10T22:09:08.249Z"
 }
