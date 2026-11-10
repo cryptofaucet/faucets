@@ -882,11 +882,11 @@
     },
     "109": {
       "name": "EarnCrypto",
-      "url": "https://earnltcsol.in",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:34:12.463Z"
+      "url": "https://earnltcsol.in/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T17:46:05.165Z"
     },
     "110": {
       "name": "RushFaucet",
@@ -1139,5 +1139,5 @@
     "119",
     "108"
   ],
-  "last_updated": "2026-11-10T17:45:28.079Z"
+  "last_updated": "2026-11-10T17:46:05.165Z"
 }
