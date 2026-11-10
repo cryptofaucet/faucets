@@ -656,11 +656,11 @@
     },
     "81": {
       "name": "WC FAUCET",
-      "url": "https://wcfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:29:56.008Z"
+      "url": "https://wcfaucet.site/",
+      "reward": "0.001",
+      "coin": "TRX",
+      "minutes": 2,
+      "_updated_at": "2026-11-10T16:44:09.673Z"
     },
     "82": {
       "name": "cryptotimes.site",
@@ -1032,5 +1032,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T16:43:27.673Z"
+  "last_updated": "2026-11-10T16:44:09.673Z"
 }
