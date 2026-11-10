@@ -12,7 +12,8 @@
     "Ifaucet (faucet58)",
     "pkfaucet Instant withdrawal site (faucet65)",
     "myeasyfaucet (faucet66)",
-    "liteClaim (faucet70)"
+    "liteClaim (faucet70)",
+    "FreeLTC5m (faucet71)"
   ],
   "faucet_settings": {
     "2": {
@@ -1061,5 +1062,5 @@
     "69",
     "70"
   ],
-  "last_updated": "2026-11-10T00:20:31.743Z"
+  "last_updated": "2026-11-10T00:21:36.620Z"
 }
