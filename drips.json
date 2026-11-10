@@ -744,11 +744,11 @@
     },
     "92": {
       "name": "DGBEARN",
-      "url": "https://dgbearn.top",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:31:36.767Z"
+      "url": "https://dgbearn.top/",
+      "reward": "0.00015",
+      "coin": "USDT",
+      "minutes": 2,
+      "_updated_at": "2026-11-10T17:12:06.540Z"
     },
     "93": {
       "name": "CentPay.Online",
@@ -1121,5 +1121,5 @@
     "90",
     "91"
   ],
-  "last_updated": "2026-11-10T17:11:27.357Z"
+  "last_updated": "2026-11-10T17:12:06.540Z"
 }
