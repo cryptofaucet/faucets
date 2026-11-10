@@ -890,11 +890,11 @@
     },
     "110": {
       "name": "RushFaucet",
-      "url": "https://rushfaucet.top",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:34:21.247Z"
+      "url": "https://rushfaucet.top/",
+      "reward": "0.0001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:47:48.557Z"
     },
     "111": {
       "name": "Feyflash",
@@ -1140,5 +1140,5 @@
     "108",
     "109"
   ],
-  "last_updated": "2026-11-10T17:46:12.418Z"
+  "last_updated": "2026-11-10T17:47:48.557Z"
 }
