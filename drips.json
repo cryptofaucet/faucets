@@ -1034,11 +1034,11 @@
     },
     "128": {
       "name": "claimnow",
-      "url": "https://claimx.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-10T22:09:08.249Z"
+      "url": "https://claimx.site/",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T22:09:56.403Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1156,5 +1156,5 @@
     "116",
     "117"
   ],
-  "last_updated": "2026-11-10T22:09:08.249Z"
+  "last_updated": "2026-11-10T22:09:56.403Z"
 }
