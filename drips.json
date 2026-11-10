@@ -1001,6 +1001,14 @@
       "coin": "",
       "minutes": 0,
       "_updated_at": "2026-11-10T08:20:08.186Z"
+    },
+    "125": {
+      "name": "Web World FAUCETs",
+      "url": "https://webworldfaucets.vip",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-10T08:20:17.358Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1074,5 +1082,5 @@
     "71",
     "72"
   ],
-  "last_updated": "2026-11-10T08:20:08.186Z"
+  "last_updated": "2026-11-10T08:20:17.358Z"
 }
