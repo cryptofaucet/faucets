@@ -711,11 +711,11 @@
     },
     "88": {
       "name": "BitBitFlow",
-      "url": "https://bitbitflow.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:31:02.257Z"
+      "url": "https://bitbitflow.online/",
+      "reward": "0.0004",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T16:59:48.217Z"
     },
     "89": {
       "name": "HichamFaucet",
@@ -1114,5 +1114,5 @@
     "84",
     "83"
   ],
-  "last_updated": "2026-11-10T16:57:48.445Z"
+  "last_updated": "2026-11-10T16:59:48.217Z"
 }
