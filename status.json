@@ -900,11 +900,11 @@
     },
     "111": {
       "name": "Feyflash",
-      "url": "https://feyflash.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:34:30.331Z"
+      "url": "https://feyflash.site/",
+      "reward": "0.0001000",
+      "coin": "FEY",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T17:48:46.687Z"
     },
     "112": {
       "name": "666faucet",
@@ -1036,5 +1036,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:47:48.557Z"
+  "last_updated": "2026-11-10T17:48:46.687Z"
 }
