@@ -689,11 +689,11 @@
     },
     "85": {
       "name": "Ethiomi faucet",
-      "url": "https://ethiomi.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:30:34.582Z"
+      "url": "https://ethiomi.com/",
+      "reward": "0.00001",
+      "coin": "TRX",
+      "minutes": 5,
+      "_updated_at": "2026-11-10T16:54:33.939Z"
     },
     "86": {
       "name": "Vipcypto",
@@ -1033,5 +1033,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T16:48:32.368Z"
+  "last_updated": "2026-11-10T16:54:33.939Z"
 }
