@@ -803,11 +803,11 @@
     },
     "99": {
       "name": "EgoFaucet",
-      "url": "https://egofaucet.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:32:41.861Z"
+      "url": "https://egofaucet.com/",
+      "reward": "0.00000399",
+      "coin": "SOL",
+      "minutes": 60,
+      "_updated_at": "2026-11-10T17:28:24.717Z"
     },
     "100": {
       "name": "StarFaucet - FREE USDT",
@@ -1035,5 +1035,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:27:13.642Z"
+  "last_updated": "2026-11-10T17:28:24.717Z"
 }
