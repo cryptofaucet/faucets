@@ -809,11 +809,11 @@
     },
     "100": {
       "name": "StarFaucet - FREE USDT",
-      "url": "https://starfaucet.win",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:32:50.377Z"
+      "url": "https://starfaucet.win/",
+      "reward": "0.0002",
+      "coin": "USDT",
+      "minutes": 2,
+      "_updated_at": "2026-11-10T17:30:01.973Z"
     },
     "101": {
       "name": "FaaSet",
@@ -1129,5 +1129,5 @@
     "97",
     "99"
   ],
-  "last_updated": "2026-11-10T17:28:34.239Z"
+  "last_updated": "2026-11-10T17:30:01.973Z"
 }
