@@ -599,11 +599,11 @@
     },
     "74": {
       "name": "CRYPTOADPAY",
-      "url": "https://cryptoadpay.com",
-      "reward": "",
-      "coin": "",
+      "url": "https://cryptoadpay.com/",
+      "reward": "0.0002",
+      "coin": "U",
       "minutes": 0,
-      "_updated_at": "2026-11-09T17:28:53.060Z"
+      "_updated_at": "2026-11-10T16:37:26.316Z"
     },
     "75": {
       "name": "KingsXstation",
@@ -1032,5 +1032,5 @@
       "vip": false
     }
   },
-  "last_updated": "2026-11-10T16:35:33.802Z"
+  "last_updated": "2026-11-10T16:37:26.316Z"
 }
