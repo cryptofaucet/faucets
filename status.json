@@ -31,7 +31,8 @@
       "reward": "0.00000002",
       "coin": "BTC",
       "minutes": 10,
-      "_updated_at": "2026-11-09T17:57:06.742Z"
+      "_updated_at": "2026-11-09T17:57:06.742Z",
+      "vip": true
     },
     "3": {
       "name": "POURRI",
@@ -1037,5 +1038,5 @@
       "vip": true
     }
   },
-  "last_updated": "2026-11-10T17:53:57.119Z"
+  "last_updated": "2026-11-10T17:55:15.430Z"
 }
