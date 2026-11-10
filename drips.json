@@ -17,7 +17,8 @@
     "extraFaucets (faucet73)",
     "BTC Rat - 1 Sat. every 5 mins (faucet124)",
     "BLOCKXS Faucet (faucet26)",
-    "FaucetFun (faucet1)"
+    "FaucetFun (faucet1)",
+    "tronstorm (faucet84)"
   ],
   "faucet_settings": {
     "2": {
@@ -1113,5 +1114,5 @@
     "84",
     "83"
   ],
-  "last_updated": "2026-11-10T16:48:25.348Z"
+  "last_updated": "2026-11-10T16:48:32.368Z"
 }
