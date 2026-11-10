@@ -553,11 +553,11 @@
     },
     "69": {
       "name": "CRYPTOFAUCET",
-      "url": "https://cryptofaucet.cyou",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:28:07.643Z"
+      "url": "https://cryptofaucet.cyou/",
+      "reward": "0.00000150",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-11-10T00:19:42.240Z"
     },
     "70": {
       "name": "liteClaim",
@@ -993,5 +993,5 @@
       "_updated_at": "2026-11-10T00:07:08.336Z"
     }
   },
-  "last_updated": "2026-11-10T00:18:29.290Z"
+  "last_updated": "2026-11-10T00:19:42.240Z"
 }
