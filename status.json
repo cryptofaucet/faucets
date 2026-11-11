@@ -1049,12 +1049,12 @@
     "129": {
       "name": "adbtc.top",
       "url": "https://adbtc.top/",
-      "reward": "0.00000002",
+      "reward": "0",
       "coin": "BTC",
       "minutes": 5,
-      "_updated_at": "2026-11-11T19:09:52.556Z",
+      "_updated_at": "2026-11-11T21:25:19.540Z",
       "vip": false
     }
   },
-  "last_updated": "2026-11-11T21:24:42.454Z"
+  "last_updated": "2026-11-11T21:25:19.540Z"
 }
