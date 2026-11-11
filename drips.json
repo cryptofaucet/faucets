@@ -28,8 +28,8 @@
       "url": "https://coindrip.site/",
       "reward": "0.00000002",
       "coin": "BTC",
-      "minutes": 10,
-      "_updated_at": "2026-11-09T17:57:06.742Z"
+      "minutes": 25,
+      "_updated_at": "2026-11-11T15:59:22.115Z"
     },
     "3": {
       "name": "POURRI",
@@ -1155,5 +1155,5 @@
     "116",
     "117"
   ],
-  "last_updated": "2026-11-11T14:52:59.305Z"
+  "last_updated": "2026-11-11T15:59:22.115Z"
 }
