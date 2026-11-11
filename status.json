@@ -31,8 +31,8 @@
       "url": "https://coindrip.site/",
       "reward": "0.00000002",
       "coin": "BTC",
-      "minutes": 10,
-      "_updated_at": "2026-11-09T17:57:06.742Z",
+      "minutes": 25,
+      "_updated_at": "2026-11-11T15:59:22.115Z",
       "vip": true
     },
     "3": {
@@ -1047,5 +1047,5 @@
       "_updated_at": "2026-11-10T22:09:56.403Z"
     }
   },
-  "last_updated": "2026-11-11T14:52:59.305Z"
+  "last_updated": "2026-11-11T15:59:22.115Z"
 }
