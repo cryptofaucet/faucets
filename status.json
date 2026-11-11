@@ -1045,7 +1045,15 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-10T22:09:56.403Z"
+    },
+    "129": {
+      "name": "adbtc.top",
+      "url": "https://adbtc.top/",
+      "reward": "0.00000002",
+      "coin": "BTC",
+      "minutes": 5,
+      "_updated_at": "2026-11-11T19:09:52.556Z"
     }
   },
-  "last_updated": "2026-11-11T15:59:22.115Z"
+  "last_updated": "2026-11-11T19:09:52.556Z"
 }
