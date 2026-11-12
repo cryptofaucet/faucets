@@ -1,7 +1,6 @@
 {
   "disabled_faucets": [
     "LIMITLESS FAUCET (faucet6)",
-    "Bestfaucet -Melhores Ofertas (faucet5)",
     "Coin Earn Hub (faucet7)",
     "Faucet Alaska (faucet8)",
     "Top Faucet (faucet17)",
@@ -52,14 +51,6 @@
       "minutes": 3,
       "_updated_at": "2026-11-12T13:21:06.050Z",
       "vip": true
-    },
-    "5": {
-      "name": "Bestfaucet -Melhores Ofertas",
-      "url": "https://bestfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:10:55.042Z"
     },
     "6": {
       "name": "LIMITLESS FAUCET",
@@ -1075,5 +1066,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T14:52:44.200Z"
+  "last_updated": "2026-11-12T14:53:43.818Z"
 }
