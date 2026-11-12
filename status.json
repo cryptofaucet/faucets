@@ -68,7 +68,8 @@
       "reward": "0.00000001",
       "coin": "BTC",
       "minutes": 2,
-      "_updated_at": "2026-11-12T20:28:57.427Z"
+      "_updated_at": "2026-11-12T20:28:57.427Z",
+      "vip": true
     },
     "8": {
       "name": "Faucet Alaska",
@@ -1018,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T20:34:24.548Z"
+  "last_updated": "2026-11-12T20:54:53.913Z"
 }
