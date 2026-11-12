@@ -25,7 +25,7 @@
   ],
   "faucet_settings": {
     "1": {
-      "vip": true
+      "vip": false
     },
     "2": {
       "name": "CoinDrip",
@@ -1066,5 +1066,5 @@
       "_updated_at": "2026-11-12T05:53:15.891Z"
     }
   },
-  "last_updated": "2026-11-12T13:43:26.935Z"
+  "last_updated": "2026-11-12T13:43:29.891Z"
 }
