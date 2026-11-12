@@ -665,7 +665,7 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-11-10T16:59:48.217Z",
-      "vip": true
+      "vip": false
     },
     "89": {
       "name": "HichamFaucet",
@@ -1008,5 +1008,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T18:38:20.461Z"
+  "last_updated": "2026-11-12T18:38:26.295Z"
 }
