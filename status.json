@@ -575,7 +575,8 @@
       "reward": "0.002",
       "coin": "TRX",
       "minutes": 5,
-      "_updated_at": "2026-11-10T16:40:43.885Z"
+      "_updated_at": "2026-11-10T16:40:43.885Z",
+      "vip": true
     },
     "79": {
       "name": "Crypto Fun",
@@ -1004,5 +1005,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:21:59.594Z"
+  "last_updated": "2026-11-12T15:23:23.320Z"
 }
