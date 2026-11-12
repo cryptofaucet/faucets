@@ -1046,6 +1046,14 @@
       "coin": "BTC",
       "minutes": 5,
       "_updated_at": "2026-11-11T21:25:19.540Z"
+    },
+    "130": {
+      "name": "coin-drip.com",
+      "url": "https://coin-drip.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T05:52:24.759Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1163,5 +1171,5 @@
     "116",
     "117"
   ],
-  "last_updated": "2026-11-11T21:25:19.540Z"
+  "last_updated": "2026-11-12T05:52:24.759Z"
 }
