@@ -699,8 +699,8 @@
       "url": "https://funfaucet.site/",
       "reward": "0.0002",
       "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-11-10T17:24:58.845Z"
+      "minutes": 1440,
+      "_updated_at": "2026-11-12T15:28:30.021Z"
     },
     "97": {
       "name": "USDT Games",
@@ -1089,5 +1089,5 @@
     "3",
     "5"
   ],
-  "last_updated": "2026-11-12T15:24:36.680Z"
+  "last_updated": "2026-11-12T15:28:30.021Z"
 }
