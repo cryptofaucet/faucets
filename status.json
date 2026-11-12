@@ -34,7 +34,7 @@
       "coin": "BTC",
       "minutes": 25,
       "_updated_at": "2026-11-11T15:59:22.115Z",
-      "vip": true
+      "vip": false
     },
     "3": {
       "name": "POURRI",
@@ -1066,5 +1066,5 @@
       "_updated_at": "2026-11-12T05:53:15.891Z"
     }
   },
-  "last_updated": "2026-11-12T13:43:11.397Z"
+  "last_updated": "2026-11-12T13:43:26.935Z"
 }
