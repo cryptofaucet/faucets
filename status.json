@@ -1,7 +1,6 @@
 {
   "disabled_faucets": [
     "LIMITLESS FAUCET (faucet6)",
-    "Coin Earn Hub (faucet7)",
     "Faucet Alaska (faucet8)",
     "Top Faucet (faucet17)",
     "Fpclicker.com (faucet76)",
@@ -59,14 +58,6 @@
       "coin": "BTC",
       "minutes": 30,
       "_updated_at": "2026-11-09T20:11:41.141Z"
-    },
-    "7": {
-      "name": "Coin Earn Hub",
-      "url": "https://coinearnhub.com/",
-      "reward": "0.0000002",
-      "coin": "BTC",
-      "minutes": 60,
-      "_updated_at": "2026-11-09T20:13:44.404Z"
     },
     "8": {
       "name": "Faucet Alaska",
@@ -1066,5 +1057,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T14:53:43.818Z"
+  "last_updated": "2026-11-12T14:54:27.056Z"
 }
