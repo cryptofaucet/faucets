@@ -647,7 +647,8 @@
       "reward": "0.0004",
       "coin": "USDT",
       "minutes": 5,
-      "_updated_at": "2026-11-10T16:59:48.217Z"
+      "_updated_at": "2026-11-10T16:59:48.217Z",
+      "vip": true
     },
     "89": {
       "name": "HichamFaucet",
@@ -996,5 +997,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:24:36.680Z"
+  "last_updated": "2026-11-12T15:25:50.055Z"
 }
