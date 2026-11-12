@@ -42,7 +42,7 @@
       "coin": "BTC",
       "minutes": 3,
       "_updated_at": "2026-11-12T13:21:06.050Z",
-      "vip": true
+      "vip": false
     },
     "5": {
       "name": "Bestfaucet -Melhores Ofertas",
@@ -1008,5 +1008,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T18:38:45.830Z"
+  "last_updated": "2026-11-12T18:38:51.674Z"
 }
