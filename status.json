@@ -657,7 +657,7 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-10T17:04:42.506Z",
-      "vip": true
+      "vip": false
     },
     "90": {
       "name": "Easy Faucet",
@@ -998,5 +998,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:26:11.738Z"
+  "last_updated": "2026-11-12T15:26:14.332Z"
 }
