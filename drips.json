@@ -21,6 +21,14 @@
       "minutes": 25,
       "_updated_at": "2026-11-11T15:59:22.115Z"
     },
+    "3": {
+      "name": "POURRI",
+      "url": "https://pourri.fun",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T20:23:50.585Z"
+    },
     "4": {
       "name": "BitEarnix",
       "url": "https://bitearnix.com/",
@@ -1063,5 +1071,5 @@
     "1",
     "105"
   ],
-  "last_updated": "2026-11-12T20:22:55.255Z"
+  "last_updated": "2026-11-12T20:23:50.585Z"
 }
