@@ -47,11 +47,11 @@
     },
     "5": {
       "name": "Bestfaucet -Melhores Ofertas",
-      "url": "https://bestfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-12T15:00:30.412Z"
+      "url": "https://bestfaucet.site/",
+      "reward": "0.00000001",
+      "coin": "BTC",
+      "minutes": 15,
+      "_updated_at": "2026-11-12T15:01:56.554Z"
     },
     "6": {
       "name": "LIMITLESS FAUCET",
@@ -1159,5 +1159,5 @@
     "3",
     "5"
   ],
-  "last_updated": "2026-11-12T15:00:49.559Z"
+  "last_updated": "2026-11-12T15:01:56.554Z"
 }
