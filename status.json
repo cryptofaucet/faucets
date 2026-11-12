@@ -4,7 +4,6 @@
     "Faucet Alaska (faucet8)",
     "Fpclicker.com (faucet76)",
     "InstantFP (faucet42)",
-    "extraClaims (faucet72)",
     "extraFaucets (faucet73)",
     "BTC Rat - 1 Sat. every 5 mins (faucet124)",
     "tronstorm (faucet84)",
@@ -538,14 +537,6 @@
       "minutes": 1,
       "_updated_at": "2026-11-10T00:19:42.240Z"
     },
-    "72": {
-      "name": "extraClaims",
-      "url": "https://extraclaims.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:28:35.579Z"
-    },
     "73": {
       "name": "extraFaucets",
       "url": "https://extrafaucets.online",
@@ -1022,5 +1013,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:21:14.242Z"
+  "last_updated": "2026-11-12T15:21:39.198Z"
 }
