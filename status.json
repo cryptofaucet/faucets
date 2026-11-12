@@ -11,7 +11,6 @@
     "extraClaims (faucet72)",
     "extraFaucets (faucet73)",
     "BTC Rat - 1 Sat. every 5 mins (faucet124)",
-    "BLOCKXS Faucet (faucet26)",
     "tronstorm (faucet84)",
     "HichamFaucet (faucet89)",
     "DGBEARN (faucet92)",
@@ -203,14 +202,6 @@
       "coin": "PEPE",
       "minutes": 5,
       "_updated_at": "2026-11-12T13:33:58.790Z"
-    },
-    "26": {
-      "name": "BLOCKXS Faucet",
-      "url": "https://faucet.blockxs.com/",
-      "reward": "0.000005",
-      "coin": "SOL",
-      "minutes": 15,
-      "_updated_at": "2026-11-09T21:57:39.252Z"
     },
     "27": {
       "name": "Planet Faucet",
@@ -1058,5 +1049,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:02:05.851Z"
+  "last_updated": "2026-11-12T15:04:06.857Z"
 }
