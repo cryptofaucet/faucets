@@ -4,7 +4,6 @@
     "Faucet Alaska (faucet8)",
     "Fpclicker.com (faucet76)",
     "InstantFP (faucet42)",
-    "liteClaim (faucet70)",
     "FreeLTC5m (faucet71)",
     "extraClaims (faucet72)",
     "extraFaucets (faucet73)",
@@ -540,14 +539,6 @@
       "minutes": 1,
       "_updated_at": "2026-11-10T00:19:42.240Z"
     },
-    "70": {
-      "name": "liteClaim",
-      "url": "https://liteclaim.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:28:16.385Z"
-    },
     "71": {
       "name": "FreeLTC5m",
       "url": "https://freeltc5m.site",
@@ -1040,5 +1031,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:20:09.691Z"
+  "last_updated": "2026-11-12T15:20:52.859Z"
 }
