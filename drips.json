@@ -11,7 +11,8 @@
     "Satoshi Drop (faucet13)",
     "FaucetFun (faucet1)",
     "BitEarnix (faucet4)",
-    "POURRI (faucet3)"
+    "POURRI (faucet3)",
+    "Bestfaucet -Melhores Ofertas (faucet5)"
   ],
   "faucet_settings": {
     "2": {
@@ -1082,5 +1083,5 @@
     "3",
     "5"
   ],
-  "last_updated": "2026-11-12T20:27:32.089Z"
+  "last_updated": "2026-11-12T20:27:38.133Z"
 }
