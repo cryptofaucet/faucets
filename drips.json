@@ -37,6 +37,14 @@
       "minutes": 3,
       "_updated_at": "2026-11-12T13:21:06.050Z"
     },
+    "5": {
+      "name": "Bestfaucet -Melhores Ofertas",
+      "url": "https://bestfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T20:26:53.968Z"
+    },
     "6": {
       "name": "LIMITLESS FAUCET",
       "url": "https://limitlessfaucet.site/",
@@ -1071,5 +1079,5 @@
     "1",
     "105"
   ],
-  "last_updated": "2026-11-12T20:23:50.585Z"
+  "last_updated": "2026-11-12T20:26:53.968Z"
 }
