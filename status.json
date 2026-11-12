@@ -592,7 +592,7 @@
       "coin": "TRX",
       "minutes": 5,
       "_updated_at": "2026-11-10T16:40:43.885Z",
-      "vip": true
+      "vip": false
     },
     "79": {
       "name": "Crypto Fun",
@@ -1008,5 +1008,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T18:38:26.295Z"
+  "last_updated": "2026-11-12T18:38:34.731Z"
 }
