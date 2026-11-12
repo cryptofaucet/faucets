@@ -2,7 +2,6 @@
   "disabled_faucets": [
     "LIMITLESS FAUCET (faucet6)",
     "Bestfaucet -Melhores Ofertas (faucet5)",
-    "POURRI (faucet3)",
     "Coin Earn Hub (faucet7)",
     "Faucet Alaska (faucet8)",
     "Top Faucet (faucet17)",
@@ -35,14 +34,6 @@
       "minutes": 25,
       "_updated_at": "2026-11-11T15:59:22.115Z",
       "vip": false
-    },
-    "3": {
-      "name": "POURRI",
-      "url": "https://pourri.fun",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:10:28.127Z"
     },
     "4": {
       "name": "BitEarnix",
@@ -1066,5 +1057,5 @@
       "_updated_at": "2026-11-12T05:53:15.891Z"
     }
   },
-  "last_updated": "2026-11-12T14:08:32.626Z"
+  "last_updated": "2026-11-12T14:44:49.629Z"
 }
