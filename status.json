@@ -973,15 +973,6 @@
       "minutes": 1,
       "_updated_at": "2026-11-10T22:09:56.403Z"
     },
-    "129": {
-      "name": "adbtc.top",
-      "url": "https://adbtc.top/",
-      "reward": "0",
-      "coin": "BTC",
-      "minutes": 5,
-      "_updated_at": "2026-11-11T21:25:19.540Z",
-      "vip": false
-    },
     "130": {
       "name": "coin-drip.com",
       "url": "https://coin-drip.com/",
@@ -999,5 +990,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:36:05.087Z"
+  "last_updated": "2026-11-12T15:36:39.407Z"
 }
