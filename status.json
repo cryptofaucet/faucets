@@ -214,6 +214,14 @@
       "minutes": 5,
       "_updated_at": "2026-11-12T13:33:58.790Z"
     },
+    "26": {
+      "name": "tronstorm",
+      "url": "https://tronstorm.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T20:34:03.166Z"
+    },
     "27": {
       "name": "Planet Faucet",
       "url": "https://planetfaucet.com/",
@@ -1009,5 +1017,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T20:33:36.349Z"
+  "last_updated": "2026-11-12T20:34:03.166Z"
 }
