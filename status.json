@@ -953,7 +953,8 @@
       "reward": "120",
       "coin": "PEPE",
       "minutes": 5,
-      "_updated_at": "2026-11-10T08:34:57.460Z"
+      "_updated_at": "2026-11-10T08:34:57.460Z",
+      "vip": true
     },
     "127": {
       "name": "aBitcoin.love",
@@ -998,5 +999,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:35:24.038Z"
+  "last_updated": "2026-11-12T15:35:49.192Z"
 }
