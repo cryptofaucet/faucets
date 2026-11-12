@@ -357,7 +357,7 @@
       "coin": "DOGE",
       "minutes": 6,
       "_updated_at": "2026-11-09T23:11:25.116Z",
-      "vip": true
+      "vip": false
     },
     "45": {
       "name": "CryptoGravy",
@@ -1008,5 +1008,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T18:38:34.731Z"
+  "last_updated": "2026-11-12T18:38:41.324Z"
 }
