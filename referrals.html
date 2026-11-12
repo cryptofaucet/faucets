@@ -1,4 +1,4 @@
-
+ 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -62,9 +62,27 @@ button:disabled{opacity:.55;cursor:not-allowed}
 <h1>👥 Рефералы / Доступ</h1>
 <p class="subtitle">Управление пользователями CryptoFaucet Hub</p>
 
+<div id="tokenPanel" class="panel">
+  <h2>🔑 GitHub Token</h2>
+  <p style="color:#bbb;font-size:13px;line-height:1.5">
+    Токен сохраняется в этом браузере и будет использоваться при следующих открытиях страницы.
+    Используйте токен только с необходимыми правами доступа к репозиторию.
+  </p>
+  <label for="githubToken">Personal Access Token</label>
+  <input id="githubToken" type="password" autocomplete="off"
+         placeholder="github_pat_..." spellcheck="false">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button id="saveTokenButton" class="secondary" type="button">Сохранить и подключиться</button>
+    <button id="changeTokenButton" class="danger hidden" type="button">Сменить / удалить токен</button>
+  </div>
+</div>
+
 <div id="loading" class="panel">Подключение к GitHub...</div>
 
 <div id="main" class="hidden">
+  <div style="display:flex;justify-content:flex-end;margin:8px 0">
+    <button id="changeTokenMainButton" class="secondary" type="button">🔑 Сменить GitHub Token</button>
+  </div>
   <div class="stats">
     <div class="stat"><span>Всего записей</span><strong id="total">0</strong></div>
     <div class="stat"><span>Рефералы</span><strong id="referrals">0</strong></div>
@@ -114,6 +132,7 @@ const API_URL = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_P
 // Главный администратор CryptoFaucet Hub
 const MAIN_ADMIN = 'tepmuhatop';
 
+const TOKEN_STORAGE_KEY = 'cryptofaucet_github_token';
 let token = '';
 let fileSha = '';
 let accessData = { users: [], last_updated: null };
@@ -469,26 +488,92 @@ document.getElementById('username').addEventListener('keydown', event => {
   if (event.key === 'Enter') addUser();
 });
 
-(async function init() {
-  token = sessionStorage.getItem('git_admin_token') || '';
+function showTokenPanel(hasToken) {
+  const panel = document.getElementById('tokenPanel');
+  const input = document.getElementById('githubToken');
+  const changeButton = document.getElementById('changeTokenButton');
+
+  panel.classList.remove('hidden');
+  changeButton.classList.toggle('hidden', !hasToken);
+  input.placeholder = hasToken
+    ? 'Токен сохранён. Введите новый, чтобы заменить.'
+    : 'github_pat_...';
+}
+
+async function connectWithToken(candidate) {
+  token = candidate.trim();
 
   if (!token) {
-    document.getElementById('loading').textContent =
-      'Не найден GitHub Token. Вернитесь в админку, войдите и откройте эту страницу кнопкой «Рефералы / Доступ».';
+    document.getElementById('loading').textContent = 'Введите GitHub Token.';
     return;
   }
+
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('loading').textContent = 'Подключение к GitHub...';
+  document.getElementById('main').classList.add('hidden');
 
   try {
     await loadAccessFile();
 
+    // Сохраняем токен только после успешной проверки доступа к access.json.
+    localStorage.setItem(TOKEN_STORAGE_KEY, token);
+
+    document.getElementById('tokenPanel').classList.add('hidden');
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('main').classList.remove('hidden');
 
     await ensureMainAdmin();
-
   } catch (error) {
+    token = '';
     document.getElementById('loading').textContent =
-      `Ошибка загрузки: ${error.message}`;
+      `Ошибка подключения: ${error.message}`;
+    showTokenPanel(false);
+  }
+}
+
+document.getElementById('saveTokenButton').addEventListener('click', () => {
+  connectWithToken(document.getElementById('githubToken').value);
+});
+
+document.getElementById('githubToken').addEventListener('keydown', event => {
+  if (event.key === 'Enter') connectWithToken(event.currentTarget.value);
+});
+
+function removeSavedToken() {
+  if (!confirm('Удалить сохранённый GitHub Token из этого браузера?')) return;
+
+  localStorage.removeItem(TOKEN_STORAGE_KEY);
+  sessionStorage.removeItem('git_admin_token');
+  token = '';
+  fileSha = '';
+  document.getElementById('githubToken').value = '';
+  document.getElementById('main').classList.add('hidden');
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('loading').textContent = 'Введите новый GitHub Token.';
+  showTokenPanel(false);
+}
+
+document.getElementById('changeTokenButton').addEventListener('click', removeSavedToken);
+document.getElementById('changeTokenMainButton').addEventListener('click', removeSavedToken);
+
+(async function init() {
+  // Переносим прежний токен из sessionStorage в постоянное хранилище.
+  let savedToken = localStorage.getItem(TOKEN_STORAGE_KEY) || '';
+  if (!savedToken) {
+    const oldToken = sessionStorage.getItem('git_admin_token') || '';
+    if (oldToken) {
+      savedToken = oldToken;
+      localStorage.setItem(TOKEN_STORAGE_KEY, oldToken);
+    }
+  }
+
+  if (savedToken) {
+    showTokenPanel(true);
+    await connectWithToken(savedToken);
+  } else {
+    document.getElementById('loading').textContent =
+      'Для первого подключения введите GitHub Token. После успешной проверки он сохранится в браузере.';
+    showTokenPanel(false);
   }
 })();
 </script>
