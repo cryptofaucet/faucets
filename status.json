@@ -512,11 +512,11 @@
     },
     "65": {
       "name": "pkfaucet Instant withdrawal site",
-      "url": "https://pkfaucet.top",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:27:32.731Z"
+      "url": "https://pkfaucet.top/",
+      "reward": "0.00000195",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-11-12T15:19:37.616Z"
     },
     "66": {
       "name": "myeasyfaucet",
@@ -1050,5 +1050,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:13:49.026Z"
+  "last_updated": "2026-11-12T15:19:37.616Z"
 }
