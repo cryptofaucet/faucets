@@ -983,12 +983,12 @@
     },
     "131": {
       "name": "BitPayu - Earn Free Crypto",
-      "url": "https://bitpayu.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-12T14:46:02.114Z"
+      "url": "https://bitpayu.site/",
+      "reward": "0.001",
+      "coin": "USDT",
+      "minutes": 60,
+      "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T15:36:39.407Z"
+  "last_updated": "2026-11-12T15:38:07.691Z"
 }
