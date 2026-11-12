@@ -10,7 +10,8 @@
     "CryptoMania (faucet114)",
     "Satoshi Drop (faucet13)",
     "FaucetFun (faucet1)",
-    "BitEarnix (faucet4)"
+    "BitEarnix (faucet4)",
+    "POURRI (faucet3)"
   ],
   "faucet_settings": {
     "2": {
@@ -1079,5 +1080,5 @@
     "1",
     "105"
   ],
-  "last_updated": "2026-11-12T20:26:53.968Z"
+  "last_updated": "2026-11-12T20:27:10.388Z"
 }
