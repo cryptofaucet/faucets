@@ -211,10 +211,10 @@
     "25": {
       "name": "Faas Faucet",
       "url": "https://faas.farazfaucets.com/",
-      "reward": "1",
+      "reward": "5",
       "coin": "PEPE",
       "minutes": 5,
-      "_updated_at": "2026-11-09T21:56:30.335Z"
+      "_updated_at": "2026-11-12T13:33:58.790Z"
     },
     "26": {
       "name": "BLOCKXS Faucet",
@@ -1172,5 +1172,5 @@
     "116",
     "117"
   ],
-  "last_updated": "2026-11-12T13:30:05.371Z"
+  "last_updated": "2026-11-12T13:33:58.790Z"
 }
