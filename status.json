@@ -10,7 +10,6 @@
     "CryptoMania (faucet114)",
     "Satoshi Drop (faucet13)",
     "FaucetFun (faucet1)",
-    "Bestfaucet -Melhores Ofertas (faucet5)",
     "BLOCKXS Faucet (faucet7)",
     "tronstorm (faucet17)",
     "BitEarnix (faucet4)"
@@ -36,14 +35,6 @@
       "minutes": 3,
       "_updated_at": "2026-11-12T13:21:06.050Z",
       "vip": false
-    },
-    "5": {
-      "name": "Bestfaucet -Melhores Ofertas",
-      "url": "https://bestfaucet.site/",
-      "reward": "0.00000001",
-      "coin": "BTC",
-      "minutes": 15,
-      "_updated_at": "2026-11-12T15:01:56.554Z"
     },
     "6": {
       "name": "LIMITLESS FAUCET",
@@ -1001,5 +992,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T19:04:35.116Z"
+  "last_updated": "2026-11-12T19:05:10.653Z"
 }
