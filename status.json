@@ -4,7 +4,6 @@
     "Faucet Alaska (faucet8)",
     "Fpclicker.com (faucet76)",
     "InstantFP (faucet42)",
-    "myeasyfaucet (faucet66)",
     "liteClaim (faucet70)",
     "FreeLTC5m (faucet71)",
     "extraClaims (faucet72)",
@@ -516,14 +515,6 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-11-12T15:19:37.616Z"
-    },
-    "66": {
-      "name": "myeasyfaucet",
-      "url": "https://myeasyfaucet.world",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:27:41.266Z"
     },
     "67": {
       "name": "TakeLtc",
@@ -1049,5 +1040,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T15:19:46.252Z"
+  "last_updated": "2026-11-12T15:20:09.691Z"
 }
