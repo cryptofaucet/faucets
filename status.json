@@ -1063,7 +1063,15 @@
       "coin": "TON",
       "minutes": 15,
       "_updated_at": "2026-11-12T05:53:15.891Z"
+    },
+    "131": {
+      "name": "BitPayu - Earn Free Crypto",
+      "url": "https://bitpayu.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T14:45:44.427Z"
+  "last_updated": "2026-11-12T14:46:02.114Z"
 }
