@@ -139,14 +139,6 @@
       "minutes": 5,
       "_updated_at": "2026-11-09T20:32:53.199Z"
     },
-    "17": {
-      "name": "tronstorm",
-      "url": "https://tronstorm.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-12T15:39:04.921Z"
-    },
     "18": {
       "name": "Faucetino",
       "url": "https://faucetino.com/",
@@ -1007,5 +999,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T15:39:34.027Z"
+  "last_updated": "2026-11-12T15:40:28.385Z"
 }
