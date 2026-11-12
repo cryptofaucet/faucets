@@ -721,10 +721,10 @@
     "99": {
       "name": "EgoFaucet",
       "url": "https://egofaucet.com/",
-      "reward": "0.00000399",
+      "reward": "0.00000999",
       "coin": "SOL",
       "minutes": 60,
-      "_updated_at": "2026-11-10T17:28:24.717Z"
+      "_updated_at": "2026-11-12T15:29:54.260Z"
     },
     "100": {
       "name": "StarFaucet - FREE USDT",
@@ -1089,5 +1089,5 @@
     "3",
     "5"
   ],
-  "last_updated": "2026-11-12T15:28:30.021Z"
+  "last_updated": "2026-11-12T15:29:54.260Z"
 }
