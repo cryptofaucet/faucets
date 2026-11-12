@@ -5,7 +5,6 @@
     "Fpclicker.com (faucet76)",
     "InstantFP (faucet42)",
     "BTC Rat - 1 Sat. every 5 mins (faucet124)",
-    "tronstorm (faucet84)",
     "HichamFaucet (faucet89)",
     "DGBEARN (faucet92)",
     "FinalRound1903 (faucet119)",
@@ -607,14 +606,6 @@
       "minutes": 60,
       "_updated_at": "2026-11-10T16:47:24.262Z"
     },
-    "84": {
-      "name": "tronstorm",
-      "url": "https://tronstorm.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-09T17:30:24.445Z"
-    },
     "85": {
       "name": "Ethiomi faucet",
       "url": "https://ethiomi.com/",
@@ -1062,7 +1053,6 @@
     "80",
     "81",
     "82",
-    "84",
     "83",
     "88",
     "87",
@@ -1099,5 +1089,5 @@
     "3",
     "5"
   ],
-  "last_updated": "2026-11-12T15:21:59.594Z"
+  "last_updated": "2026-11-12T15:24:36.680Z"
 }
