@@ -94,10 +94,10 @@
     "10": {
       "name": "Bit Faucet",
       "url": "https://bitfaucet.offers4all.xyz/",
-      "reward": "0.00000001",
-      "coin": "BTC",
-      "minutes": 60,
-      "_updated_at": "2026-11-09T20:23:40.505Z"
+      "reward": "0.00003",
+      "coin": "USDT",
+      "minutes": 2,
+      "_updated_at": "2026-11-12T06:01:44.412Z"
     },
     "11": {
       "name": "alhorfaucet",
@@ -1064,5 +1064,5 @@
       "_updated_at": "2026-11-12T05:53:15.891Z"
     }
   },
-  "last_updated": "2026-11-12T05:53:15.891Z"
+  "last_updated": "2026-11-12T06:01:44.412Z"
 }
