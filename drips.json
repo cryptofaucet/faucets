@@ -37,6 +37,14 @@
       "minutes": 3,
       "_updated_at": "2026-11-12T13:21:06.050Z"
     },
+    "5": {
+      "name": "GANHE COM FAUCET",
+      "url": "https://ganhecomfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T19:38:17.645Z"
+    },
     "6": {
       "name": "LIMITLESS FAUCET",
       "url": "https://limitlessfaucet.site/",
@@ -1071,5 +1079,5 @@
     "1",
     "105"
   ],
-  "last_updated": "2026-11-12T19:38:04.250Z"
+  "last_updated": "2026-11-12T19:38:17.645Z"
 }
