@@ -135,6 +135,14 @@
       "minutes": 5,
       "_updated_at": "2026-11-09T20:32:53.199Z"
     },
+    "17": {
+      "name": "BLOCKXS Faucet",
+      "url": "https://faucet.blockxs.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T20:31:40.229Z"
+    },
     "18": {
       "name": "Faucetino",
       "url": "https://faucetino.com/",
@@ -1092,5 +1100,5 @@
     "5",
     "7"
   ],
-  "last_updated": "2026-11-12T20:29:31.740Z"
+  "last_updated": "2026-11-12T20:31:40.229Z"
 }
