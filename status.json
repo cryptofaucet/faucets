@@ -982,7 +982,7 @@
       "coin": "BTC",
       "minutes": 7,
       "_updated_at": "2026-11-10T09:15:36.622Z",
-      "vip": false
+      "vip": true
     },
     "128": {
       "name": "claimnow",
@@ -1009,5 +1009,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T18:42:23.912Z"
+  "last_updated": "2026-11-12T18:44:01.615Z"
 }
