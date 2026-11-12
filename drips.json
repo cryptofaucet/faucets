@@ -53,6 +53,14 @@
       "minutes": 30,
       "_updated_at": "2026-11-09T20:11:41.141Z"
     },
+    "7": {
+      "name": "BLOCKXS Faucet",
+      "url": "https://faucet.blockxs.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T19:38:31.086Z"
+    },
     "8": {
       "name": "Faucet Alaska",
       "url": "https://faucetalaska.online/",
@@ -1079,5 +1087,5 @@
     "1",
     "105"
   ],
-  "last_updated": "2026-11-12T19:38:17.645Z"
+  "last_updated": "2026-11-12T19:38:31.086Z"
 }
