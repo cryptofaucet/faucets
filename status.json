@@ -50,7 +50,8 @@
       "reward": "0.00000001",
       "coin": "BTC",
       "minutes": 3,
-      "_updated_at": "2026-11-12T13:21:06.050Z"
+      "_updated_at": "2026-11-12T13:21:06.050Z",
+      "vip": true
     },
     "5": {
       "name": "Bestfaucet -Melhores Ofertas",
@@ -1074,5 +1075,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T14:51:43.741Z"
+  "last_updated": "2026-11-12T14:52:44.200Z"
 }
