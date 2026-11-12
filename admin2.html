@@ -1188,35 +1188,33 @@ async function addFaucetRowToHtml(path, name, num, url, reward, coin, seconds) {
     const match = source.match(tbodyPattern);
     if (!match) throw new Error(`Не найден tbody.left-faucets в ${path}.`);
 
-    const rowHTML = makeNewFaucetRow(name, num, url, reward, coin, seconds);
-    const tbodyContent = match[2];
-    const rowStartPattern = /<tr\\b(?=[^>]*\\bid=["']faucet(\\d+)["'])[^>]*>/gi;
-    let rowMatch;
-    let insertAt = -1;
+     const rowHTML = makeNewFaucetRow(name, num, url, reward, coin, seconds);
+const tbodyContent = match[2];
+const rowStartPattern = /<tr\b(?=[^>]*\bid=["']faucet(\d+)["'])[^>]*>/gi;
+let rowMatch;
+let insertAt = -1;
 
-    // Вставляем перед первым краном с большим ID.
-    // Если перед ним есть комментарий Faucet N, сохраняем его вместе со строкой.
-    while ((rowMatch = rowStartPattern.exec(tbodyContent)) !== null) {
-        if (Number(rowMatch[1]) > Number(num)) {
-            insertAt = rowMatch.index;
-            const prefix = tbodyContent.slice(0, insertAt);
-            const commentMatch = prefix.match(/<!--[\\s\\S]*?-->\\s*$/);
-            if (commentMatch && /Faucet\\s+\\d+\\s*:/i.test(commentMatch[0])) {
-                insertAt -= commentMatch[0].length;
-            }
-            break;
+while ((rowMatch = rowStartPattern.exec(tbodyContent)) !== null) {
+    if (Number(rowMatch[1]) > Number(num)) {
+        insertAt = rowMatch.index;
+        const prefix = tbodyContent.slice(0, insertAt);
+        const commentMatch = prefix.match(/<!--[\s\S]*?-->\s*$/);
+
+        if (commentMatch && /Faucet\s+\d+\s*:/i.test(commentMatch[0])) {
+            insertAt -= commentMatch[0].length;
         }
+        break;
     }
+}
 
-    // Если большего ID нет, добавляем в конец списка, перед закрывающим tbody.
-    if (insertAt < 0) {
-        insertAt = tbodyContent.length;
-        const trailingWhitespace = tbodyContent.match(/\\s*$/);
-        if (trailingWhitespace) insertAt -= trailingWhitespace[0].length;
-    }
+if (insertAt < 0) {
+    insertAt = tbodyContent.length;
+    const trailingWhitespace = tbodyContent.match(/\s*$/);
+    if (trailingWhitespace) insertAt -= trailingWhitespace[0].length;
+}
 
-    const updatedTbody = tbodyContent.slice(0, insertAt) +
-        rowHTML + "\\n" + tbodyContent.slice(insertAt);
+const updatedTbody = tbodyContent.slice(0, insertAt) +
+    rowHTML + "\n" + tbodyContent.slice(insertAt);
     source = source.replace(tbodyPattern, () => match[1] + updatedTbody + match[3]);
 
     await githubPutFile(path, source, file.sha, `Add faucet ${num}: ${name}`);
