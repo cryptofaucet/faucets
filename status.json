@@ -11,7 +11,8 @@
     "Satoshi Drop (faucet13)",
     "FaucetFun (faucet1)",
     "Bestfaucet -Melhores Ofertas (faucet5)",
-    "BLOCKXS Faucet (faucet7)"
+    "BLOCKXS Faucet (faucet7)",
+    "tronstorm (faucet17)"
   ],
   "faucet_settings": {
     "1": {
@@ -1007,5 +1008,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T15:41:00.293Z"
+  "last_updated": "2026-11-12T15:41:23.696Z"
 }
