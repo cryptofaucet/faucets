@@ -60,6 +60,14 @@
       "minutes": 30,
       "_updated_at": "2026-11-09T20:11:41.141Z"
     },
+    "7": {
+      "name": "GANHE COM FAUCET",
+      "url": "https://ganhecomfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-12T20:28:00.592Z"
+    },
     "8": {
       "name": "Faucet Alaska",
       "url": "https://faucetalaska.online/",
@@ -992,5 +1000,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T20:27:38.133Z"
+  "last_updated": "2026-11-12T20:28:00.592Z"
 }
