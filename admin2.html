@@ -1190,32 +1190,56 @@ async function addFaucetRowToHtml(path, name, num, url, reward, coin, seconds) {
 
      const rowHTML = makeNewFaucetRow(name, num, url, reward, coin, seconds);
 const tbodyContent = match[2];
+
 const rowStartPattern = /<tr\b(?=[^>]*\bid=["']faucet(\d+)["'])[^>]*>/gi;
+
 let rowMatch;
 let insertAt = -1;
 
 while ((rowMatch = rowStartPattern.exec(tbodyContent)) !== null) {
     if (Number(rowMatch[1]) > Number(num)) {
         insertAt = rowMatch.index;
-        const prefix = tbodyContent.slice(0, insertAt);
-        const commentMatch = prefix.match(/<!--[\s\S]*?-->\s*$/);
 
-        if (commentMatch && /Faucet\s+\d+\s*:/i.test(commentMatch[0])) {
-            insertAt -= commentMatch[0].length;
+        // Ищем только комментарий непосредственно перед этой строкой.
+        const prefix = tbodyContent.slice(0, insertAt);
+        const commentStart = prefix.lastIndexOf("<!--");
+
+        if (commentStart !== -1) {
+            const commentEnd = prefix.indexOf("-->", commentStart);
+
+            if (commentEnd !== -1 &&
+                /^\s*$/.test(prefix.slice(commentEnd + 3))) {
+
+                const commentText = prefix.slice(commentStart + 4, commentEnd);
+
+                if (/^\s*Faucet\s+\d+\s*:/i.test(commentText)) {
+                    insertAt = commentStart;
+                }
+            }
         }
+
         break;
     }
 }
 
 if (insertAt < 0) {
     insertAt = tbodyContent.length;
+
     const trailingWhitespace = tbodyContent.match(/\s*$/);
-    if (trailingWhitespace) insertAt -= trailingWhitespace[0].length;
+    if (trailingWhitespace) {
+        insertAt -= trailingWhitespace[0].length;
+    }
 }
 
-const updatedTbody = tbodyContent.slice(0, insertAt) +
-    rowHTML + "\n" + tbodyContent.slice(insertAt);
-    source = source.replace(tbodyPattern, () => match[1] + updatedTbody + match[3]);
+const updatedTbody =
+    tbodyContent.slice(0, insertAt) +
+    rowHTML + "\n" +
+    tbodyContent.slice(insertAt);
+
+source = source.replace(
+    tbodyPattern,
+    () => match[1] + updatedTbody + match[3]
+);
 
     await githubPutFile(path, source, file.sha, `Add faucet ${num}: ${name}`);
 }
