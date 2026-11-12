@@ -50,10 +50,13 @@ button:disabled{opacity:.6;cursor:wait}
 .faucet-reward-rub{display:block;margin-top:3px;color:#ffd166;font-size:12px;font-weight:700}
 .rates-status{margin:8px 0 0;text-align:center;color:#aab4c2;font-size:12px}
 .admin-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.status-btn,.edit-btn,.drips-btn{width:auto;flex-shrink:0;padding:7px 10px;font-size:13px}
+.status-btn,.edit-btn,.drips-btn,.delete-btn{width:auto;flex-shrink:0;padding:7px 10px;font-size:13px}
 .drips-btn{background:#35d05b;color:#102015;min-width:82px}
 .drips-btn.drips-off{background:#e53935;color:#fff}
-.drips-btn:disabled{opacity:.55}
+.drips-btn:disabled,.delete-btn:disabled{opacity:.55}
+.status-btn{min-width:105px;padding-left:7px;padding-right:7px}
+.delete-btn{background:#8e2020;color:#fff;padding-left:9px;padding-right:9px}
+.delete-btn:hover{background:#b32626}
 .edit-btn{background:#3498db;color:#fff}
 .edit-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;background:#000c}
 .edit-dialog{width:100%;max-width:520px;max-height:90vh;overflow-y:auto;padding:20px;border:1px solid #555;border-radius:10px;background:#252525;box-shadow:0 8px 30px #0009}
@@ -91,7 +94,7 @@ button:disabled{opacity:.6;cursor:wait}
  .faucet-item{flex-wrap:wrap}
  .faucet-name{flex-wrap:wrap}
  .admin-actions{margin-left:auto}
- .status-btn,.edit-btn,.drips-btn{font-size:12px;padding:7px}
+ .status-btn,.edit-btn,.drips-btn,.delete-btn{font-size:12px;padding:7px}
 }
  /* FaucetPay scanner */
 .fp-panel{background:#1e2838;border:1px solid #2e4a6a;border-radius:8px;padding:16px;margin:16px 0 20px}
@@ -181,9 +184,6 @@ button:disabled{opacity:.6;cursor:wait}
 </div>
 
 <h2>Глобальный статус</h2>
-<div class="form-group">
-<button id="saveButton" type="button" onclick="saveChanges()" style="background:#ffcc00;color:#000;margin-bottom:20px">💾 Сохранить изменения на сайт</button>
-</div>
 <div id="faucetsList"></div>
 </div>
 
@@ -716,7 +716,7 @@ function renderAdminList() {
         button.type = "button";
         button.className = "status-btn " + (isDisabled ? "btn-disabled" : "btn-active");
         button.textContent = isDisabled ? "❌ Отключен (Включить)" : "✅ Работает (Отключить)";
-        button.addEventListener("click", () => toggleFaucet(name, id));
+        button.addEventListener("click", () => toggleFaucet(name, id, button));
 
         const dripsButton = document.createElement("button");
         dripsButton.type = "button";
@@ -726,7 +726,14 @@ function renderAdminList() {
         dripsButton.title = dripsOff ? "Отключён в Drips. Нажмите, чтобы включить." : "Разрешён в Drips. Нажмите, чтобы отключить.";
         dripsButton.addEventListener("click", () => toggleDripsFaucet(id, dripsButton));
 
-        actions.append(editButton, button, dripsButton);
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "delete-btn";
+        deleteButton.textContent = "🗑 Удалить";
+        deleteButton.title = `Полностью удалить кран ${name} (ID ${id}) из обеих версий и JSON`;
+        deleteButton.addEventListener("click", () => deleteFaucet(name, id, deleteButton));
+
+        actions.append(editButton, button, dripsButton, deleteButton);
         item.append(nameSpan, rewardDisplay, cooldownDisplay, actions);
         listDiv.appendChild(item);
     });
@@ -785,25 +792,59 @@ async function toggleVipFaucet(id, button) {
     }
 }
 
-function toggleFaucet(name, id) {
+async function toggleFaucet(name, id, button) {
     const idString = String(id);
     const faucet = FAUCETS.find(item => String(item.id) === idString);
     const isDisabled = faucet ? isFaucetDisabled(faucet) :
         globalDisabledFaucets.some(entry => getDisabledFaucetId(entry) === idString);
-
-    if (isDisabled) {
-        globalDisabledFaucets = globalDisabledFaucets.filter(entry => {
+    const nextDisabled = isDisabled
+        ? globalDisabledFaucets.filter(entry => {
             const entryId = getDisabledFaucetId(entry);
             if (entryId) return entryId !== idString;
             return getDisabledFaucetName(entry) !== name;
-        });
-    } else {
-        globalDisabledFaucets.push(getDisabledFaucetEntry(name, idString));
-    }
+        })
+        : [...globalDisabledFaucets, getDisabledFaucetEntry(name, idString)];
 
-    normalizeDisabledFaucets();
-    renderAdminList();
-    updateFaucetStats();
+    button.disabled = true;
+    button.textContent = "Сохраняю…";
+    const timestamp = new Date().toISOString();
+
+    try {
+        // Сначала сохраняем общий статус в status.json, затем синхронизируем drips.json.
+        const updatedStatus = await updateJsonFile(FILE_PATH, content => {
+            if (!content || typeof content !== "object" || Array.isArray(content))
+                throw new Error("Неверный формат status.json.");
+            content.disabled_faucets = nextDisabled;
+            content.last_updated = timestamp;
+            return content;
+        }, `${isDisabled ? "Enable" : "Disable"} faucet ${idString}`);
+
+        await updateJsonFile(DRIPS_FILE_PATH, content => {
+            if (!content || typeof content !== "object" || Array.isArray(content))
+                throw new Error("Неверный формат drips.json.");
+            content.disabled_faucets = nextDisabled;
+            content.last_updated = timestamp;
+            return content;
+        }, `Sync global status for faucet ${idString}`);
+
+        globalDisabledFaucets = Array.isArray(updatedStatus.disabled_faucets)
+            ? updatedStatus.disabled_faucets.map(String) : nextDisabled;
+        normalizeDisabledFaucets();
+        markStatsUpdated(timestamp);
+        renderAdminList();
+    } catch (error) {
+        console.error("Ошибка сохранения глобального статуса:", error);
+        alert("Не удалось сохранить состояние в оба JSON. Проверь status.json и drips.json на GitHub.\n\n" + error.message +
+            "\n\nЕсли status.json уже обновился, а drips.json нет, повторно нажми кнопку после проверки.");
+        // Перечитываем оба JSON, чтобы интерфейс не показывал несохранённое состояние.
+        try {
+            const status = JSON.parse((await githubGetFile(FILE_PATH)).content);
+            globalDisabledFaucets = Array.isArray(status.disabled_faucets) ? status.disabled_faucets.map(String) : [];
+            await loadDripsSettings();
+        } catch (reloadError) { console.error("Не удалось перечитать статусы:", reloadError); }
+        renderAdminList();
+        updateFaucetStats();
+    }
 }
 
 async function toggleDripsFaucet(id, button) {
@@ -838,43 +879,91 @@ async function toggleDripsFaucet(id, button) {
     }
 }
 
-async function saveChanges() {
-    const token = localStorage.getItem("git_admin_token");
-    if (!token) { alert("Сессия истекла. Войдите заново."); return; }
 
-    const saveButton = document.getElementById("saveButton");
-    saveButton.disabled = true;
-    saveButton.textContent = "Сохранение в оба JSON...";
 
+function removeFaucetRowFromHtml(source, path, id) {
+    const key = "faucet" + String(id);
+    const rowPattern = new RegExp("<tr\\b(?=[^>]*\\bid=[\"']" + key + "[\"'])[^>]*>[\\s\\S]*?<\\/tr>", "i");
+    const match = source.match(rowPattern);
+    if (!match) throw new Error(`Строка ${key} не найдена в ${path}.`);
+
+    const before = source.slice(0, match.index);
+    const commentMatch = before.match(new RegExp("<!--\\s*Faucet\\s+" + String(id) + "\\s*:[\\s\\S]*?-->\\s*$", "i"));
+    const removeStart = commentMatch ? match.index - commentMatch[0].length : match.index;
+    return source.slice(0, removeStart) + source.slice(match.index + match[0].length);
+}
+
+async function deleteFaucet(name, id, button) {
+    const idString = String(id);
+    const confirmed = confirm(`Удалить кран «${name}» (ID ${idString}) НАВСЕГДА?\n\nОн будет удалён из index.html, drips.html, status.json и drips.json. Это действие нельзя отменить кнопкой. Продолжить?`);
+    if (!confirmed) return;
+
+    const secondConfirm = confirm(`Последнее подтверждение: точно удалить «${name}» (ID ${idString}) из всех четырёх файлов GitHub?`);
+    if (!secondConfirm) return;
+
+    button.disabled = true;
+    button.textContent = "Удаляю…";
     try {
-        normalizeDisabledFaucets();
+        // Сначала читаем и проверяем ВСЕ четыре файла. До завершения проверки GitHub не меняется.
+        const [mainHtml, dripsHtml, statusFile, dripsFile] = await Promise.all([
+            githubGetFile(INDEX_FILE_PATH),
+            githubGetFile(DRIPS_INDEX_FILE_PATH),
+            githubGetFile(FILE_PATH),
+            githubGetFile(DRIPS_FILE_PATH)
+        ]);
+        const nextMainHtml = removeFaucetRowFromHtml(mainHtml.content, INDEX_FILE_PATH, idString);
+        const nextDripsHtml = removeFaucetRowFromHtml(dripsHtml.content, DRIPS_INDEX_FILE_PATH, idString);
         const timestamp = new Date().toISOString();
 
-        const updatedStatus = await updateJsonFile(FILE_PATH, content => ({
-            ...content,
-            disabled_faucets: globalDisabledFaucets,
-            last_updated: timestamp
-        }), "Update global faucet statuses");
+        const cleanJson = (raw, path) => {
+            let content;
+            try { content = JSON.parse(raw); }
+            catch (_) { throw new Error(`${path}: некорректный JSON. Ничего не удалено.`); }
+            if (!content || typeof content !== "object" || Array.isArray(content))
+                throw new Error(`${path}: неверный формат JSON. Ничего не удалено.`);
+            content.disabled_faucets = Array.isArray(content.disabled_faucets)
+                ? content.disabled_faucets.filter(entry => {
+                    const entryId = getDisabledFaucetId(entry);
+                    return entryId ? entryId !== idString : getDisabledFaucetName(entry) !== name;
+                }) : [];
+            if (Array.isArray(content.drips_disabled_faucets))
+                content.drips_disabled_faucets = content.drips_disabled_faucets.map(String).filter(value => value !== idString);
+            if (content.faucet_settings && typeof content.faucet_settings === "object")
+                delete content.faucet_settings[idString];
+            content.last_updated = timestamp;
+            return JSON.stringify(content, null, 2);
+        };
+        const nextStatusJson = cleanJson(statusFile.content, FILE_PATH);
+        const nextDripsJson = cleanJson(dripsFile.content, DRIPS_FILE_PATH);
 
-        await updateJsonFile(DRIPS_FILE_PATH, content => ({
-            ...content,
-            disabled_faucets: globalDisabledFaucets,
-            drips_disabled_faucets: Array.isArray(content.drips_disabled_faucets)
-                ? content.drips_disabled_faucets.map(String) : dripsDisabledFaucets,
-            last_updated: timestamp
-        }), "Sync global faucet statuses for Drips");
+        // Все файлы проверены. Теперь отправляем четыре отдельных GitHub-коммита.
+        await githubPutFile(INDEX_FILE_PATH, nextMainHtml, mainHtml.sha, `Delete faucet ${idString}: ${name}`);
+        await githubPutFile(DRIPS_INDEX_FILE_PATH, nextDripsHtml, dripsHtml.sha, `Delete faucet ${idString}: ${name}`);
+        await githubPutFile(FILE_PATH, nextStatusJson, statusFile.sha, `Delete faucet settings ${idString}: ${name}`);
+        await githubPutFile(DRIPS_FILE_PATH, nextDripsJson, dripsFile.sha, `Delete faucet settings ${idString}: ${name}`);
 
-        globalDisabledFaucets = Array.isArray(updatedStatus.disabled_faucets)
-            ? updatedStatus.disabled_faucets.map(String) : globalDisabledFaucets;
-
+        FAUCETS = FAUCETS.filter(faucet => String(faucet.id) !== idString);
+        globalDisabledFaucets = globalDisabledFaucets.filter(entry => {
+            const entryId = getDisabledFaucetId(entry);
+            return entryId ? entryId !== idString : getDisabledFaucetName(entry) !== name;
+        });
+        dripsDisabledFaucets = dripsDisabledFaucets.filter(value => String(value) !== idString);
+        vipFaucets.delete(idString);
         markStatsUpdated(timestamp);
-        alert("Общие статусы сохранены в status.json и drips.json.\nОтдельные настройки Drips сохранены без изменений.");
+        renderAdminList();
+        alert(`Кран «${name}» (ID ${idString}) удалён из обеих страниц и обоих JSON.`);
     } catch (error) {
-        console.error("Ошибка сохранения:", error);
-        alert("Не удалось полностью сохранить изменения. Проверьте оба JSON на GitHub.\n\n" + error.message);
-    } finally {
-        saveButton.disabled = false;
-        saveButton.textContent = "💾 Сохранить изменения на сайт";
+        console.error("Ошибка удаления крана:", error);
+        alert("Удаление завершилось не полностью. Проверь на GitHub index.html, drips.html, status.json и drips.json.\n\n" + error.message +
+            "\n\nЕсли GitHub успел принять часть коммитов, остальные файлы нужно сверить вручную.");
+        try {
+            const status = JSON.parse((await githubGetFile(FILE_PATH)).content);
+            globalDisabledFaucets = Array.isArray(status.disabled_faucets) ? status.disabled_faucets.map(String) : [];
+            const settings = status.faucet_settings || {};
+            vipFaucets = new Set(Object.entries(settings).filter(([,v]) => v && v.vip === true).map(([k]) => String(k)));
+            await loadDripsSettings();
+            await fetchAndParseFaucets();
+        } catch (reloadError) { console.error("Не удалось обновить список после ошибки удаления:", reloadError); }
     }
 }
 
