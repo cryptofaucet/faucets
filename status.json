@@ -62,11 +62,11 @@
     },
     "7": {
       "name": "GANHE COM FAUCET",
-      "url": "https://ganhecomfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-12T20:28:00.592Z"
+      "url": "https://ganhecomfaucet.site/",
+      "reward": "0.00000001",
+      "coin": "BTC",
+      "minutes": 2,
+      "_updated_at": "2026-11-12T20:28:57.427Z"
     },
     "8": {
       "name": "Faucet Alaska",
@@ -1000,5 +1000,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T20:28:00.592Z"
+  "last_updated": "2026-11-12T20:28:57.427Z"
 }
