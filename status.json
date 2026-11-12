@@ -2,7 +2,6 @@
   "disabled_faucets": [
     "LIMITLESS FAUCET (faucet6)",
     "Faucet Alaska (faucet8)",
-    "Top Faucet (faucet17)",
     "Fpclicker.com (faucet76)",
     "InstantFP (faucet42)",
     "pkfaucet Instant withdrawal site (faucet65)",
@@ -130,14 +129,6 @@
       "coin": "PEPE",
       "minutes": 5,
       "_updated_at": "2026-11-09T20:32:53.199Z"
-    },
-    "17": {
-      "name": "Top Faucet",
-      "url": "https://topfaucet.site/",
-      "reward": "0.0005",
-      "coin": "DOGE",
-      "minutes": 5,
-      "_updated_at": "2026-11-09T20:37:02.756Z"
     },
     "18": {
       "name": "Faucetino",
@@ -1057,5 +1048,5 @@
       "_updated_at": "2026-11-12T14:46:02.114Z"
     }
   },
-  "last_updated": "2026-11-12T14:54:27.056Z"
+  "last_updated": "2026-11-12T14:56:01.746Z"
 }
