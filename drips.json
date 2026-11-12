@@ -1049,11 +1049,11 @@
     },
     "130": {
       "name": "coin-drip.com",
-      "url": "https://coin-drip.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-12T05:52:24.759Z"
+      "url": "https://coin-drip.com/",
+      "reward": "0.0001",
+      "coin": "TON",
+      "minutes": 15,
+      "_updated_at": "2026-11-12T05:53:15.891Z"
     }
   },
   "drips_disabled_faucets": [
@@ -1171,5 +1171,5 @@
     "116",
     "117"
   ],
-  "last_updated": "2026-11-12T05:52:24.759Z"
+  "last_updated": "2026-11-12T05:53:15.891Z"
 }
