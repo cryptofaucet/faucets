@@ -10,7 +10,6 @@
     "CryptoMania (faucet114)",
     "Satoshi Drop (faucet13)",
     "FaucetFun (faucet1)",
-    "tronstorm (faucet17)",
     "BitEarnix (faucet4)"
   ],
   "faucet_settings": {
@@ -114,14 +113,6 @@
       "coin": "PEPE",
       "minutes": 5,
       "_updated_at": "2026-11-09T20:32:53.199Z"
-    },
-    "17": {
-      "name": "tronstorm",
-      "url": "https://tronstorm.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-12T15:41:00.293Z"
     },
     "18": {
       "name": "Faucetino",
@@ -983,5 +974,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-12T19:05:35.293Z"
+  "last_updated": "2026-11-12T19:05:57.217Z"
 }
