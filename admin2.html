@@ -46,6 +46,9 @@ button:disabled{opacity:.6;cursor:wait}
 .vip-toggle.vip-on{background:#d6a900;border-color:#ffe16b;color:#211900}
 .vip-toggle:disabled{opacity:.55}
 .faucet-reward-display{flex:1;min-width:0;text-align:center;color:#2ecc71;font-size:14px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+.faucet-reward-crypto{display:block;color:#2ecc71;font-size:14px;font-weight:800}
+.faucet-reward-rub{display:block;margin-top:3px;color:#ffd166;font-size:12px;font-weight:700}
+.rates-status{margin:8px 0 0;text-align:center;color:#aab4c2;font-size:12px}
 .admin-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .status-btn,.edit-btn,.drips-btn{width:auto;flex-shrink:0;padding:7px 10px;font-size:13px}
 .drips-btn{background:#35d05b;color:#102015;min-width:82px}
@@ -158,6 +161,7 @@ button:disabled{opacity:.6;cursor:wait}
 <div class="faucet-stat"><span class="faucet-stat-label">Работают</span><strong class="faucet-stat-value" id="statsWorking">—</strong></div>
 <div class="faucet-stat"><span class="faucet-stat-label">Отключены</span><strong class="faucet-stat-value" id="statsDisabled">—</strong></div>
 <div class="faucet-stats-updated" id="statsUpdated">Последнее изменение: —</div>
+<p class="rates-status" id="ratesStatus">Курсы криптовалют: загружаются…</p>
 </div>
 
 <div class="add-faucet-panel">
@@ -224,6 +228,85 @@ let dripsDisabledFaucets = [];
 let vipFaucets = new Set();
 let fileSha = "";
 let statsLastUpdated = null;
+let adminCryptoRatesRUB = {};
+let adminUsdToRub = 0;
+
+// Используем те же биржевые источники и набор монет, что и index.html.
+async function loadAdminCryptoRates() {
+    try {
+        adminCryptoRatesRUB = JSON.parse(localStorage.getItem("cryptoRatesRUB") || "{}");
+        adminUsdToRub = Number(localStorage.getItem("usdToRub")) || 0;
+    } catch (_) {
+        adminCryptoRatesRUB = {};
+        adminUsdToRub = 0;
+    }
+
+    const p1 = "ht" + "tps://";
+    const binance = "api.bi" + "nance.com";
+    const ticker = "/api/v3/ti" + "cker/price?symbol=";
+    const bybit = "api.by" + "bit.com";
+    const bybitTicker = "/v5/market/tic" + "kers?category=spot&symbol=";
+    const binanceCoins = ["BTC", "ETH", "DOGE", "LTC", "BCH", "DASH", "TRX", "ZEC", "BNB", "SOL", "XRP", "ADA", "TON", "XLM", "XMR", "PEPE"];
+    const extraCoins = ["DGB", "POL", "TRUMP", "FLT"];
+    const pricesUSD = {};
+
+    const rubResponse = await fetch(p1 + binance + ticker + "USDTRUB", { cache: "no-store" });
+    if (rubResponse.ok) {
+        const rubData = await rubResponse.json();
+        const value = Number(rubData.price);
+        if (Number.isFinite(value) && value > 0) adminUsdToRub = value;
+    }
+
+    await Promise.all(binanceCoins.map(async coin => {
+        try {
+            const response = await fetch(p1 + binance + ticker + coin + "USDT", { cache: "no-store" });
+            if (!response.ok) return;
+            const data = await response.json();
+            const value = Number(data.price);
+            if (Number.isFinite(value) && value > 0) pricesUSD[coin] = value;
+        } catch (_) {}
+    }));
+
+    await Promise.all(extraCoins.map(async coin => {
+        try {
+            const response = await fetch(p1 + bybit + bybitTicker + coin + "USDT", { cache: "no-store" });
+            if (!response.ok) return;
+            const data = await response.json();
+            const value = Number(data?.result?.list?.[0]?.lastPrice);
+            if (Number.isFinite(value) && value > 0) pricesUSD[coin] = value;
+        } catch (_) {}
+    }));
+
+    if (!pricesUSD.DGB && pricesUSD.DOGE) pricesUSD.DGB = pricesUSD.DOGE * 0.085;
+    if (!pricesUSD.FEY) pricesUSD.FEY = 0.005;
+    if (!pricesUSD.TRUMP) pricesUSD.TRUMP = 2.05;
+    if (!pricesUSD.FLT) pricesUSD.FLT = 0.25;
+    if (!pricesUSD.POL && pricesUSD.MATIC) pricesUSD.POL = pricesUSD.MATIC;
+    pricesUSD.USDT = 1;
+    pricesUSD.USDC = 1;
+
+    if (adminUsdToRub > 0) {
+        const freshRates = {};
+        Object.entries(pricesUSD).forEach(([coin, price]) => { freshRates[coin] = price * adminUsdToRub; });
+        adminCryptoRatesRUB = { ...adminCryptoRatesRUB, ...freshRates };
+        localStorage.setItem("cryptoRatesRUB", JSON.stringify(adminCryptoRatesRUB));
+        localStorage.setItem("usdToRub", String(adminUsdToRub));
+    }
+
+    const status = document.getElementById("ratesStatus");
+    if (status) status.textContent = adminUsdToRub > 0
+        ? "Курсы обновлены · USD/RUB: " + adminUsdToRub.toFixed(2) + " ₽"
+        : "Не удалось обновить курсы; используются сохранённые значения, если они есть";
+    renderAdminList();
+}
+
+function formatRewardInRub(reward, coin) {
+    const amount = Number(String(reward).replace(",", "."));
+    const rate = adminCryptoRatesRUB[String(coin || "").trim().toUpperCase()];
+    if (!Number.isFinite(amount) || amount <= 0 || !Number.isFinite(Number(rate)) || Number(rate) <= 0) return "≈ — ₽";
+    const rub = amount * Number(rate);
+    return "≈ " + rub.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 8 }) + " ₽";
+}
 
 function githubHeaders(token) {
     return {
@@ -441,6 +524,14 @@ async function login() {
         document.getElementById("adminBlock").classList.remove("hidden");
 
         await fetchAndParseFaucets();
+        try {
+            await loadAdminCryptoRates();
+        } catch (rateError) {
+            console.warn("Не удалось обновить курсы криптовалют:", rateError);
+            const status = document.getElementById("ratesStatus");
+            if (status) status.textContent = "Ошибка обновления курсов; показаны сохранённые значения, если они есть";
+            renderAdminList();
+        }
     } catch (error) {
         console.error("Ошибка входа:", error);
         alert("Не удалось войти в админку.\n\n" + error.message +
@@ -594,9 +685,17 @@ function renderAdminList() {
 
         const rewardDisplay = document.createElement("span");
         rewardDisplay.className = "faucet-reward-display";
-        rewardDisplay.textContent = faucet.reward && faucet.coin
-            ? `${faucet.reward} ${faucet.coin}`
-            : "—";
+        if (faucet.reward && faucet.coin) {
+            const cryptoValue = document.createElement("span");
+            cryptoValue.className = "faucet-reward-crypto";
+            cryptoValue.textContent = `${faucet.reward} ${faucet.coin}`;
+            const rubValue = document.createElement("span");
+            rubValue.className = "faucet-reward-rub";
+            rubValue.textContent = formatRewardInRub(faucet.reward, faucet.coin);
+            rewardDisplay.append(cryptoValue, rubValue);
+        } else {
+            rewardDisplay.textContent = "—";
+        }
 
         const cooldownDisplay = document.createElement("span");
         cooldownDisplay.className = "faucet-cooldown-display";
