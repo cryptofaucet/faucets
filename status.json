@@ -16,7 +16,8 @@
     "BLOCKXS Faucet (faucet17)",
     "tronstorm (faucet26)",
     "Arcade2Cash (faucet21)",
-    "ClaudeFaucet (faucet9)"
+    "ClaudeFaucet (faucet9)",
+    "OGMA AD SPACE (faucet15)"
   ],
   "faucet_settings": {
     "1": {
@@ -1021,5 +1022,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-13T06:22:22.988Z"
+  "last_updated": "2026-11-13T18:10:23.303Z"
 }
