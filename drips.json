@@ -912,10 +912,10 @@
     "119": {
       "name": "FinalRound1903",
       "url": "https://finalround1903.site/",
-      "reward": "2000",
+      "reward": "1",
       "coin": "PEPE",
-      "minutes": 10,
-      "_updated_at": "2026-11-10T17:40:59.399Z"
+      "minutes": 60,
+      "_updated_at": "2026-11-13T19:31:44.780Z"
     },
     "120": {
       "name": "PepeDrop",
@@ -1116,5 +1116,5 @@
     "17",
     "26"
   ],
-  "last_updated": "2026-11-13T19:25:52.189Z"
+  "last_updated": "2026-11-13T19:31:44.780Z"
 }
