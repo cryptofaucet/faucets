@@ -71,8 +71,8 @@
       "url": "https://ganhecomfaucet.site/",
       "reward": "0.00000001",
       "coin": "BTC",
-      "minutes": 2,
-      "_updated_at": "2026-11-12T20:28:57.427Z",
+      "minutes": 5,
+      "_updated_at": "2026-11-14T16:26:49.264Z",
       "vip": true
     },
     "8": {
@@ -1023,5 +1023,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-13T19:31:44.780Z"
+  "last_updated": "2026-11-14T16:26:49.264Z"
 }
