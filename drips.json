@@ -113,6 +113,14 @@
       "minutes": 60,
       "_updated_at": "2026-11-09T20:28:59.958Z"
     },
+    "15": {
+      "name": "HichamFaucet",
+      "url": "https://hichamfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T22:25:35.696Z"
+    },
     "16": {
       "name": "Super Faucet",
       "url": "https://superfaucet.site/",
@@ -1020,5 +1028,5 @@
     "9",
     "11"
   ],
-  "last_updated": "2026-11-15T22:25:19.083Z"
+  "last_updated": "2026-11-15T22:25:35.696Z"
 }
