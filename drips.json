@@ -1,6 +1,5 @@
 {
   "disabled_faucets": [
-    "LIMITLESS FAUCET (faucet6)",
     "Fpclicker.com (faucet76)",
     "InstantFP (faucet42)",
     "HichamFaucet (faucet89)",
@@ -31,14 +30,6 @@
       "coin": "BTC",
       "minutes": 3,
       "_updated_at": "2026-11-12T13:21:06.050Z"
-    },
-    "6": {
-      "name": "LIMITLESS FAUCET",
-      "url": "https://limitlessfaucet.site/",
-      "reward": "0.00000005",
-      "coin": "BTC",
-      "minutes": 30,
-      "_updated_at": "2026-11-09T20:11:41.141Z"
     },
     "7": {
       "name": "GANHE COM FAUCET",
@@ -1009,7 +1000,6 @@
     "11",
     "10",
     "9",
-    "6",
     "4",
     "2",
     "19",
@@ -1108,5 +1098,5 @@
     "17",
     "26"
   ],
-  "last_updated": "2026-11-15T20:51:54.945Z"
+  "last_updated": "2026-11-15T20:52:16.232Z"
 }
