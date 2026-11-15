@@ -6,7 +6,6 @@
     "FinalRound1903 (faucet119)",
     "CryptoMania (faucet114)",
     "FaucetFun (faucet1)",
-    "Vipfaucet (faucet62)",
     "POURRI (faucet5)",
     "ClaudeFaucet (faucet3)",
     "BLOCKXS Faucet (faucet6)",
@@ -438,14 +437,6 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-11-15T21:41:34.206Z"
-    },
-    "62": {
-      "name": "Vipfaucet",
-      "url": "https://vipfaucet.site/",
-      "reward": "0.000006",
-      "coin": "LTC",
-      "minutes": 1,
-      "_updated_at": "2026-11-10T00:12:28.911Z"
     },
     "63": {
       "name": "Cro Faucet",
@@ -1013,7 +1004,6 @@
     "123",
     "122",
     "121",
-    "62",
     "63",
     "64",
     "67",
@@ -1072,5 +1062,5 @@
     "9",
     "11"
   ],
-  "last_updated": "2026-11-15T21:41:34.206Z"
+  "last_updated": "2026-11-15T21:49:18.560Z"
 }
