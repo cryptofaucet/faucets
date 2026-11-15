@@ -7,7 +7,6 @@
     "FinalRound1903 (faucet119)",
     "CryptoMania (faucet114)",
     "FaucetFun (faucet1)",
-    "tronstorm (faucet26)",
     "Vipfaucet (faucet62)",
     "POURRI (faucet5)",
     "ClaudeFaucet (faucet3)",
@@ -166,14 +165,6 @@
       "coin": "PEPE",
       "minutes": 5,
       "_updated_at": "2026-11-12T13:33:58.790Z"
-    },
-    "26": {
-      "name": "tronstorm",
-      "url": "https://tronstorm.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-12T20:34:03.166Z"
     },
     "27": {
       "name": "Planet Faucet",
@@ -1083,11 +1074,10 @@
     "1",
     "105",
     "7",
-    "26",
     "6",
     "3",
     "5",
     "8"
   ],
-  "last_updated": "2026-11-15T21:10:38.155Z"
+  "last_updated": "2026-11-15T21:11:08.446Z"
 }
