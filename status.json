@@ -1,7 +1,6 @@
 {
   "disabled_faucets": [
     "FinalRound1903 (faucet119)",
-    "CryptoMania (faucet114)",
     "FaucetFun (faucet1)",
     "POURRI (faucet5)",
     "ClaudeFaucet (faucet3)",
@@ -799,14 +798,6 @@
       "minutes": 60,
       "_updated_at": "2026-11-10T17:50:41.519Z"
     },
-    "114": {
-      "name": "CryptoMania",
-      "url": "https://cryptomania.space/",
-      "reward": "0.00005",
-      "coin": "SOL",
-      "minutes": 30,
-      "_updated_at": "2026-11-10T17:52:39.131Z"
-    },
     "115": {
       "name": "Freefaucet",
       "url": "https://freefaucet.site/",
@@ -939,5 +930,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T22:11:44.582Z"
+  "last_updated": "2026-11-15T22:18:26.085Z"
 }
