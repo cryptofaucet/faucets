@@ -582,6 +582,14 @@
       "minutes": 0,
       "_updated_at": "2026-11-15T20:44:07.996Z"
     },
+    "71": {
+      "name": "Faucet Stack",
+      "url": "https://faucetstack.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T20:44:24.744Z"
+    },
     "74": {
       "name": "CRYPTOADPAY",
       "url": "https://cryptoadpay.com/",
@@ -1038,5 +1046,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T20:44:07.996Z"
+  "last_updated": "2026-11-15T20:44:24.744Z"
 }
