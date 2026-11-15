@@ -69,6 +69,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-15T21:04:48.558Z"
     },
+    "9": {
+      "name": "InstantFP",
+      "url": "https://instantfp.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T21:19:06.208Z"
+    },
     "10": {
       "name": "Bit Faucet",
       "url": "https://bitfaucet.offers4all.xyz/",
@@ -1052,5 +1060,5 @@
     "5",
     "8"
   ],
-  "last_updated": "2026-11-15T21:17:41.732Z"
+  "last_updated": "2026-11-15T21:19:06.208Z"
 }
