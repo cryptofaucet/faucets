@@ -1,6 +1,5 @@
 {
   "disabled_faucets": [
-    "DGBEARN (faucet92)",
     "FinalRound1903 (faucet119)",
     "CryptoMania (faucet114)",
     "FaucetFun (faucet1)",
@@ -640,14 +639,6 @@
       "minutes": 1,
       "_updated_at": "2026-11-10T17:10:58.002Z"
     },
-    "92": {
-      "name": "DGBEARN",
-      "url": "https://dgbearn.top/",
-      "reward": "0.00015",
-      "coin": "USDT",
-      "minutes": 2,
-      "_updated_at": "2026-11-10T17:12:06.540Z"
-    },
     "93": {
       "name": "CentPay.Online",
       "url": "https://centpay.online/",
@@ -956,5 +947,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T22:06:13.224Z"
+  "last_updated": "2026-11-15T22:07:04.193Z"
 }
