@@ -11,7 +11,8 @@
     "ClaudeFaucet (faucet3)",
     "BLOCKXS Faucet (faucet6)",
     "alhorfaucet (faucet8)",
-    "InstantFP (faucet9)"
+    "InstantFP (faucet9)",
+    "tronstorm (faucet11)"
   ],
   "faucet_settings": {
     "1": {
@@ -983,5 +984,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:19:50.530Z"
+  "last_updated": "2026-11-15T21:20:10.353Z"
 }
