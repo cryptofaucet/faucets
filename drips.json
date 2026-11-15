@@ -9,7 +9,6 @@
     "FaucetFun (faucet1)",
     "BLOCKXS Faucet (faucet17)",
     "tronstorm (faucet26)",
-    "OGMA AD SPACE (faucet15)",
     "Vipfaucet (faucet62)"
   ],
   "faucet_settings": {
@@ -76,14 +75,6 @@
       "coin": "BCH",
       "minutes": 60,
       "_updated_at": "2026-11-09T20:28:59.958Z"
-    },
-    "15": {
-      "name": "OGMA AD SPACE",
-      "url": "https://ogmaads.space/",
-      "reward": "0.000003",
-      "coin": "SOL",
-      "minutes": 10,
-      "_updated_at": "2026-11-09T20:31:33.960Z"
     },
     "16": {
       "name": "Super Faucet",
@@ -983,7 +974,6 @@
     }
   },
   "drips_disabled_faucets": [
-    "15",
     "14",
     "12",
     "10",
@@ -1085,5 +1075,5 @@
     "17",
     "26"
   ],
-  "last_updated": "2026-11-15T20:55:28.371Z"
+  "last_updated": "2026-11-15T20:55:55.900Z"
 }
