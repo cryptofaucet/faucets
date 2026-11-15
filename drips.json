@@ -1,7 +1,6 @@
 {
   "disabled_faucets": [
     "Fpclicker.com (faucet76)",
-    "InstantFP (faucet42)",
     "HichamFaucet (faucet89)",
     "DGBEARN (faucet92)",
     "FinalRound1903 (faucet119)",
@@ -269,14 +268,6 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-11-09T23:05:00.397Z"
-    },
-    "42": {
-      "name": "InstantFP",
-      "url": "https://instantfp.site/",
-      "reward": "0.00001",
-      "coin": "ETH",
-      "minutes": 60,
-      "_updated_at": "2026-11-09T23:08:13.406Z"
     },
     "43": {
       "name": "luckfaucet",
@@ -984,7 +975,6 @@
     "38",
     "40",
     "41",
-    "42",
     "43",
     "44",
     "45",
@@ -1062,5 +1052,5 @@
     "5",
     "8"
   ],
-  "last_updated": "2026-11-15T21:14:15.742Z"
+  "last_updated": "2026-11-15T21:17:41.732Z"
 }
