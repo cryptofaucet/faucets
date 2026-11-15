@@ -419,10 +419,10 @@
     "58": {
       "name": "Ifaucet",
       "url": "https://ifaucet.click/",
-      "reward": "0.000025",
+      "reward": "0.00002",
       "coin": "LTC",
-      "minutes": 60,
-      "_updated_at": "2026-11-09T18:02:35.022Z"
+      "minutes": 45,
+      "_updated_at": "2026-11-15T21:38:57.575Z"
     },
     "59": {
       "name": "Adptc",
@@ -984,5 +984,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:38:11.156Z"
+  "last_updated": "2026-11-15T21:38:57.575Z"
 }
