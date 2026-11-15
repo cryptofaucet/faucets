@@ -156,8 +156,8 @@
       "url": "https://high5btc.site/",
       "reward": "0.001",
       "coin": "DOGE",
-      "minutes": 3,
-      "_updated_at": "2026-11-09T21:55:09.621Z"
+      "minutes": 60,
+      "_updated_at": "2026-11-15T21:10:38.155Z"
     },
     "25": {
       "name": "Faas Faucet",
@@ -1089,5 +1089,5 @@
     "5",
     "8"
   ],
-  "last_updated": "2026-11-15T21:10:04.459Z"
+  "last_updated": "2026-11-15T21:10:38.155Z"
 }
