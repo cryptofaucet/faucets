@@ -1,6 +1,5 @@
 {
   "disabled_faucets": [
-    "Fpclicker.com (faucet76)",
     "HichamFaucet (faucet89)",
     "DGBEARN (faucet92)",
     "FinalRound1903 (faucet119)",
@@ -535,14 +534,6 @@
       "minutes": 5,
       "_updated_at": "2026-11-15T21:59:40.226Z"
     },
-    "76": {
-      "name": "Fpclicker.com",
-      "url": "https://fpclicker.com/",
-      "reward": "0.02813",
-      "coin": "TRX",
-      "minutes": 10,
-      "_updated_at": "2026-11-09T22:47:51.103Z"
-    },
     "77": {
       "name": "Tron.riches",
       "url": "https://tronriches.website/",
@@ -975,5 +966,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:59:40.226Z"
+  "last_updated": "2026-11-15T22:00:05.466Z"
 }
