@@ -860,10 +860,10 @@
     "124": {
       "name": "BTC Rat - 1 Sat. every 5 mins",
       "url": "https://btcrat.site/",
-      "reward": "0.00000001",
-      "coin": "BTC",
-      "minutes": 5,
-      "_updated_at": "2026-11-10T08:21:46.210Z"
+      "reward": "0.00000105",
+      "coin": "LTC",
+      "minutes": 1,
+      "_updated_at": "2026-11-15T22:21:37.029Z"
     },
     "125": {
       "name": "Web World FAUCETs",
@@ -1012,5 +1012,5 @@
     "9",
     "11"
   ],
-  "last_updated": "2026-11-15T22:19:33.751Z"
+  "last_updated": "2026-11-15T22:21:37.029Z"
 }
