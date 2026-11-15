@@ -7,7 +7,6 @@
     "FinalRound1903 (faucet119)",
     "CryptoMania (faucet114)",
     "FaucetFun (faucet1)",
-    "BLOCKXS Faucet (faucet17)",
     "tronstorm (faucet26)",
     "Vipfaucet (faucet62)"
   ],
@@ -89,14 +88,6 @@
       "coin": "PEPE",
       "minutes": 1,
       "_updated_at": "2026-11-15T20:57:32.838Z"
-    },
-    "17": {
-      "name": "BLOCKXS Faucet",
-      "url": "https://faucet.blockxs.com/",
-      "reward": "0.000006",
-      "coin": "SOL",
-      "minutes": 15,
-      "_updated_at": "2026-11-12T20:33:02.526Z"
     },
     "18": {
       "name": "Faucetino",
@@ -990,5 +981,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T20:57:32.838Z"
+  "last_updated": "2026-11-15T20:58:17.675Z"
 }
