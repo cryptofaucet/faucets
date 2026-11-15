@@ -386,10 +386,10 @@
     "55": {
       "name": "BitClaims",
       "url": "https://bitclaims.online/",
-      "reward": "0.0000008",
+      "reward": "0.0000012",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-09T23:33:51.264Z"
+      "_updated_at": "2026-11-15T21:36:54.921Z"
     },
     "56": {
       "name": "CryptoVibe",
@@ -1072,5 +1072,5 @@
     "9",
     "11"
   ],
-  "last_updated": "2026-11-15T21:20:10.353Z"
+  "last_updated": "2026-11-15T21:36:54.921Z"
 }
