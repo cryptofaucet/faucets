@@ -92,6 +92,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-12T13:26:12.533Z"
     },
+    "11": {
+      "name": "tronstorm",
+      "url": "https://tronstorm.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T21:19:50.530Z"
+    },
     "12": {
       "name": "BigMob Faucet",
       "url": "https://bigmobfaucet.com/",
@@ -975,5 +983,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:19:16.729Z"
+  "last_updated": "2026-11-15T21:19:50.530Z"
 }
