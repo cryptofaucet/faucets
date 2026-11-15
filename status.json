@@ -71,11 +71,11 @@
     },
     "8": {
       "name": "alhorfaucet",
-      "url": "https://alhorfaucet.website",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-15T21:02:35.916Z"
+      "url": "https://alhorfaucet.website/",
+      "reward": "0.00005",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-15T21:04:48.558Z"
     },
     "10": {
       "name": "Bit Faucet",
@@ -1001,5 +1001,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:04:16.836Z"
+  "last_updated": "2026-11-15T21:04:48.558Z"
 }
