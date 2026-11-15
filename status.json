@@ -6,7 +6,8 @@
     "BLOCKXS Faucet (faucet6)",
     "alhorfaucet (faucet8)",
     "InstantFP (faucet9)",
-    "tronstorm (faucet11)"
+    "tronstorm (faucet11)",
+    "HichamFaucet (faucet15)"
   ],
   "faucet_settings": {
     "1": {
@@ -937,5 +938,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T22:26:35.185Z"
+  "last_updated": "2026-11-15T22:26:44.275Z"
 }
