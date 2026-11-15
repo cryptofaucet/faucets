@@ -542,6 +542,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-13T18:58:32.156Z"
     },
+    "66": {
+      "name": "LTC new",
+      "url": "https://ltcnew.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T20:43:48.365Z"
+    },
     "67": {
       "name": "TakeLtc",
       "url": "https://takeltc.site/",
@@ -1022,5 +1030,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-14T20:34:50.006Z"
+  "last_updated": "2026-11-15T20:43:48.365Z"
 }
