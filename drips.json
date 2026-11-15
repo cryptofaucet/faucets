@@ -496,11 +496,11 @@
     },
     "70": {
       "name": "DarthBatonfaucet",
-      "url": "https://darthbatonfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-15T20:44:07.996Z"
+      "url": "https://darthbatonfaucet.site/",
+      "reward": "0.00000005",
+      "coin": "BTC",
+      "minutes": 60,
+      "_updated_at": "2026-11-15T21:52:11.662Z"
     },
     "71": {
       "name": "Faucet Stack",
@@ -1062,5 +1062,5 @@
     "9",
     "11"
   ],
-  "last_updated": "2026-11-15T21:50:41.574Z"
+  "last_updated": "2026-11-15T21:52:11.662Z"
 }
