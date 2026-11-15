@@ -889,10 +889,10 @@
     "126": {
       "name": "Bountro PEPE Faucet",
       "url": "https://trxfaucet.online/",
-      "reward": "120",
+      "reward": "60",
       "coin": "PEPE",
-      "minutes": 5,
-      "_updated_at": "2026-11-10T08:34:57.460Z",
+      "minutes": 3,
+      "_updated_at": "2026-11-15T22:22:30.023Z",
       "vip": false
     },
     "127": {
@@ -929,5 +929,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T22:21:37.029Z"
+  "last_updated": "2026-11-15T22:22:30.023Z"
 }
