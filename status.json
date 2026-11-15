@@ -48,6 +48,14 @@
       "minutes": 0,
       "_updated_at": "2026-11-15T20:53:51.596Z"
     },
+    "6": {
+      "name": "BLOCKXS Faucet",
+      "url": "https://faucet.blockxs.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T21:02:18.518Z"
+    },
     "7": {
       "name": "GANHE COM FAUCET",
       "url": "https://ganhecomfaucet.site/",
@@ -981,5 +989,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:00:44.718Z"
+  "last_updated": "2026-11-15T21:02:18.518Z"
 }
