@@ -10,7 +10,8 @@
     "tronstorm (faucet26)",
     "Vipfaucet (faucet62)",
     "POURRI (faucet5)",
-    "ClaudeFaucet (faucet3)"
+    "ClaudeFaucet (faucet3)",
+    "BLOCKXS Faucet (faucet6)"
   ],
   "faucet_settings": {
     "1": {
@@ -999,5 +1000,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:04:01.555Z"
+  "last_updated": "2026-11-15T21:04:07.669Z"
 }
