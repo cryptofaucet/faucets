@@ -6,7 +6,6 @@
     "DGBEARN (faucet92)",
     "FinalRound1903 (faucet119)",
     "CryptoMania (faucet114)",
-    "Satoshi Drop (faucet13)",
     "FaucetFun (faucet1)",
     "BLOCKXS Faucet (faucet17)",
     "tronstorm (faucet26)",
@@ -69,14 +68,6 @@
       "coin": "SOL",
       "minutes": 1,
       "_updated_at": "2026-11-09T20:25:41.543Z"
-    },
-    "13": {
-      "name": "Satoshi Drop",
-      "url": "https://satoshidrop.site/",
-      "reward": "0.0001",
-      "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-11-09T20:27:49.195Z"
     },
     "14": {
       "name": "TimmyTime Faucet",
@@ -994,7 +985,6 @@
   "drips_disabled_faucets": [
     "15",
     "14",
-    "13",
     "12",
     "10",
     "4",
@@ -1095,5 +1085,5 @@
     "17",
     "26"
   ],
-  "last_updated": "2026-11-15T20:54:59.210Z"
+  "last_updated": "2026-11-15T20:55:28.371Z"
 }
