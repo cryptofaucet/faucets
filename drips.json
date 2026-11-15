@@ -564,6 +564,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-10T00:19:42.240Z"
     },
+    "70": {
+      "name": "DarthBatonfaucet",
+      "url": "https://darthbatonfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T20:44:07.996Z"
+    },
     "74": {
       "name": "CRYPTOADPAY",
       "url": "https://cryptoadpay.com/",
@@ -1123,5 +1131,5 @@
     "17",
     "26"
   ],
-  "last_updated": "2026-11-15T20:43:48.365Z"
+  "last_updated": "2026-11-15T20:44:07.996Z"
 }
