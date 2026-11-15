@@ -513,11 +513,11 @@
     },
     "71": {
       "name": "Faucet Stack",
-      "url": "https://faucetstack.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-15T20:44:24.744Z"
+      "url": "https://faucetstack.site/",
+      "reward": "0.00000025",
+      "coin": "BTC",
+      "minutes": 60,
+      "_updated_at": "2026-11-15T21:53:17.407Z"
     },
     "74": {
       "name": "CRYPTOADPAY",
@@ -975,5 +975,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:52:11.662Z"
+  "last_updated": "2026-11-15T21:53:17.407Z"
 }
