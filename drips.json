@@ -21,11 +21,11 @@
     },
     "3": {
       "name": "ClaudeFaucet",
-      "url": "https://claudefaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-15T20:53:35.631Z"
+      "url": "https://claudefaucet.site/",
+      "reward": "0.00000002",
+      "coin": "BTC",
+      "minutes": 60,
+      "_updated_at": "2026-11-15T21:00:44.718Z"
     },
     "4": {
       "name": "BitEarnix",
@@ -1065,5 +1065,5 @@
     "7",
     "26"
   ],
-  "last_updated": "2026-11-15T20:58:17.675Z"
+  "last_updated": "2026-11-15T21:00:44.718Z"
 }
