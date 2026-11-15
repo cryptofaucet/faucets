@@ -747,14 +747,6 @@
       "minutes": 1,
       "_updated_at": "2026-11-10T17:38:47.472Z"
     },
-    "108": {
-      "name": "My Faucet usdt",
-      "url": "https://jhoalfaucet.click/",
-      "reward": "0.00001",
-      "coin": "USDT",
-      "minutes": 10,
-      "_updated_at": "2026-11-10T17:45:08.984Z"
-    },
     "109": {
       "name": "EarnCrypto",
       "url": "https://earnltcsol.in/",
@@ -1012,7 +1004,6 @@
     "107",
     "120",
     "119",
-    "108",
     "109",
     "110",
     "111",
@@ -1032,5 +1023,5 @@
     "9",
     "11"
   ],
-  "last_updated": "2026-11-15T22:09:36.281Z"
+  "last_updated": "2026-11-15T22:11:44.582Z"
 }
