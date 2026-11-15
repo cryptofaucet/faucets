@@ -43,6 +43,14 @@
       "_updated_at": "2026-11-12T13:21:06.050Z",
       "vip": false
     },
+    "5": {
+      "name": "POURRI",
+      "url": "https://pourri.fun",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T20:53:51.596Z"
+    },
     "7": {
       "name": "GANHE COM FAUCET",
       "url": "https://ganhecomfaucet.site/",
@@ -1008,5 +1016,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T20:53:35.631Z"
+  "last_updated": "2026-11-15T20:53:51.596Z"
 }
