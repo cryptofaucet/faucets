@@ -65,6 +65,14 @@
       "_updated_at": "2026-11-14T16:26:49.264Z",
       "vip": true
     },
+    "8": {
+      "name": "alhorfaucet",
+      "url": "https://alhorfaucet.website",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-15T21:02:35.916Z"
+    },
     "10": {
       "name": "Bit Faucet",
       "url": "https://bitfaucet.offers4all.xyz/",
@@ -989,5 +997,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:02:18.518Z"
+  "last_updated": "2026-11-15T21:02:35.916Z"
 }
