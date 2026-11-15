@@ -11,7 +11,8 @@
     "BLOCKXS Faucet (faucet17)",
     "tronstorm (faucet26)",
     "OGMA AD SPACE (faucet15)",
-    "Vipfaucet (faucet62)"
+    "Vipfaucet (faucet62)",
+    "alhorfaucet (faucet11)"
   ],
   "faucet_settings": {
     "1": {
@@ -1016,5 +1017,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T20:53:51.596Z"
+  "last_updated": "2026-11-15T20:54:44.892Z"
 }
