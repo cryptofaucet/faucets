@@ -1,7 +1,6 @@
 {
   "disabled_faucets": [
     "LIMITLESS FAUCET (faucet6)",
-    "Faucet Alaska (faucet8)",
     "Fpclicker.com (faucet76)",
     "InstantFP (faucet42)",
     "HichamFaucet (faucet89)",
@@ -63,14 +62,6 @@
       "minutes": 5,
       "_updated_at": "2026-11-14T16:26:49.264Z",
       "vip": true
-    },
-    "8": {
-      "name": "Faucet Alaska",
-      "url": "https://faucetalaska.online/",
-      "reward": "0.00000005",
-      "coin": "BTC",
-      "minutes": 600,
-      "_updated_at": "2026-11-09T20:15:04.890Z"
     },
     "9": {
       "name": "ClaudeFaucet",
@@ -1036,5 +1027,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T20:50:25.017Z"
+  "last_updated": "2026-11-15T20:51:32.570Z"
 }
