@@ -402,10 +402,10 @@
     "57": {
       "name": "clickClaims",
       "url": "https://clickclaims.online/",
-      "reward": "0.0000008",
+      "reward": "0.0000012",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-09T23:36:28.777Z"
+      "_updated_at": "2026-11-15T21:38:11.156Z"
     },
     "58": {
       "name": "Ifaucet",
@@ -1072,5 +1072,5 @@
     "9",
     "11"
   ],
-  "last_updated": "2026-11-15T21:37:28.904Z"
+  "last_updated": "2026-11-15T21:38:11.156Z"
 }
