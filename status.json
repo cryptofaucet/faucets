@@ -1,6 +1,5 @@
 {
   "disabled_faucets": [
-    "HichamFaucet (faucet89)",
     "DGBEARN (faucet92)",
     "FinalRound1903 (faucet119)",
     "CryptoMania (faucet114)",
@@ -625,15 +624,6 @@
       "_updated_at": "2026-11-10T16:59:48.217Z",
       "vip": false
     },
-    "89": {
-      "name": "HichamFaucet",
-      "url": "https://hichamfaucet.site/",
-      "reward": "0.0005",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-10T17:04:42.506Z",
-      "vip": false
-    },
     "90": {
       "name": "Easy Faucet",
       "url": "https://easyfaucet.io/",
@@ -966,5 +956,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T22:00:05.466Z"
+  "last_updated": "2026-11-15T22:06:13.224Z"
 }
