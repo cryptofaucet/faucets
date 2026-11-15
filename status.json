@@ -87,8 +87,8 @@
       "url": "https://superfaucet.site/",
       "reward": "0.001",
       "coin": "PEPE",
-      "minutes": 5,
-      "_updated_at": "2026-11-09T20:32:53.199Z"
+      "minutes": 1,
+      "_updated_at": "2026-11-15T20:57:32.838Z"
     },
     "17": {
       "name": "BLOCKXS Faucet",
@@ -990,5 +990,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T20:55:55.900Z"
+  "last_updated": "2026-11-15T20:57:32.838Z"
 }
