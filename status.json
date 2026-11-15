@@ -11,8 +11,7 @@
     "BLOCKXS Faucet (faucet17)",
     "tronstorm (faucet26)",
     "OGMA AD SPACE (faucet15)",
-    "Vipfaucet (faucet62)",
-    "alhorfaucet (faucet11)"
+    "Vipfaucet (faucet62)"
   ],
   "faucet_settings": {
     "1": {
@@ -68,14 +67,6 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-12T13:26:12.533Z"
-    },
-    "11": {
-      "name": "alhorfaucet",
-      "url": "https://alhorfaucet.website/",
-      "reward": "0.00005",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-09T20:24:26.811Z"
     },
     "12": {
       "name": "BigMob Faucet",
@@ -1017,5 +1008,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T20:54:44.892Z"
+  "last_updated": "2026-11-15T20:54:59.210Z"
 }
