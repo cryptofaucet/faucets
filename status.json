@@ -10,7 +10,8 @@
     "POURRI (faucet5)",
     "ClaudeFaucet (faucet3)",
     "BLOCKXS Faucet (faucet6)",
-    "alhorfaucet (faucet8)"
+    "alhorfaucet (faucet8)",
+    "InstantFP (faucet9)"
   ],
   "faucet_settings": {
     "1": {
@@ -974,5 +975,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-15T21:19:06.208Z"
+  "last_updated": "2026-11-15T21:19:16.729Z"
 }
