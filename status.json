@@ -9,8 +9,7 @@
     "tronstorm (faucet11)",
     "HichamFaucet (faucet15)",
     "Faucet Stack (faucet71)",
-    "Arcade2Cash (faucet21)",
-    "DGBEARN (faucet13)"
+    "Arcade2Cash (faucet21)"
   ],
   "faucet_settings": {
     "1": {
@@ -106,14 +105,6 @@
       "coin": "SOL",
       "minutes": 1,
       "_updated_at": "2026-11-09T20:25:41.543Z"
-    },
-    "13": {
-      "name": "DGBEARN",
-      "url": "https://dgbearn.top",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-16T10:22:45.344Z"
     },
     "14": {
       "name": "TimmyTime Faucet",
@@ -949,5 +940,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-16T10:23:34.980Z"
+  "last_updated": "2026-11-16T10:23:51.874Z"
 }
