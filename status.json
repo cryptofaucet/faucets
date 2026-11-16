@@ -9,7 +9,8 @@
     "tronstorm (faucet11)",
     "HichamFaucet (faucet15)",
     "Faucet Stack (faucet71)",
-    "Arcade2Cash (faucet21)"
+    "Arcade2Cash (faucet21)",
+    "DGBEARN (faucet13)"
   ],
   "faucet_settings": {
     "1": {
@@ -948,5 +949,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-16T10:22:45.344Z"
+  "last_updated": "2026-11-16T10:23:34.980Z"
 }
