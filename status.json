@@ -8,7 +8,8 @@
     "InstantFP (faucet9)",
     "tronstorm (faucet11)",
     "HichamFaucet (faucet15)",
-    "Faucet Stack (faucet71)"
+    "Faucet Stack (faucet71)",
+    "Arcade2Cash (faucet21)"
   ],
   "faucet_settings": {
     "1": {
@@ -939,5 +940,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-16T10:19:40.417Z"
+  "last_updated": "2026-11-16T10:20:54.337Z"
 }
