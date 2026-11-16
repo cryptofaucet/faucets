@@ -7,7 +7,8 @@
     "alhorfaucet (faucet8)",
     "InstantFP (faucet9)",
     "tronstorm (faucet11)",
-    "HichamFaucet (faucet15)"
+    "HichamFaucet (faucet15)",
+    "Faucet Stack (faucet71)"
   ],
   "faucet_settings": {
     "2": {
@@ -1023,5 +1024,5 @@
     "15",
     "71"
   ],
-  "last_updated": "2026-11-16T10:19:29.756Z"
+  "last_updated": "2026-11-16T10:19:40.417Z"
 }
