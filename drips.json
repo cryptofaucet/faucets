@@ -9,7 +9,8 @@
     "tronstorm (faucet11)",
     "HichamFaucet (faucet15)",
     "Faucet Stack (faucet71)",
-    "Arcade2Cash (faucet21)"
+    "Arcade2Cash (faucet21)",
+    "Mint Faucet (faucet20)"
   ],
   "faucet_settings": {
     "2": {
@@ -1025,5 +1026,5 @@
     "15",
     "71"
   ],
-  "last_updated": "2026-11-16T10:23:51.874Z"
+  "last_updated": "2026-11-16T10:32:02.795Z"
 }
