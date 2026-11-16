@@ -100,6 +100,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-09T20:25:41.543Z"
     },
+    "13": {
+      "name": "DGBEARN",
+      "url": "https://dgbearn.top",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-16T10:22:45.344Z"
+    },
     "14": {
       "name": "TimmyTime Faucet",
       "url": "https://timmytimefaucet.online/",
@@ -1025,5 +1033,5 @@
     "15",
     "71"
   ],
-  "last_updated": "2026-11-16T10:20:54.337Z"
+  "last_updated": "2026-11-16T10:22:45.344Z"
 }
