@@ -43,11 +43,11 @@
     },
     "4": {
       "name": "BitEarnix",
-      "url": "https://bitearnix.com/",
+      "url": "https://bitearnix.com/?r=96pzwwdg",
       "reward": "0.00000001",
       "coin": "BTC",
       "minutes": 3,
-      "_updated_at": "2026-11-12T13:21:06.050Z",
+      "_updated_at": "2026-11-17T10:55:00.531Z",
       "vip": false
     },
     "5": {
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T10:54:05.888Z"
+  "last_updated": "2026-11-17T10:55:00.531Z"
 }
