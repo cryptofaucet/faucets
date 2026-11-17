@@ -410,11 +410,11 @@
     },
     "49": {
       "name": "freedogecoin.online",
-      "url": "https://freedogecoin.online/",
+      "url": "https://freedogecoin.online/?r=ntz5xt6t",
       "reward": "0.01",
       "coin": "DOGE",
       "minutes": 60,
-      "_updated_at": "2026-11-09T23:22:15.765Z"
+      "_updated_at": "2026-11-17T11:14:39.204Z"
     },
     "50": {
       "name": "Diamondfaucet",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:14:05.664Z"
+  "last_updated": "2026-11-17T11:14:39.204Z"
 }
