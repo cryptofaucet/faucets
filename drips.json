@@ -361,11 +361,11 @@
     },
     "45": {
       "name": "CryptoGravy",
-      "url": "https://cryptogravy.site/",
+      "url": "https://cryptogravy.site/?r=b5ar92nx",
       "reward": "0.001230",
       "coin": "DOGE",
       "minutes": 1,
-      "_updated_at": "2026-11-09T23:12:23.312Z"
+      "_updated_at": "2026-11-17T11:12:37.210Z"
     },
     "46": {
       "name": "Mycryptocoin",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:12:09.281Z"
+  "last_updated": "2026-11-17T11:12:37.210Z"
 }
