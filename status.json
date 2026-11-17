@@ -761,7 +761,8 @@
       "reward": "0.00000099",
       "coin": "SOL",
       "minutes": 3,
-      "_updated_at": "2026-11-15T22:09:36.281Z"
+      "_updated_at": "2026-11-15T22:09:36.281Z",
+      "vip": true
     },
     "100": {
       "name": "StarFaucet - FREE USDT",
@@ -999,5 +1000,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:07:36.860Z"
+  "last_updated": "2026-11-17T06:10:41.189Z"
 }
