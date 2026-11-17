@@ -946,7 +946,8 @@
       "reward": "0.00000100",
       "coin": "LTC",
       "minutes": 15,
-      "_updated_at": "2026-11-10T00:07:08.336Z"
+      "_updated_at": "2026-11-10T00:07:08.336Z",
+      "vip": true
     },
     "124": {
       "name": "BTC Rat - 1 Sat. every 5 mins",
@@ -1008,5 +1009,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:27:35.780Z"
+  "last_updated": "2026-11-17T06:28:09.285Z"
 }
