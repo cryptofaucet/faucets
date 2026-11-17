@@ -401,11 +401,11 @@
     },
     "50": {
       "name": "Diamondfaucet",
-      "url": "https://diamondfaucet.site/",
+      "url": "https://diamondfaucet.site/?r=9pq3dbsv",
       "reward": "0.00025",
       "coin": "DOGE",
       "minutes": 1,
-      "_updated_at": "2026-11-09T23:24:11.940Z"
+      "_updated_at": "2026-11-17T11:15:11.749Z"
     },
     "51": {
       "name": "Pythagore-DOGE",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:14:39.204Z"
+  "last_updated": "2026-11-17T11:15:11.749Z"
 }
