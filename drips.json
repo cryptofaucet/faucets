@@ -9,7 +9,8 @@
     "Faucetpay space (faucet34)",
     "Zyro Faucet (faucet36)",
     "Tron.riches (faucet77)",
-    "FinalRound1903 (faucet119)"
+    "FinalRound1903 (faucet119)",
+    "PepeDrop (faucet120)"
   ],
   "faucet_settings": {
     "2": {
@@ -1070,5 +1071,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T06:23:41.328Z"
+  "last_updated": "2026-11-17T06:27:35.780Z"
 }
