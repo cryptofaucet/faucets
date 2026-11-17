@@ -449,11 +449,11 @@
     },
     "56": {
       "name": "CryptoVibe",
-      "url": "https://leitosa.dpdns.org/",
+      "url": "https://leitosa.dpdns.org/?r=5fc72ur5",
       "reward": "0.0000060",
       "coin": "LTC",
       "minutes": 10,
-      "_updated_at": "2026-11-15T21:37:28.904Z"
+      "_updated_at": "2026-11-17T11:17:32.389Z"
     },
     "57": {
       "name": "clickClaims",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:16:58.163Z"
+  "last_updated": "2026-11-17T11:17:32.389Z"
 }
