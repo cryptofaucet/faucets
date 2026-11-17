@@ -1004,11 +1004,11 @@
     },
     "130": {
       "name": "coin-drip.com",
-      "url": "https://coin-drip.com/",
+      "url": "https://coin-drip.com/?r=87j572mq",
       "reward": "0.001",
       "coin": "TON",
       "minutes": 15,
-      "_updated_at": "2026-11-15T22:23:50.225Z"
+      "_updated_at": "2026-11-17T11:47:15.141Z"
     },
     "131": {
       "name": "BitPayu - Earn Free Crypto",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:46:38.745Z"
+  "last_updated": "2026-11-17T11:47:15.141Z"
 }
