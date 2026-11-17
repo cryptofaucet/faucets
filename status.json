@@ -344,7 +344,8 @@
       "reward": "0.00005",
       "coin": "USDT",
       "minutes": 5,
-      "_updated_at": "2026-11-09T23:05:00.397Z"
+      "_updated_at": "2026-11-09T23:05:00.397Z",
+      "vip": true
     },
     "43": {
       "name": "luckfaucet",
@@ -987,5 +988,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T03:58:17.108Z"
+  "last_updated": "2026-11-17T03:59:31.326Z"
 }
