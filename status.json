@@ -661,7 +661,8 @@
       "reward": "0.00001",
       "coin": "TRX",
       "minutes": 5,
-      "_updated_at": "2026-11-10T16:54:33.939Z"
+      "_updated_at": "2026-11-10T16:54:33.939Z",
+      "vip": true
     },
     "86": {
       "name": "Vipcypto",
@@ -996,5 +997,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T05:51:19.139Z"
+  "last_updated": "2026-11-17T05:56:55.088Z"
 }
