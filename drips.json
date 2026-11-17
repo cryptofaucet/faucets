@@ -593,11 +593,11 @@
     },
     "78": {
       "name": "Tron unlimited! Top TRX..",
-      "url": "https://123faucet.com/",
+      "url": "https://123faucet.com/?r=kvzm25ur",
       "reward": "0.002",
       "coin": "TRX",
       "minutes": 5,
-      "_updated_at": "2026-11-10T16:40:43.885Z"
+      "_updated_at": "2026-11-17T11:27:29.127Z"
     },
     "79": {
       "name": "Crypto Fun",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:26:14.470Z"
+  "last_updated": "2026-11-17T11:27:29.127Z"
 }
