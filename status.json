@@ -759,11 +759,11 @@
     },
     "98": {
       "name": "CornEarn",
-      "url": "https://cornearn.win/",
+      "url": "https://cornearn.win/?r=yu26byjf",
       "reward": "0.0001",
       "coin": "USDT",
       "minutes": 10,
-      "_updated_at": "2026-11-10T17:27:13.642Z"
+      "_updated_at": "2026-11-17T11:35:49.848Z"
     },
     "99": {
       "name": "EgoFaucet",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:35:12.978Z"
+  "last_updated": "2026-11-17T11:35:49.848Z"
 }
