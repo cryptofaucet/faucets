@@ -358,6 +358,14 @@
       "_updated_at": "2026-11-17T11:11:08.280Z",
       "vip": true
     },
+    "42": {
+      "name": "liteClaim",
+      "url": "https://liteclaim.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-17T11:48:27.131Z"
+    },
     "43": {
       "name": "luckfaucet",
       "url": "https://luckfaucet.online/?r=mi7dp3h7",
@@ -1019,5 +1027,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-17T11:47:56.177Z"
+  "last_updated": "2026-11-17T11:48:27.131Z"
 }
