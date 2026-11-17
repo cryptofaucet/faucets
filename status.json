@@ -234,11 +234,11 @@
     },
     "27": {
       "name": "Planet Faucet",
-      "url": "https://planetfaucet.com/",
+      "url": "https://planetfaucet.com/?r=8up9d3v5",
       "reward": "0.0001",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-09T22:15:22.864Z",
+      "_updated_at": "2026-11-17T11:05:01.201Z",
       "vip": true
     },
     "28": {
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:04:13.255Z"
+  "last_updated": "2026-11-17T11:05:01.201Z"
 }
