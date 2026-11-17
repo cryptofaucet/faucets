@@ -602,7 +602,7 @@
       "coin": "TRX",
       "minutes": 60,
       "_updated_at": "2026-11-09T17:59:51.501Z",
-      "vip": true
+      "vip": false
     },
     "78": {
       "name": "Tron unlimited! Top TRX..",
@@ -994,5 +994,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T05:49:55.017Z"
+  "last_updated": "2026-11-17T05:50:35.368Z"
 }
