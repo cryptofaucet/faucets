@@ -301,6 +301,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-09T22:29:15.855Z"
     },
+    "37": {
+      "name": "Faucet Alaska",
+      "url": "https://faucetalaska.online",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-17T02:22:44.967Z"
+    },
     "38": {
       "name": "Earnfree",
       "url": "https://earnfree.site/",
@@ -966,5 +974,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T02:22:03.100Z"
+  "last_updated": "2026-11-17T02:22:44.967Z"
 }
