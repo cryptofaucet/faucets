@@ -2,7 +2,6 @@
   "disabled_faucets": [
     "FaucetFun (faucet1)",
     "POURRI (faucet5)",
-    "alhorfaucet (faucet8)",
     "InstantFP (faucet9)",
     "tronstorm (faucet11)",
     "HichamFaucet (faucet15)",
@@ -980,5 +979,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T03:08:27.711Z"
+  "last_updated": "2026-11-17T03:09:30.684Z"
 }
