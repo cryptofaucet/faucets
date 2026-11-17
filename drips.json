@@ -206,6 +206,14 @@
       "minutes": 5,
       "_updated_at": "2026-11-12T13:33:58.790Z"
     },
+    "26": {
+      "name": "LIMITLESS FAUCET",
+      "url": "https://limitlessfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-17T02:21:20.869Z"
+    },
     "27": {
       "name": "Planet Faucet",
       "url": "https://planetfaucet.com/",
@@ -1045,5 +1053,5 @@
     "17",
     "13"
   ],
-  "last_updated": "2026-11-17T02:21:01.725Z"
+  "last_updated": "2026-11-17T02:21:20.869Z"
 }
