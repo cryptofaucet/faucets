@@ -11,7 +11,8 @@
     "Tron.riches (faucet77)",
     "FinalRound1903 (faucet119)",
     "PepeDrop (faucet120)",
-    "BTC Rat - 1 Sat. every 5 mins (faucet124)"
+    "BTC Rat - 1 Sat. every 5 mins (faucet124)",
+    "Fpclicker.com (faucet39)"
   ],
   "faucet_settings": {
     "1": {
@@ -1012,5 +1013,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:32:32.553Z"
+  "last_updated": "2026-11-17T09:59:39.474Z"
 }
