@@ -975,7 +975,7 @@
       "coin": "PEPE",
       "minutes": 3,
       "_updated_at": "2026-11-15T22:22:30.023Z",
-      "vip": false
+      "vip": true
     },
     "127": {
       "name": "aBitcoin.love",
@@ -1011,5 +1011,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:29:16.401Z"
+  "last_updated": "2026-11-17T06:29:54.840Z"
 }
