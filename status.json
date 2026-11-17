@@ -676,11 +676,11 @@
     },
     "86": {
       "name": "Vipcypto",
-      "url": "https://vipcypto.online/",
+      "url": "https://vipcypto.online/?r=shhfvtt3",
       "reward": "0.00000637",
       "coin": "TRX",
       "minutes": 5,
-      "_updated_at": "2026-11-10T16:57:48.445Z"
+      "_updated_at": "2026-11-17T11:30:44.823Z"
     },
     "87": {
       "name": "LAGFAUCET",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:30:05.070Z"
+  "last_updated": "2026-11-17T11:30:44.823Z"
 }
