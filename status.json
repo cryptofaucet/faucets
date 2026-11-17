@@ -294,7 +294,8 @@
       "reward": "0.00003",
       "coin": "USDT",
       "minutes": 5,
-      "_updated_at": "2026-11-09T22:28:39.683Z"
+      "_updated_at": "2026-11-09T22:28:39.683Z",
+      "vip": true
     },
     "36": {
       "name": "Zyro Faucet",
@@ -985,5 +986,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T03:57:32.137Z"
+  "last_updated": "2026-11-17T03:57:59.195Z"
 }
