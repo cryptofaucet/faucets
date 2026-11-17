@@ -786,7 +786,8 @@
       "reward": "0.00001",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:31:47.941Z"
+      "_updated_at": "2026-11-10T17:31:47.941Z",
+      "vip": true
     },
     "103": {
       "name": "crypto faucet",
@@ -1000,5 +1001,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:10:41.189Z"
+  "last_updated": "2026-11-17T06:11:46.574Z"
 }
