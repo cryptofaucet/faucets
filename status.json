@@ -134,7 +134,8 @@
       "reward": "0.001",
       "coin": "PEPE",
       "minutes": 1,
-      "_updated_at": "2026-11-15T20:57:32.838Z"
+      "_updated_at": "2026-11-15T20:57:32.838Z",
+      "vip": true
     },
     "17": {
       "name": "Bestfaucet -Melhores Ofertas",
@@ -978,5 +979,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T03:11:20.807Z"
+  "last_updated": "2026-11-17T03:21:13.436Z"
 }
