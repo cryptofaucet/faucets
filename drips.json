@@ -769,11 +769,11 @@
     },
     "103": {
       "name": "crypto faucet",
-      "url": "https://crypto-faucet.site/",
+      "url": "https://crypto-faucet.site/?r=6yri2rnt",
       "reward": "0.0001000",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:32:41.191Z"
+      "_updated_at": "2026-11-17T11:37:44.920Z"
     },
     "104": {
       "name": "Pythagore-USDT",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:36:57.669Z"
+  "last_updated": "2026-11-17T11:37:44.920Z"
 }
