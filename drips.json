@@ -529,11 +529,11 @@
     },
     "67": {
       "name": "TakeLtc",
-      "url": "https://takeltc.site/",
+      "url": "https://takeltc.site/?r=py7xwkd2",
       "reward": "0.000002",
       "coin": "LTC",
       "minutes": 15,
-      "_updated_at": "2026-11-10T00:16:29.902Z"
+      "_updated_at": "2026-11-17T11:22:09.470Z"
     },
     "68": {
       "name": "Brazas Earn",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:21:10.986Z"
+  "last_updated": "2026-11-17T11:22:09.470Z"
 }
