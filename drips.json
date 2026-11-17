@@ -657,11 +657,11 @@
     },
     "87": {
       "name": "LAGFAUCET",
-      "url": "https://lagfaucet.online/",
+      "url": "https://lagfaucet.online/?r=uv5vp2xt",
       "reward": "0.0001",
       "coin": "USDT",
       "minutes": 5,
-      "_updated_at": "2026-11-10T17:01:22.460Z"
+      "_updated_at": "2026-11-17T11:31:27.187Z"
     },
     "88": {
       "name": "BitBitFlow",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:30:44.823Z"
+  "last_updated": "2026-11-17T11:31:27.187Z"
 }
