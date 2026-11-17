@@ -811,7 +811,8 @@
       "reward": "0.00001",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:36:44.277Z"
+      "_updated_at": "2026-11-10T17:36:44.277Z",
+      "vip": true
     },
     "106": {
       "name": "faucetguy - Ultimate faucet",
@@ -1001,5 +1002,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:11:46.574Z"
+  "last_updated": "2026-11-17T06:12:51.915Z"
 }
