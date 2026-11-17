@@ -820,7 +820,8 @@
       "reward": "0.00001000",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:37:42.006Z"
+      "_updated_at": "2026-11-10T17:37:42.006Z",
+      "vip": true
     },
     "107": {
       "name": "Play Games and earn",
@@ -1002,5 +1003,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:12:51.915Z"
+  "last_updated": "2026-11-17T06:15:02.329Z"
 }
