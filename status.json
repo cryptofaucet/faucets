@@ -460,11 +460,11 @@
     },
     "55": {
       "name": "BitClaims",
-      "url": "https://bitclaims.online/",
+      "url": "https://bitclaims.online/?r=gra3em2q",
       "reward": "0.0000012",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-15T21:36:54.921Z",
+      "_updated_at": "2026-11-17T11:16:58.163Z",
       "vip": true
     },
     "56": {
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:16:22.804Z"
+  "last_updated": "2026-11-17T11:16:58.163Z"
 }
