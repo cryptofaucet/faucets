@@ -286,11 +286,11 @@
     },
     "33": {
       "name": "FreeCoinsForYou",
-      "url": "https://freecoinsforyou.online/",
+      "url": "https://freecoinsforyou.online/?r=7z6rymrq",
       "reward": "0.00005",
       "coin": "LTC",
       "minutes": 1440,
-      "_updated_at": "2026-11-09T22:26:13.675Z"
+      "_updated_at": "2026-11-17T11:07:59.728Z"
     },
     "34": {
       "name": "Faucetpay space",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:07:11.106Z"
+  "last_updated": "2026-11-17T11:07:59.728Z"
 }
