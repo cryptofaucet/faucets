@@ -659,11 +659,11 @@
     },
     "83": {
       "name": "BitFaucet",
-      "url": "https://bitfaucet.site/",
+      "url": "https://bitfaucet.site/?r=zksu49dn",
       "reward": "0.002",
       "coin": "TRX",
       "minutes": 60,
-      "_updated_at": "2026-11-10T16:47:24.262Z"
+      "_updated_at": "2026-11-17T11:30:05.070Z"
     },
     "85": {
       "name": "Ethiomi faucet",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:29:32.064Z"
+  "last_updated": "2026-11-17T11:30:05.070Z"
 }
