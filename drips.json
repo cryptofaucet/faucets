@@ -57,11 +57,11 @@
     },
     "6": {
       "name": "BLOCKXS Faucet",
-      "url": "https://faucet.blockxs.com/",
+      "url": "https://faucet.blockxs.com/?r=7vgkuypp",
       "reward": "0.000005",
       "coin": "SOL",
       "minutes": 15,
-      "_updated_at": "2026-11-15T21:03:14.821Z"
+      "_updated_at": "2026-11-17T10:55:46.877Z"
     },
     "7": {
       "name": "GANHE COM FAUCET",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T10:55:00.531Z"
+  "last_updated": "2026-11-17T10:55:46.877Z"
 }
