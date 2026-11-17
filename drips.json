@@ -312,11 +312,11 @@
     },
     "39": {
       "name": "Fpclicker.com",
-      "url": "https://fpclicker.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-17T02:24:24.368Z"
+      "url": "https://fpclicker.com/",
+      "reward": "0.02813",
+      "coin": "TRX",
+      "minutes": 10,
+      "_updated_at": "2026-11-17T02:25:19.630Z"
     },
     "40": {
       "name": "Gimme Crypto",
@@ -1071,5 +1071,5 @@
     "26",
     "37"
   ],
-  "last_updated": "2026-11-17T02:24:24.368Z"
+  "last_updated": "2026-11-17T02:25:19.630Z"
 }
