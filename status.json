@@ -620,7 +620,8 @@
       "reward": "0.0005",
       "coin": "TRX",
       "minutes": 60,
-      "_updated_at": "2026-11-10T16:42:07.612Z"
+      "_updated_at": "2026-11-10T16:42:07.612Z",
+      "vip": true
     },
     "80": {
       "name": "CryptoGravyTron",
@@ -995,5 +996,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T05:50:39.063Z"
+  "last_updated": "2026-11-17T05:51:19.139Z"
 }
