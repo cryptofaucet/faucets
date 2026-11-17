@@ -302,11 +302,11 @@
     },
     "35": {
       "name": "DM Crypto",
-      "url": "https://dmcrypto.site/",
+      "url": "https://dmcrypto.site/?r=drcb98js",
       "reward": "0.00003",
       "coin": "USDT",
       "minutes": 5,
-      "_updated_at": "2026-11-09T22:28:39.683Z",
+      "_updated_at": "2026-11-17T11:08:40.849Z",
       "vip": true
     },
     "36": {
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:07:59.728Z"
+  "last_updated": "2026-11-17T11:08:40.849Z"
 }
