@@ -65,11 +65,11 @@
     },
     "7": {
       "name": "GANHE COM FAUCET",
-      "url": "https://ganhecomfaucet.site/",
+      "url": "https://ganhecomfaucet.site/?r=v5vjh6w4",
       "reward": "0.00000001",
       "coin": "BTC",
       "minutes": 5,
-      "_updated_at": "2026-11-14T16:26:49.264Z"
+      "_updated_at": "2026-11-17T10:56:48.428Z"
     },
     "8": {
       "name": "alhorfaucet",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T10:55:46.877Z"
+  "last_updated": "2026-11-17T10:56:48.428Z"
 }
