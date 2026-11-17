@@ -329,11 +329,11 @@
     },
     "40": {
       "name": "Gimme Crypto",
-      "url": "https://gimmecrypto.site/",
+      "url": "https://gimmecrypto.site/?r=tzedgs9x",
       "reward": "0.00000004",
       "coin": "SOL",
       "minutes": 30,
-      "_updated_at": "2026-11-09T22:41:20.554Z"
+      "_updated_at": "2026-11-17T11:10:36.225Z"
     },
     "41": {
       "name": "Faucet Funds",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:08:40.849Z"
+  "last_updated": "2026-11-17T11:10:36.225Z"
 }
