@@ -453,7 +453,8 @@
       "reward": "0.0000012",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-15T21:36:54.921Z"
+      "_updated_at": "2026-11-15T21:36:54.921Z",
+      "vip": true
     },
     "56": {
       "name": "CryptoVibe",
@@ -990,5 +991,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T05:43:52.938Z"
+  "last_updated": "2026-11-17T05:44:31.694Z"
 }
