@@ -965,7 +965,8 @@
       "reward": "0.00000100",
       "coin": "DOGE",
       "minutes": 5,
-      "_updated_at": "2026-11-10T08:23:43.124Z"
+      "_updated_at": "2026-11-10T08:23:43.124Z",
+      "vip": true
     },
     "126": {
       "name": "Bountro PEPE Faucet",
@@ -1010,5 +1011,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:29:04.275Z"
+  "last_updated": "2026-11-17T06:29:16.401Z"
 }
