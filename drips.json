@@ -129,11 +129,11 @@
     },
     "15": {
       "name": "HichamFaucet",
-      "url": "https://hichamfaucet.site/",
+      "url": "https://hichamfaucet.site/?r=dnkh2z6c",
       "reward": "0.0005",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-15T22:26:35.185Z"
+      "_updated_at": "2026-11-17T10:59:23.334Z"
     },
     "16": {
       "name": "Super Faucet",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T10:58:51.759Z"
+  "last_updated": "2026-11-17T10:59:23.334Z"
 }
