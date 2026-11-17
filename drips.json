@@ -121,11 +121,11 @@
     },
     "14": {
       "name": "TimmyTime Faucet",
-      "url": "https://timmytimefaucet.online/",
+      "url": "https://timmytimefaucet.online/?r=jixexmkw",
       "reward": "0.0000001",
       "coin": "BCH",
       "minutes": 60,
-      "_updated_at": "2026-11-09T20:28:59.958Z"
+      "_updated_at": "2026-11-17T10:58:51.759Z"
     },
     "15": {
       "name": "HichamFaucet",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T10:58:25.058Z"
+  "last_updated": "2026-11-17T10:58:51.759Z"
 }
