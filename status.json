@@ -608,11 +608,11 @@
     },
     "77": {
       "name": "Tron.riches",
-      "url": "https://tronriches.website/",
+      "url": "https://tronriches.website/?r=st8e2i2i",
       "reward": "0.01",
       "coin": "TRX",
       "minutes": 60,
-      "_updated_at": "2026-11-09T17:59:51.501Z",
+      "_updated_at": "2026-11-17T11:26:14.470Z",
       "vip": false
     },
     "78": {
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:25:19.793Z"
+  "last_updated": "2026-11-17T11:26:14.470Z"
 }
