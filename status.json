@@ -992,7 +992,8 @@
       "reward": "0.00001",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T22:09:56.403Z"
+      "_updated_at": "2026-11-10T22:09:56.403Z",
+      "vip": true
     },
     "130": {
       "name": "coin-drip.com",
@@ -1011,5 +1012,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:29:54.840Z"
+  "last_updated": "2026-11-17T06:30:12.960Z"
 }
