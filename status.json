@@ -351,11 +351,11 @@
     },
     "41": {
       "name": "Faucet Funds",
-      "url": "https://faucetfunds.com/",
+      "url": "https://faucetfunds.com/?r=jpvu2kcu",
       "reward": "0.00005",
       "coin": "USDT",
       "minutes": 5,
-      "_updated_at": "2026-11-09T23:05:00.397Z",
+      "_updated_at": "2026-11-17T11:11:08.280Z",
       "vip": true
     },
     "43": {
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:10:36.225Z"
+  "last_updated": "2026-11-17T11:11:08.280Z"
 }
