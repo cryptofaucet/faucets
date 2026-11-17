@@ -489,11 +489,11 @@
     },
     "61": {
       "name": "BeezyPay",
-      "url": "https://beezypay.space/",
+      "url": "https://beezypay.space/?r=wpr6szuu",
       "reward": "0.0000025",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-15T21:41:34.206Z"
+      "_updated_at": "2026-11-17T11:19:22.984Z"
     },
     "63": {
       "name": "Cro Faucet",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:18:55.252Z"
+  "last_updated": "2026-11-17T11:19:22.984Z"
 }
