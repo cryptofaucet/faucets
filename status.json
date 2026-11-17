@@ -742,11 +742,11 @@
     },
     "96": {
       "name": "Fun Faucet",
-      "url": "https://funfaucet.site/",
+      "url": "https://funfaucet.site/?r=pury9v9t",
       "reward": "0.001",
       "coin": "USDT",
       "minutes": 1440,
-      "_updated_at": "2026-11-15T22:08:06.698Z"
+      "_updated_at": "2026-11-17T11:35:12.978Z"
     },
     "97": {
       "name": "USDT Games",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:34:40.081Z"
+  "last_updated": "2026-11-17T11:35:12.978Z"
 }
