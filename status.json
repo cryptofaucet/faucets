@@ -259,7 +259,8 @@
       "reward": "10",
       "coin": "PEPE",
       "minutes": 1,
-      "_updated_at": "2026-11-09T22:23:24.825Z"
+      "_updated_at": "2026-11-09T22:23:24.825Z",
+      "vip": true
     },
     "32": {
       "name": "Gems Faucet",
@@ -982,5 +983,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T03:36:57.556Z"
+  "last_updated": "2026-11-17T03:56:01.856Z"
 }
