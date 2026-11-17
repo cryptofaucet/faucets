@@ -900,11 +900,11 @@
     },
     "117": {
       "name": "Dripdrop",
-      "url": "https://dripdrop.lol/",
+      "url": "https://dripdrop.lol/?r=w2qsifhg",
       "reward": "0.0001",
       "coin": "TON",
       "minutes": 5,
-      "_updated_at": "2026-11-10T17:57:45.683Z",
+      "_updated_at": "2026-11-17T11:41:56.166Z",
       "vip": true
     },
     "118": {
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:41:28.831Z"
+  "last_updated": "2026-11-17T11:41:56.166Z"
 }
