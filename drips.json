@@ -681,11 +681,11 @@
     },
     "91": {
       "name": "CryptoGravyUSDT",
-      "url": "https://cryptogravyusdt.site/",
+      "url": "https://cryptogravyusdt.site/?r=ribjpsut",
       "reward": "0.000101",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:10:58.002Z"
+      "_updated_at": "2026-11-17T11:33:28.612Z"
     },
     "93": {
       "name": "CentPay.Online",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:32:35.685Z"
+  "last_updated": "2026-11-17T11:33:28.612Z"
 }
