@@ -303,11 +303,11 @@
     },
     "37": {
       "name": "Faucet Alaska",
-      "url": "https://faucetalaska.online",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-17T02:22:44.967Z"
+      "url": "https://faucetalaska.online/",
+      "reward": "0.00000005",
+      "coin": "BTC",
+      "minutes": 600,
+      "_updated_at": "2026-11-17T02:23:31.390Z"
     },
     "38": {
       "name": "Earnfree",
@@ -974,5 +974,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T02:22:44.967Z"
+  "last_updated": "2026-11-17T02:23:31.390Z"
 }
