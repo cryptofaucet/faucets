@@ -109,11 +109,11 @@
     },
     "13": {
       "name": "DGBEARN",
-      "url": "https://dgbearn.top",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-17T02:19:12.272Z"
+      "url": "https://dgbearn.top/",
+      "reward": "0.0002",
+      "coin": "USDT",
+      "minutes": 1,
+      "_updated_at": "2026-11-17T02:19:56.241Z"
     },
     "14": {
       "name": "TimmyTime Faucet",
@@ -949,5 +949,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T02:19:12.272Z"
+  "last_updated": "2026-11-17T02:19:56.241Z"
 }
