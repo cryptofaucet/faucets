@@ -5,7 +5,8 @@
     "InstantFP (faucet9)",
     "tronstorm (faucet11)",
     "Faucet Stack (faucet71)",
-    "Bestfaucet -Melhores Ofertas (faucet17)"
+    "Bestfaucet -Melhores Ofertas (faucet17)",
+    "Arcade2Cash (faucet21)"
   ],
   "faucet_settings": {
     "1": {
@@ -980,5 +981,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T03:31:58.802Z"
+  "last_updated": "2026-11-17T03:35:41.348Z"
 }
