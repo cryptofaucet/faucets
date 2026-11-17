@@ -16,7 +16,13 @@
   ],
   "faucet_settings": {
     "1": {
-      "vip": false
+      "vip": false,
+      "name": "FaucetFun",
+      "url": "https://faucetfun.com/?r=wntszkp3",
+      "reward": "0.00000003",
+      "coin": "BTC",
+      "minutes": 15,
+      "_updated_at": "2026-11-17T10:54:05.888Z"
     },
     "2": {
       "name": "CoinDrip",
@@ -1013,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T09:59:39.474Z"
+  "last_updated": "2026-11-17T10:54:05.888Z"
 }
