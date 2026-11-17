@@ -876,11 +876,11 @@
     },
     "113": {
       "name": "Free BNB Pick",
-      "url": "https://freebnbpick.vip/",
+      "url": "https://freebnbpick.vip/?r=uw9zmqbg",
       "reward": "0.00000075",
       "coin": "BNB",
       "minutes": 60,
-      "_updated_at": "2026-11-10T17:50:41.519Z"
+      "_updated_at": "2026-11-17T11:40:24.220Z"
     },
     "115": {
       "name": "Freefaucet",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:39:52.849Z"
+  "last_updated": "2026-11-17T11:40:24.220Z"
 }
