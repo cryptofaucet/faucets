@@ -473,11 +473,11 @@
     },
     "59": {
       "name": "Adptc",
-      "url": "https://adptc.site/",
+      "url": "https://adptc.site/?r=37etxqdx",
       "reward": "0.000005",
       "coin": "LTC",
       "minutes": 3,
-      "_updated_at": "2026-11-09T23:40:19.824Z"
+      "_updated_at": "2026-11-17T11:18:16.710Z"
     },
     "60": {
       "name": "LTCfaucet",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:17:32.389Z"
+  "last_updated": "2026-11-17T11:18:16.710Z"
 }
