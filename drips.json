@@ -233,11 +233,11 @@
     },
     "28": {
       "name": "Cryptogreen",
-      "url": "https://cryptogreen.site/",
+      "url": "https://cryptogreen.site/?r=ypypjsu2",
       "reward": "0.0001",
       "coin": "USDT",
       "minutes": 30,
-      "_updated_at": "2026-11-09T22:17:59.832Z"
+      "_updated_at": "2026-11-17T11:05:29.506Z"
     },
     "29": {
       "name": "Satoshi Vault",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:05:01.201Z"
+  "last_updated": "2026-11-17T11:05:29.506Z"
 }
