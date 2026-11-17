@@ -567,11 +567,11 @@
     },
     "69": {
       "name": "CRYPTOFAUCET",
-      "url": "https://cryptofaucet.cyou/",
+      "url": "https://cryptofaucet.cyou/?r=gu6pdp49",
       "reward": "0.00000150",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-10T00:19:42.240Z"
+      "_updated_at": "2026-11-17T11:23:33.097Z"
     },
     "70": {
       "name": "DarthBatonfaucet",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:22:41.851Z"
+  "last_updated": "2026-11-17T11:23:33.097Z"
 }
