@@ -829,7 +829,8 @@
       "reward": "0.00001000",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:38:47.472Z"
+      "_updated_at": "2026-11-10T17:38:47.472Z",
+      "vip": true
     },
     "109": {
       "name": "EarnCrypto",
@@ -1003,5 +1004,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:15:02.329Z"
+  "last_updated": "2026-11-17T06:15:26.141Z"
 }
