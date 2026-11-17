@@ -849,11 +849,11 @@
     },
     "115": {
       "name": "Freefaucet",
-      "url": "https://freefaucet.site/",
+      "url": "https://freefaucet.site/?r=mx3z8tgj",
       "reward": "0.000001",
       "coin": "SOL",
       "minutes": 60,
-      "_updated_at": "2026-11-10T17:53:57.119Z"
+      "_updated_at": "2026-11-17T11:40:55.196Z"
     },
     "116": {
       "name": "Sol24.online",
@@ -1081,5 +1081,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:40:24.220Z"
+  "last_updated": "2026-11-17T11:40:55.196Z"
 }
