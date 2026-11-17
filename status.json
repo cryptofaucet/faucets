@@ -139,6 +139,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-15T20:57:32.838Z"
     },
+    "17": {
+      "name": "Bestfaucet -Melhores Ofertas",
+      "url": "https://bestfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-17T02:20:18.085Z"
+    },
     "18": {
       "name": "Faucetino",
       "url": "https://faucetino.com/",
@@ -949,5 +957,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T02:19:56.241Z"
+  "last_updated": "2026-11-17T02:20:18.085Z"
 }
