@@ -317,6 +317,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-09T22:39:25.284Z"
     },
+    "39": {
+      "name": "Fpclicker.com",
+      "url": "https://fpclicker.com",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-17T02:24:24.368Z"
+    },
     "40": {
       "name": "Gimme Crypto",
       "url": "https://gimmecrypto.site/",
@@ -974,5 +982,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T02:23:31.390Z"
+  "last_updated": "2026-11-17T02:24:24.368Z"
 }
