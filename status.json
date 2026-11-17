@@ -151,7 +151,8 @@
       "reward": "0.0001",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-09T20:38:52.767Z"
+      "_updated_at": "2026-11-09T20:38:52.767Z",
+      "vip": true
     },
     "19": {
       "name": "instafaucet",
@@ -979,5 +980,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T03:21:13.436Z"
+  "last_updated": "2026-11-17T03:21:41.306Z"
 }
