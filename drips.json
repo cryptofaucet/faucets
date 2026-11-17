@@ -10,7 +10,8 @@
     "Zyro Faucet (faucet36)",
     "Tron.riches (faucet77)",
     "FinalRound1903 (faucet119)",
-    "PepeDrop (faucet120)"
+    "PepeDrop (faucet120)",
+    "BTC Rat - 1 Sat. every 5 mins (faucet124)"
   ],
   "faucet_settings": {
     "2": {
@@ -1071,5 +1072,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T06:27:35.780Z"
+  "last_updated": "2026-11-17T06:29:04.275Z"
 }
