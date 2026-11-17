@@ -744,7 +744,8 @@
       "reward": "0.0001",
       "coin": "USDT",
       "minutes": 60,
-      "_updated_at": "2026-11-10T17:26:37.316Z"
+      "_updated_at": "2026-11-10T17:26:37.316Z",
+      "vip": true
     },
     "98": {
       "name": "CornEarn",
@@ -998,5 +999,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T06:00:10.534Z"
+  "last_updated": "2026-11-17T06:07:36.860Z"
 }
