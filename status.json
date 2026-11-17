@@ -260,11 +260,11 @@
     },
     "30": {
       "name": "BitLoot.ee | Crypto Rewards",
-      "url": "https://bitloot.ee/",
+      "url": "https://bitloot.ee/?r=hhv9v6i6",
       "reward": "0.0000001",
       "coin": "BNB",
       "minutes": 30,
-      "_updated_at": "2026-11-09T22:21:32.823Z"
+      "_updated_at": "2026-11-17T11:06:29.994Z"
     },
     "31": {
       "name": "PepeRush",
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:05:58.321Z"
+  "last_updated": "2026-11-17T11:06:29.994Z"
 }
