@@ -711,7 +711,8 @@
       "reward": "0.00003",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:13:47.658Z"
+      "_updated_at": "2026-11-10T17:13:47.658Z",
+      "vip": true
     },
     "94": {
       "name": "joy-dream",
@@ -997,5 +998,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T05:56:55.088Z"
+  "last_updated": "2026-11-17T06:00:10.534Z"
 }
