@@ -717,11 +717,11 @@
     },
     "93": {
       "name": "CentPay.Online",
-      "url": "https://centpay.online/",
+      "url": "https://centpay.online/?r=imh9pc8p",
       "reward": "0.00003",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-10T17:13:47.658Z",
+      "_updated_at": "2026-11-17T11:33:59.465Z",
       "vip": true
     },
     "94": {
@@ -1019,5 +1019,5 @@
       "_updated_at": "2026-11-12T15:38:07.691Z"
     }
   },
-  "last_updated": "2026-11-17T11:33:28.612Z"
+  "last_updated": "2026-11-17T11:33:59.465Z"
 }
