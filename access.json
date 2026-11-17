@@ -14,7 +14,12 @@
       "username": "@stamil",
       "type": "referral",
       "active": true
+    },
+    {
+      "username": "test",
+      "type": "referral",
+      "active": true
     }
   ],
-  "last_updated": "2026-11-13T19:48:38.610Z"
+  "last_updated": "2026-11-17T09:54:41.996Z"
 }
