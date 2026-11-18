@@ -528,11 +528,11 @@
     },
     "62": {
       "name": "Usdt Faucet",
-      "url": "https://usdtfaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-18T09:15:51.046Z"
+      "url": "https://usdtfaucet.site/",
+      "reward": "0.0004",
+      "coin": "USDT",
+      "minutes": 5,
+      "_updated_at": "2026-11-18T13:35:58.570Z"
     },
     "63": {
       "name": "Cro Faucet",
@@ -1037,5 +1037,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-18T13:34:56.755Z"
+  "last_updated": "2026-11-18T13:35:58.570Z"
 }
