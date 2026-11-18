@@ -903,10 +903,10 @@
     "119": {
       "name": "FinalRound1903",
       "url": "https://finalround1903.site/?r=nivaa8fn",
-      "reward": "0.1",
+      "reward": "0.001",
       "coin": "PEPE",
       "minutes": 1,
-      "_updated_at": "2026-11-17T11:42:43.370Z"
+      "_updated_at": "2026-11-18T14:53:01.331Z"
     },
     "120": {
       "name": "PepeDrop",
@@ -1104,5 +1104,5 @@
     "62",
     "70"
   ],
-  "last_updated": "2026-11-18T14:50:59.281Z"
+  "last_updated": "2026-11-18T14:53:01.331Z"
 }
