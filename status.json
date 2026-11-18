@@ -488,10 +488,10 @@
     "57": {
       "name": "clickClaims",
       "url": "https://clickclaims.online/",
-      "reward": "0.0000012",
+      "reward": "0.000001",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-15T21:38:11.156Z",
+      "_updated_at": "2026-11-18T13:34:56.755Z",
       "vip": true
     },
     "58": {
@@ -1037,5 +1037,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-18T13:34:19.436Z"
+  "last_updated": "2026-11-18T13:34:56.755Z"
 }
