@@ -16,7 +16,8 @@
     "LIMITLESS FAUCET (faucet26)",
     "DarthBatonfaucet (faucet70)",
     "FaaSet (faucet101)",
-    "RushFaucet (faucet110)"
+    "RushFaucet (faucet110)",
+    "Snow Faucet (faucet122)"
   ],
   "faucet_settings": {
     "1": {
@@ -1039,5 +1040,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-18T14:53:14.839Z"
+  "last_updated": "2026-11-18T14:53:30.211Z"
 }
