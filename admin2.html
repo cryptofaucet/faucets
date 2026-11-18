@@ -136,9 +136,18 @@ button:disabled{opacity:.6;cursor:wait}
 
 <div id="adminBlock" class="hidden">
 <h1>Управление кранами</h1>
-    <div style="display:flex;gap:8px;margin:12px 0">
-    <input id="testUrl" placeholder="Адрес сайта..." style="flex:1;min-width:0">
-    <button onclick="let u=document.getElementById('testUrl').value.trim();if(u){if(!/^https?:\/\//i.test(u))u='https://'+u;location.href=u}">Перейти</button>
+     <div style="display:flex;align-items:center;gap:8px;margin:12px 0;width:100%">
+    <input
+        id="testUrl"
+        type="text"
+        placeholder="Адрес сайта..."
+        style="display:block;flex:1 1 0;width:0;min-width:0;box-sizing:border-box"
+    >
+    <button
+        type="button"
+        style="display:block;flex:0 0 auto;width:auto;white-space:nowrap"
+        onclick="let u=document.getElementById('testUrl').value.trim();if(u){if(!/^https?:\/\//i.test(u))u='https://'+u;location.href=u}"
+    >Перейти</button>
 </div>
  <!-- FAUCETPAY SCANNER -->
 <div class="fp-panel">
