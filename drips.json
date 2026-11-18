@@ -16,7 +16,8 @@
     "DarthBatonfaucet (faucet70)",
     "FaaSet (faucet101)",
     "RushFaucet (faucet110)",
-    "Snow Faucet (faucet122)"
+    "Snow Faucet (faucet122)",
+    "claimnow (faucet128)"
   ],
   "faucet_settings": {
     "1": {
@@ -1103,5 +1104,5 @@
     "62",
     "70"
   ],
-  "last_updated": "2026-11-18T14:54:44.182Z"
+  "last_updated": "2026-11-18T14:56:20.540Z"
 }
