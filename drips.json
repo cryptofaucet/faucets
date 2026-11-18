@@ -503,6 +503,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-17T11:19:22.984Z"
     },
+    "62": {
+      "name": "Usdt Faucet",
+      "url": "https://usdtfaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-18T09:15:51.046Z"
+    },
     "63": {
       "name": "Cro Faucet",
       "url": "https://crofaucet.site/?r=jmmmc5ey",
@@ -1089,5 +1097,5 @@
     "37",
     "39"
   ],
-  "last_updated": "2026-11-17T11:49:13.290Z"
+  "last_updated": "2026-11-18T09:15:51.046Z"
 }
