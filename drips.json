@@ -17,7 +17,6 @@
     "FaaSet (faucet101)",
     "RushFaucet (faucet110)",
     "Snow Faucet (faucet122)",
-    "claimnow (faucet128)",
     "LTC new (faucet66)"
   ],
   "faucet_settings": {
@@ -1105,5 +1104,5 @@
     "62",
     "70"
   ],
-  "last_updated": "2026-11-18T19:57:50.159Z"
+  "last_updated": "2026-11-19T08:58:44.318Z"
 }
