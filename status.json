@@ -25,7 +25,8 @@
     "ponyfaucet (faucet44)",
     "bitcofy (faucet54)",
     "Usdt Faucet (faucet62)",
-    "InstantFP (faucet9)"
+    "InstantFP (faucet9)",
+    "FinalRound1903 (faucet119)"
   ],
   "faucet_settings": {
     "1": {
@@ -1048,5 +1049,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-20T07:01:54.625Z"
+  "last_updated": "2026-11-20T07:16:10.469Z"
 }
