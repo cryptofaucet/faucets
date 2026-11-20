@@ -20,7 +20,8 @@
     "LTC new (faucet66)",
     "BLOCKXS Faucet (faucet6)",
     "DGBEARN (faucet13)",
-    "Super Faucet (faucet16)"
+    "Super Faucet (faucet16)",
+    "Faas Faucet (faucet25)"
   ],
   "faucet_settings": {
     "1": {
@@ -1107,5 +1108,5 @@
     "62",
     "70"
   ],
-  "last_updated": "2026-11-20T05:51:29.532Z"
+  "last_updated": "2026-11-20T05:52:48.022Z"
 }
