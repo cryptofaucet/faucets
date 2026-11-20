@@ -619,6 +619,14 @@
       "minutes": 60,
       "_updated_at": "2026-11-17T11:24:38.167Z"
     },
+    "72": {
+      "name": "Freeclaim",
+      "url": "https://freeclaim.de",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-20T19:14:15.254Z"
+    },
     "74": {
       "name": "CRYPTOADPAY",
       "url": "https://cryptoadpay.com/?r=kmszjd76",
@@ -1040,5 +1048,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-20T07:23:53.901Z"
+  "last_updated": "2026-11-20T19:14:15.254Z"
 }
