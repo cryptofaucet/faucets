@@ -24,7 +24,8 @@
     "Faas Faucet (faucet25)",
     "ponyfaucet (faucet44)",
     "bitcofy (faucet54)",
-    "Usdt Faucet (faucet62)"
+    "Usdt Faucet (faucet62)",
+    "InstantFP (faucet9)"
   ],
   "faucet_settings": {
     "1": {
@@ -1111,5 +1112,5 @@
     "62",
     "70"
   ],
-  "last_updated": "2026-11-20T06:42:29.666Z"
+  "last_updated": "2026-11-20T07:01:54.625Z"
 }
