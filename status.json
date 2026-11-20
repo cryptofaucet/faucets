@@ -547,10 +547,10 @@
     "63": {
       "name": "Cro Faucet",
       "url": "https://crofaucet.site/?r=jmmmc5ey",
-      "reward": "0.00000350",
+      "reward": "0.00000400",
       "coin": "LTC",
       "minutes": 10,
-      "_updated_at": "2026-11-17T11:20:38.984Z"
+      "_updated_at": "2026-11-20T06:31:16.885Z"
     },
     "64": {
       "name": "faucet2",
@@ -1047,5 +1047,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-20T06:30:41.511Z"
+  "last_updated": "2026-11-20T06:31:16.885Z"
 }
