@@ -17,7 +17,8 @@
     "FaaSet (faucet101)",
     "RushFaucet (faucet110)",
     "Snow Faucet (faucet122)",
-    "LTC new (faucet66)"
+    "LTC new (faucet66)",
+    "BLOCKXS Faucet (faucet6)"
   ],
   "faucet_settings": {
     "1": {
@@ -1040,5 +1041,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-19T08:58:44.318Z"
+  "last_updated": "2026-11-20T05:39:07.619Z"
 }
