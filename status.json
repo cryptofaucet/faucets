@@ -26,8 +26,7 @@
     "bitcofy (faucet54)",
     "Usdt Faucet (faucet62)",
     "InstantFP (faucet9)",
-    "FinalRound1903 (faucet119)",
-    "aBitcoin.love (faucet127)"
+    "FinalRound1903 (faucet119)"
   ],
   "faucet_settings": {
     "1": {
@@ -1015,15 +1014,6 @@
       "_updated_at": "2026-11-15T22:22:30.023Z",
       "vip": true
     },
-    "127": {
-      "name": "aBitcoin.love",
-      "url": "https://abitcoin.love/",
-      "reward": "0.00000001",
-      "coin": "BTC",
-      "minutes": 7,
-      "_updated_at": "2026-11-10T09:15:36.622Z",
-      "vip": false
-    },
     "128": {
       "name": "claimnow",
       "url": "https://claimx.site/?r=bhdhump3",
@@ -1050,5 +1040,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-20T07:23:34.804Z"
+  "last_updated": "2026-11-20T07:23:53.901Z"
 }
