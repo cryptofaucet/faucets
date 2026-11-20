@@ -18,7 +18,8 @@
     "RushFaucet (faucet110)",
     "Snow Faucet (faucet122)",
     "LTC new (faucet66)",
-    "BLOCKXS Faucet (faucet6)"
+    "BLOCKXS Faucet (faucet6)",
+    "DGBEARN (faucet13)"
   ],
   "faucet_settings": {
     "1": {
@@ -1041,5 +1042,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-20T05:39:07.619Z"
+  "last_updated": "2026-11-20T05:43:30.334Z"
 }
