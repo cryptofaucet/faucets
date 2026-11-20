@@ -599,11 +599,11 @@
     },
     "72": {
       "name": "Freeclaim",
-      "url": "https://freeclaim.de",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-20T19:14:15.254Z"
+      "url": "https://freeclaim.de/",
+      "reward": "0.00001",
+      "coin": "USDT",
+      "minutes": 2,
+      "_updated_at": "2026-11-20T19:15:03.582Z"
     },
     "74": {
       "name": "CRYPTOADPAY",
@@ -1113,5 +1113,5 @@
     "70",
     "72"
   ],
-  "last_updated": "2026-11-20T19:14:40.122Z"
+  "last_updated": "2026-11-20T19:15:03.582Z"
 }
