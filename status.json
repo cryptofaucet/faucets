@@ -210,10 +210,10 @@
     "23": {
       "name": "DragonClaims",
       "url": "https://dragonclaims.it.com/?r=z8yyrm5u",
-      "reward": "0.000001",
+      "reward": "0.0000009",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-18T12:45:10.887Z",
+      "_updated_at": "2026-11-20T05:51:29.532Z",
       "vip": true
     },
     "24": {
@@ -1043,5 +1043,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-20T05:45:18.085Z"
+  "last_updated": "2026-11-20T05:51:29.532Z"
 }
