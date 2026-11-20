@@ -26,7 +26,8 @@
     "bitcofy (faucet54)",
     "Usdt Faucet (faucet62)",
     "InstantFP (faucet9)",
-    "FinalRound1903 (faucet119)"
+    "FinalRound1903 (faucet119)",
+    "aBitcoin.love (faucet127)"
   ],
   "faucet_settings": {
     "1": {
@@ -1113,5 +1114,5 @@
     "62",
     "70"
   ],
-  "last_updated": "2026-11-20T07:16:10.469Z"
+  "last_updated": "2026-11-20T07:23:34.804Z"
 }
