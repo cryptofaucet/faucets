@@ -23,7 +23,8 @@
     "Super Faucet (faucet16)",
     "Faas Faucet (faucet25)",
     "ponyfaucet (faucet44)",
-    "bitcofy (faucet54)"
+    "bitcofy (faucet54)",
+    "Usdt Faucet (faucet62)"
   ],
   "faucet_settings": {
     "1": {
@@ -1110,5 +1111,5 @@
     "62",
     "70"
   ],
-  "last_updated": "2026-11-20T06:28:22.660Z"
+  "last_updated": "2026-11-20T06:30:41.511Z"
 }
