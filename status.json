@@ -631,11 +631,11 @@
     },
     "73": {
       "name": "Arena Faucet",
-      "url": "https://arenafaucet.site/",
+      "url": "https://arenafaucet.site/?r=dafke2ik",
       "reward": "0.00000001",
       "coin": "BTC",
       "minutes": 5,
-      "_updated_at": "2026-11-22T06:50:53.553Z"
+      "_updated_at": "2026-11-22T06:51:43.229Z"
     },
     "74": {
       "name": "CRYPTOADPAY",
@@ -1058,5 +1058,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T06:50:53.553Z"
+  "last_updated": "2026-11-22T06:51:43.229Z"
 }
