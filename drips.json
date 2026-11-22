@@ -28,7 +28,8 @@
     "FinalRound1903 (faucet119)",
     "TimmyTime Faucet (faucet14)",
     "Arcade2Cash (faucet21)",
-    "Faucet Alaska (faucet37)"
+    "Faucet Alaska (faucet37)",
+    "bitcofy (faucet54)"
   ],
   "faucet_settings": {
     "1": {
@@ -1123,5 +1124,5 @@
     "70",
     "72"
   ],
-  "last_updated": "2026-11-22T06:19:16.155Z"
+  "last_updated": "2026-11-22T06:19:26.667Z"
 }
