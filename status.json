@@ -477,10 +477,10 @@
     "54": {
       "name": "bitcofy",
       "url": "https://bitcofy.site/?r=whag29uv",
-      "reward": "100",
+      "reward": "30",
       "coin": "PEPE",
       "minutes": 15,
-      "_updated_at": "2026-11-20T06:24:32.259Z"
+      "_updated_at": "2026-11-22T06:19:48.938Z"
     },
     "55": {
       "name": "BitClaims",
@@ -1058,5 +1058,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T06:19:32.530Z"
+  "last_updated": "2026-11-22T06:19:48.938Z"
 }
