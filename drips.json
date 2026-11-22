@@ -618,10 +618,10 @@
     "74": {
       "name": "CRYPTOADPAY",
       "url": "https://cryptoadpay.com/?r=kmszjd76",
-      "reward": "0.0002",
+      "reward": "0.0001",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-20T06:42:29.666Z"
+      "_updated_at": "2026-11-22T06:52:19.218Z"
     },
     "75": {
       "name": "KingsXstation",
@@ -1126,5 +1126,5 @@
     "57",
     "73"
   ],
-  "last_updated": "2026-11-22T06:51:43.229Z"
+  "last_updated": "2026-11-22T06:52:19.218Z"
 }
