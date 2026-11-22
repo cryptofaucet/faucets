@@ -991,14 +991,6 @@
       "minutes": 3,
       "_updated_at": "2026-11-15T22:22:30.023Z"
     },
-    "128": {
-      "name": "claimnow",
-      "url": "https://claimx.site/?r=bhdhump3",
-      "reward": "0.00001",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-17T11:46:38.745Z"
-    },
     "130": {
       "name": "coin-drip.com",
       "url": "https://coin-drip.com/?r=87j572mq",
@@ -1126,5 +1118,5 @@
     "57",
     "73"
   ],
-  "last_updated": "2026-11-22T07:17:37.492Z"
+  "last_updated": "2026-11-22T07:29:21.433Z"
 }
