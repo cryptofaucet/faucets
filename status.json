@@ -28,7 +28,8 @@
     "TimmyTime Faucet (faucet14)",
     "Arcade2Cash (faucet21)",
     "Faucet Alaska (faucet37)",
-    "crypto faucet (faucet103)"
+    "crypto faucet (faucet103)",
+    "BitPayu - Earn Free Crypto (faucet131)"
   ],
   "faucet_settings": {
     "1": {
@@ -1049,5 +1050,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T07:29:21.433Z"
+  "last_updated": "2026-11-22T07:30:17.245Z"
 }
