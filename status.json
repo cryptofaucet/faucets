@@ -655,6 +655,14 @@
       "_updated_at": "2026-11-15T21:59:40.226Z",
       "vip": true
     },
+    "76": {
+      "name": "claimnow",
+      "url": "https://claimx.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-22T07:31:01.583Z"
+    },
     "77": {
       "name": "Tron.riches",
       "url": "https://tronriches.website/?r=st8e2i2i",
@@ -1050,5 +1058,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T07:30:17.245Z"
+  "last_updated": "2026-11-22T07:31:01.583Z"
 }
