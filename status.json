@@ -26,7 +26,8 @@
     "bitcofy (faucet54)",
     "Usdt Faucet (faucet62)",
     "InstantFP (faucet9)",
-    "FinalRound1903 (faucet119)"
+    "FinalRound1903 (faucet119)",
+    "TimmyTime Faucet (faucet14)"
   ],
   "faucet_settings": {
     "1": {
@@ -1056,5 +1057,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T05:44:44.908Z"
+  "last_updated": "2026-11-22T05:46:27.657Z"
 }
