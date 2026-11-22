@@ -284,8 +284,8 @@
       "url": "https://gemsfaucet.site/",
       "reward": "0.0001",
       "coin": "USDT",
-      "minutes": 3,
-      "_updated_at": "2026-11-09T22:23:57.654Z"
+      "minutes": 5,
+      "_updated_at": "2026-11-22T06:00:00.059Z"
     },
     "33": {
       "name": "FreeCoinsForYou",
@@ -1123,5 +1123,5 @@
     "70",
     "72"
   ],
-  "last_updated": "2026-11-22T05:51:52.471Z"
+  "last_updated": "2026-11-22T06:00:00.059Z"
 }
