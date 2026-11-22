@@ -568,9 +568,9 @@
       "name": "pkfaucet Instant withdrawal site",
       "url": "https://pkfaucet.top/",
       "reward": "0.000080",
-      "coin": "LTC",
+      "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-22T06:41:21.980Z"
+      "_updated_at": "2026-11-22T06:41:42.057Z"
     },
     "66": {
       "name": "LTC new",
@@ -1058,5 +1058,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T06:41:21.980Z"
+  "last_updated": "2026-11-22T06:41:42.057Z"
 }
