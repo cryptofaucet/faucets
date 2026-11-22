@@ -489,7 +489,7 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-11-22T06:20:39.625Z",
-      "vip": true
+      "vip": false
     },
     "56": {
       "name": "CryptoVibe",
@@ -1058,5 +1058,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T06:20:39.625Z"
+  "last_updated": "2026-11-22T06:20:55.626Z"
 }
