@@ -506,7 +506,7 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-11-20T06:28:22.660Z",
-      "vip": true
+      "vip": false
     },
     "58": {
       "name": "Ifaucet",
@@ -1058,5 +1058,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T06:20:55.626Z"
+  "last_updated": "2026-11-22T06:22:01.866Z"
 }
