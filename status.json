@@ -378,10 +378,10 @@
     "42": {
       "name": "liteClaim",
       "url": "https://liteclaim.online/",
-      "reward": "0.0000009",
+      "reward": "0.0000008",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-20T06:08:56.957Z"
+      "_updated_at": "2026-11-22T06:06:09.459Z"
     },
     "43": {
       "name": "luckfaucet",
@@ -1059,5 +1059,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T06:01:15.891Z"
+  "last_updated": "2026-11-22T06:06:09.459Z"
 }
