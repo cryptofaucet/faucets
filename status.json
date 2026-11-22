@@ -816,10 +816,10 @@
     "99": {
       "name": "EgoFaucet",
       "url": "https://egofaucet.com/?r=63sgqbbn",
-      "reward": "0.00000099",
+      "reward": "0.000000119",
       "coin": "SOL",
       "minutes": 3,
-      "_updated_at": "2026-11-17T11:36:16.842Z",
+      "_updated_at": "2026-11-22T07:15:25.779Z",
       "vip": true
     },
     "100": {
@@ -1058,5 +1058,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T06:52:19.218Z"
+  "last_updated": "2026-11-22T07:15:25.779Z"
 }
