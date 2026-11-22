@@ -605,6 +605,14 @@
       "minutes": 2,
       "_updated_at": "2026-11-20T19:15:30.983Z"
     },
+    "73": {
+      "name": "Arena Faucet",
+      "url": "https://arenafaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-22T05:31:12.558Z"
+    },
     "74": {
       "name": "CRYPTOADPAY",
       "url": "https://cryptoadpay.com/?r=kmszjd76",
@@ -1113,5 +1121,5 @@
     "70",
     "72"
   ],
-  "last_updated": "2026-11-20T19:15:30.983Z"
+  "last_updated": "2026-11-22T05:31:12.558Z"
 }
