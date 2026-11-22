@@ -29,7 +29,8 @@
     "Arcade2Cash (faucet21)",
     "Faucet Alaska (faucet37)",
     "crypto faucet (faucet103)",
-    "BitPayu - Earn Free Crypto (faucet131)"
+    "BitPayu - Earn Free Crypto (faucet131)",
+    "claimnow (faucet76)"
   ],
   "faucet_settings": {
     "1": {
@@ -1058,5 +1059,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-22T07:31:01.583Z"
+  "last_updated": "2026-11-22T07:31:21.784Z"
 }
