@@ -35,7 +35,8 @@
     "Cryptodon Faucet Rewards (faucet22)",
     "high5btc (faucet24)",
     "Planet Faucet (faucet27)",
-    "Cryptogreen (faucet28)"
+    "Cryptogreen (faucet28)",
+    "Satoshi Vault (faucet29)"
   ],
   "faucet_settings": {
     "1": {
@@ -1135,5 +1136,5 @@
     "76",
     "23"
   ],
-  "last_updated": "2026-11-23T05:50:23.619Z"
+  "last_updated": "2026-11-23T05:51:00.401Z"
 }
