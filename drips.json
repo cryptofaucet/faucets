@@ -31,7 +31,8 @@
     "claimnow (faucet76)",
     "HichamFaucet (faucet15)",
     "Faucetino (faucet18)",
-    "Mint Faucet (faucet20)"
+    "Mint Faucet (faucet20)",
+    "Cryptodon Faucet Rewards (faucet22)"
   ],
   "faucet_settings": {
     "1": {
@@ -1130,5 +1131,5 @@
     "73",
     "76"
   ],
-  "last_updated": "2026-11-23T05:46:22.658Z"
+  "last_updated": "2026-11-23T05:47:13.534Z"
 }
