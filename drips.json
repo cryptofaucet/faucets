@@ -33,7 +33,8 @@
     "Faucetino (faucet18)",
     "Mint Faucet (faucet20)",
     "Cryptodon Faucet Rewards (faucet22)",
-    "high5btc (faucet24)"
+    "high5btc (faucet24)",
+    "Planet Faucet (faucet27)"
   ],
   "faucet_settings": {
     "1": {
@@ -1133,5 +1134,5 @@
     "76",
     "23"
   ],
-  "last_updated": "2026-11-23T05:48:59.907Z"
+  "last_updated": "2026-11-23T05:49:56.544Z"
 }
