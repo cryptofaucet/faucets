@@ -32,7 +32,8 @@
     "HichamFaucet (faucet15)",
     "Faucetino (faucet18)",
     "Mint Faucet (faucet20)",
-    "Cryptodon Faucet Rewards (faucet22)"
+    "Cryptodon Faucet Rewards (faucet22)",
+    "high5btc (faucet24)"
   ],
   "faucet_settings": {
     "1": {
@@ -1061,5 +1062,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-23T05:47:13.534Z"
+  "last_updated": "2026-11-23T05:48:59.907Z"
 }
