@@ -34,7 +34,8 @@
     "Mint Faucet (faucet20)",
     "Cryptodon Faucet Rewards (faucet22)",
     "high5btc (faucet24)",
-    "Planet Faucet (faucet27)"
+    "Planet Faucet (faucet27)",
+    "Cryptogreen (faucet28)"
   ],
   "faucet_settings": {
     "1": {
@@ -1063,5 +1064,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-23T05:49:56.544Z"
+  "last_updated": "2026-11-23T05:50:23.619Z"
 }
