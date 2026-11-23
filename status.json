@@ -111,10 +111,10 @@
     "10": {
       "name": "Bit Faucet",
       "url": "https://bitfaucet.offers4all.xyz/",
-      "reward": "0.00002",
+      "reward": "0.0001",
       "coin": "USDT",
       "minutes": 1,
-      "_updated_at": "2026-11-22T05:44:44.908Z"
+      "_updated_at": "2026-11-23T05:41:48.539Z"
     },
     "11": {
       "name": "tronstorm",
@@ -1058,5 +1058,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-23T05:39:21.970Z"
+  "last_updated": "2026-11-23T05:41:48.539Z"
 }
