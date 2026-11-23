@@ -41,7 +41,8 @@
     "Gimme Crypto (faucet40)",
     "Faucet Funds (faucet41)",
     "CryptoGravy (faucet45)",
-    "freedogecoin.online (faucet49)"
+    "freedogecoin.online (faucet49)",
+    "Diamondfaucet (faucet50)"
   ],
   "faucet_settings": {
     "1": {
@@ -1070,5 +1071,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-23T05:59:28.693Z"
+  "last_updated": "2026-11-23T05:59:58.712Z"
 }
