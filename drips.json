@@ -29,7 +29,8 @@
     "crypto faucet (faucet103)",
     "BitPayu - Earn Free Crypto (faucet131)",
     "claimnow (faucet76)",
-    "HichamFaucet (faucet15)"
+    "HichamFaucet (faucet15)",
+    "Faucetino (faucet18)"
   ],
   "faucet_settings": {
     "1": {
@@ -1128,5 +1129,5 @@
     "73",
     "76"
   ],
-  "last_updated": "2026-11-23T05:43:20.564Z"
+  "last_updated": "2026-11-23T05:44:28.385Z"
 }
