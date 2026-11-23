@@ -40,7 +40,8 @@
     "Earnfree (faucet38)",
     "Gimme Crypto (faucet40)",
     "Faucet Funds (faucet41)",
-    "CryptoGravy (faucet45)"
+    "CryptoGravy (faucet45)",
+    "freedogecoin.online (faucet49)"
   ],
   "faucet_settings": {
     "1": {
@@ -1069,5 +1070,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-23T05:58:00.346Z"
+  "last_updated": "2026-11-23T05:59:28.693Z"
 }
