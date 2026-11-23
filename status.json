@@ -37,7 +37,8 @@
     "Planet Faucet (faucet27)",
     "Cryptogreen (faucet28)",
     "Satoshi Vault (faucet29)",
-    "Earnfree (faucet38)"
+    "Earnfree (faucet38)",
+    "Gimme Crypto (faucet40)"
   ],
   "faucet_settings": {
     "1": {
@@ -1066,5 +1067,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-23T05:53:11.414Z"
+  "last_updated": "2026-11-23T05:55:08.363Z"
 }
