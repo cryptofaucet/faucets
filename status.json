@@ -1,6 +1,5 @@
 {
   "disabled_faucets": [
-    "POURRI (faucet5)",
     "tronstorm (faucet11)",
     "Faucet Stack (faucet71)",
     "Bestfaucet -Melhores Ofertas (faucet17)",
@@ -81,14 +80,6 @@
       "minutes": 3,
       "_updated_at": "2026-11-17T10:55:00.531Z",
       "vip": false
-    },
-    "5": {
-      "name": "POURRI",
-      "url": "https://pourri.fun",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-15T20:53:51.596Z"
     },
     "6": {
       "name": "BLOCKXS Faucet",
@@ -1097,5 +1088,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T07:27:12.967Z"
+  "last_updated": "2026-11-25T07:28:00.948Z"
 }
