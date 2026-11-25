@@ -679,15 +679,6 @@
       "minutes": 1440,
       "_updated_at": "2026-11-25T08:28:01.386Z"
     },
-    "93": {
-      "name": "CentPay.Online",
-      "url": "https://centpay.online/?r=imh9pc8p",
-      "reward": "0.00003",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-17T11:33:59.465Z",
-      "vip": true
-    },
     "94": {
       "name": "joy-dream",
       "url": "https://joy-dream.website/",
@@ -965,5 +956,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T08:28:01.386Z"
+  "last_updated": "2026-11-25T08:28:41.835Z"
 }
