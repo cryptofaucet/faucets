@@ -606,11 +606,11 @@
     },
     "84": {
       "name": "Snaptic Faucet",
-      "url": "https://snaptik.one",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-25T07:21:41.770Z"
+      "url": "https://snaptik.one/",
+      "reward": "0.00005000",
+      "coin": "TRX",
+      "minutes": 1,
+      "_updated_at": "2026-11-25T08:21:23.189Z"
     },
     "85": {
       "name": "Ethiomi faucet",
@@ -964,5 +964,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T08:18:17.347Z"
+  "last_updated": "2026-11-25T08:21:23.189Z"
 }
