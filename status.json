@@ -737,6 +737,14 @@
       "minutes": 60,
       "_updated_at": "2026-11-17T11:30:05.070Z"
     },
+    "84": {
+      "name": "Snaptic Faucet",
+      "url": "https://snaptik.one",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-25T07:21:41.770Z"
+    },
     "85": {
       "name": "Ethiomi faucet",
       "url": "https://ethiomi.com/",
@@ -1073,5 +1081,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-23T06:00:47.071Z"
+  "last_updated": "2026-11-25T07:21:41.770Z"
 }
