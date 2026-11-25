@@ -19,7 +19,8 @@
     "HichamFaucet (faucet15)",
     "Cryptodon Faucet Rewards (faucet22)",
     "ClaudeFaucet (faucet3)",
-    "TimmyTime Faucet (faucet14)"
+    "TimmyTime Faucet (faucet14)",
+    "Arena Faucet (faucet73)"
   ],
   "faucet_settings": {
     "1": {
@@ -981,5 +982,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T08:10:58.338Z"
+  "last_updated": "2026-11-25T08:15:03.415Z"
 }
