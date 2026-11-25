@@ -15,7 +15,6 @@
     "FinalRound1903 (faucet119)",
     "crypto faucet (faucet103)",
     "BitPayu - Earn Free Crypto (faucet131)",
-    "claimnow (faucet76)",
     "HichamFaucet (faucet15)",
     "Cryptodon Faucet Rewards (faucet22)",
     "ClaudeFaucet (faucet3)",
@@ -555,14 +554,6 @@
       "_updated_at": "2026-11-15T21:59:40.226Z",
       "vip": true
     },
-    "76": {
-      "name": "claimnow",
-      "url": "https://claimx.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-22T07:31:01.583Z"
-    },
     "77": {
       "name": "Tron.riches",
       "url": "https://tronriches.website/?r=st8e2i2i",
@@ -982,5 +973,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T08:15:03.415Z"
+  "last_updated": "2026-11-25T08:17:12.507Z"
 }
