@@ -649,11 +649,11 @@
     },
     "92": {
       "name": "BetCrypto Platform",
-      "url": "https://betcrypto.top",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-25T07:22:04.353Z"
+      "url": "https://betcrypto.top/",
+      "reward": "0.001",
+      "coin": "USDC",
+      "minutes": 1440,
+      "_updated_at": "2026-11-25T08:28:01.386Z"
     },
     "93": {
       "name": "CentPay.Online",
@@ -1030,5 +1030,5 @@
     "89",
     "92"
   ],
-  "last_updated": "2026-11-25T08:27:02.658Z"
+  "last_updated": "2026-11-25T08:28:01.386Z"
 }
