@@ -7,7 +7,6 @@
     "Fpclicker.com (faucet39)",
     "GANHE COM FAUCET (faucet7)",
     "DarthBatonfaucet (faucet70)",
-    "RushFaucet (faucet110)",
     "Snow Faucet (faucet122)",
     "LTC new (faucet66)",
     "BLOCKXS Faucet (faucet6)",
@@ -766,14 +765,6 @@
       "minutes": 5,
       "_updated_at": "2026-11-10T17:46:05.165Z"
     },
-    "110": {
-      "name": "RushFaucet",
-      "url": "https://rushfaucet.top/",
-      "reward": "0.0001",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-10T17:47:48.557Z"
-    },
     "111": {
       "name": "Feyflash",
       "url": "https://feyflash.site/",
@@ -985,7 +976,6 @@
     "120",
     "119",
     "109",
-    "110",
     "111",
     "112",
     "113",
@@ -1012,5 +1002,5 @@
     "89",
     "92"
   ],
-  "last_updated": "2026-11-25T08:34:09.941Z"
+  "last_updated": "2026-11-25T08:36:14.105Z"
 }
