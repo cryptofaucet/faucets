@@ -41,7 +41,8 @@
     "Diamondfaucet (faucet50)",
     "Pythagore-DOGE (faucet51)",
     "Watchearn Faucet (faucet52)",
-    "ClaudeFaucet (faucet3)"
+    "ClaudeFaucet (faucet3)",
+    "TimmyTime Faucet (faucet14)"
   ],
   "faucet_settings": {
     "1": {
@@ -1070,5 +1071,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T07:31:45.040Z"
+  "last_updated": "2026-11-25T07:32:37.728Z"
 }
