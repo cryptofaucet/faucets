@@ -15,7 +15,6 @@
     "Usdt Faucet (faucet62)",
     "InstantFP (faucet9)",
     "FinalRound1903 (faucet119)",
-    "Faucet Alaska (faucet37)",
     "crypto faucet (faucet103)",
     "BitPayu - Earn Free Crypto (faucet131)",
     "claimnow (faucet76)",
@@ -268,14 +267,6 @@
       "minutes": 5,
       "_updated_at": "2026-11-17T11:08:40.849Z",
       "vip": true
-    },
-    "37": {
-      "name": "Faucet Alaska",
-      "url": "https://faucetalaska.online/",
-      "reward": "0.00000005",
-      "coin": "BTC",
-      "minutes": 600,
-      "_updated_at": "2026-11-17T02:23:31.390Z"
     },
     "38": {
       "name": "Earnfree",
@@ -1017,5 +1008,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T07:52:52.627Z"
+  "last_updated": "2026-11-25T07:53:12.115Z"
 }
