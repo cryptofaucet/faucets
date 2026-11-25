@@ -6,7 +6,6 @@
     "Fpclicker.com (faucet39)",
     "GANHE COM FAUCET (faucet7)",
     "DarthBatonfaucet (faucet70)",
-    "Snow Faucet (faucet122)",
     "LTC new (faucet66)",
     "BLOCKXS Faucet (faucet6)",
     "InstantFP (faucet9)",
@@ -828,14 +827,6 @@
       "minutes": 1,
       "_updated_at": "2026-11-17T11:43:24.553Z"
     },
-    "122": {
-      "name": "Snow Faucet",
-      "url": "https://snowfaucet.site/",
-      "reward": "1",
-      "coin": "PEPE",
-      "minutes": 5,
-      "_updated_at": "2026-11-10T00:08:08.533Z"
-    },
     "123": {
       "name": "Ganhe litecoin Gratis",
       "url": "https://ganharlitecoin.site/",
@@ -924,7 +915,6 @@
     "60",
     "61",
     "123",
-    "122",
     "121",
     "63",
     "64",
@@ -983,5 +973,5 @@
     "89",
     "92"
   ],
-  "last_updated": "2026-11-25T08:39:35.240Z"
+  "last_updated": "2026-11-25T08:40:03.475Z"
 }
