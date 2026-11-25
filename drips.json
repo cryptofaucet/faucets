@@ -8,7 +8,6 @@
     "PepeDrop (faucet120)",
     "Fpclicker.com (faucet39)",
     "GANHE COM FAUCET (faucet7)",
-    "LIMITLESS FAUCET (faucet26)",
     "DarthBatonfaucet (faucet70)",
     "RushFaucet (faucet110)",
     "Snow Faucet (faucet122)",
@@ -198,14 +197,6 @@
       "coin": "PEPE",
       "minutes": 1,
       "_updated_at": "2026-11-18T13:18:15.801Z"
-    },
-    "26": {
-      "name": "LIMITLESS FAUCET",
-      "url": "https://limitlessfaucet.site/",
-      "reward": "0.00000005",
-      "coin": "BTC",
-      "minutes": 30,
-      "_updated_at": "2026-11-17T02:22:03.100Z"
     },
     "27": {
       "name": "Planet Faucet",
@@ -1104,7 +1095,6 @@
     "15",
     "71",
     "17",
-    "26",
     "37",
     "39",
     "62",
@@ -1116,5 +1106,5 @@
     "76",
     "23"
   ],
-  "last_updated": "2026-11-25T07:39:27.698Z"
+  "last_updated": "2026-11-25T07:39:41.079Z"
 }
