@@ -572,15 +572,6 @@
       "_updated_at": "2026-11-17T11:27:29.127Z",
       "vip": false
     },
-    "79": {
-      "name": "Crypto Fun",
-      "url": "https://cryptofun.site/?r=kdypu887",
-      "reward": "0.0005",
-      "coin": "TRX",
-      "minutes": 60,
-      "_updated_at": "2026-11-17T11:27:59.098Z",
-      "vip": true
-    },
     "80": {
       "name": "CryptoGravyTron",
       "url": "https://cryptogravytron.site/?r=r88ngs94",
@@ -973,5 +964,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T08:17:12.507Z"
+  "last_updated": "2026-11-25T08:18:17.347Z"
 }
