@@ -3,7 +3,6 @@
     "Faucet Stack (faucet71)",
     "Bestfaucet -Melhores Ofertas (faucet17)",
     "Tron.riches (faucet77)",
-    "PepeDrop (faucet120)",
     "Fpclicker.com (faucet39)",
     "GANHE COM FAUCET (faucet7)",
     "DarthBatonfaucet (faucet70)",
@@ -852,14 +851,6 @@
       "minutes": 1,
       "_updated_at": "2026-11-18T14:53:01.331Z"
     },
-    "120": {
-      "name": "PepeDrop",
-      "url": "https://pepedrop.space/",
-      "reward": "16",
-      "coin": "PEPE",
-      "minutes": 1,
-      "_updated_at": "2026-11-10T17:39:40.118Z"
-    },
     "121": {
       "name": "Pythagore-PEPE",
       "url": "https://pythagore-pepe.website/?r=2hr344a9",
@@ -929,5 +920,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T08:38:51.683Z"
+  "last_updated": "2026-11-25T08:39:35.240Z"
 }
