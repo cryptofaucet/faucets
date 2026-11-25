@@ -11,7 +11,6 @@
     "Snow Faucet (faucet122)",
     "LTC new (faucet66)",
     "BLOCKXS Faucet (faucet6)",
-    "Usdt Faucet (faucet62)",
     "InstantFP (faucet9)",
     "FinalRound1903 (faucet119)",
     "crypto faucet (faucet103)",
@@ -430,14 +429,6 @@
       "coin": "LTC",
       "minutes": 1,
       "_updated_at": "2026-11-17T11:19:22.984Z"
-    },
-    "62": {
-      "name": "Usdt Faucet",
-      "url": "https://usdtfaucet.site/",
-      "reward": "0.0004",
-      "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-11-18T13:35:58.570Z"
     },
     "63": {
       "name": "Cro Faucet",
@@ -1046,7 +1037,6 @@
     "71",
     "17",
     "39",
-    "62",
     "70",
     "72",
     "55",
@@ -1055,5 +1045,5 @@
     "76",
     "23"
   ],
-  "last_updated": "2026-11-25T08:01:40.602Z"
+  "last_updated": "2026-11-25T08:05:10.413Z"
 }
