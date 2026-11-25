@@ -625,11 +625,11 @@
     },
     "89": {
       "name": "Drips Faucet",
-      "url": "https://dripsfaucet.com",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-25T07:21:53.680Z"
+      "url": "https://dripsfaucet.com/",
+      "reward": "0.0004",
+      "coin": "USDT",
+      "minutes": 3,
+      "_updated_at": "2026-11-25T08:24:13.021Z"
     },
     "90": {
       "name": "Easy Faucet",
@@ -1028,5 +1028,5 @@
     "73",
     "23"
   ],
-  "last_updated": "2026-11-25T08:22:51.036Z"
+  "last_updated": "2026-11-25T08:24:13.021Z"
 }
