@@ -25,7 +25,6 @@
     "BitPayu - Earn Free Crypto (faucet131)",
     "claimnow (faucet76)",
     "HichamFaucet (faucet15)",
-    "Mint Faucet (faucet20)",
     "Cryptodon Faucet Rewards (faucet22)",
     "high5btc (faucet24)",
     "Planet Faucet (faucet27)",
@@ -168,15 +167,6 @@
       "minutes": 60,
       "_updated_at": "2026-11-17T11:02:00.917Z",
       "vip": true
-    },
-    "20": {
-      "name": "Mint Faucet",
-      "url": "https://mintfaucet.in/",
-      "reward": "0.0004",
-      "coin": "USDT",
-      "minutes": 3,
-      "_updated_at": "2026-11-09T20:42:35.094Z",
-      "vip": false
     },
     "21": {
       "name": "Arcade2Cash",
@@ -1060,5 +1050,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T07:34:19.321Z"
+  "last_updated": "2026-11-25T07:34:46.132Z"
 }
