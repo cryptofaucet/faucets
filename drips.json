@@ -805,14 +805,6 @@
       "minutes": 60,
       "_updated_at": "2026-11-17T11:41:28.831Z"
     },
-    "117": {
-      "name": "Dripdrop",
-      "url": "https://dripdrop.lol/?r=w2qsifhg",
-      "reward": "0.0001",
-      "coin": "TON",
-      "minutes": 5,
-      "_updated_at": "2026-11-17T11:41:56.166Z"
-    },
     "118": {
       "name": "Freeusdt",
       "url": "https://freeusdt.site/",
@@ -981,7 +973,6 @@
     "113",
     "115",
     "116",
-    "117",
     "1",
     "105",
     "7",
@@ -1002,5 +993,5 @@
     "89",
     "92"
   ],
-  "last_updated": "2026-11-25T08:36:14.105Z"
+  "last_updated": "2026-11-25T08:38:51.683Z"
 }
