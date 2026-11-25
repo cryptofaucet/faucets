@@ -11,7 +11,6 @@
     "Snow Faucet (faucet122)",
     "LTC new (faucet66)",
     "BLOCKXS Faucet (faucet6)",
-    "ponyfaucet (faucet44)",
     "Usdt Faucet (faucet62)",
     "InstantFP (faucet9)",
     "FinalRound1903 (faucet119)",
@@ -313,15 +312,6 @@
       "coin": "DOGE",
       "minutes": 10,
       "_updated_at": "2026-11-20T06:10:02.053Z"
-    },
-    "44": {
-      "name": "ponyfaucet",
-      "url": "https://ponyfaucet.online/?r=fw8h32zs",
-      "reward": "0.005",
-      "coin": "DOGE",
-      "minutes": 6,
-      "_updated_at": "2026-11-17T11:12:09.281Z",
-      "vip": false
     },
     "45": {
       "name": "CryptoGravy",
@@ -1005,5 +995,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T07:55:25.698Z"
+  "last_updated": "2026-11-25T07:56:33.160Z"
 }
