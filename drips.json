@@ -13,7 +13,6 @@
     "BLOCKXS Faucet (faucet6)",
     "InstantFP (faucet9)",
     "FinalRound1903 (faucet119)",
-    "crypto faucet (faucet103)",
     "BitPayu - Earn Free Crypto (faucet131)",
     "HichamFaucet (faucet15)",
     "Cryptodon Faucet Rewards (faucet22)",
@@ -727,14 +726,6 @@
       "minutes": 1,
       "_updated_at": "2026-11-10T17:31:47.941Z"
     },
-    "103": {
-      "name": "crypto faucet",
-      "url": "https://crypto-faucet.site/?r=6yri2rnt",
-      "reward": "0.0001000",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-17T11:37:44.920Z"
-    },
     "104": {
       "name": "Pythagore-USDT",
       "url": "https://pythagore.website/",
@@ -988,7 +979,6 @@
     "99",
     "100",
     "101",
-    "103",
     "104",
     "106",
     "107",
@@ -1022,5 +1012,5 @@
     "89",
     "92"
   ],
-  "last_updated": "2026-11-25T08:28:41.835Z"
+  "last_updated": "2026-11-25T08:34:09.941Z"
 }
