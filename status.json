@@ -14,7 +14,6 @@
     "Snow Faucet (faucet122)",
     "LTC new (faucet66)",
     "BLOCKXS Faucet (faucet6)",
-    "DGBEARN (faucet13)",
     "Super Faucet (faucet16)",
     "Faas Faucet (faucet25)",
     "ponyfaucet (faucet44)",
@@ -128,14 +127,6 @@
       "coin": "SOL",
       "minutes": 1,
       "_updated_at": "2026-11-09T20:25:41.543Z"
-    },
-    "13": {
-      "name": "DGBEARN",
-      "url": "https://dgbearn.top/?r=c5xus4e5",
-      "reward": "0.0002",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-17T10:58:25.058Z"
     },
     "14": {
       "name": "TimmyTime Faucet",
@@ -1079,5 +1070,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T07:30:47.950Z"
+  "last_updated": "2026-11-25T07:31:45.040Z"
 }
