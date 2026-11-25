@@ -43,7 +43,8 @@
     "freedogecoin.online (faucet49)",
     "Diamondfaucet (faucet50)",
     "Pythagore-DOGE (faucet51)",
-    "Watchearn Faucet (faucet52)"
+    "Watchearn Faucet (faucet52)",
+    "ClaudeFaucet (faucet3)"
   ],
   "faucet_settings": {
     "1": {
@@ -1167,5 +1168,5 @@
     "76",
     "23"
   ],
-  "last_updated": "2026-11-25T07:23:52.167Z"
+  "last_updated": "2026-11-25T07:27:12.967Z"
 }
