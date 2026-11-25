@@ -1,6 +1,5 @@
 {
   "disabled_faucets": [
-    "tronstorm (faucet11)",
     "Faucet Stack (faucet71)",
     "Bestfaucet -Melhores Ofertas (faucet17)",
     "Faucetpay space (faucet34)",
@@ -117,14 +116,6 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-25T07:30:27.351Z"
-    },
-    "11": {
-      "name": "tronstorm",
-      "url": "https://tronstorm.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-15T21:19:50.530Z"
     },
     "12": {
       "name": "BigMob Faucet",
@@ -1141,7 +1132,6 @@
     "3",
     "8",
     "9",
-    "11",
     "15",
     "71",
     "17",
@@ -1158,5 +1148,5 @@
     "76",
     "23"
   ],
-  "last_updated": "2026-11-25T07:30:27.351Z"
+  "last_updated": "2026-11-25T07:30:47.950Z"
 }
