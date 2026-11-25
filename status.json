@@ -14,7 +14,6 @@
     "Snow Faucet (faucet122)",
     "LTC new (faucet66)",
     "BLOCKXS Faucet (faucet6)",
-    "Super Faucet (faucet16)",
     "Faas Faucet (faucet25)",
     "ponyfaucet (faucet44)",
     "Usdt Faucet (faucet62)",
@@ -144,15 +143,6 @@
       "coin": "USDT",
       "minutes": 1,
       "_updated_at": "2026-11-17T10:59:23.334Z"
-    },
-    "16": {
-      "name": "Super Faucet",
-      "url": "https://superfaucet.site/",
-      "reward": "0.001",
-      "coin": "PEPE",
-      "minutes": 1,
-      "_updated_at": "2026-11-15T20:57:32.838Z",
-      "vip": true
     },
     "17": {
       "name": "Bestfaucet -Melhores Ofertas",
@@ -1071,5 +1061,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T07:32:37.728Z"
+  "last_updated": "2026-11-25T07:33:48.177Z"
 }
