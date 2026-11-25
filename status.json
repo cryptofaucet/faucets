@@ -23,7 +23,6 @@
     "claimnow (faucet76)",
     "HichamFaucet (faucet15)",
     "Cryptodon Faucet Rewards (faucet22)",
-    "Satoshi Vault (faucet29)",
     "Earnfree (faucet38)",
     "Gimme Crypto (faucet40)",
     "Faucet Funds (faucet41)",
@@ -220,14 +219,6 @@
       "minutes": 30,
       "_updated_at": "2026-11-17T11:05:29.506Z",
       "vip": true
-    },
-    "29": {
-      "name": "Satoshi Vault",
-      "url": "https://satoshivault.site/?r=7mxhkann",
-      "reward": "0.00015",
-      "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-11-17T11:05:58.321Z"
     },
     "30": {
       "name": "BitLoot.ee | Crypto Rewards",
@@ -1036,5 +1027,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-25T07:40:18.188Z"
+  "last_updated": "2026-11-25T07:40:30.053Z"
 }
