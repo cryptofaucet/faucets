@@ -49,10 +49,10 @@
     "1": {
       "name": "FaucetFun",
       "url": "https://faucetfun.com/?r=wntszkp3",
-      "reward": "0.00000003",
+      "reward": "0.00000005",
       "coin": "BTC",
-      "minutes": 15,
-      "_updated_at": "2026-11-17T10:54:05.888Z"
+      "minutes": 5,
+      "_updated_at": "2026-11-25T07:23:52.167Z"
     },
     "2": {
       "name": "CoinDrip",
@@ -1167,5 +1167,5 @@
     "76",
     "23"
   ],
-  "last_updated": "2026-11-25T07:23:18.305Z"
+  "last_updated": "2026-11-25T07:23:52.167Z"
 }
