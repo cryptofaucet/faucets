@@ -2,7 +2,6 @@
   "disabled_faucets": [
     "Faucet Stack (faucet71)",
     "Bestfaucet -Melhores Ofertas (faucet17)",
-    "Zyro Faucet (faucet36)",
     "Tron.riches (faucet77)",
     "PepeDrop (faucet120)",
     "Fpclicker.com (faucet39)",
@@ -257,14 +256,6 @@
       "coin": "USDT",
       "minutes": 5,
       "_updated_at": "2026-11-17T11:08:40.849Z"
-    },
-    "36": {
-      "name": "Zyro Faucet",
-      "url": "https://zyrofaucet.online/",
-      "reward": "0.0001",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-09T22:29:15.855Z"
     },
     "37": {
       "name": "Faucet Alaska",
@@ -1006,7 +997,6 @@
     "33",
     "34",
     "35",
-    "36",
     "38",
     "40",
     "41",
@@ -1093,5 +1083,5 @@
     "76",
     "23"
   ],
-  "last_updated": "2026-11-25T07:43:16.613Z"
+  "last_updated": "2026-11-25T07:52:52.627Z"
 }
