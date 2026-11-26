@@ -101,11 +101,11 @@
     },
     "11": {
       "name": "Treasure Faucet",
-      "url": "https://treasurefaucet.site/",
+      "url": "https://treasurefaucet.site/?r=6yj3ffuu",
       "reward": "100",
       "coin": "PEPE",
       "minutes": 2,
-      "_updated_at": "2026-11-26T18:31:39.583Z"
+      "_updated_at": "2026-11-26T18:32:15.897Z"
     },
     "12": {
       "name": "BigMob Faucet",
@@ -990,5 +990,5 @@
     "92",
     "11"
   ],
-  "last_updated": "2026-11-26T18:31:51.964Z"
+  "last_updated": "2026-11-26T18:32:15.897Z"
 }
