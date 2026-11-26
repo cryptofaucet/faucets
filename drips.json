@@ -99,6 +99,14 @@
       "minutes": 1,
       "_updated_at": "2026-11-25T07:30:27.351Z"
     },
+    "11": {
+      "name": "Treasure Faucet",
+      "url": "https://treasurefaucet.site",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-26T18:30:56.667Z"
+    },
     "12": {
       "name": "BigMob Faucet",
       "url": "https://bigmobfaucet.com/",
@@ -981,5 +989,5 @@
     "89",
     "92"
   ],
-  "last_updated": "2026-11-26T18:29:35.570Z"
+  "last_updated": "2026-11-26T18:30:56.667Z"
 }
