@@ -51,6 +51,14 @@
       "minutes": 3,
       "_updated_at": "2026-11-17T10:55:00.531Z"
     },
+    "5": {
+      "name": "myeasyfaucet",
+      "url": "https://myeasyfaucet.world",
+      "reward": "",
+      "coin": "",
+      "minutes": 0,
+      "_updated_at": "2026-11-26T18:28:32.849Z"
+    },
     "6": {
       "name": "BLOCKXS Faucet",
       "url": "https://faucet.blockxs.com/?r=7vgkuypp",
@@ -973,5 +981,5 @@
     "89",
     "92"
   ],
-  "last_updated": "2026-11-25T08:40:03.475Z"
+  "last_updated": "2026-11-26T18:28:32.849Z"
 }
