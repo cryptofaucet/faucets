@@ -105,11 +105,11 @@
     },
     "11": {
       "name": "Treasure Faucet",
-      "url": "https://treasurefaucet.site",
-      "reward": "",
-      "coin": "",
-      "minutes": 0,
-      "_updated_at": "2026-11-26T18:30:56.667Z"
+      "url": "https://treasurefaucet.site/",
+      "reward": "100",
+      "coin": "PEPE",
+      "minutes": 2,
+      "_updated_at": "2026-11-26T18:31:39.583Z"
     },
     "12": {
       "name": "BigMob Faucet",
@@ -927,5 +927,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-26T18:30:56.667Z"
+  "last_updated": "2026-11-26T18:31:39.583Z"
 }
