@@ -171,14 +171,6 @@
       "_updated_at": "2026-11-20T05:51:29.532Z",
       "vip": true
     },
-    "24": {
-      "name": "high5btc",
-      "url": "https://high5btc.site/?r=4cx2wstd",
-      "reward": "0.001",
-      "coin": "DOGE",
-      "minutes": 60,
-      "_updated_at": "2026-11-17T11:03:49.454Z"
-    },
     "25": {
       "name": "Faas Faucet",
       "url": "https://faas.farazfaucets.com/?r=uxrskeir",
@@ -912,5 +904,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-28T12:26:13.665Z"
+  "last_updated": "2026-11-28T12:26:42.356Z"
 }
