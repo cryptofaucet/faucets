@@ -12,7 +12,6 @@
     "FinalRound1903 (faucet119)",
     "BitPayu - Earn Free Crypto (faucet131)",
     "HichamFaucet (faucet15)",
-    "Cryptodon Faucet Rewards (faucet22)",
     "ClaudeFaucet (faucet3)",
     "TimmyTime Faucet (faucet14)",
     "Arena Faucet (faucet73)",
@@ -162,14 +161,6 @@
       "coin": "DOGE",
       "minutes": 60,
       "_updated_at": "2026-11-09T17:51:20.106Z"
-    },
-    "22": {
-      "name": "Cryptodon Faucet Rewards",
-      "url": "https://cryptodon.exchange/?r=6tgjjcy2",
-      "reward": "0.0001",
-      "coin": "USDT",
-      "minutes": 5,
-      "_updated_at": "2026-11-17T11:02:51.775Z"
     },
     "23": {
       "name": "DragonClaims",
@@ -921,5 +912,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-28T12:25:55.283Z"
+  "last_updated": "2026-11-28T12:26:13.665Z"
 }
