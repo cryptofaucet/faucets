@@ -17,7 +17,8 @@
     "TimmyTime Faucet (faucet14)",
     "Arena Faucet (faucet73)",
     "LAGFAUCET (faucet87)",
-    "BitEarnix (faucet4)"
+    "BitEarnix (faucet4)",
+    "Arcade2Cash (faucet21)"
   ],
   "faucet_settings": {
     "1": {
@@ -920,5 +921,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-28T12:17:32.670Z"
+  "last_updated": "2026-11-28T12:25:55.283Z"
 }
