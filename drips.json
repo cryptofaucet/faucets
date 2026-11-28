@@ -76,14 +76,6 @@
       "minutes": 5,
       "_updated_at": "2026-11-17T10:56:48.428Z"
     },
-    "8": {
-      "name": "alhorfaucet",
-      "url": "https://alhorfaucet.website/?r=kpqnryqi",
-      "reward": "0.00005",
-      "coin": "USDT",
-      "minutes": 1,
-      "_updated_at": "2026-11-17T10:57:31.514Z"
-    },
     "9": {
       "name": "InstantFP",
       "url": "https://instantfp.site/",
@@ -975,7 +967,6 @@
     "7",
     "6",
     "3",
-    "8",
     "9",
     "15",
     "71",
@@ -991,5 +982,5 @@
     "92",
     "11"
   ],
-  "last_updated": "2026-11-28T12:16:15.680Z"
+  "last_updated": "2026-11-28T12:17:32.670Z"
 }
