@@ -16,7 +16,8 @@
     "ClaudeFaucet (faucet3)",
     "TimmyTime Faucet (faucet14)",
     "Arena Faucet (faucet73)",
-    "LAGFAUCET (faucet87)"
+    "LAGFAUCET (faucet87)",
+    "BitEarnix (faucet4)"
   ],
   "faucet_settings": {
     "1": {
@@ -927,5 +928,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-26T18:32:15.897Z"
+  "last_updated": "2026-11-28T12:16:15.680Z"
 }
