@@ -287,7 +287,8 @@
       "reward": "0.0000008",
       "coin": "LTC",
       "minutes": 1,
-      "_updated_at": "2026-11-22T06:06:09.459Z"
+      "_updated_at": "2026-11-22T06:06:09.459Z",
+      "vip": true
     },
     "43": {
       "name": "luckfaucet",
@@ -904,5 +905,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-28T12:38:58.886Z"
+  "last_updated": "2026-11-28T12:40:04.190Z"
 }
