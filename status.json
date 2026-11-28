@@ -269,8 +269,8 @@
       "url": "https://gimmecrypto.site/?r=tzedgs9x",
       "reward": "0.00000004",
       "coin": "SOL",
-      "minutes": 30,
-      "_updated_at": "2026-11-17T11:10:36.225Z"
+      "minutes": 2,
+      "_updated_at": "2026-11-28T12:38:58.886Z"
     },
     "41": {
       "name": "Faucet Funds",
@@ -904,5 +904,5 @@
       "_updated_at": "2026-11-17T11:47:56.177Z"
     }
   },
-  "last_updated": "2026-11-28T12:26:42.356Z"
+  "last_updated": "2026-11-28T12:38:58.886Z"
 }
